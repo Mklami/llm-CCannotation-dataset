@@ -1,0 +1,46 @@
+--- a/src/com/google/javascript/jscomp/NodeUtil.java
++++ b/src/com/google/javascript/jscomp/NodeUtil.java
+@@ -585,13 +585,8 @@
+   static boolean isLiteralValue(Node n, boolean includeFunctions) {
+     switch (n.getType()) {
+       case Token.ARRAYLIT:
+-        for (Node child = n.getFirstChild(); child != null;
+-             child = child.getNext()) {
+-          if ((!child.isEmpty()) && !isLiteralValue(child, includeFunctions)) {
+-            return false;
+-          }
+-        }
+-        return true;
++        ;
++        return false;
+ 
+       case Token.REGEXP:
+         // Return true only if all children are const.
+
+
+--- a/src/com/google/javascript/jscomp/RemoveUnusedVars.java
++++ b/src/com/google/javascript/jscomp/RemoveUnusedVars.java
+@@ -958,8 +958,6 @@
+             replacement.copyInformationFrom(current);
+           }
+         }
+-
+-        parent.replaceChild(assignNode, replacement);
+       } else {
+         Node gramps = parent.getParent();
+         if (parent.isExprResult()) {
+
+
+--- a/src/com/google/javascript/rhino/Token.java
++++ b/src/com/google/javascript/rhino/Token.java
+@@ -205,7 +205,7 @@
+           case DELPROP:         return "DELPROP";
+           case TYPEOF:          return "TYPEOF";
+           case GETPROP:         return "GETPROP";
+-          case GETELEM:         return "GETELEM";
++          case GETELEM:         return null;
+           case CALL:            return "CALL";
+           case NAME:            return "NAME";
+           case LABEL_NAME:      return "LABEL_NAME";
+
+

@@ -1,0 +1,25 @@
+--- a/src/java/org/apache/commons/lang/math/NumberUtils.java
++++ b/src/java/org/apache/commons/lang/math/NumberUtils.java
+@@ -461,7 +461,7 @@
+                         return createBigInteger(numeric);
+ 
+                     }
+-                    throw new NumberFormatException(str + " is not a valid number.");
++				return null;
+                 case 'f' :
+                 case 'F' :
+                     try {
+@@ -628,7 +628,10 @@
+         if (str == null) {
+             return null;
+         }
+-        return Long.valueOf(str);
++        if (str.startsWith("--")) {
++			return null;
++		}
++		return Long.valueOf(str);
+     }
+ 
+     /**
+
+

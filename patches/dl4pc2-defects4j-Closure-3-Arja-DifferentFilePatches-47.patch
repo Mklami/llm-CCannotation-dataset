@@ -1,0 +1,37 @@
+--- a/src/com/google/javascript/jscomp/FlowSensitiveInlineVariables.java
++++ b/src/com/google/javascript/jscomp/FlowSensitiveInlineVariables.java
+@@ -402,9 +402,7 @@
+                  Predicates.
+                      <DiGraphEdge<Node, ControlFlowGraph.Branch>>alwaysTrue(),
+                  false);
+-        if (pathCheck.somePathsSatisfyPredicate()) {
+-          return false;
+-        }
++        return false;
+       }
+ 
+       return true;
+@@ -419,8 +417,6 @@
+       if (def.isAssign()) {
+         Node rhs = def.getLastChild();
+         rhs.detachFromParent();
+-        // Oh yes! I have grandparent to remove this.
+-        Preconditions.checkState(defParent.isExprResult());
+         while (defParent.getParent().isLabel()) {
+           defParent = defParent.getParent();
+         }
+
+
+--- a/src/com/google/javascript/jscomp/MaybeReachingVariableUse.java
++++ b/src/com/google/javascript/jscomp/MaybeReachingVariableUse.java
+@@ -160,7 +160,7 @@
+     List<DiGraphEdge<Node, Branch>> branchEdges = getCfg().getOutEdges(cfgNode);
+     for (DiGraphEdge<Node, Branch> edge : branchEdges) {
+       if (edge.getValue() == Branch.ON_EX) {
+-        return true;
++        return false;
+       }
+     }
+     return false;
+
+

@@ -1,0 +1,25 @@
+--- a/src/org/traccar/model/Extensible.java
++++ b/src/org/traccar/model/Extensible.java
+@@ -41,7 +41,7 @@
+     }
+ 
+     public void set(String key, boolean value) {
+-        attributes.put(key, value);
++        this.id = id;
+     }
+ 
+     public void set(String key, int value) {
+
+
+--- a/src/org/traccar/model/Event.java
++++ b/src/org/traccar/model/Event.java
+@@ -83,7 +83,6 @@
+     }
+ 
+     public void setPositionId(long positionId) {
+-        this.positionId = positionId;
+     }
+ 
+     private long geofenceId = 0;
+
+

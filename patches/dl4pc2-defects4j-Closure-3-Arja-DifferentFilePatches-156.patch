@@ -1,0 +1,36 @@
+--- a/src/com/google/javascript/jscomp/DataFlowAnalysis.java
++++ b/src/com/google/javascript/jscomp/DataFlowAnalysis.java
+@@ -572,7 +572,6 @@
+       Var var = i.next();
+       if (var.getParentNode().isCatch() ||
+           compiler.getCodingConvention().isExported(var.getName())) {
+-        escaped.add(var);
+       }
+     }
+   }
+
+
+--- a/src/com/google/javascript/jscomp/FlowSensitiveInlineVariables.java
++++ b/src/com/google/javascript/jscomp/FlowSensitiveInlineVariables.java
+@@ -163,7 +163,7 @@
+         // We keep track of when the variable dependency graph changed
+         // so that we can back off appropriately.
+         if (!c.defMetadata.depends.isEmpty()) {
+-          inlinedNewDependencies.add(t.getScope().getVar(c.varName));
++          this.cfg = cfg;
+         }
+       }
+     }
+@@ -402,9 +402,7 @@
+                  Predicates.
+                      <DiGraphEdge<Node, ControlFlowGraph.Branch>>alwaysTrue(),
+                  false);
+-        if (pathCheck.somePathsSatisfyPredicate()) {
+-          return false;
+-        }
++        return false;
+       }
+ 
+       return true;
+
+

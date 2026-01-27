@@ -1,0 +1,38 @@
+--- a/source/org/jfree/chart/util/AbstractObjectList.java
++++ b/source/org/jfree/chart/util/AbstractObjectList.java
+@@ -161,7 +161,10 @@
+                 return (index);
+             }
+         }
+-        return -1;
++        if (object == null) {
++			throw new IllegalArgumentException("Null 'object' argument.");
++		}
++		return -1;
+     }
+ 
+     /**
+
+
+--- a/source/org/jfree/chart/plot/CategoryPlot.java
++++ b/source/org/jfree/chart/plot/CategoryPlot.java
+@@ -923,7 +923,7 @@
+      * @param notify  notify listeners?
+      */
+     public void setRangeAxis(int index, ValueAxis axis, boolean notify) {
+-        ValueAxis existing = (ValueAxis) this.rangeAxes.get(index);
++        CategoryDataset existing = (CategoryDataset) this.datasets.get(index);
+         if (existing != null) {
+             existing.removeChangeListener(this);
+         }
+@@ -3144,7 +3144,7 @@
+         Range result = null;
+         List mappedDatasets = new ArrayList();
+         
+-        int rangeIndex = this.rangeAxes.indexOf(axis);
++        int rangeIndex = getRangeAxisIndex(axis);
+         if (rangeIndex >= 0) {
+             mappedDatasets.addAll(datasetsMappedToRangeAxis(rangeIndex));
+         }
+
+

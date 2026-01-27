@@ -1,0 +1,25 @@
+--- a/src/com/google/javascript/jscomp/parsing/JsDocInfoParser.java
++++ b/src/com/google/javascript/jscomp/parsing/JsDocInfoParser.java
+@@ -1946,7 +1946,20 @@
+    */
+   private Node parseTypeName(JsDocToken token) {
+     if (token != JsDocToken.STRING) {
+-      return reportGenericTypeSyntaxWarning();
++      token = next();
++if (token == JsDocToken.COMMA ||
++          token == JsDocToken.EQUALS ||
++          token == JsDocToken.RB ||
++          token == JsDocToken.RC ||
++          token == JsDocToken.RP ||
++          token == JsDocToken.PIPE ||
++          token == JsDocToken.GT ||
++          token == JsDocToken.EOC) {
++restoreLookAhead(token);
++return newNode(Token.QMARK);
++}
++
++return reportGenericTypeSyntaxWarning();
+     }
+ 
+     String typeName = stream.getString();
+

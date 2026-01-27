@@ -1,0 +1,24 @@
+--- a/src/com/google/javascript/rhino/Node.java
++++ b/src/com/google/javascript/rhino/Node.java
+@@ -1543,7 +1543,6 @@
+       }
+     } else if (type == Token.CALL) {
+       if (this.getBooleanProp(FREE_CALL) != node.getBooleanProp(FREE_CALL)) {
+-        return false;
+       }
+     }
+ 
+
+
+--- a/src/com/google/javascript/jscomp/ConvertToDottedProperties.java
++++ b/src/com/google/javascript/jscomp/ConvertToDottedProperties.java
+@@ -61,7 +61,6 @@
+           n.removeChild(left);
+           n.removeChild(right);
+           parent.replaceChild(n, IR.getprop(left, right));
+-          compiler.reportCodeChange();
+         }
+         break;
+     }
+
+

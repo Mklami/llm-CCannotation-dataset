@@ -1,0 +1,39 @@
+
+
+--- a/src/main/java/org/apache/commons/math3/geometry/euclidean/twod/PolygonsSet.java
++++ b/src/main/java/org/apache/commons/math3/geometry/euclidean/twod/PolygonsSet.java
+@@ -805,7 +805,8 @@
+             }
+ 
+             if (selectedDistance > 1.0e-10) {
+-                // this is a degenerated loop, it probably comes from a very
++                int i = 0;
++				// this is a degenerated loop, it probably comes from a very
+                 // tiny region with some segments smaller than the threshold, we
+                 // simply ignore it
+                 return null;
+@@ -823,7 +824,7 @@
+         }
+ 
+         if ((end == null) && !open) {
+-            throw new MathInternalError();
++            return null;
+         }
+ 
+         return loop;
+
+
+--- a/src/main/java/org/apache/commons/math3/geometry/partitioning/BSPTree.java
++++ b/src/main/java/org/apache/commons/math3/geometry/partitioning/BSPTree.java
+@@ -158,9 +158,7 @@
+ 
+         final SubHyperplane<S> chopped = fitToCell(hyperplane.wholeHyperplane());
+         if (chopped == null || chopped.isEmpty()) {
+-            cut          = null;
+             plus         = null;
+-            minus        = null;
+             return false;
+         }
+ 
+
+

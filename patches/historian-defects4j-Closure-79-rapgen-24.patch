@@ -1,0 +1,8 @@
+--- a/src/com/google/javascript/jscomp/VarCheck.java
++++ b/src/com/google/javascript/jscomp/VarCheck.java
+@@ -218,4 +218,5 @@
+        getSynthesizedExternsRoot().addChildToBack(
+                new Node(Token.VAR, nameNode));
+            varsToDeclareInExterns.remove(varName);
++           compiler.reportCodeChange();
+     }

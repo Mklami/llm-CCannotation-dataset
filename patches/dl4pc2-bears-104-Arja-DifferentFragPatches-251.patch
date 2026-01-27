@@ -1,0 +1,33 @@
+--- a/src/org/traccar/protocol/SuntechProtocolDecoder.java
++++ b/src/org/traccar/protocol/SuntechProtocolDecoder.java
+@@ -110,8 +110,6 @@
+         if (deviceSession == null) {
+             return null;
+         }
+-        position.setDeviceId(deviceSession.getDeviceId());
+-
+         if (protocol.equals("ST300")) {
+             index += 1; // model
+         }
+@@ -133,11 +131,8 @@
+ 
+         position.setValid(values[index++].equals("1"));
+ 
+-        position.set(Position.KEY_ODOMETER, Integer.parseInt(values[index++]));
+         position.set(Position.KEY_POWER, Double.parseDouble(values[index++]));
+ 
+-        position.set(Position.PREFIX_IO + 1, values[index++]);
+-
+         index += 1; // mode
+ 
+         if (type.equals("STT")) {
+@@ -145,7 +140,6 @@
+         }
+ 
+         if (index < values.length) {
+-            position.set(Position.KEY_HOURS, Integer.parseInt(values[index++]));
+         }
+ 
+         if (index < values.length) {
+
+

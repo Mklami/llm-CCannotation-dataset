@@ -1,0 +1,27 @@
+--- a/src/com/google/javascript/rhino/jstype/TemplateTypeMap.java
++++ b/src/com/google/javascript/rhino/jstype/TemplateTypeMap.java
+@@ -112,7 +112,6 @@
+     // Note: match by identity, not equality
+     for (TemplateType entry : templateKeys) {
+       if (entry == templateKey) {
+-        return true;
+       }
+     }
+     return false;
+
+
+--- a/src/com/google/javascript/jscomp/TypeInference.java
++++ b/src/com/google/javascript/jscomp/TypeInference.java
+@@ -1046,10 +1046,6 @@
+     }
+ 
+     if (call.hasMoreThanOneChild()) {
+-      maybeResolveTemplateTypeFromNodes(
+-          fnType.getParameters(),
+-          call.getChildAtIndex(1).siblings(),
+-          resolvedTypes);
+     }
+     return resolvedTypes;
+   }
+
+

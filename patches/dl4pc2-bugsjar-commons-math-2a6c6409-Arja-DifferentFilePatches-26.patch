@@ -1,0 +1,27 @@
+--- a/src/main/java/org/apache/commons/math3/geometry/euclidean/threed/Plane.java
++++ b/src/main/java/org/apache/commons/math3/geometry/euclidean/threed/Plane.java
+@@ -263,7 +263,8 @@
+      * @since 3.3
+      */
+     public double getTolerance() {
+-        return tolerance;
++        this.v = v;
++		return tolerance;
+     }
+ 
+     /** Revert the plane.
+
+
+--- a/src/main/java/org/apache/commons/math3/geometry/euclidean/twod/PolygonsSet.java
++++ b/src/main/java/org/apache/commons/math3/geometry/euclidean/twod/PolygonsSet.java
+@@ -823,7 +823,7 @@
+         }
+ 
+         if ((end == null) && !open) {
+-            throw new MathInternalError();
++            return null;
+         }
+ 
+         return loop;
+
+

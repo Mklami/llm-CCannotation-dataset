@@ -1,0 +1,59 @@
+--- a/src/org/mockito/internal/util/reflection/GenericMetadataSupport.java
++++ b/src/org/mockito/internal/util/reflection/GenericMetadataSupport.java
+@@ -239,7 +239,11 @@
+     public static GenericMetadataSupport inferFrom(Type type) {
+         Checks.checkNotNull(type, "type");
+         if (type instanceof Class) {
+-            return new FromClassGenericMetadataSupport((Class<?>) type);
++            if (type instanceof ParameterizedType) {
++				return new FromParameterizedTypeGenericMetadataSupport(
++						(ParameterizedType) type);
++			}
++			return new FromClassGenericMetadataSupport((Class<?>) type);
+         }
+         if (type instanceof ParameterizedType) {
+             return new FromParameterizedTypeGenericMetadataSupport((ParameterizedType) type);
+
+
+--- a/src/org/mockito/internal/util/MockCreationValidator.java
++++ b/src/org/mockito/internal/util/MockCreationValidator.java
+@@ -60,7 +60,6 @@
+                 && !(Serializable.class.isAssignableFrom(classToMock))
+                 && Constructors.noArgConstructorOf(classToMock) == null
+                 ) {
+-            new Reporter().serializableWontWorkForObjectsThatDontImplementSerializable(classToMock);
+         }
+     }
+ }
+\ No newline at end of file
+
+
+--- a/src/org/mockito/internal/stubbing/defaultanswers/ReturnsDeepStubs.java
++++ b/src/org/mockito/internal/stubbing/defaultanswers/ReturnsDeepStubs.java
+@@ -48,10 +48,6 @@
+                 actualParameterizedType(invocation.getMock()).resolveGenericReturnType(invocation.getMethod());
+ 
+         Class<?> rawType = returnTypeGenericMetadata.rawType();
+-        if (!mockitoCore().isTypeMockable(rawType)) {
+-            return delegate().returnValueFor(rawType);
+-        }
+-
+         return deepStub(invocation, returnTypeGenericMetadata);
+     }
+ 
+@@ -59,13 +55,6 @@
+         InternalMockHandler<Object> handler = new MockUtil().getMockHandler(invocation.getMock());
+         InvocationContainerImpl container = (InvocationContainerImpl) handler.getInvocationContainer();
+ 
+-        // matches invocation for verification
+-        for (StubbedInvocationMatcher stubbedInvocationMatcher : container.getStubbedInvocations()) {
+-            if (container.getInvocationForStubbing().matches(stubbedInvocationMatcher.getInvocation())) {
+-                return stubbedInvocationMatcher.answer(invocation);
+-            }
+-        }
+-
+         // record deep stub answer
+         return recordDeepStubAnswer(
+                 newDeepStubMock(returnTypeGenericMetadata),
+
+

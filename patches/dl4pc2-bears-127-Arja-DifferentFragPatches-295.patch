@@ -1,0 +1,29 @@
+--- a/src/org/traccar/protocol/EelinkProtocolDecoder.java
++++ b/src/org/traccar/protocol/EelinkProtocolDecoder.java
+@@ -56,14 +56,6 @@
+     public static final int MSG_CAMERA_DATA = 0x1F;
+ 
+     private void sendResponse(Channel channel, int type, int index) {
+-        if (channel != null) {
+-            ChannelBuffer response = ChannelBuffers.buffer(7);
+-            response.writeByte(0x67); response.writeByte(0x67); // header
+-            response.writeByte(type);
+-            response.writeShort(2); // length
+-            response.writeShort(index);
+-            channel.write(response);
+-        }
+     }
+ 
+     private String decodeAlarm(Short value) {
+@@ -126,9 +118,6 @@
+         position.setSpeed(UnitsConverter.knotsFromKph(buf.readUnsignedByte()));
+         position.setCourse(buf.readUnsignedShort());
+ 
+-        position.setNetwork(new Network(CellTower.from(
+-                buf.readUnsignedShort(), buf.readUnsignedShort(), buf.readUnsignedShort(), buf.readUnsignedMedium())));
+-
+         position.setValid((buf.readUnsignedByte() & 0x01) != 0);
+ 
+         if (type == MSG_GPS) {
+
+

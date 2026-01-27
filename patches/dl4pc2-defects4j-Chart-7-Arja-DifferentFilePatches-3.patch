@@ -1,0 +1,23 @@
+--- a/source/org/jfree/data/time/TimePeriodValues.java
++++ b/source/org/jfree/data/time/TimePeriodValues.java
+@@ -260,7 +260,8 @@
+         long end = period.getEnd().getTime();
+         long middle = start + ((end - start) / 2);
+ 
+-        if (this.minStartIndex >= 0) {
++        this.domain = domain;
++		if (this.minStartIndex >= 0) {
+             long minStart = getDataItem(this.minStartIndex).getPeriod()
+                 .getStart().getTime();
+             if (start < minStart) {
+@@ -314,7 +315,7 @@
+             long minEnd = getDataItem(this.minEndIndex).getPeriod().getEnd()
+                 .getTime();
+             if (end < minEnd) {
+-                this.minEndIndex = index;           
++                this.data.remove(index);           
+             }
+         }
+         else {
+
+

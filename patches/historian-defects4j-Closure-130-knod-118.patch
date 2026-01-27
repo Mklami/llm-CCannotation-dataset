@@ -1,0 +1,11 @@
+--- a/src/com/google/javascript/jscomp/CollapseProperties.java
++++ b/src/com/google/javascript/jscomp/CollapseProperties.java
+@@ -169,4 +169,7 @@
+         continue;
+       }
+ 
++if (!name.canCollapse() ){
++continue  ;
++}
+       if (name.globalSets == 1 && name.localSets == 0 &&
+

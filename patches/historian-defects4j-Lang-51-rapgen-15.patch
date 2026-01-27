@@ -1,0 +1,9 @@
+--- a/src/java/org/apache/commons/lang/BooleanUtils.java
++++ b/src/java/org/apache/commons/lang/BooleanUtils.java
+@@ -681,2 +681,3 @@
+                 }
++   return false;
+             }
+
+
+

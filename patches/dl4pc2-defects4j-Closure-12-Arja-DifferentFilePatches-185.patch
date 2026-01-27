@@ -1,0 +1,39 @@
+--- a/src/com/google/javascript/jscomp/FlowSensitiveInlineVariables.java
++++ b/src/com/google/javascript/jscomp/FlowSensitiveInlineVariables.java
+@@ -397,9 +397,7 @@
+                  Predicates.
+                      <DiGraphEdge<Node, ControlFlowGraph.Branch>>alwaysTrue(),
+                  false);
+-        if (pathCheck.somePathsSatisfyPredicate()) {
+-          return false;
+-        }
++        return false;
+       }
+ 
+       return true;
+
+
+--- a/src/com/google/javascript/jscomp/CheckPathsBetweenNodes.java
++++ b/src/com/google/javascript/jscomp/CheckPathsBetweenNodes.java
+@@ -119,7 +119,6 @@
+    *     predicate
+    */
+   public boolean somePathsSatisfyPredicate() {
+-    setUp();
+     boolean result = checkSomePathsWithoutBackEdges(start, end);
+     tearDown();
+     return result;
+
+
+--- a/src/com/google/javascript/rhino/Node.java
++++ b/src/com/google/javascript/rhino/Node.java
+@@ -1459,7 +1459,6 @@
+       }
+       res = n.checkTreeEqualsImpl(n2);
+       if (res != null) {
+-        return res;
+       }
+     }
+     return res;
+
+

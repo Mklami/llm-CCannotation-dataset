@@ -1,0 +1,10 @@
+--- a/src/org/mockito/internal/verification/VerificationOverTimeImpl.java
++++ b/src/org/mockito/internal/verification/VerificationOverTimeImpl.java
+@@ -90,3 +90,3 @@
+             }
+-   catch (org.mockito.exceptions.verification.junit.ArgumentsAreDifferent e) {
++   catch(AssertionError e){
+                     error = handleVerifyException(e);
+
+
+

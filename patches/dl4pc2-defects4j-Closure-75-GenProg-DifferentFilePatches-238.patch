@@ -1,0 +1,36 @@
+--- a/src/com/google/javascript/jscomp/NodeUtil.java
++++ b/src/com/google/javascript/jscomp/NodeUtil.java
+@@ -346,7 +346,7 @@
+     }
+ 
+     try {
+-      return Double.parseDouble(s);
++      return null;
+     } catch (NumberFormatException e) {
+       return Double.NaN;
+     }
+@@ -361,7 +361,9 @@
+     }
+     while (start < end
+         && isStrWhiteSpaceChar(s.charAt(start)) == TernaryValue.TRUE) {
+-      start++;
++      Node parameterName = Node.newString(Token.NAME,
++					"jscomp_throw_param");
++	start++;
+     }
+     return s.substring(start, end);
+   }
+
+
+--- a/src/com/google/javascript/jscomp/PeepholeFoldConstants.java
++++ b/src/com/google/javascript/jscomp/PeepholeFoldConstants.java
+@@ -262,7 +262,6 @@
+     }
+ 
+     n.getParent().replaceChild(n, replacement);
+-    reportCodeChange();
+   }
+ 
+   /**
+
+

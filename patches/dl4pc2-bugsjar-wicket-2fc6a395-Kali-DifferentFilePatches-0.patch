@@ -1,0 +1,13 @@
+--- a/wicket-util/src/main/java/org/apache/wicket/util/string/Strings.java
++++ b/wicket-util/src/main/java/org/apache/wicket/util/string/Strings.java
+@@ -677,7 +677,7 @@
+ 				{
+ 					boolean lhsClosed = fragments[i - 1].endsWith(separator);
+ 					boolean rhsClosed = fragment.startsWith(separator);
+-					if (lhsClosed && rhsClosed)
++					if (false)
+ 					{
+ 						buff.append(fragment.substring(1));
+ 					}
+
+

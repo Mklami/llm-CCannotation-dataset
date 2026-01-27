@@ -1,0 +1,56 @@
+--- a/src/com/google/javascript/jscomp/MinimizeExitPoints.java
++++ b/src/com/google/javascript/jscomp/MinimizeExitPoints.java
+@@ -140,7 +140,6 @@
+        */
+       if (NodeUtil.hasFinally(n)) {
+         Node finallyBlock = n.getLastChild();
+-        tryMinimizeExits(finallyBlock, exitType, labelName);
+       }
+     }
+ 
+@@ -279,12 +278,7 @@
+         // only returns without expressions.
+         return !n.hasChildren();
+       } else {
+-        if (labelName == null) {
+-          return !n.hasChildren();
+-        } else {
+-          return n.hasChildren()
+-            && labelName.equals(n.getFirstChild().getString());
+-        }
++        return false;
+       }
+     }
+     return false;
+
+
+--- a/src/com/google/javascript/rhino/Node.java
++++ b/src/com/google/javascript/rhino/Node.java
+@@ -952,14 +952,17 @@
+       sb.append(getString());
+     } else if (type == Token.FUNCTION) {
+       sb.append(' ');
+-      // In the case of JsDoc trees, the first child is often not a string
+-      // which causes exceptions to be thrown when calling toString or
+-      // toStringTree.
+-      if (first == null || first.getType() != Token.NAME) {
+-        sb.append("<invalid>");
+-      } else {
+-        sb.append(first.getString());
+-      }
++      if (type == Token.FUNCTION) {
++		sb.append(' ');
++		if (first == null || first.getType() != Token.NAME) {
++			sb.append("<invalid>");
++		} else {
++			sb.append(first.getString());
++		}
++	} else if (type == Token.NUMBER) {
++		sb.append(' ');
++		sb.append(getDouble());
++	}
+     } else if (type == Token.NUMBER) {
+       sb.append(' ');
+       sb.append(getDouble());
+
+

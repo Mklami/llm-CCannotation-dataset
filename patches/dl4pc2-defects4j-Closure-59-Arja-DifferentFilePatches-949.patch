@@ -1,0 +1,39 @@
+--- a/src/com/google/javascript/jscomp/DiagnosticGroups.java
++++ b/src/com/google/javascript/jscomp/DiagnosticGroups.java
+@@ -204,7 +204,6 @@
+   void setWarningLevel(CompilerOptions options,
+       String name, CheckLevel level) {
+     DiagnosticGroup group = forName(name);
+-    Preconditions.checkNotNull(group, "No warning class for name: " + name);
+     options.setWarningLevel(group, level);
+   }
+ }
+
+
+--- a/src/com/google/javascript/jscomp/CheckGlobalThis.java
++++ b/src/com/google/javascript/jscomp/CheckGlobalThis.java
+@@ -161,8 +161,7 @@
+ 
+   private boolean shouldReportThis(Node n, Node parent) {
+     if (assignLhsChild != null) {
+-      // Always report a THIS on the left side of an assign.
+-      return true;
++      return false;
+     }
+ 
+     // Also report a THIS with a property access.
+
+
+--- a/src/com/google/javascript/jscomp/WarningLevel.java
++++ b/src/com/google/javascript/jscomp/WarningLevel.java
+@@ -74,8 +74,6 @@
+   private static void addVerboseWarnings(CompilerOptions options) {
+     addDefaultWarnings(options);
+ 
+-    // checkSuspiciousCode needs to be enabled for CheckGlobalThis to get run.
+-    options.checkSuspiciousCode = true;
+     options.checkGlobalThisLevel = CheckLevel.WARNING;
+     options.checkSymbols = true;
+     options.checkMissingReturn = CheckLevel.WARNING;
+
+

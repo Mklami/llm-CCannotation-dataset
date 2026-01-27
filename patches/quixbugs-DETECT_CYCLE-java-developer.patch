@@ -1,0 +1,20 @@
+--- a/quixbugs-DETECT_CYCLE-java.java
++++ b/quixbugs-DETECT_CYCLE-java.java
+@@ -5,6 +5,8 @@ import java.util.*;
+  * and open the template in the editor.
+  */
+ 
++import java_programs.Node;
++
+ /**
+  *
+  * @author derricklin
+@@ -15,7 +17,7 @@ public class DETECT_CYCLE {
+         Node tortoise = node;
+ 
+         while (true) {
+-            if (hare.getSuccessor() == null)
++            if (null==hare ||hare.getSuccessor() == null)
+                 return false;
+ 
+             tortoise = tortoise.getSuccessor();

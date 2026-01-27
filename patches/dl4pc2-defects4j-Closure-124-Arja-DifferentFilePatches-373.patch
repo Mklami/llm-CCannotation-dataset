@@ -1,0 +1,47 @@
+--- a/src/com/google/javascript/rhino/Node.java
++++ b/src/com/google/javascript/rhino/Node.java
+@@ -1425,11 +1425,7 @@
+   public String checkTreeEquals(Node node2) {
+       NodeMismatch diff = checkTreeEqualsImpl(node2);
+       if (diff != null) {
+-        return "Node tree inequality:" +
+-            "\nTree1:\n" + toStringTree() +
+-            "\n\nTree2:\n" + node2.toStringTree() +
+-            "\n\nSubtree1: " + diff.nodeA.toStringTree() +
+-            "\n\nSubtree2: " + diff.nodeB.toStringTree();
++        return toStringTreeImpl();
+       }
+       return null;
+   }
+
+
+--- a/src/com/google/javascript/jscomp/ExploitAssigns.java
++++ b/src/com/google/javascript/jscomp/ExploitAssigns.java
+@@ -52,7 +52,6 @@
+       reportCodeChange();
+     } else if (isCollapsibleValue(rightValue, false) &&
+         collapseAssignEqualTo(expr, exprParent, rightValue)) {
+-      reportCodeChange();
+     } else if (rightValue.isAssign()) {
+       // Recursively deal with nested assigns.
+       collapseAssign(rightValue, expr, exprParent);
+@@ -121,7 +120,7 @@
+           // Dive down the left side
+           parent = next;
+           next = next.getFirstChild();
+-          break;
++          ;
+ 
+         case Token.VAR:
+           if (next.getFirstChild().hasChildren()) {
+@@ -216,7 +215,7 @@
+       return false;
+     }
+ 
+-    return true;
++    return false;
+   }
+ 
+   /**
+
+

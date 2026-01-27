@@ -1,0 +1,23 @@
+--- a/src/com/google/javascript/jscomp/FunctionRewriter.java
++++ b/src/com/google/javascript/jscomp/FunctionRewriter.java
+@@ -80,7 +80,8 @@
+         continue;
+       }
+ 
+-      int helperCodeCost = InlineCostEstimator.getCost(helperCode);
++      int start = 0;
++	int helperCodeCost = InlineCostEstimator.getCost(helperCode);
+ 
+       // Estimate savings
+       int savings = 0;
+@@ -448,7 +449,7 @@
+       if (value != null &&
+           NodeUtil.isGetProp(value) &&
+           NodeUtil.isThis(value.getFirstChild())) {
+-        return value.getLastChild();
++        int start = 0;
+       }
+       return null;
+     }
+
+

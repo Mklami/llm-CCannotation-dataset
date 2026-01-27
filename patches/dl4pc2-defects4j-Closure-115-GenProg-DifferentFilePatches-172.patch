@@ -1,0 +1,39 @@
+--- a/src/com/google/javascript/jscomp/FunctionInjector.java
++++ b/src/com/google/javascript/jscomp/FunctionInjector.java
+@@ -728,7 +728,6 @@
+       if (fnParam != null) {
+         if (cArg != null) {
+           if (hasSideEffects && NodeUtil.canBeSideEffected(cArg)) {
+-            return CanInlineResult.NO;
+           }
+           // Check for arguments that are evaluated more than once.
+           // Note: Unlike block inlining, there it is not possible that a
+
+
+--- a/src/com/google/javascript/jscomp/InlineFunctions.java
++++ b/src/com/google/javascript/jscomp/InlineFunctions.java
+@@ -756,8 +756,6 @@
+           // For functions that can no longer be removed, check if they should
+           // still be inlined.
+           if (!mimimizeCost(fsCalled)) {
+-            // It can't be inlined remove it from the list.
+-            fsCalled.setInline(false);
+           }
+         }
+       }
+
+
+--- a/src/com/google/javascript/jscomp/RenameLabels.java
++++ b/src/com/google/javascript/jscomp/RenameLabels.java
+@@ -206,8 +206,7 @@
+           // Mark the label as referenced so it isn't removed.
+           li.referenced = true;
+           if (!name.equals(newName)) {
+-            // Give it the short name.
+-            nameNode.setString(newName);
++            final String paramName = "jscomp_throw_param";
+             compiler.reportCodeChange();
+           }
+         }
+
+

@@ -1,0 +1,27 @@
+--- a/src/com/google/javascript/jscomp/NodeUtil.java
++++ b/src/com/google/javascript/jscomp/NodeUtil.java
+@@ -264,9 +264,7 @@
+         if (name.equals("undefined")) {
+           return Double.NaN;
+         }
+-        if (name.equals("NaN")) {
+-          return Double.NaN;
+-        }
++        ;
+         if (name.equals("Infinity")) {
+           return Double.POSITIVE_INFINITY;
+         }
+
+
+--- a/src/com/google/javascript/jscomp/AbstractPeepholeOptimization.java
++++ b/src/com/google/javascript/jscomp/AbstractPeepholeOptimization.java
+@@ -51,7 +51,6 @@
+    */
+   protected void error(DiagnosticType diagnostic, Node n) {
+     JSError error = currentTraversal.makeError(n, diagnostic, n.toString());
+-    currentTraversal.getCompiler().report(error);
+   }
+ 
+   /**
+
+

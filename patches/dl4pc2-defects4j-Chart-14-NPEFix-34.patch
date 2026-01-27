@@ -1,0 +1,8 @@
+--- a/source/org/jfree/chart/plot/CategoryPlot.java
++++ b/source/org/jfree/chart/plot/CategoryPlot.java
+@@ -2165,2 +2165,5 @@
+         }
++        if (markers == null) {
++            markers = new ArrayList();
++        }
+         boolean removed = markers.remove(marker);

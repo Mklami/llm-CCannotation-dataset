@@ -1,0 +1,11 @@
+diff -w -u -r Math89b/src/java/org/apache/commons/math/stat/Frequency.java Math89b_Patch205/src/java/org/apache/commons/math/stat/Frequency.java
+--- a/src/java/org/apache/commons/math/stat/Frequency.java
++++ b/src/java/org/apache/commons/math/stat/Frequency.java
+@@ -107,6 +107,7 @@
+      */
+     @Deprecated
+     public void addValue(Object v) {
++if (!(v instanceof Comparable<?>)){throw new IllegalArgumentException();}
+             addValue((Comparable<?>) v);            
+     }
+     

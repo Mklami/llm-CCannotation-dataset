@@ -1,0 +1,21 @@
+--- a/src/com/google/javascript/jscomp/RemoveUnusedPrototypeProperties.java
++++ b/src/com/google/javascript/jscomp/RemoveUnusedPrototypeProperties.java
+@@ -85,7 +85,7 @@
+           boolean canRemove = false;
+ 
+           if (specializationState == null) {
+-            canRemove = true;
++            return;
+           } else {
+             Node specializableFunction =
+               getSpecializableFunctionFromSymbol(declaration);
+@@ -98,7 +98,6 @@
+           }
+ 
+           if (canRemove) {
+-            declaration.remove();
+             changed = true;
+           }
+         }
+
+

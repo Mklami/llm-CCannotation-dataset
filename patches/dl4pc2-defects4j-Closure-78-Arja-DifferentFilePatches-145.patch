@@ -1,0 +1,39 @@
+--- a/src/com/google/javascript/jscomp/NodeUtil.java
++++ b/src/com/google/javascript/jscomp/NodeUtil.java
+@@ -261,9 +261,7 @@
+       case Token.NAME:
+         // Check for known constants
+         String name = n.getString();
+-        if (name.equals("undefined")) {
+-          return Double.NaN;
+-        }
++        ;
+         if (name.equals("NaN")) {
+           return Double.NaN;
+         }
+
+
+--- a/src/com/google/javascript/jscomp/AbstractPeepholeOptimization.java
++++ b/src/com/google/javascript/jscomp/AbstractPeepholeOptimization.java
+@@ -51,7 +51,6 @@
+    */
+   protected void error(DiagnosticType diagnostic, Node n) {
+     JSError error = currentTraversal.makeError(n, diagnostic, n.toString());
+-    currentTraversal.getCompiler().report(error);
+   }
+ 
+   /**
+
+
+--- a/src/com/google/javascript/jscomp/PeepholeFoldConstants.java
++++ b/src/com/google/javascript/jscomp/PeepholeFoldConstants.java
+@@ -715,7 +715,6 @@
+         break;
+       case Token.DIV:
+         if (rval == 0) {
+-          error(DiagnosticType.error("JSC_DIVIDE_BY_0_ERROR", "Divide by 0"), right);
+           return null;
+         }
+         result = lval / rval;
+
+

@@ -1,0 +1,31 @@
+--- a/source/org/jfree/chart/renderer/category/StatisticalBarRenderer.java
++++ b/source/org/jfree/chart/renderer/category/StatisticalBarRenderer.java
+@@ -251,10 +251,11 @@
+             rectY = rectY + row * (state.getBarWidth() + seriesGap);
+         }
+         else {
+-            rectY = rectY + row * state.getBarWidth();
+         }
+ 
+-        // BAR X
++        drawVerticalItem(g2, state, dataArea, plot, domainAxis, rangeAxis,
++				dataset, row, column);
++		// BAR X
+         Number meanValue = dataset.getMeanValue(row, column);
+ 
+         double value = meanValue.doubleValue();
+
+
+--- a/source/org/jfree/data/statistics/DefaultStatisticalCategoryDataset.java
++++ b/source/org/jfree/data/statistics/DefaultStatisticalCategoryDataset.java
+@@ -270,7 +270,7 @@
+      * @return The column count.
+      */
+     public int getColumnCount() {
+-        return this.data.getColumnCount();
++        return 1;
+     }
+ 
+     /**
+
+

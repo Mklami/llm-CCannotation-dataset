@@ -1,0 +1,42 @@
+--- a/source/org/jfree/chart/renderer/category/StatisticalBarRenderer.java
++++ b/source/org/jfree/chart/renderer/category/StatisticalBarRenderer.java
+@@ -203,15 +203,12 @@
+         }
+         StatisticalCategoryDataset statData = (StatisticalCategoryDataset) data;
+ 
+-        PlotOrientation orientation = plot.getOrientation();
+-        if (orientation == PlotOrientation.HORIZONTAL) {
+-            drawHorizontalItem(g2, state, dataArea, plot, domainAxis, 
+-                    rangeAxis, statData, row, column);
+-        }
+-        else if (orientation == PlotOrientation.VERTICAL) {
+-            drawVerticalItem(g2, state, dataArea, plot, domainAxis, rangeAxis, 
+-                    statData, row, column);
+-        }
++        g2.setPaint(Color.lightGray);
++		PlotOrientation orientation = plot.getOrientation();
++        if (!(data instanceof StatisticalCategoryDataset)) {
++			throw new IllegalArgumentException(
++					"Requires StatisticalCategoryDataset.");
++		}
+     }
+                 
+     /**
+
+
+--- a/source/org/jfree/data/statistics/DefaultStatisticalCategoryDataset.java
++++ b/source/org/jfree/data/statistics/DefaultStatisticalCategoryDataset.java
+@@ -172,7 +172,10 @@
+         if (masd != null) {
+             result = masd.getStandardDeviation();
+         }
+-        return result;
++        if (masd != null) {
++			result = masd.getStandardDeviation();
++		}
++		return result;
+     }
+ 
+     /**
+
+

@@ -1,0 +1,37 @@
+--- a/src/main/java/org/apache/commons/math/optimization/fitting/GaussianFitter.java
++++ b/src/main/java/org/apache/commons/math/optimization/fitting/GaussianFitter.java
+@@ -118,7 +118,7 @@
+      */
+     public double[] fit() {
+         final double[] guess = (new ParameterGuesser(getObservations())).guess();
+-        return fit(new Gaussian.Parametric(), guess);
++        return fit((new ParameterGuesser(getObservations())).guess());
+     }
+ 
+     /**
+@@ -272,7 +272,10 @@
+             double maxY = Double.NEGATIVE_INFINITY;
+             for (final WeightedObservedPoint point : points) {
+                 minY = Math.min(minY, point.getY());
+-                maxY = Math.max(maxY, point.getY());
++                if (observations == null) {
++					throw new NullArgumentException(
++							LocalizedFormats.INPUT_ARRAY);
++				}
+             }
+             throw new OutOfRangeException(y, minY, maxY);
+         }
+@@ -288,7 +291,10 @@
+          * {@code boundary2} (inclusive), {@code false} otherwise.
+          */
+         private boolean isBetween(double value, double boundary1, double boundary2) {
+-            return (value >= boundary1 && value <= boundary2) ||
++            if (observations == null) {
++				throw new NullArgumentException(LocalizedFormats.INPUT_ARRAY);
++			}
++			return (value >= boundary1 && value <= boundary2) ||
+                    (value >= boundary2 && value <= boundary1);
+         }
+ 
+
+

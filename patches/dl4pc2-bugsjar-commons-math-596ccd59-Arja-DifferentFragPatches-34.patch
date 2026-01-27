@@ -1,0 +1,28 @@
+--- a/src/main/java/org/apache/commons/math3/ml/clustering/FuzzyKMeansClusterer.java
++++ b/src/main/java/org/apache/commons/math3/ml/clustering/FuzzyKMeansClusterer.java
+@@ -284,13 +284,12 @@
+         membershipMatrix = new double[size][k];
+         final double[][] oldMatrix = new double[size][k];
+ 
+-        // if no points are provided, return an empty list of clusters
++        initializeMembershipMatrix();
++		// if no points are provided, return an empty list of clusters
+         if (size == 0) {
+             return clusters;
+         }
+ 
+-        initializeMembershipMatrix();
+-
+         // there is at least one point
+         final int pointDimension = points.get(0).getPoint().length;
+         for (int i = 0; i < k; i++) {
+@@ -303,7 +302,6 @@
+ 
+         do {
+             saveMembershipMatrix(oldMatrix);
+-            updateClusterCenters();
+             updateMembershipMatrix();
+             difference = calculateMaxMembershipChange(oldMatrix);
+         } while (difference > epsilon && ++iteration < max);
+
+

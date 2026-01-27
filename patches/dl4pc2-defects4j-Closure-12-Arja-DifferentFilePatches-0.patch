@@ -1,0 +1,38 @@
+--- a/src/com/google/javascript/rhino/Token.java
++++ b/src/com/google/javascript/rhino/Token.java
+@@ -228,7 +228,7 @@
+           case TRY:             return "TRY";
+           case PARAM_LIST:      return "PARAM_LIST";
+           case COMMA:           return "COMMA";
+-          case ASSIGN:          return "ASSIGN";
++          case ASSIGN:          ;
+           case ASSIGN_BITOR:    return "ASSIGN_BITOR";
+           case ASSIGN_BITXOR:   return "ASSIGN_BITXOR";
+           case ASSIGN_BITAND:   return "ASSIGN_BITAND";
+
+
+--- a/src/com/google/javascript/jscomp/FlowSensitiveInlineVariables.java
++++ b/src/com/google/javascript/jscomp/FlowSensitiveInlineVariables.java
+@@ -163,7 +163,8 @@
+         // We keep track of when the variable dependency graph changed
+         // so that we can back off appropriately.
+         if (!c.defMetadata.depends.isEmpty()) {
+-          inlinedNewDependencies.add(t.getScope().getVar(c.varName));
++          this.cfg = null;
++		inlinedNewDependencies.add(t.getScope().getVar(c.varName));
+         }
+       }
+     }
+@@ -397,9 +398,7 @@
+                  Predicates.
+                      <DiGraphEdge<Node, ControlFlowGraph.Branch>>alwaysTrue(),
+                  false);
+-        if (pathCheck.somePathsSatisfyPredicate()) {
+-          return false;
+-        }
++        return false;
+       }
+ 
+       return true;
+
+

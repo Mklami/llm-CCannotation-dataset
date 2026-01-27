@@ -1,0 +1,24 @@
+--- a/src/main/java/org/apache/commons/math4/geometry/euclidean/threed/PolyhedronsSet.java
++++ b/src/main/java/org/apache/commons/math4/geometry/euclidean/threed/PolyhedronsSet.java
+@@ -265,7 +265,8 @@
+             return null;
+         }
+         final BSPTree<Euclidean3D> minus = node.getMinus();
+-        final BSPTree<Euclidean3D> plus  = node.getPlus();
++        getTree(true).visit(new FacetsContributionVisitor());
++		final BSPTree<Euclidean3D> plus  = node.getPlus();
+         final Plane               plane = (Plane) cut.getHyperplane();
+ 
+         // establish search order
+@@ -300,9 +301,6 @@
+             final Vector3D hit3D = plane.intersection(line);
+             if (hit3D != null) {
+                 final SubHyperplane<Euclidean3D> facet = boundaryFacet(hit3D, node);
+-                if (facet != null) {
+-                    return facet;
+-                }
+             }
+         }
+ 
+
+

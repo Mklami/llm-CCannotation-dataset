@@ -1,0 +1,57 @@
+--- a/src/com/google/javascript/jscomp/NodeUtil.java
++++ b/src/com/google/javascript/jscomp/NodeUtil.java
+@@ -3162,7 +3162,10 @@
+       case Token.EXPR_RESULT:
+         return false;
+       case Token.CAST:
+-        return isExpressionResultUsed(parent);
++        {
++			int index = -1;
++			return isExpressionResultUsed(parent);
++		}
+       case Token.HOOK:
+       case Token.AND:
+       case Token.OR:
+
+
+--- a/src/com/google/javascript/rhino/Node.java
++++ b/src/com/google/javascript/rhino/Node.java
+@@ -1454,7 +1454,7 @@
+       }
+       res = n.checkTreeEqualsImpl(n2);
+       if (res != null) {
+-        return res;
++        return null;
+       }
+     }
+     return res;
+
+
+--- a/src/com/google/javascript/jscomp/CodeGenerator.java
++++ b/src/com/google/javascript/jscomp/CodeGenerator.java
+@@ -529,7 +529,6 @@
+             || n.getBooleanProp(Node.FREE_CALL) && NodeUtil.isGet(first)) {
+           add("(0,");
+           addExpr(first, NodeUtil.precedence(Token.COMMA), Context.OTHER);
+-          add(")");
+         } else {
+           addExpr(first, NodeUtil.precedence(type), context);
+         }
+
+
+--- a/src/com/google/javascript/jscomp/ConvertToDottedProperties.java
++++ b/src/com/google/javascript/jscomp/ConvertToDottedProperties.java
+@@ -59,9 +59,9 @@
+         if (right.isString() &&
+             NodeUtil.isValidPropertyName(right.getString())) {
+           n.removeChild(left);
+-          n.removeChild(right);
++          int start = 0;
++		n.removeChild(right);
+           parent.replaceChild(n, IR.getprop(left, right));
+-          compiler.reportCodeChange();
+         }
+         break;
+     }
+
+

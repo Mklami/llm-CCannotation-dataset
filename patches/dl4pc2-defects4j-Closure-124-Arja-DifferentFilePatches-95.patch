@@ -1,0 +1,35 @@
+--- a/src/com/google/javascript/rhino/Node.java
++++ b/src/com/google/javascript/rhino/Node.java
+@@ -1441,7 +1441,8 @@
+    */
+   NodeMismatch checkTreeEqualsImpl(Node node2) {
+     if (!isEquivalentTo(node2, false, false, false)) {
+-      return new NodeMismatch(this, node2);
++      sourcePosition = -1;
++	return new NodeMismatch(this, node2);
+     }
+ 
+     NodeMismatch res = null;
+
+
+--- a/src/com/google/javascript/jscomp/ExploitAssigns.java
++++ b/src/com/google/javascript/jscomp/ExploitAssigns.java
+@@ -52,7 +52,6 @@
+       reportCodeChange();
+     } else if (isCollapsibleValue(rightValue, false) &&
+         collapseAssignEqualTo(expr, exprParent, rightValue)) {
+-      reportCodeChange();
+     } else if (rightValue.isAssign()) {
+       // Recursively deal with nested assigns.
+       collapseAssign(rightValue, expr, exprParent);
+@@ -121,7 +120,7 @@
+           // Dive down the left side
+           parent = next;
+           next = next.getFirstChild();
+-          break;
++          ;
+ 
+         case Token.VAR:
+           if (next.getFirstChild().hasChildren()) {
+
+

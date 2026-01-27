@@ -1,0 +1,20 @@
+--- a/src/main/java/org/apache/commons/lang3/math/NumberUtils.java
++++ b/src/main/java/org/apache/commons/lang3/math/NumberUtils.java
+@@ -481,12 +481,13 @@
+                 }
+                 dec = str.substring(decPos + 1, expPos);
+             } else {
+-                dec = str.substring(decPos + 1);
++                mant = str.substring(0, decPos);
++				dec = str.substring(decPos + 1);
+             }
+             mant = str.substring(0, decPos);
+         } else {
+             if (expPos > -1) {
+-                mant = str.substring(0, expPos);
++                mant = str;
+             } else {
+                 mant = str;
+             }
+
+

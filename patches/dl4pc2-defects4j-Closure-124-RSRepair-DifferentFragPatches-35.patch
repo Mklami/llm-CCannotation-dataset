@@ -1,0 +1,36 @@
+--- a/src/com/google/javascript/jscomp/ExploitAssigns.java
++++ b/src/com/google/javascript/jscomp/ExploitAssigns.java
+@@ -155,29 +155,8 @@
+           return false;
+ 
+         case Token.ASSIGN:
+-          // Assigns are really tricky. In lots of cases, we want to inline
+-          // into the right side of the assign. But the left side of the
+-          // assign is evaluated first, and it may have convoluted logic:
+-          //   a = null;
+-          //   (a = b).c = null;
+-          // We don't want to exploit the first assign. Similarly:
+-          //   a.b = null;
+-          //   a.b.c = null;
+-          // We don't want to exploit the first assign either.
+-          //
+-          // To protect against this, we simply only inline when the left side
+-          // is guaranteed to evaluate to the same L-value no matter what.
+-          Node leftSide = next.getFirstChild();
+-          if (leftSide.isName() ||
+-              leftSide.isGetProp() &&
+-              leftSide.getFirstChild().isThis()) {
+-            // Dive down the right side of the assign.
+-            parent = next;
+-            next = leftSide.getNext();
+-            break;
+-          } else {
+-            return false;
+-          }
++          ;
++          ;
+ 
+         default:
+           if (NodeUtil.isImmutableValue(next)
+
+

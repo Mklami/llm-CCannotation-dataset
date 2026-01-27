@@ -1,0 +1,15 @@
+--- a/src/com/google/javascript/jscomp/CommandLineRunner.java
++++ b/src/com/google/javascript/jscomp/CommandLineRunner.java
+@@ -434,6 +434,9 @@
+       options.closurePass = true;
+     }
+ 
++ else {
++      options.closurePass = false;
++    }
+     initOptionsFromFlags(options);
+     return options;
+   }
+
+
+

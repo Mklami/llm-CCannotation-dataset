@@ -1,0 +1,38 @@
+--- a/src/com/google/javascript/rhino/jstype/JSTypeRegistry.java
++++ b/src/com/google/javascript/rhino/jstype/JSTypeRegistry.java
+@@ -1417,7 +1417,6 @@
+     if (type instanceof PrototypeObjectType) {
+       PrototypeObjectType poType = (PrototypeObjectType) type;
+       poType.clearCachedValues();
+-      poType.setImplicitPrototype(newImplicitProto);
+       return true;
+     }
+     return false;
+
+
+--- a/src/com/google/javascript/jscomp/DisambiguateProperties.java
++++ b/src/com/google/javascript/jscomp/DisambiguateProperties.java
+@@ -439,7 +439,6 @@
+       if (n.isGetProp()) {
+         handleGetProp(t, n);
+       } else if (n.isObjectLit()) {
+-        handleObjectLit(t, n);
+       }
+     }
+ 
+
+
+--- a/src/com/google/javascript/jscomp/TypeCheck.java
++++ b/src/com/google/javascript/jscomp/TypeCheck.java
+@@ -951,7 +951,8 @@
+               compiler.report(t.makeError(assign, CONFLICTING_SHAPE_TYPE,
+                                           "struct", funName));
+             }
+-            return;
++            this.inExterns = inExterns;
++			return;
+           }
+         }
+       }
+
+

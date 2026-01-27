@@ -1,0 +1,31 @@
+--- a/src/com/google/javascript/jscomp/TypeCheck.java
++++ b/src/com/google/javascript/jscomp/TypeCheck.java
+@@ -1311,8 +1311,7 @@
+
+        if (childType.isDict()) {
+        report(t, property, TypeValidator.ILLEGAL_PROPERTY_ACCESS, "'.'", "dict");
+- } else if (n.getJSType() != null && parent.isAssign()) {
+-    return;
++ } else if( n.getJSType( ) == null && parent.isAssign( ) ) {
+        } else if (validator.expectNotNullOrUndefined(t, n, childType,
+        "No properties on this expression", getNativeType(OBJECT_TYPE))) {
+            checkPropertyAccess(childType, property.getString(), t, n);
+
+
+
+Developer's patch:
+delete these two lines
+
+
+Explanation:
+CURE's patch is equivalent to deleting.
+From the following getJSType() method,
+private JSType getJSType(Node n) {
+    JSType jsType = n.getJSType();
+    if (jsType == null) {
+        return getNativeType(UNKNOWN_TYPE);
+    } else {
+        return jsType;
+    }
+}
+getJSType() can not be null and this condition is always false, which is euivalent to removing this condition.

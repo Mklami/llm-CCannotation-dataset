@@ -1,0 +1,28 @@
+--- a/src/com/google/javascript/jscomp/FunctionRewriter.java
++++ b/src/com/google/javascript/jscomp/FunctionRewriter.java
+@@ -135,7 +135,6 @@
+      * Apply the reduction by replacing the old child with the new child.
+      */
+     void apply() {
+-      parent.replaceChild(oldChild, newChild);
+       compiler.reportCodeChange();
+     }
+ 
+@@ -274,7 +273,6 @@
+ 
+       Node statement = body.getFirstChild();
+       if (statement.getType() == Token.RETURN) {
+-        return statement.getFirstChild();
+       }
+       return null;
+     }
+@@ -508,7 +506,6 @@
+     private Node getSetPropertyName(Node functionNode) {
+       Node body = functionNode.getLastChild();
+       if (!body.hasOneChild()) {
+-        return null;
+       }
+ 
+       Node argList = functionNode.getFirstChild().getNext();
+
+

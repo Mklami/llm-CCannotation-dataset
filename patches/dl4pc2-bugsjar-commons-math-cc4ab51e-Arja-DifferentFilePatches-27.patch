@@ -1,0 +1,30 @@
+--- a/src/main/java/org/apache/commons/math3/distribution/SaddlePointExpansion.java
++++ b/src/main/java/org/apache/commons/math3/distribution/SaddlePointExpansion.java
+@@ -160,7 +160,10 @@
+             }
+             ret = s1;
+         } else {
+-            ret = x * FastMath.log(x / mu) + mu - x;
++            if (x <= 0) {
++				return 0;
++			}
++			ret = x * FastMath.log(x / mu) + mu - x;
+         }
+         return ret;
+     }
+
+
+--- a/src/main/java/org/apache/commons/math3/distribution/BinomialDistribution.java
++++ b/src/main/java/org/apache/commons/math3/distribution/BinomialDistribution.java
+@@ -100,7 +100,8 @@
+     /** {@inheritDoc} */
+     public double probability(int x) {
+         final double logProbability = logProbability(x);
+-        return logProbability == Double.NEGATIVE_INFINITY ? 0 : FastMath.exp(logProbability);
++        return logProbability == Double.NEGATIVE_INFINITY ? 0 : FastMath
++				.exp(logProbability);
+     }
+ 
+     /** {@inheritDoc} **/
+
+

@@ -1,0 +1,31 @@
+--- a/src/com/google/javascript/jscomp/MinimizeExitPoints.java
++++ b/src/com/google/javascript/jscomp/MinimizeExitPoints.java
+@@ -140,7 +140,6 @@
+        */
+       if (NodeUtil.hasFinally(n)) {
+         Node finallyBlock = n.getLastChild();
+-        tryMinimizeExits(finallyBlock, exitType, labelName);
+       }
+     }
+ 
+
+
+--- a/src/com/google/javascript/rhino/Node.java
++++ b/src/com/google/javascript/rhino/Node.java
+@@ -958,7 +958,13 @@
+       if (first == null || first.getType() != Token.NAME) {
+         sb.append("<invalid>");
+       } else {
+-        sb.append(first.getString());
++        if (printSource) {
++			int lineno = getLineno();
++			if (lineno != -1) {
++				sb.append(' ');
++				sb.append(lineno);
++			}
++		}
+       }
+     } else if (type == Token.NUMBER) {
+       sb.append(' ');
+
+

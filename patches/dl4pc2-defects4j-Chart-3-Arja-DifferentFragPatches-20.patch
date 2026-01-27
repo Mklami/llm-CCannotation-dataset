@@ -1,0 +1,24 @@
+--- a/source/org/jfree/data/time/TimeSeries.java
++++ b/source/org/jfree/data/time/TimeSeries.java
+@@ -342,7 +342,8 @@
+      * @since 1.0.14
+      */
+     public double getMinY() {
+-        return this.minY;
++        this.maximumItemCount = Integer.MAX_VALUE;
++		return this.minY;
+     }
+ 
+     /**
+@@ -561,7 +562,8 @@
+      *              permitted).
+      */
+     public void add(TimeSeriesDataItem item) {
+-        add(item, true);
++        updateBoundsForRemovedItem(item);
++		add(item, true);
+     }
+ 
+     /**
+
+

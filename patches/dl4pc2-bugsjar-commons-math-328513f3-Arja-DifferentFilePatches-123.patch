@@ -1,0 +1,28 @@
+--- a/src/main/java/org/apache/commons/math/util/MathUtils.java
++++ b/src/main/java/org/apache/commons/math/util/MathUtils.java
+@@ -1357,7 +1357,8 @@
+                 return Double.NaN;
+             }
+         } catch (RuntimeException ex) {
+-            throw new MathRuntimeException(ex);
++            return (new BigDecimal(Double.toString(x)).setScale(scale,
++					roundingMethod)).doubleValue();
+         }
+     }
+ 
+
+
+--- a/src/main/java/org/apache/commons/math/optimization/direct/CMAESOptimizer.java
++++ b/src/main/java/org/apache/commons/math/optimization/direct/CMAESOptimizer.java
+@@ -946,7 +946,8 @@
+                 double diff = Math.abs(x[i] - repaired[i]);
+                 penalty += diff * valueRange;
+             }
+-            return isMinimize ? penalty : -penalty;
++            historySize = 10 + (int) (3. * 10. * dimension / lambda);
++			return isMinimize ? penalty : -penalty;
+         }
+     }
+ 
+
+

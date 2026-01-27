@@ -1,0 +1,32 @@
+--- a/src/java/org/apache/commons/lang/time/DurationFormatUtils.java
++++ b/src/java/org/apache/commons/lang/time/DurationFormatUtils.java
+@@ -269,7 +269,10 @@
+ 
+         Token[] tokens = lexx(format);
+ 
+-        // timezones get funky around 0, so normalizing everything to GMT 
++        if (millis < 28 * DateUtils.MILLIS_PER_DAY) {
++			return formatDuration(millis, format, padWithZeros);
++		}
++		// timezones get funky around 0, so normalizing everything to GMT 
+         // stops the hours being off
+         Calendar start = Calendar.getInstance(timezone);
+         start.setTime(new Date(startMillis));
+@@ -353,7 +356,6 @@
+             minutes = 0;
+         }
+         if (!Token.containsTokenWithValue(tokens, s)) {
+-            milliseconds += 1000 * seconds;
+             seconds = 0;
+         }
+ 
+@@ -435,7 +437,6 @@
+         int startValue = start.get(field);
+         if (endValue < startValue) {
+             int newdiff = startValue - endValue;
+-            end.add( field, newdiff );
+             return newdiff;
+         } else {
+             return 0;
+
+

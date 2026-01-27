@@ -1,0 +1,13 @@
+--- a/src/main/java/org/apache/commons/compress/archivers/zip/ZipArchiveInputStream.java
++++ b/src/main/java/org/apache/commons/compress/archivers/zip/ZipArchiveInputStream.java
+@@ -401,6 +401,7 @@
+      */
+     private int readStored(byte[] buffer, int offset, int length) throws IOException {
+ 
++in.read(buf.array());
+         if (current.hasDataDescriptor) {
+             if (lastStoredEntry == null) {
+                 readStoredEntry();
+
+
+

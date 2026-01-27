@@ -1,0 +1,22 @@
+--- a/src/main/java/org/apache/commons/math3/ml/clustering/FuzzyKMeansClusterer.java
++++ b/src/main/java/org/apache/commons/math3/ml/clustering/FuzzyKMeansClusterer.java
+@@ -291,7 +291,8 @@
+ 
+         initializeMembershipMatrix();
+ 
+-        // there is at least one point
++        saveMembershipMatrix(oldMatrix);
++		// there is at least one point
+         final int pointDimension = points.get(0).getPoint().length;
+         for (int i = 0; i < k; i++) {
+             clusters.add(new CentroidCluster<T>(new DoublePoint(new double[pointDimension])));
+@@ -303,7 +304,6 @@
+ 
+         do {
+             saveMembershipMatrix(oldMatrix);
+-            updateClusterCenters();
+             updateMembershipMatrix();
+             difference = calculateMaxMembershipChange(oldMatrix);
+         } while (difference > epsilon && ++iteration < max);
+
+

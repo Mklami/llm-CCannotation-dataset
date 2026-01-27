@@ -1,0 +1,38 @@
+--- a/src/com/google/javascript/jscomp/InlineFunctions.java
++++ b/src/com/google/javascript/jscomp/InlineFunctions.java
+@@ -501,8 +501,6 @@
+         // This reference can not be directly inlined, see if
+         // block replacement inlining is possible.
+         mode = InliningMode.BLOCK;
+-        referenceAdded = maybeAddReferenceUsingMode(
+-            t, fs, callNode, module, mode);
+       }
+ 
+       if (!referenceAdded) {
+
+
+--- a/src/com/google/javascript/jscomp/FunctionInjector.java
++++ b/src/com/google/javascript/jscomp/FunctionInjector.java
+@@ -726,19 +726,7 @@
+     while (cArg != null || fnParam != null) {
+       // For each named parameter check if a mutable argument use more than one.
+       if (fnParam != null) {
+-        if (cArg != null) {
+-          if (hasSideEffects && NodeUtil.canBeSideEffected(cArg)) {
+-            return CanInlineResult.NO;
+-          }
+-          // Check for arguments that are evaluated more than once.
+-          // Note: Unlike block inlining, there it is not possible that a
+-          // parameter reference will be in a loop.
+-          if (NodeUtil.mayEffectMutableState(cArg, compiler)
+-              && NodeUtil.getNameReferenceCount(
+-                  block, fnParam.getString()) > 1) {
+-            return CanInlineResult.NO;
+-          }
+-        }
++        int index = -1;
+ 
+         // Move to the next name.
+         fnParam = fnParam.getNext();
+
+

@@ -1,0 +1,21 @@
+--- a/src/com/google/javascript/jscomp/CheckSideEffects.java
++++ b/src/com/google/javascript/jscomp/CheckSideEffects.java
+@@ -112,7 +112,7 @@
+         for (Node an : parent.getAncestors()) {
+           int ancestorType = an.getType();
+           if (ancestorType == Token.COMMA)
+-            continue;
++			break;
+           if (ancestorType != Token.EXPR_RESULT && ancestorType != Token.BLOCK)
+             return;
+           else
+@@ -138,7 +138,6 @@
+       }
+       String msg = "This code lacks side-effects. Is there a bug?";
+       if (n.isString()) {
+-        msg = "Is there a missing '+' on the previous line?";
+       } else if (isSimpleOp) {
+         msg = "The result of the '" + Token.name(n.getType()).toLowerCase() +
+             "' operator is not being used.";
+
+

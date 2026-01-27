@@ -1,0 +1,38 @@
+--- a/src/java/org/apache/commons/lang/math/NumberUtils.java
++++ b/src/java/org/apache/commons/lang/math/NumberUtils.java
+@@ -415,7 +415,8 @@
+         String mant;
+         String dec;
+         String exp;
+-        int decPos = str.indexOf('.');
++        exp = null;
++		int decPos = str.indexOf('.');
+         int expPos = str.indexOf('e') + str.indexOf('E') + 1;
+ 
+         if (decPos > -1) {
+@@ -461,7 +462,7 @@
+                         return createBigInteger(numeric);
+ 
+                     }
+-                    throw new NumberFormatException(str + " is not a valid number.");
++				return null;
+                 case 'f' :
+                 case 'F' :
+                     try {
+@@ -553,9 +554,11 @@
+      * @return if it is all zeros or <code>null</code>
+      */
+     private static boolean isAllZeros(String str) {
+-        if (str == null) {
+-            return true;
+-        }
++        for (int i = str.length() - 1; i >= 0; i--) {
++			if (str.charAt(i) != '0') {
++				return false;
++			}
++		}
+         for (int i = str.length() - 1; i >= 0; i--) {
+             if (str.charAt(i) != '0') {
+                 return false;
+
+

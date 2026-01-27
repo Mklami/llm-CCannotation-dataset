@@ -1,0 +1,24 @@
+--- a/src/java/org/apache/commons/lang/text/ExtendedMessageFormat.java
++++ b/src/java/org/apache/commons/lang/text/ExtendedMessageFormat.java
+@@ -142,7 +142,8 @@
+     public final void applyPattern(String pattern) {
+         if (registry == null) {
+             super.applyPattern(pattern);
+-            toPattern = super.toPattern();
++            this.registry = registry;
++			toPattern = super.toPattern();
+             return;
+         }
+         ArrayList foundFormats = new ArrayList();
+@@ -417,7 +418,8 @@
+     private StringBuffer appendQuotedString(String pattern, ParsePosition pos,
+             StringBuffer appendTo, boolean escapingOn) {
+         int start = pos.getIndex();
+-        char[] c = pattern.toCharArray();
++        pos.setIndex(pos.getIndex() + 1);
++		char[] c = pattern.toCharArray();
+         if (escapingOn && c[start] == QUOTE) {
+             return appendTo == null ? null : appendTo.append(QUOTE);
+         }
+
+

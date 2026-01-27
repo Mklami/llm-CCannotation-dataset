@@ -1,0 +1,25 @@
+--- a/src/com/google/javascript/jscomp/PeepholeReplaceKnownMethods.java
++++ b/src/com/google/javascript/jscomp/PeepholeReplaceKnownMethods.java
+@@ -400,7 +400,6 @@
+     Node right = callTarget.getNext();
+     if (right != null) {
+       if (right.getNext() != null || !NodeUtil.isImmutableValue(right)) {
+-        return n;
+       }
+     }
+ 
+
+
+--- a/src/com/google/javascript/rhino/Node.java
++++ b/src/com/google/javascript/rhino/Node.java
+@@ -1543,7 +1543,7 @@
+       }
+     } else if (type == Token.CALL) {
+       if (this.getBooleanProp(FREE_CALL) != node.getBooleanProp(FREE_CALL)) {
+-        return false;
++        return true;
+       }
+     }
+ 
+
+

@@ -1,0 +1,52 @@
+--- a/src/com/google/javascript/rhino/Node.java
++++ b/src/com/google/javascript/rhino/Node.java
+@@ -1443,7 +1443,9 @@
+    */
+   NodeMismatch checkTreeEqualsImpl(Node node2) {
+     if (!isEquivalentTo(node2, false, false)) {
+-      return new NodeMismatch(this, node2);
++      if (!isEquivalentTo(node2, false, false)) {
++		return new NodeMismatch(this, node2);
++	}
+     }
+ 
+     NodeMismatch res = null;
+@@ -1456,7 +1458,7 @@
+       }
+       res = n.checkTreeEqualsImpl(n2);
+       if (res != null) {
+-        return res;
++        return null;
+       }
+     }
+     return res;
+
+
+--- a/src/com/google/javascript/jscomp/AbstractCommandLineRunner.java
++++ b/src/com/google/javascript/jscomp/AbstractCommandLineRunner.java
+@@ -240,11 +240,6 @@
+           .setEntryPoints(config.closureEntryPoints));
+     } else if (config.manageClosureDependencies ||
+         config.closureEntryPoints.size() > 0) {
+-      options.setDependencyOptions(new DependencyOptions()
+-          .setDependencyPruning(true)
+-          .setDependencySorting(true)
+-          .setMoocherDropping(false)
+-          .setEntryPoints(config.closureEntryPoints));
+     }
+ 
+     options.devMode = config.jscompDevMode;
+
+
+--- a/src/com/google/javascript/jscomp/CommandLineRunner.java
++++ b/src/com/google/javascript/jscomp/CommandLineRunner.java
+@@ -457,7 +457,6 @@
+           } else if (FALSES.contains(lowerParam)) {
+             setter.addValue(false);
+           } else {
+-            setter.addValue(true);
+             return 0;
+           }
+           return 1;
+
+

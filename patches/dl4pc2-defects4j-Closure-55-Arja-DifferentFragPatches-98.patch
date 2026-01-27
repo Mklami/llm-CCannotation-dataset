@@ -1,0 +1,24 @@
+--- a/src/com/google/javascript/jscomp/FunctionRewriter.java
++++ b/src/com/google/javascript/jscomp/FunctionRewriter.java
+@@ -84,10 +84,6 @@
+ 
+       // Estimate savings
+       int savings = 0;
+-      for (Reduction reduction : reductions) {
+-        savings += reduction.estimateSavings();
+-      }
+-
+       // Compare estimated savings against the helper cost.  Apply
+       // reductions if doing so will result in some savings.
+       if (savings > (helperCodeCost + SAVINGS_THRESHOLD)) {
+@@ -110,7 +106,7 @@
+   public Node parseHelperCode(Reducer reducer) {
+     Node root = compiler.parseSyntheticCode(
+         reducer.getClass().toString() + ":helper", reducer.getHelperSource());
+-    return (root != null) ? root.removeFirstChild() : null;
++    return null;
+   }
+ 
+   private static boolean isReduceableFunctionExpression(Node n) {
+
+

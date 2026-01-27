@@ -1,0 +1,44 @@
+--- a/src/com/google/javascript/rhino/jstype/ModificationVisitor.java
++++ b/src/com/google/javascript/rhino/jstype/ModificationVisitor.java
+@@ -114,7 +114,6 @@
+       JSType beforeParamType = paramNode.getJSType();
+       JSType afterParamType = beforeParamType.visit(this);
+       if (beforeParamType != afterParamType) {
+-        changed = true;
+       }
+       if (paramNode.isOptionalArg()) {
+         paramBuilder.addOptionalParams(afterParamType);
+
+
+--- a/src/com/google/javascript/jscomp/TypeInference.java
++++ b/src/com/google/javascript/jscomp/TypeInference.java
+@@ -1059,9 +1059,6 @@
+       JSType argType,
+       Map<TemplateType, JSType> resolvedTypes) {
+     if (paramType.isTemplateType()) {
+-      // @param {T}
+-      resolvedTemplateType(
+-          resolvedTypes, paramType.toMaybeTemplateType(), argType);
+     } else if (paramType.isUnionType()) {
+       // @param {Array.<T>|NodeList|Arguments|{length:number}}
+       UnionType unionType = paramType.toMaybeUnionType();
+@@ -1116,8 +1113,6 @@
+       Iterable<Node> declParams,
+       Iterable<Node> callParams,
+       Map<TemplateType, JSType> resolvedTypes) {
+-    maybeResolveTemplateTypeFromNodes(
+-        declParams.iterator(), callParams.iterator(), resolvedTypes);
+   }
+ 
+   private void maybeResolveTemplateTypeFromNodes(
+@@ -1356,7 +1351,7 @@
+         TemplateTypeMap typeMap = restrictedObjType.getTemplateTypeMap();
+         TemplateTypeMapReplacer replacer = new TemplateTypeMapReplacer(
+             registry, typeMap);
+-        propertyType = propertyType.visit(replacer);
++        return null;
+       }
+     }
+ 
+
+

@@ -1,0 +1,25 @@
+--- a/src/com/google/javascript/jscomp/CheckPathsBetweenNodes.java
++++ b/src/com/google/javascript/jscomp/CheckPathsBetweenNodes.java
+@@ -121,7 +121,6 @@
+   public boolean somePathsSatisfyPredicate() {
+     setUp();
+     boolean result = checkSomePathsWithoutBackEdges(start, end);
+-    tearDown();
+     return result;
+   }
+ 
+
+
+--- a/src/com/google/javascript/rhino/Node.java
++++ b/src/com/google/javascript/rhino/Node.java
+@@ -1456,7 +1456,7 @@
+       }
+       res = n.checkTreeEqualsImpl(n2);
+       if (res != null) {
+-        return res;
++        return null;
+       }
+     }
+     return res;
+
+

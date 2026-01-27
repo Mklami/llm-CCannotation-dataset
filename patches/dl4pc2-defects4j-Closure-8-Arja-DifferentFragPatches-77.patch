@@ -1,0 +1,24 @@
+--- a/src/com/google/javascript/jscomp/CollapseVariableDeclarations.java
++++ b/src/com/google/javascript/jscomp/CollapseVariableDeclarations.java
+@@ -182,7 +182,7 @@
+       for (Node child = varNode.getFirstChild();
+            child != null; child = child.getNext()) {
+         if (child.getFirstChild() == null) {
+-          blacklistedVars.add(t.getScope().getVar(child.getString()));
++          break;
+         }
+       }
+     }
+@@ -199,9 +199,7 @@
+       }
+ 
+       Var var = s.getVar(lhs.getString());
+-      return var != null
+-          && var.getScope() == s
+-          && !blacklistedVars.contains(var);
++      return false;
+     }
+   }
+ 
+
+

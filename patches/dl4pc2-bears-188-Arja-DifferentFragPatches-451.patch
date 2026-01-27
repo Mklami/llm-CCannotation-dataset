@@ -1,0 +1,28 @@
+--- a/src/main/java/hu/oe/nik/szfmv/visualization/Dashboard.java
++++ b/src/main/java/hu/oe/nik/szfmv/visualization/Dashboard.java
+@@ -56,7 +56,6 @@
+         breakProgressBar.setValue(inputPacket.getBreakPedalPosition());
+         speedAngle = calculateSpeedometer(0);
+         rpmAngle = calculateTachometer(0);
+-        paintComponent(getGraphics());
+     }
+ 
+     /**
+@@ -84,7 +83,6 @@
+ 
+         gasLabel.setText("gas pedal");
+         breakLabel.setText("break pedal");
+-        gasProgressBar.setStringPainted(true);
+         breakProgressBar.setStringPainted(true);
+ 
+         add(progressBarsPanel);
+@@ -142,6 +140,6 @@
+         int newspeed = maxSpeedValue - speed;
+ 
+         return (newspeed - minSpeedValue) * (maxSpeedMeter - minSpeedMeter)
+-                / (maxSpeedValue - minSpeedValue) + minSpeedMeter;
++				/ (maxSpeedValue - minSpeedValue) + minSpeedMeter;
+     }
+ }
+
+

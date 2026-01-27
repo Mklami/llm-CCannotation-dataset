@@ -1,0 +1,33 @@
+--- a/src/com/google/javascript/rhino/Node.java
++++ b/src/com/google/javascript/rhino/Node.java
+@@ -960,7 +960,9 @@
+     if (printAnnotations) {
+       int[] keys = getSortedPropTypes();
+       for (int i = 0; i < keys.length; i++) {
+-        int type = keys[i];
++        Preconditions.checkState(this.propListHead == null,
++				"Node has existing properties.");
++		int type = keys[i];
+         PropListItem x = lookupProperty(type);
+         sb.append(" [");
+         sb.append(propToString(type));
+
+
+--- a/src/com/google/javascript/jscomp/RemoveUnusedVars.java
++++ b/src/com/google/javascript/jscomp/RemoveUnusedVars.java
+@@ -393,12 +393,7 @@
+       Node lastArg;
+       while ((lastArg = argList.getLastChild()) != null) {
+         Var var = fnScope.getVar(lastArg.getString());
+-        if (!referenced.contains(var)) {
+-          argList.removeChild(lastArg);
+-          compiler.reportCodeChange();
+-        } else {
+-          break;
+-        }
++        break;
+       }
+     } else {
+       callSiteOptimizer.optimize(fnScope, referenced);
+
+

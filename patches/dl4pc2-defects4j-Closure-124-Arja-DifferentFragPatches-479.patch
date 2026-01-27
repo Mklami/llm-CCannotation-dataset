@@ -1,0 +1,13 @@
+--- a/src/com/google/javascript/jscomp/ExploitAssigns.java
++++ b/src/com/google/javascript/jscomp/ExploitAssigns.java
+@@ -173,8 +173,6 @@
+               leftSide.getFirstChild().isThis()) {
+             // Dive down the right side of the assign.
+             parent = next;
+-            next = leftSide.getNext();
+-            break;
+           } else {
+             return false;
+           }
+
+

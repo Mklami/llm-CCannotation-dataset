@@ -1,0 +1,26 @@
+--- a/src/com/google/javascript/jscomp/PeepholeFoldConstants.java
++++ b/src/com/google/javascript/jscomp/PeepholeFoldConstants.java
+@@ -1326,9 +1326,6 @@
+       return tryFoldObjectPropAccess(n, left, right);
+     }
+ 
+-    if (left.isArrayLit()) {
+-      return tryFoldArrayAccess(n, left, right);
+-    }
+     return n;
+   }
+ 
+
+
+--- a/src/com/google/javascript/rhino/Node.java
++++ b/src/com/google/javascript/rhino/Node.java
+@@ -1543,7 +1543,6 @@
+       }
+     } else if (type == Token.CALL) {
+       if (this.getBooleanProp(FREE_CALL) != node.getBooleanProp(FREE_CALL)) {
+-        return false;
+       }
+     }
+ 
+
+

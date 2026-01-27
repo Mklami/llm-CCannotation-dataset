@@ -1,0 +1,24 @@
+--- a/oak-mk/src/main/java/org/apache/jackrabbit/mk/model/CommitBuilder.java
++++ b/oak-mk/src/main/java/org/apache/jackrabbit/mk/model/CommitBuilder.java
+@@ -167,7 +167,6 @@
+             // private commit/branch
+             MutableCommit newCommit = new MutableCommit();
+             newCommit.setParentId(baseCommit.getId());
+-            newCommit.setCommitTS(System.currentTimeMillis());
+             newCommit.setMsg(msg);
+             StringBuilder diff = new StringBuilder();
+             for (Change change : changeLog) {
+@@ -178,11 +177,6 @@
+             }
+             newCommit.setChanges(diff.toString());
+             newCommit.setRootNodeId(rootNodeId);
+-            if (createBranch) {
+-                newCommit.setBranchRootId(baseCommit.getId());
+-            } else {
+-                newCommit.setBranchRootId(baseCommit.getBranchRootId());
+-            }
+             newRevId = store.putCommit(token, newCommit);
+         }
+ 
+
+

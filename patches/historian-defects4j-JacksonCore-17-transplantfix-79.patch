@@ -1,0 +1,13 @@
+--- a/src/main/java/com/fasterxml/jackson/core/base/GeneratorBase.java
++++ b/src/main/java/com/fasterxml/jackson/core/base/GeneratorBase.java
+@@ -295,7 +295,8 @@
+     }
+ 
+     @Override public void writeRawValue(String text, int offset, int len) throws IOException {
+-        _verifyValueWrite("write raw value");
++        offset = 0;
++_verifyValueWrite("write raw value");
+         writeRaw(text, offset, len);
+     }
+ 
+

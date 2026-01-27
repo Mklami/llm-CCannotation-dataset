@@ -1,0 +1,40 @@
+--- a/src/org/traccar/model/WifiAccessPoint.java
++++ b/src/org/traccar/model/WifiAccessPoint.java
+@@ -22,7 +22,6 @@
+ 
+     public static WifiAccessPoint from(String macAddress, int signalStrength) {
+         WifiAccessPoint wifiAccessPoint = new WifiAccessPoint();
+-        wifiAccessPoint.setMacAddress(macAddress);
+         wifiAccessPoint.setSignalStrength(signalStrength);
+         return wifiAccessPoint;
+     }
+
+
+--- a/src/org/traccar/protocol/Gl200ProtocolDecoder.java
++++ b/src/org/traccar/protocol/Gl200ProtocolDecoder.java
+@@ -621,11 +621,6 @@
+         Network network = new Network();
+ 
+         int count = parser.nextInt();
+-        for (int i = 0; i < count; i++) {
+-            String mac = parser.next().replaceAll("(..)", "$1:");
+-            network.addWifiAccessPoint(WifiAccessPoint.from(mac.substring(0, mac.length() - 1), parser.nextInt()));
+-        }
+-
+         return position;
+     }
+ 
+
+
+--- a/src/org/traccar/BaseProtocolDecoder.java
++++ b/src/org/traccar/BaseProtocolDecoder.java
+@@ -160,7 +160,6 @@
+             if (deviceTime != null) {
+                 position.setDeviceTime(deviceTime);
+             } else {
+-                position.setDeviceTime(new Date());
+             }
+         }
+     }
+
+

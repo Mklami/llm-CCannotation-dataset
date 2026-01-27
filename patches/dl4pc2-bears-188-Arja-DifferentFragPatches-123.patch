@@ -1,0 +1,27 @@
+--- a/src/main/java/hu/oe/nik/szfmv/visualization/Dashboard.java
++++ b/src/main/java/hu/oe/nik/szfmv/visualization/Dashboard.java
+@@ -54,9 +54,10 @@
+     public void updateDisplayedValues(ReadOnlyInputPacket inputPacket) {
+         gasProgressBar.setValue(inputPacket.getGasPedalPosition());
+         breakProgressBar.setValue(inputPacket.getBreakPedalPosition());
+-        speedAngle = calculateSpeedometer(0);
++        gasProgressBar.setValue(inputPacket.getGasPedalPosition());
++		speedAngle = calculateSpeedometer(0);
+         rpmAngle = calculateTachometer(0);
+-        paintComponent(getGraphics());
++        add(progressBarsPanel);
+     }
+ 
+     /**
+@@ -66,7 +67,8 @@
+         // Not using any layout manager, but fixed coordinates
+         setLayout(null);
+         setBackground(new Color(backgroundColor));
+-        setBounds(dashboardBoundsX, dashboardBoundsY, width, height);
++        rpmAngle = calculateTachometer(0);
++		setBounds(dashboardBoundsX, dashboardBoundsY, width, height);
+ 
+         initializeProgressBars();
+     }
+
+

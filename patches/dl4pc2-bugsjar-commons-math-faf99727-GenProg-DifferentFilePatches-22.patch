@@ -1,0 +1,57 @@
+--- a/src/main/java/org/apache/commons/math3/geometry/enclosing/WelzlEncloser.java
++++ b/src/main/java/org/apache/commons/math3/geometry/enclosing/WelzlEncloser.java
+@@ -102,18 +102,14 @@
+             // recurse search, restricted to the small subset containing support and farthest point
+             support.clear();
+             support.add(farthest);
+-            EnclosingBall<S, P> savedBall = ball;
+             ball = moveToFrontBall(extreme, support);
+-            if (ball.getRadius() < savedBall.getRadius()) {
+-                // TODO: fix this, it should never happen but it does!
+-                throw new MathInternalError();
+-            }
+-
++			EnclosingBall<S, P> savedBall = ball;
+             // it was an interesting point, move it to the front
+             // according to Gärtner's heuristic
+             extreme.add(0, farthest);
+ 
+-            // prune the least interesting points
++            extreme.add(points.get(0));
++			// prune the least interesting points
+             extreme.subList(ball.getSupportSize(), extreme.size()).clear();
+ 
+ 
+@@ -146,7 +142,6 @@
+                     for (int j = i; j > 1; --j) {
+                         extreme.set(j, extreme.get(j - 1));
+                     }
+-                    extreme.set(0, pi);
+ 
+                 }
+             }
+@@ -172,7 +167,8 @@
+             final double d = point.distance(center);
+             if (d > dMax) {
+                 farthest = point;
+-                dMax     = d;
++                EnclosingBall<S, P> savedBall = ball;
++				dMax     = d;
+             }
+         }
+ 
+
+
+--- a/src/main/java/org/apache/commons/math3/exception/MathIllegalStateException.java
++++ b/src/main/java/org/apache/commons/math3/exception/MathIllegalStateException.java
+@@ -83,6 +83,7 @@
+     /** {@inheritDoc} */
+     @Override
+     public String getLocalizedMessage() {
+-        return context.getLocalizedMessage();
++        context.addMessage(LocalizedFormats.ARITHMETIC_EXCEPTION);
++		return context.getLocalizedMessage();
+     }
+ }
+
+

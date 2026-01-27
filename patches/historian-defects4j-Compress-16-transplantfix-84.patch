@@ -1,0 +1,13 @@
+--- a/src/main/java/org/apache/commons/compress/archivers/tar/TarArchiveEntry.java
++++ b/src/main/java/org/apache/commons/compress/archivers/tar/TarArchiveEntry.java
+@@ -1003,7 +1003,8 @@
+                 name = name + "/";
+             }
+             if (prefix.length() > 0){
+-                name = prefix + "/" + name;
++                version = version.substring(0, offset);
++name = prefix + "/" + name;
+             }
+         }
+         }
+

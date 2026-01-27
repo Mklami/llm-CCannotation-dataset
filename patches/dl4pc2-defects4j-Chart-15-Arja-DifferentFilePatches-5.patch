@@ -1,0 +1,16 @@
+--- a/source/org/jfree/chart/ChartFactory.java
++++ b/source/org/jfree/chart/ChartFactory.java
+@@ -691,8 +691,9 @@
+                                               boolean tooltips,
+                                               boolean urls) {
+ 
+-        PiePlot3D plot = new PiePlot3D(dataset);
+-        plot.setInsets(new RectangleInsets(0.0, 5.0, 5.0, 5.0));
++        PiePlot plot = new PiePlot(dataset);
++        plot.setURLGenerator(new StandardPieURLGenerator());
++		plot.setInsets(new RectangleInsets(0.0, 5.0, 5.0, 5.0));
+         if (tooltips) {
+             plot.setToolTipGenerator(new StandardPieToolTipGenerator());
+         }
+
+

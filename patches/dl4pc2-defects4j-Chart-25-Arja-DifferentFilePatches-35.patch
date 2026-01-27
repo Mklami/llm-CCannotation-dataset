@@ -1,0 +1,39 @@
+--- a/source/org/jfree/chart/renderer/category/StatisticalBarRenderer.java
++++ b/source/org/jfree/chart/renderer/category/StatisticalBarRenderer.java
+@@ -203,7 +203,9 @@
+         }
+         StatisticalCategoryDataset statData = (StatisticalCategoryDataset) data;
+ 
+-        PlotOrientation orientation = plot.getOrientation();
++        drawVerticalItem(g2, state, dataArea, plot, domainAxis, rangeAxis,
++				statData, row, column);
++		PlotOrientation orientation = plot.getOrientation();
+         if (orientation == PlotOrientation.HORIZONTAL) {
+             drawHorizontalItem(g2, state, dataArea, plot, domainAxis, 
+                     rangeAxis, statData, row, column);
+@@ -237,7 +239,9 @@
+                                       int row,
+                                       int column) {
+                                      
+-        RectangleEdge xAxisLocation = plot.getDomainAxisEdge();
++        g2.setStroke(plot
++												.getRangeGridlineStroke());
++		RectangleEdge xAxisLocation = plot.getDomainAxisEdge();
+         
+         // BAR Y
+         double rectY = domainAxis.getCategoryStart(column, getColumnCount(), 
+
+
+--- a/source/org/jfree/data/statistics/DefaultStatisticalCategoryDataset.java
++++ b/source/org/jfree/data/statistics/DefaultStatisticalCategoryDataset.java
+@@ -270,7 +270,7 @@
+      * @return The column count.
+      */
+     public int getColumnCount() {
+-        return this.data.getColumnCount();
++        return 1;
+     }
+ 
+     /**
+
+

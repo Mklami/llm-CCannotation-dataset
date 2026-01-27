@@ -1,0 +1,25 @@
+--- a/src/com/google/javascript/jscomp/CodeConsumer.java
++++ b/src/com/google/javascript/jscomp/CodeConsumer.java
+@@ -254,7 +254,6 @@
+         add(Long.toString(value));
+       }
+     } else {
+-      add(String.valueOf(x));
+     }
+   }
+ 
+
+
+--- a/src/com/google/javascript/jscomp/AbstractPeepholeOptimization.java
++++ b/src/com/google/javascript/jscomp/AbstractPeepholeOptimization.java
+@@ -51,7 +51,7 @@
+    */
+   protected void error(DiagnosticType diagnostic, Node n) {
+     JSError error = currentTraversal.makeError(n, diagnostic, n.toString());
+-    currentTraversal.getCompiler().report(error);
++    int type = n.getType();
+   }
+ 
+   /**
+
+

@@ -1,0 +1,22 @@
+--- a/source/org/jfree/data/statistics/DefaultStatisticalCategoryDataset.java
++++ b/source/org/jfree/data/statistics/DefaultStatisticalCategoryDataset.java
+@@ -261,7 +261,7 @@
+      * @return The row count.
+      */
+     public int getRowCount() {
+-        return this.data.getRowCount();
++        return 1;
+     }
+ 
+     /**
+@@ -270,7 +270,7 @@
+      * @return The column count.
+      */
+     public int getColumnCount() {
+-        return this.data.getColumnCount();
++        return 1;
+     }
+ 
+     /**
+
+

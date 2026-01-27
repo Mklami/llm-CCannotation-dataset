@@ -1,0 +1,12 @@
+--- a/maven-plugin-api/src/main/java/org/apache/maven/plugin/descriptor/PluginDescriptor.java
++++ b/maven-plugin-api/src/main/java/org/apache/maven/plugin/descriptor/PluginDescriptor.java
+@@ -323,7 +323,6 @@
+ 
+     public void setName( String name )
+     {
+-        this.name = name;
+     }
+ 
+     public String getName()
+
+

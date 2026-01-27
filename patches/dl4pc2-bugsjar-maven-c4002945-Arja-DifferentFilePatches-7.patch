@@ -1,0 +1,12 @@
+--- a/maven-plugin-api/src/main/java/org/apache/maven/plugin/descriptor/PluginDescriptorBuilder.java
++++ b/maven-plugin-api/src/main/java/org/apache/maven/plugin/descriptor/PluginDescriptorBuilder.java
+@@ -50,7 +50,6 @@
+ 
+         PluginDescriptor pluginDescriptor = new PluginDescriptor();
+ 
+-        pluginDescriptor.setSource( source );
+         pluginDescriptor.setGroupId( c.getChild( "groupId" ).getValue() );
+         pluginDescriptor.setArtifactId( c.getChild( "artifactId" ).getValue() );
+         pluginDescriptor.setVersion( c.getChild( "version" ).getValue() );
+
+

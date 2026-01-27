@@ -1,0 +1,42 @@
+--- a/src/com/google/javascript/jscomp/NodeUtil.java
++++ b/src/com/google/javascript/jscomp/NodeUtil.java
+@@ -585,13 +585,8 @@
+   static boolean isLiteralValue(Node n, boolean includeFunctions) {
+     switch (n.getType()) {
+       case Token.ARRAYLIT:
+-        for (Node child = n.getFirstChild(); child != null;
+-             child = child.getNext()) {
+-          if ((!child.isEmpty()) && !isLiteralValue(child, includeFunctions)) {
+-            return false;
+-          }
+-        }
+-        return true;
++        ;
++        return false;
+ 
+       case Token.REGEXP:
+         // Return true only if all children are const.
+
+
+--- a/src/com/google/javascript/jscomp/RemoveUnusedVars.java
++++ b/src/com/google/javascript/jscomp/RemoveUnusedVars.java
+@@ -948,17 +948,6 @@
+       if (mayHaveSecondarySideEffects) {
+         Node replacement = assignNode.getLastChild().detachFromParent();
+ 
+-        // Aggregate any expressions in GETELEMs.
+-        for (Node current = assignNode.getFirstChild();
+-             !current.isName();
+-             current = current.getFirstChild()) {
+-          if (current.isGetElem()) {
+-            replacement = IR.comma(
+-                current.getLastChild().detachFromParent(), replacement);
+-            replacement.copyInformationFrom(current);
+-          }
+-        }
+-
+         parent.replaceChild(assignNode, replacement);
+       } else {
+         Node gramps = parent.getParent();
+
+

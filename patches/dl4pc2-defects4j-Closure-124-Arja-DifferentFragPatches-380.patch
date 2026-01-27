@@ -1,0 +1,28 @@
+--- a/src/com/google/javascript/jscomp/ExploitAssigns.java
++++ b/src/com/google/javascript/jscomp/ExploitAssigns.java
+@@ -171,10 +171,8 @@
+           if (leftSide.isName() ||
+               leftSide.isGetProp() &&
+               leftSide.getFirstChild().isThis()) {
+-            // Dive down the right side of the assign.
+-            parent = next;
+             next = leftSide.getNext();
+-            break;
++            return false;
+           } else {
+             return false;
+           }
+@@ -211,11 +209,6 @@
+     Preconditions.checkArgument(node.isGetProp());
+ 
+       node = node.getFirstChild();
+-    if (node.isName()
+-        && isNameAssignedTo(node.getString(), replacement)) {
+-      return false;
+-    }
+-
+     return true;
+   }
+ 
+
+

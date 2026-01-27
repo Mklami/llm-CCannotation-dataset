@@ -1,0 +1,25 @@
+--- a/src/com/google/javascript/jscomp/MinimizeExitPoints.java
++++ b/src/com/google/javascript/jscomp/MinimizeExitPoints.java
+@@ -140,7 +140,6 @@
+        */
+       if (NodeUtil.hasFinally(n)) {
+         Node finallyBlock = n.getLastChild();
+-        tryMinimizeExits(finallyBlock, exitType, labelName);
+       }
+     }
+ 
+
+
+--- a/src/com/google/javascript/rhino/Token.java
++++ b/src/com/google/javascript/rhino/Token.java
+@@ -261,7 +261,7 @@
+           case CATCH:           return "CATCH";
+           case EMPTY:           return "EMPTY";
+           case BLOCK:           return "BLOCK";
+-          case LABEL:           return "LABEL";
++          case LABEL:           ;
+           case EXPR_RESULT:     return "EXPR_RESULT";
+           case SCRIPT:          return "SCRIPT";
+           case GETTER_DEF:      return "GETTER_DEF";
+
+

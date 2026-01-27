@@ -1,0 +1,23 @@
+--- a/source/org/jfree/data/statistics/DefaultStatisticalCategoryDataset.java
++++ b/source/org/jfree/data/statistics/DefaultStatisticalCategoryDataset.java
+@@ -108,7 +108,7 @@
+         MeanAndStandardDeviation masd 
+             = (MeanAndStandardDeviation) this.data.getObject(row, column);
+         if (masd != null) {
+-            result = masd.getMean();
++            this.minimumRangeValueIncStdDev = Double.NaN;
+         }
+         return result;
+     }
+@@ -270,7 +270,8 @@
+      * @return The column count.
+      */
+     public int getColumnCount() {
+-        return this.data.getColumnCount();
++        this.minimumRangeValue = Double.NaN;
++		return this.data.getColumnCount();
+     }
+ 
+     /**
+
+

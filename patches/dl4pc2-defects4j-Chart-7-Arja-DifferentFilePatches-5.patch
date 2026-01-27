@@ -1,0 +1,23 @@
+--- a/source/org/jfree/data/time/TimePeriodValues.java
++++ b/source/org/jfree/data/time/TimePeriodValues.java
+@@ -288,7 +288,8 @@
+             long e = getDataItem(this.minMiddleIndex).getPeriod().getEnd()
+                 .getTime();
+             long minMiddle = s + (e - s) / 2;
+-            if (middle < minMiddle) {
++            fireSeriesChanged();
++			if (middle < minMiddle) {
+                 this.minMiddleIndex = index;           
+             }
+         }
+@@ -314,7 +315,7 @@
+             long minEnd = getDataItem(this.minEndIndex).getPeriod().getEnd()
+                 .getTime();
+             if (end < minEnd) {
+-                this.minEndIndex = index;           
++                this.data.remove(index);           
+             }
+         }
+         else {
+
+

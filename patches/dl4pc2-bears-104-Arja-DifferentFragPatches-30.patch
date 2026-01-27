@@ -1,0 +1,33 @@
+--- a/src/org/traccar/protocol/SuntechProtocolDecoder.java
++++ b/src/org/traccar/protocol/SuntechProtocolDecoder.java
+@@ -102,10 +102,6 @@
+         Position position = new Position();
+         position.setProtocol(getProtocolName());
+ 
+-        if (type.equals("EMG") || type.equals("ALT")) {
+-            position.set(Position.KEY_ALARM, Position.ALARM_GENERAL);
+-        }
+-
+         DeviceSession deviceSession = getDeviceSession(channel, remoteAddress, values[index++]);
+         if (deviceSession == null) {
+             return null;
+@@ -138,17 +134,11 @@
+ 
+         position.set(Position.PREFIX_IO + 1, values[index++]);
+ 
+-        index += 1; // mode
+-
+         if (type.equals("STT")) {
+             position.set(Position.KEY_INDEX, Integer.parseInt(values[index++]));
+         }
+ 
+         if (index < values.length) {
+-            position.set(Position.KEY_HOURS, Integer.parseInt(values[index++]));
+-        }
+-
+-        if (index < values.length) {
+             position.set(Position.KEY_BATTERY, Double.parseDouble(values[index]));
+         }
+ 
+
+

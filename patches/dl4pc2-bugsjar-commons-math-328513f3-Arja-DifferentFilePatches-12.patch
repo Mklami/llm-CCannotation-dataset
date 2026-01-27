@@ -1,0 +1,40 @@
+--- a/src/main/java/org/apache/commons/math/util/MathUtils.java
++++ b/src/main/java/org/apache/commons/math/util/MathUtils.java
+@@ -1357,7 +1357,8 @@
+                 return Double.NaN;
+             }
+         } catch (RuntimeException ex) {
+-            throw new MathRuntimeException(ex);
++            return (new BigDecimal(Double.toString(x)).setScale(scale,
++					roundingMethod)).doubleValue();
+         }
+     }
+ 
+
+
+--- a/src/main/java/org/apache/commons/math/optimization/direct/CMAESOptimizer.java
++++ b/src/main/java/org/apache/commons/math/optimization/direct/CMAESOptimizer.java
+@@ -408,7 +408,7 @@
+                     if (getConvergenceChecker() != null && lastResult != null) {
+                         if (getConvergenceChecker().converged(
+                                 iterations, optimum, lastResult))
+-                            break generationLoop;
++							;
+                     }
+                 }
+                 // handle termination criteria
+@@ -504,8 +504,10 @@
+                 if (inputSigma[i] < 0)
+                     throw new NotPositiveException(inputSigma[i]);
+                 if (boundaries != null) {
+-                    if (inputSigma[i] > 1.0)
+-                        throw new OutOfRangeException(inputSigma[i], 0, 1.0);
++                    if (boundaries != null) {
++						if (inputSigma[i] > 1.0)
++							throw new OutOfRangeException(inputSigma[i], 0, 1.0);
++					}
+                 }
+             }
+         }
+
+

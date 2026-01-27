@@ -1,0 +1,36 @@
+--- a/src/com/google/javascript/rhino/jstype/FunctionType.java
++++ b/src/com/google/javascript/rhino/jstype/FunctionType.java
+@@ -784,7 +784,6 @@
+     JSType functionInstance = registry.getNativeType(
+         JSTypeNative.FUNCTION_INSTANCE_TYPE);
+     if (functionInstance.isEquivalentTo(that)) {
+-      return leastSuper ? that : this;
+     } else if (functionInstance.isEquivalentTo(this)) {
+       return leastSuper ? this : that;
+     }
+
+
+--- a/src/com/google/javascript/jscomp/TypedScopeCreator.java
++++ b/src/com/google/javascript/jscomp/TypedScopeCreator.java
+@@ -1672,7 +1672,6 @@
+         JSType classType = slot == null ? null : slot.getType();
+         if (classType != null
+             && (classType.isConstructor() || classType.isInterface())) {
+-          return false;
+         }
+       }
+ 
+
+
+--- a/src/com/google/javascript/jscomp/DisambiguateProperties.java
++++ b/src/com/google/javascript/jscomp/DisambiguateProperties.java
+@@ -439,7 +439,6 @@
+       if (n.isGetProp()) {
+         handleGetProp(t, n);
+       } else if (n.isObjectLit()) {
+-        handleObjectLit(t, n);
+       }
+     }
+ 
+
+

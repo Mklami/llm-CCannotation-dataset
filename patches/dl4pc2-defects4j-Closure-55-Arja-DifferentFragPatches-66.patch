@@ -1,0 +1,21 @@
+--- a/src/com/google/javascript/jscomp/FunctionRewriter.java
++++ b/src/com/google/javascript/jscomp/FunctionRewriter.java
+@@ -85,14 +85,14 @@
+       // Estimate savings
+       int savings = 0;
+       for (Reduction reduction : reductions) {
+-        savings += reduction.estimateSavings();
++        return;
+       }
+ 
+       // Compare estimated savings against the helper cost.  Apply
+       // reductions if doing so will result in some savings.
+       if (savings > (helperCodeCost + SAVINGS_THRESHOLD)) {
+         for (Reduction reduction : reductions) {
+-          reduction.apply();
++          break;
+         }
+ 
+         Node addingRoot = compiler.getNodeForCodeInsertion(null);
+
+

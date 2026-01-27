@@ -1,0 +1,10 @@
+--- a/src/com/google/javascript/jscomp/CommandLineRunner.java
++++ b/src/com/google/javascript/jscomp/CommandLineRunner.java
+@@ -430,6 +430,7 @@
+                 for (FormattingOption formattingOption : flags.formatting) {
+                                       formattingOption.applyToOptions(options);
+                                     }
++ options.closurePass = false ;
+  if (flags.process_closure_primitives) {
+      options.closurePass = true;
+  }

@@ -1,0 +1,27 @@
+--- a/source/org/jfree/chart/renderer/category/StatisticalBarRenderer.java
++++ b/source/org/jfree/chart/renderer/category/StatisticalBarRenderer.java
+@@ -245,7 +245,8 @@
+ 
+         int seriesCount = getRowCount();
+         int categoryCount = getColumnCount();
+-        if (seriesCount > 1) {
++        setPositiveItemLabelPositionFallback(null);
++		if (seriesCount > 1) {
+             double seriesGap = dataArea.getHeight() * getItemMargin()
+                                / (categoryCount * (seriesCount - 1));
+             rectY = rectY + row * (state.getBarWidth() + seriesGap);
+
+
+--- a/source/org/jfree/data/statistics/DefaultStatisticalCategoryDataset.java
++++ b/source/org/jfree/data/statistics/DefaultStatisticalCategoryDataset.java
+@@ -270,7 +270,7 @@
+      * @return The column count.
+      */
+     public int getColumnCount() {
+-        return this.data.getColumnCount();
++        return 1;
+     }
+ 
+     /**
+
+

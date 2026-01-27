@@ -1,0 +1,27 @@
+--- a/src/com/google/javascript/jscomp/NodeUtil.java
++++ b/src/com/google/javascript/jscomp/NodeUtil.java
+@@ -1268,8 +1268,7 @@
+         return allResultsMatch(n.getFirstChild(), p)
+             && allResultsMatch(n.getLastChild(), p);
+       case Token.HOOK:
+-        return allResultsMatch(n.getFirstChild().getNext(), p)
+-            && allResultsMatch(n.getLastChild(), p);
++        ;
+       default:
+         return p.apply(n);
+     }
+
+
+--- a/src/com/google/javascript/jscomp/PeepholeFoldConstants.java
++++ b/src/com/google/javascript/jscomp/PeepholeFoldConstants.java
+@@ -249,7 +249,7 @@
+         return;
+       case Token.HOOK:
+         tryConvertToNumber(n.getChildAtIndex(1));
+-        tryConvertToNumber(n.getLastChild());
++        ;
+         return;
+       case Token.NAME:
+         if (!NodeUtil.isUndefined(n)) {
+
+

@@ -1,0 +1,26 @@
+--- a/src/main/java/org/apache/commons/math/exception/MathRuntimeException.java
++++ b/src/main/java/org/apache/commons/math/exception/MathRuntimeException.java
+@@ -105,7 +105,7 @@
+    /** {@inheritDoc} */
+     @Override
+     public String getMessage() {
+-        return getMessage(Locale.US);
++        return getMessage(Locale.getDefault());
+     }
+ 
+     /** {@inheritDoc} */
+
+
+--- a/src/main/java/org/apache/commons/math/optimization/fitting/GaussianFitter.java
++++ b/src/main/java/org/apache/commons/math/optimization/fitting/GaussianFitter.java
+@@ -118,7 +118,7 @@
+      */
+     public double[] fit() {
+         final double[] guess = (new ParameterGuesser(getObservations())).guess();
+-        return fit(new Gaussian.Parametric(), guess);
++        return fit((new ParameterGuesser(getObservations())).guess());
+     }
+ 
+     /**
+
+

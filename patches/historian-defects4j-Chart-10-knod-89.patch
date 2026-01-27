@@ -1,0 +1,8 @@
+--- a/source/org/jfree/chart/imagemap/StandardToolTipTagFragmentGenerator.java
++++ b/source/org/jfree/chart/imagemap/StandardToolTipTagFragmentGenerator.java
+@@ -64,3 +64,3 @@
+     public String generateToolTipFragment(String toolTipText) {
+-        return " title=\"" + toolTipText
++        return " title=\"" + ImageMapUtilities.htmlEscape(toolTipText)
+             + "\" alt=\"\"";
+

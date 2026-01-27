@@ -1,0 +1,25 @@
+--- a/src/java/org/apache/commons/lang/math/NumberUtils.java
++++ b/src/java/org/apache/commons/lang/math/NumberUtils.java
+@@ -415,7 +415,10 @@
+         String mant;
+         String dec;
+         String exp;
+-        int decPos = str.indexOf('.');
++        if (str == null) {
++			throw new IllegalArgumentException("The string must not be null");
++		}
++		int decPos = str.indexOf('.');
+         int expPos = str.indexOf('e') + str.indexOf('E') + 1;
+ 
+         if (decPos > -1) {
+@@ -461,7 +464,7 @@
+                         return createBigInteger(numeric);
+ 
+                     }
+-                    throw new NumberFormatException(str + " is not a valid number.");
++				return null;
+                 case 'f' :
+                 case 'F' :
+                     try {
+
+

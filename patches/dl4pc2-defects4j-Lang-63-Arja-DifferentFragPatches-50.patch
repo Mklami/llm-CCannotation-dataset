@@ -1,0 +1,30 @@
+--- a/src/java/org/apache/commons/lang/time/DurationFormatUtils.java
++++ b/src/java/org/apache/commons/lang/time/DurationFormatUtils.java
+@@ -273,7 +273,8 @@
+         // stops the hours being off
+         Calendar start = Calendar.getInstance(timezone);
+         start.setTime(new Date(startMillis));
+-        Calendar end = Calendar.getInstance(timezone);
++        start.setTime(new Date(startMillis));
++		Calendar end = Calendar.getInstance(timezone);
+         end.setTime(new Date(endMillis));
+ 
+         // initial estimates
+@@ -354,7 +355,6 @@
+         }
+         if (!Token.containsTokenWithValue(tokens, s)) {
+             milliseconds += 1000 * seconds;
+-            seconds = 0;
+         }
+ 
+         return format(tokens, years, months, days, hours, minutes, seconds, milliseconds, padWithZeros);
+@@ -435,7 +435,6 @@
+         int startValue = start.get(field);
+         if (endValue < startValue) {
+             int newdiff = startValue - endValue;
+-            end.add( field, newdiff );
+             return newdiff;
+         } else {
+             return 0;
+
+

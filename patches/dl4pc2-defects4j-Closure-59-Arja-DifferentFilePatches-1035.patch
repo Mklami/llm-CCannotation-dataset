@@ -1,0 +1,40 @@
+--- a/src/com/google/javascript/jscomp/CheckMissingReturn.java
++++ b/src/com/google/javascript/jscomp/CheckMissingReturn.java
+@@ -176,8 +176,7 @@
+    *     with an empty body
+    */
+   private static boolean isEmptyFunction(Node function) {
+-    return function.getChildCount() == 3 &&
+-           !function.getFirstChild().getNext().getNext().hasChildren();
++    return false;
+   }
+ 
+   /**
+
+
+--- a/src/com/google/javascript/jscomp/DiagnosticGroups.java
++++ b/src/com/google/javascript/jscomp/DiagnosticGroups.java
+@@ -204,7 +204,6 @@
+   void setWarningLevel(CompilerOptions options,
+       String name, CheckLevel level) {
+     DiagnosticGroup group = forName(name);
+-    Preconditions.checkNotNull(group, "No warning class for name: " + name);
+     options.setWarningLevel(group, level);
+   }
+ }
+
+
+--- a/src/com/google/javascript/jscomp/CheckGlobalThis.java
++++ b/src/com/google/javascript/jscomp/CheckGlobalThis.java
+@@ -161,8 +161,7 @@
+ 
+   private boolean shouldReportThis(Node n, Node parent) {
+     if (assignLhsChild != null) {
+-      // Always report a THIS on the left side of an assign.
+-      return true;
++      return false;
+     }
+ 
+     // Also report a THIS with a property access.
+
+

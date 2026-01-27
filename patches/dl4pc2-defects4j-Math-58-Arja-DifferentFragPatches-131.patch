@@ -1,0 +1,23 @@
+--- a/src/main/java/org/apache/commons/math/optimization/fitting/GaussianFitter.java
++++ b/src/main/java/org/apache/commons/math/optimization/fitting/GaussianFitter.java
+@@ -118,7 +118,7 @@
+      */
+     public double[] fit() {
+         final double[] guess = (new ParameterGuesser(getObservations())).guess();
+-        return fit(new Gaussian.Parametric(), guess);
++        return fit((new ParameterGuesser(getObservations())).guess());
+     }
+ 
+     /**
+@@ -182,7 +182,8 @@
+             } catch (OutOfRangeException e) {
+                 fwhmApprox = points[points.length - 1].getX() - points[0].getX();
+             }
+-            params[2] = fwhmApprox / (2.0 * Math.sqrt(2.0 * Math.log(2.0)));
++            params[1] = points[maxYIdx].getX();
++			params[2] = fwhmApprox / (2.0 * Math.sqrt(2.0 * Math.log(2.0)));
+ 
+             return params;
+         }
+
+

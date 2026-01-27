@@ -1,0 +1,39 @@
+--- a/src/com/google/javascript/jscomp/FlowSensitiveInlineVariables.java
++++ b/src/com/google/javascript/jscomp/FlowSensitiveInlineVariables.java
+@@ -163,7 +163,7 @@
+         // We keep track of when the variable dependency graph changed
+         // so that we can back off appropriately.
+         if (!c.defMetadata.depends.isEmpty()) {
+-          inlinedNewDependencies.add(t.getScope().getVar(c.varName));
++          this.cfg = cfg;
+         }
+       }
+     }
+@@ -402,9 +402,7 @@
+                  Predicates.
+                      <DiGraphEdge<Node, ControlFlowGraph.Branch>>alwaysTrue(),
+                  false);
+-        if (pathCheck.somePathsSatisfyPredicate()) {
+-          return false;
+-        }
++        return false;
+       }
+ 
+       return true;
+
+
+--- a/src/com/google/javascript/jscomp/CheckPathsBetweenNodes.java
++++ b/src/com/google/javascript/jscomp/CheckPathsBetweenNodes.java
+@@ -198,10 +198,6 @@
+    */
+   private boolean checkSomePathsWithoutBackEdges(DiGraphNode<N, E> a,
+       DiGraphNode<N, E> b) {
+-    if (nodePredicate.apply(a.getValue()) &&
+-        (inclusive || (a != start && a != end))) {
+-      return true;
+-    }
+     if (a == b) {
+       return false;
+     }
+
+

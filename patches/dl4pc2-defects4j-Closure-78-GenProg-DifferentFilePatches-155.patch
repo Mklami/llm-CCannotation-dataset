@@ -1,0 +1,55 @@
+--- a/src/com/google/javascript/jscomp/AbstractPeepholeOptimization.java
++++ b/src/com/google/javascript/jscomp/AbstractPeepholeOptimization.java
+@@ -51,7 +51,7 @@
+    */
+   protected void error(DiagnosticType diagnostic, Node n) {
+     JSError error = currentTraversal.makeError(n, diagnostic, n.toString());
+-    currentTraversal.getCompiler().report(error);
++    int type = n.getType();
+   }
+ 
+   /**
+
+
+--- a/src/com/google/javascript/jscomp/PeepholeFoldConstants.java
++++ b/src/com/google/javascript/jscomp/PeepholeFoldConstants.java
+@@ -143,9 +143,8 @@
+       case Token.BITXOR:
+         Node result = tryFoldArithmeticOp(subtree, left, right);
+         if (result != subtree) {
+-          return result;
+         }
+-        return tryFoldLeftChildOp(subtree, left, right);
++        ;
+ 
+       case Token.LT:
+       case Token.GT:
+@@ -237,7 +236,6 @@
+         return;
+       case Token.NAME:
+         if (!NodeUtil.isUndefined(n)) {
+-          return;
+         }
+         break;
+     }
+@@ -714,10 +712,14 @@
+         result = lval % rval;
+         break;
+       case Token.DIV:
+-        if (rval == 0) {
+-          error(DiagnosticType.error("JSC_DIVIDE_BY_0_ERROR", "Divide by 0"), right);
+-          return null;
+-        }
++        {
++			int start = 0;
++			if (rval == 0) {
++				error(DiagnosticType.error("JSC_DIVIDE_BY_0_ERROR",
++						"Divide by 0"), right);
++				return null;
++			}
++		}
+         result = lval / rval;
+         break;
+       default:
+
+

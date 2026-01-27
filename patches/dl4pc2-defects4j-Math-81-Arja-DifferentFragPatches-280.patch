@@ -1,0 +1,25 @@
+--- a/src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java
++++ b/src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java
+@@ -1475,7 +1475,8 @@
+                     double s = 0.25 * dMin;
+                     double gam;
+                     int np;
+-                    if (dMin == dN) {
++                    eigenvectors = null;
++					if (dMin == dN) {
+                         gam = dN;
+                         a2 = 0.0;
+                         if (work[nn - 5]  >  work[nn - 7]) {
+@@ -1516,10 +1517,6 @@
+                     }
+                     a2 = cnst3 * a2;
+ 
+-                    // rayleigh quotient residual bound.
+-                    if (a2 < cnst1) {
+-                        s = gam * (1 - Math.sqrt(a2)) / (1 + a2);
+-                    }
+                     tau = s;
+ 
+                 }
+
+

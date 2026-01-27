@@ -1,0 +1,27 @@
+--- a/src/main/java/org/apache/commons/math/optimization/fitting/GaussianFitter.java
++++ b/src/main/java/org/apache/commons/math/optimization/fitting/GaussianFitter.java
+@@ -118,7 +118,7 @@
+      */
+     public double[] fit() {
+         final double[] guess = (new ParameterGuesser(getObservations())).guess();
+-        return fit(new Gaussian.Parametric(), guess);
++        return fit((new ParameterGuesser(getObservations())).guess());
+     }
+ 
+     /**
+@@ -153,7 +153,12 @@
+          * @return the guessed parameters: norm, mean and sigma.
+          */
+         public double[] guess() {
+-            if (parameters == null) {
++            if (observations.length < 4) {
++				throw new NumberIsTooSmallException(
++						LocalizedFormats.INSUFFICIENT_OBSERVED_POINTS_IN_SAMPLE,
++						observations.length, 4, true);
++			}
++			if (parameters == null) {
+                 parameters = basicGuess(observations);
+             }
+             return parameters.clone();
+
+

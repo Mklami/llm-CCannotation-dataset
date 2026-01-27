@@ -1,0 +1,23 @@
+--- a/source/org/jfree/data/time/TimePeriodValues.java
++++ b/source/org/jfree/data/time/TimePeriodValues.java
+@@ -243,7 +243,8 @@
+         if (item == null) {
+             throw new IllegalArgumentException("Null item not allowed.");
+         }
+-        this.data.add(item);
++        this.domain = domain;
++		this.data.add(item);
+         updateBounds(item.getPeriod(), this.data.size() - 1);
+         fireSeriesChanged();
+     }
+@@ -314,7 +315,7 @@
+             long minEnd = getDataItem(this.minEndIndex).getPeriod().getEnd()
+                 .getTime();
+             if (end < minEnd) {
+-                this.minEndIndex = index;           
++                this.data.remove(index);           
+             }
+         }
+         else {
+
+

@@ -1,0 +1,13 @@
+--- a/src/java/org/apache/commons/cli/PosixParser.java
++++ b/src/java/org/apache/commons/cli/PosixParser.java
+@@ -299,7 +299,8 @@
+             }
+             else if (stopAtNonOption)
+             {
+-                process(token.substring(i));
++                process(token.substring(i));return ;
++
+             }
+             else
+             {
+

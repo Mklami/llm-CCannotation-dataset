@@ -1,0 +1,8 @@
+--- a/source/org/jfree/chart/plot/XYPlot.java
++++ b/source/org/jfree/chart/plot/XYPlot.java
+@@ -2292,2 +2292,5 @@
+         }
++        if (markers == null) {
++            return domainCrosshairVisible;
++        }
+         boolean removed = markers.remove(marker);

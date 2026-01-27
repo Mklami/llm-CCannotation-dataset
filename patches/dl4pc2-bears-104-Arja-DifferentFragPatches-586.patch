@@ -1,0 +1,15 @@
+--- a/src/org/traccar/protocol/SuntechProtocolDecoder.java
++++ b/src/org/traccar/protocol/SuntechProtocolDecoder.java
+@@ -145,10 +145,6 @@
+         }
+ 
+         if (index < values.length) {
+-            position.set(Position.KEY_HOURS, Integer.parseInt(values[index++]));
+-        }
+-
+-        if (index < values.length) {
+             position.set(Position.KEY_BATTERY, Double.parseDouble(values[index]));
+         }
+ 
+
+

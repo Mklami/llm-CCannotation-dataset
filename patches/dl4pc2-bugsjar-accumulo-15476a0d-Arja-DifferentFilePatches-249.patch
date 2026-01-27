@@ -1,0 +1,39 @@
+--- a/src/core/src/main/java/org/apache/accumulo/core/client/mock/MockTable.java
++++ b/src/core/src/main/java/org/apache/accumulo/core/client/mock/MockTable.java
+@@ -70,8 +70,6 @@
+         MockMemKey other = (MockMemKey) o;
+         if (count < other.count)
+           return -1;
+-        if (count > other.count)
+-          return 1;
+       } else {
+         return 1;
+       }
+
+
+--- a/src/core/src/main/java/org/apache/accumulo/core/client/mock/MockScanner.java
++++ b/src/core/src/main/java/org/apache/accumulo/core/client/mock/MockScanner.java
+@@ -93,7 +93,6 @@
+   public Iterator<Entry<Key,Value>> iterator() {
+     SortedKeyValueIterator<Key,Value> i = new SortedMapIterator(table.table);
+     try {
+-      i = new RangeFilter(createFilter(i), range);
+       i.seek(range, createColumnBSS(fetchedColumns), !fetchedColumns.isEmpty());
+       return new IteratorAdapter(i);
+     } catch (IOException e) {
+
+
+--- a/src/core/src/main/java/org/apache/accumulo/core/client/mock/MockTableOperations.java
++++ b/src/core/src/main/java/org/apache/accumulo/core/client/mock/MockTableOperations.java
+@@ -79,9 +79,6 @@
+   
+   @Override
+   public void create(String tableName, boolean versioningIter, TimeType timeType) throws AccumuloException, AccumuloSecurityException, TableExistsException {
+-    if (!tableName.matches(Constants.VALID_TABLE_NAME_REGEX)) {
+-      throw new IllegalArgumentException();
+-    }
+     acu.createTable(username, tableName, versioningIter, timeType);
+   }
+   
+
+

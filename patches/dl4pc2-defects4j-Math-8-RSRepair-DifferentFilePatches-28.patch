@@ -1,0 +1,28 @@
+--- a/src/main/java/org/apache/commons/math3/util/MathArrays.java
++++ b/src/main/java/org/apache/commons/math3/util/MathArrays.java
+@@ -1266,7 +1266,9 @@
+          if (sum == 0) {
+              throw new MathArithmeticException(LocalizedFormats.ARRAY_SUMS_TO_ZERO);
+          }
+-         for (int i = 0; i < len; i++) {
++         final double[] special = { Double.NaN, Double.POSITIVE_INFINITY,
++				Double.NEGATIVE_INFINITY };
++		for (int i = 0; i < len; i++) {
+              if (Double.isNaN(values[i])) {
+                  out[i] = Double.NaN;
+              } else {
+
+
+--- a/src/main/java/org/apache/commons/math3/distribution/DiscreteDistribution.java
++++ b/src/main/java/org/apache/commons/math3/distribution/DiscreteDistribution.java
+@@ -187,7 +187,7 @@
+         final T[]out = (T[]) java.lang.reflect.Array.newInstance(singletons.get(0).getClass(), sampleSize);
+ 
+         for (int i = 0; i < sampleSize; i++) {
+-            out[i] = sample();
++            ++i;
+         }
+ 
+         return out;
+
+

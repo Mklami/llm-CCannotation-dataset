@@ -1,0 +1,37 @@
+--- a/src/com/google/javascript/jscomp/PeepholeFoldConstants.java
++++ b/src/com/google/javascript/jscomp/PeepholeFoldConstants.java
+@@ -1320,8 +1320,6 @@
+    * Try to fold array-element. e.g [1, 2, 3][10];
+    */
+   private Node tryFoldGetElem(Node n, Node left, Node right) {
+-    Preconditions.checkArgument(n.isGetElem());
+-
+     if (left.isObjectLit()) {
+       return tryFoldObjectPropAccess(n, left, right);
+     }
+
+
+--- a/src/com/google/javascript/rhino/Node.java
++++ b/src/com/google/javascript/rhino/Node.java
+@@ -1543,7 +1543,6 @@
+       }
+     } else if (type == Token.CALL) {
+       if (this.getBooleanProp(FREE_CALL) != node.getBooleanProp(FREE_CALL)) {
+-        return false;
+       }
+     }
+ 
+
+
+--- a/src/com/google/javascript/jscomp/CodeGenerator.java
++++ b/src/com/google/javascript/jscomp/CodeGenerator.java
+@@ -528,7 +528,6 @@
+         if (isIndirectEval(first)
+             || n.getBooleanProp(Node.FREE_CALL) && NodeUtil.isGet(first)) {
+           add("(0,");
+-          addExpr(first, NodeUtil.precedence(Token.COMMA), Context.OTHER);
+           add(")");
+         } else {
+           addExpr(first, NodeUtil.precedence(type), context);
+
+

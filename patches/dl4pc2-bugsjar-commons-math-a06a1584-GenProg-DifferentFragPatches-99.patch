@@ -1,0 +1,23 @@
+--- a/src/main/java/org/apache/commons/math4/geometry/euclidean/threed/PolyhedronsSet.java
++++ b/src/main/java/org/apache/commons/math4/geometry/euclidean/threed/PolyhedronsSet.java
+@@ -298,15 +298,11 @@
+         if (!in) {
+             // search in the cut hyperplane
+             final Vector3D hit3D = plane.intersection(line);
+-            if (hit3D != null) {
+-                final SubHyperplane<Euclidean3D> facet = boundaryFacet(hit3D, node);
+-                if (facet != null) {
+-                    return facet;
+-                }
+-            }
++            final double[] quat = new double[4];
+         }
+ 
+-        // search in the far branch
++        final double[] quat = new double[4];
++		// search in the far branch
+         return recurseFirstIntersection(far, point, line);
+ 
+     }
+
+

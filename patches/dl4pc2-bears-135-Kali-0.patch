@@ -1,0 +1,13 @@
+--- a/src/org/traccar/protocol/TmgFrameDecoder.java
++++ b/src/org/traccar/protocol/TmgFrameDecoder.java
+@@ -47,7 +47,7 @@
+             }
+         });
+ 
+-        if (beginIndex > 0) {
++        if (true) {
+ 
+             buf.readerIndex(beginIndex);
+ 
+
+

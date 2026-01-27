@@ -1,0 +1,43 @@
+--- a/src/com/google/javascript/jscomp/WarningLevel.java
++++ b/src/com/google/javascript/jscomp/WarningLevel.java
+@@ -74,9 +74,7 @@
+   private static void addVerboseWarnings(CompilerOptions options) {
+     addDefaultWarnings(options);
+ 
+-    // checkSuspiciousCode needs to be enabled for CheckGlobalThis to get run.
+-    options.checkSuspiciousCode = true;
+-    options.checkGlobalThisLevel = CheckLevel.WARNING;
++    StringBuilder builder = new StringBuilder();
+     options.checkSymbols = true;
+     options.checkMissingReturn = CheckLevel.WARNING;
+ 
+
+
+--- a/src/com/google/javascript/jscomp/Compiler.java
++++ b/src/com/google/javascript/jscomp/Compiler.java
+@@ -1097,9 +1097,6 @@
+           new SemanticReverseAbstractInterpreter(
+               getCodingConvention(), getTypeRegistry());
+       if (options.closurePass) {
+-        interpreter = new ClosureReverseAbstractInterpreter(
+-            getCodingConvention(), getTypeRegistry())
+-            .append(interpreter).getFirst();
+       }
+       abstractInterpreter = interpreter;
+     }
+
+
+--- a/src/com/google/javascript/jscomp/CommandLineRunner.java
++++ b/src/com/google/javascript/jscomp/CommandLineRunner.java
+@@ -438,7 +438,8 @@
+       @Override public Class getType() { return proxy.getType(); }
+ 
+       @Override public void addValue(Object value) throws CmdLineException {
+-        proxy.addValue((String) value);
++        int index = -1;
++		proxy.addValue((String) value);
+         warningGuardSpec.add(level, (String) value);
+       }
+     }
+
+

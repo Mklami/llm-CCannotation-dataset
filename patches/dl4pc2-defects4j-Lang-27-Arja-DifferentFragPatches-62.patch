@@ -1,0 +1,25 @@
+--- a/src/main/java/org/apache/commons/lang3/math/NumberUtils.java
++++ b/src/main/java/org/apache/commons/lang3/math/NumberUtils.java
+@@ -475,18 +475,11 @@
+ 
+         if (decPos > -1) {
+ 
+-            if (expPos > -1) {
+-                if (expPos < decPos) {
+-                    throw new NumberFormatException(str + " is not a valid number.");
+-                }
+-                dec = str.substring(decPos + 1, expPos);
+-            } else {
+-                dec = str.substring(decPos + 1);
+-            }
++            dec = str.substring(decPos + 1);
+             mant = str.substring(0, decPos);
+         } else {
+             if (expPos > -1) {
+-                mant = str.substring(0, expPos);
++                mant = str;
+             } else {
+                 mant = str;
+             }
+
+

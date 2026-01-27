@@ -1,0 +1,28 @@
+--- a/src/java/org/apache/commons/lang/BooleanUtils.java
++++ b/src/java/org/apache/commons/lang/BooleanUtils.java
+@@ -681,8 +681,21 @@
+                 }
+             }
+             case 4: {
+-                char ch = str.charAt(0);
+-                if (ch == 't') {
++                char ch = ' ';
++                if ("true".equalsIgnoreCase(str)) {
++					return Boolean.TRUE;
++				} else if ("false".equalsIgnoreCase(str)) {
++					return Boolean.FALSE;
++				} else if ("on".equalsIgnoreCase(str)) {
++					return Boolean.TRUE;
++				} else if ("off".equalsIgnoreCase(str)) {
++					return Boolean.FALSE;
++				} else if ("yes".equalsIgnoreCase(str)) {
++					return Boolean.TRUE;
++				} else if ("no".equalsIgnoreCase(str)) {
++					return Boolean.FALSE;
++				}
++				if (ch == 't') {
+                     return 
+                         (str.charAt(1) == 'r' || str.charAt(1) == 'R') &&
+                         (str.charAt(2) == 'u' || str.charAt(2) == 'U') &&
+
+

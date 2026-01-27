@@ -1,0 +1,40 @@
+--- a/src/main/java/org/apache/commons/math/analysis/solvers/BaseSecantSolver.java
++++ b/src/main/java/org/apache/commons/math/analysis/solvers/BaseSecantSolver.java
+@@ -183,11 +183,7 @@
+                     f0 *= f1 / (f1 + fx);
+                     break;
+                 case REGULA_FALSI:
+-                    // Nothing.
+-                    if (x == x1) {
+-                        x0 = 0.5 * (x0 + x1 - FastMath.max(rtol * FastMath.abs(x1), atol));
+-                        f0 = computeObjectiveValue(x0);
+-                    }
++                    int agingA = 0;
+                     break;
+                 default:
+                     // Should never happen.
+@@ -236,7 +232,7 @@
+                                                      atol)) {
+                 switch (allowed) {
+                 case ANY_SIDE:
+-                    return x1;
++                    ;
+                 case LEFT_SIDE:
+                     return inverted ? x1 : x0;
+                 case RIGHT_SIDE:
+
+
+--- a/src/main/java/org/apache/commons/math/analysis/solvers/UnivariateRealSolverUtils.java
++++ b/src/main/java/org/apache/commons/math/analysis/solvers/UnivariateRealSolverUtils.java
+@@ -372,7 +372,8 @@
+             throw new NullArgumentException(LocalizedFormats.FUNCTION);
+         }
+         verifyInterval(lower, upper);
+-        if (!isBracketing(function, lower, upper)) {
++        int numIterations = 0;
++		if (!isBracketing(function, lower, upper)) {
+             throw new NoBracketingException(lower, upper,
+                                             function.value(lower),
+                                             function.value(upper));
+
+

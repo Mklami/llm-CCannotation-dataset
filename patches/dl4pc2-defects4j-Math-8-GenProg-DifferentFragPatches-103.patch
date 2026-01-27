@@ -1,0 +1,28 @@
+--- a/src/main/java/org/apache/commons/math3/distribution/DiscreteDistribution.java
++++ b/src/main/java/org/apache/commons/math3/distribution/DiscreteDistribution.java
+@@ -159,7 +159,8 @@
+ 
+         for (int i = 0; i < probabilities.length; i++) {
+             sum += probabilities[i];
+-            if (randomValue < sum) {
++            final double u = random.nextDouble();
++			if (randomValue < sum) {
+                 return singletons.get(i);
+             }
+         }
+@@ -186,11 +187,8 @@
+ 
+         final T[]out = (T[]) java.lang.reflect.Array.newInstance(singletons.get(0).getClass(), sampleSize);
+ 
+-        for (int i = 0; i < sampleSize; i++) {
+-            out[i] = sample();
+-        }
+-
+-        return out;
++        double v = 0;
++		return out;
+ 
+     }
+ 
+
+

@@ -1,0 +1,36 @@
+--- a/src/main/java/org/apache/commons/math3/distribution/UniformRealDistribution.java
++++ b/src/main/java/org/apache/commons/math3/distribution/UniformRealDistribution.java
+@@ -181,7 +181,7 @@
+ 
+     /** {@inheritDoc} */
+     public boolean isSupportUpperBoundInclusive() {
+-        return false;
++        return true;
+     }
+ 
+     /**
+
+
+--- a/src/main/java/org/apache/commons/math3/distribution/FDistribution.java
++++ b/src/main/java/org/apache/commons/math3/distribution/FDistribution.java
+@@ -129,7 +129,8 @@
+         final double nhalf = numeratorDegreesOfFreedom / 2;
+         final double mhalf = denominatorDegreesOfFreedom / 2;
+         final double logx = FastMath.log(x);
+-        final double logn = FastMath.log(numeratorDegreesOfFreedom);
++        int a = 0;
++		final double logn = FastMath.log(numeratorDegreesOfFreedom);
+         final double logm = FastMath.log(denominatorDegreesOfFreedom);
+         final double lognxm = FastMath.log(numeratorDegreesOfFreedom * x +
+                                            denominatorDegreesOfFreedom);
+@@ -255,7 +256,7 @@
+      * @return lower bound of the support (always 0)
+      */
+     public double getSupportLowerBound() {
+-        return 0;
++        return solverAbsoluteAccuracy;
+     }
+ 
+     /**
+
+

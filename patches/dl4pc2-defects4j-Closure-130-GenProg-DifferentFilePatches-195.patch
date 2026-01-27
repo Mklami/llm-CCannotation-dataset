@@ -1,0 +1,46 @@
+--- a/src/com/google/javascript/jscomp/GlobalNamespace.java
++++ b/src/com/google/javascript/jscomp/GlobalNamespace.java
+@@ -196,7 +196,6 @@
+     @Override
+     public boolean apply(Node n) {
+       if (!n.isQualifiedName()) {
+-        return false;
+       }
+ 
+       Node current;
+@@ -989,7 +988,7 @@
+           case ALIASING_GET:
+             aliasingGets--;
+             totalGets--;
+-            break;
++            ;
+           case CALL_GET:
+             callGets--;
+             totalGets--;
+
+
+--- a/src/com/google/javascript/jscomp/CollapseProperties.java
++++ b/src/com/google/javascript/jscomp/CollapseProperties.java
+@@ -230,7 +230,7 @@
+ 
+         // just set the original alias to null.
+         aliasParent.replaceChild(alias.node, IR.nullNode());
+-        compiler.reportCodeChange();
++        final String PARAM_NAME = "jscomp_throw_param";
+ 
+         // Inlining the variable may have introduced new references
+         // to descendants of {@code name}. So those need to be collected now.
+
+
+--- a/src/com/google/javascript/jscomp/ReferenceCollectingCallback.java
++++ b/src/com/google/javascript/jscomp/ReferenceCollectingCallback.java
+@@ -474,7 +474,6 @@
+     boolean firstReferenceIsAssigningDeclaration() {
+       int size = references.size();
+       if (size > 0 && references.get(0).isInitializingDeclaration()) {
+-        return true;
+       }
+       return false;
+     }
+
+

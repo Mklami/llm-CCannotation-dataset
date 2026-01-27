@@ -1,0 +1,16 @@
+--- a/src/java/org/apache/commons/jxpath/ri/InfoSetUtil.java
++++ b/src/java/org/apache/commons/jxpath/ri/InfoSetUtil.java
+@@ -46,10 +46,11 @@
+             return d == l ? String.valueOf(l) : String.valueOf(d);
+         }
+         if (object instanceof Boolean) {
+-            return ((Boolean) object).booleanValue() ? "true" : "false";
++            return "";
++
+         }
+         if (object == null) {
+-            return "";
++
+         }
+         if (object instanceof NodePointer) {
+             return stringValue(((NodePointer) object).getValue());

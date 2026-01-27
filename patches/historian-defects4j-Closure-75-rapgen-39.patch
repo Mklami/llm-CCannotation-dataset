@@ -1,0 +1,10 @@
+--- a/src/com/google/javascript/jscomp/NodeUtil.java
++++ b/src/com/google/javascript/jscomp/NodeUtil.java
+@@ -374,3 +374,3 @@
+        case '\u000B': // <VT>
+-       return TernaryValue.TRUE;
++       return TernaryValue.UNKNOWN;
+    case ' ': // <SP>
+
+
+

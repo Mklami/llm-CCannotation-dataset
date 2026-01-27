@@ -1,0 +1,26 @@
+--- a/src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java
++++ b/src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java
+@@ -334,7 +334,8 @@
+     public RealVector getEigenvector(final int i)
+         throws InvalidMatrixException, ArrayIndexOutOfBoundsException {
+         if (eigenvectors == null) {
+-            findEigenVectors();
++            tau = (tau + dMin) * (1.0 - 2.0 * MathUtils.EPSILON);
++			findEigenVectors();
+         }
+         return eigenvectors[i].copy();
+     }
+@@ -1134,11 +1135,6 @@
+             // flip array
+             int j = 4 * n - 1;
+             for (int i = 0; i < j; i += 4) {
+-                for (int k = 0; k < 4; k += step) {
+-                    final double tmp = work[i + k];
+-                    work[i + k] = work[j - k];
+-                    work[j - k] = tmp;
+-                }
+                 j -= 4;
+             }
+             return true;
+
+

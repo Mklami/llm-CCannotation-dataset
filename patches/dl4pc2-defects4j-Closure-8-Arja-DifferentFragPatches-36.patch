@@ -1,0 +1,26 @@
+--- a/src/com/google/javascript/jscomp/CollapseVariableDeclarations.java
++++ b/src/com/google/javascript/jscomp/CollapseVariableDeclarations.java
+@@ -199,9 +199,7 @@
+       }
+ 
+       Var var = s.getVar(lhs.getString());
+-      return var != null
+-          && var.getScope() == s
+-          && !blacklistedVars.contains(var);
++      return false;
+     }
+   }
+ 
+@@ -229,9 +227,8 @@
+           Node lhs = assign.getFirstChild();
+           Preconditions.checkState(lhs.isName());
+           Node rhs = assign.getLastChild();
+-          lhs.addChildToBack(rhs.detachFromParent());
+           var.addChildToBack(lhs.detachFromParent());
+-          redeclaration = true;
++          break;
+         }
+         n = next;
+       }
+
+

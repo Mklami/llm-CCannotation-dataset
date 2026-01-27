@@ -1,0 +1,25 @@
+--- a/src/main/java/org/apache/commons/lang3/math/NumberUtils.java
++++ b/src/main/java/org/apache/commons/lang3/math/NumberUtils.java
+@@ -542,7 +542,7 @@
+                     }
+                     //$FALL-THROUGH$
+                 default :
+-                    throw new NumberFormatException(str + " is not a valid number.");
++				return Integer.decode(str);
+ 
+             }
+         } else {
+@@ -572,7 +572,10 @@
+                 boolean allZeros = isAllZeros(mant) && isAllZeros(exp);
+                 try {
+                     Float f = createFloat(str);
+-                    if (!(f.isInfinite() || (f.floatValue() == 0.0F && !allZeros))) {
++                    if (str == null) {
++						return null;
++					}
++					if (!(f.isInfinite() || (f.floatValue() == 0.0F && !allZeros))) {
+                         return f;
+                     }
+                 } catch (NumberFormatException nfe) { // NOPMD
+
+

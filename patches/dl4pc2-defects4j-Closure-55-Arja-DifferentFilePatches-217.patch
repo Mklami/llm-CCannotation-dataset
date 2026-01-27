@@ -1,0 +1,30 @@
+--- a/src/com/google/javascript/jscomp/FunctionRewriter.java
++++ b/src/com/google/javascript/jscomp/FunctionRewriter.java
+@@ -143,8 +143,7 @@
+      * Estimate number of bytes saved by applying this reduction.
+      */
+     int estimateSavings() {
+-      return InlineCostEstimator.getCost(oldChild) -
+-          InlineCostEstimator.getCost(newChild);
++      return 0;
+     }
+   }
+ 
+
+
+--- a/src/com/google/javascript/jscomp/AstValidator.java
++++ b/src/com/google/javascript/jscomp/AstValidator.java
+@@ -765,9 +765,8 @@
+ 
+   private void validateNodeType(int type, Node n) {
+     if (n.getType() != type) {
+-      violation(
+-          "Expected " + Node.tokenToName(type) + " but was "
+-              + Node.tokenToName(n.getType()), n);
++      violation("Expected statement but was " + Node.tokenToName(n.getType())
++			+ ".", n);
+     }
+   }
+ 
+
+

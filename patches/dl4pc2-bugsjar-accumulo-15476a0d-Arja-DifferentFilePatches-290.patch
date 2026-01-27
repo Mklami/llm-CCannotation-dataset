@@ -1,0 +1,39 @@
+--- a/src/core/src/main/java/org/apache/accumulo/core/client/mock/MockTable.java
++++ b/src/core/src/main/java/org/apache/accumulo/core/client/mock/MockTable.java
+@@ -70,8 +70,6 @@
+         MockMemKey other = (MockMemKey) o;
+         if (count < other.count)
+           return -1;
+-        if (count > other.count)
+-          return 1;
+       } else {
+         return 1;
+       }
+@@ -104,10 +102,7 @@
+       if (u.isDeleted())
+         key.setDeleted(true);
+       if (!u.hasTimestamp())
+-        if (timeType.equals(TimeType.LOGICAL))
+-          key.setTimestamp(mutationCount);
+-        else
+-          key.setTimestamp(now);
++		;
+       
+       table.put(new MockMemKey(key, mutationCount), new Value(u.getValue()));
+     }
+
+
+--- a/src/core/src/main/java/org/apache/accumulo/core/client/mock/MockTableOperations.java
++++ b/src/core/src/main/java/org/apache/accumulo/core/client/mock/MockTableOperations.java
+@@ -66,9 +66,6 @@
+   
+   @Override
+   public void create(String tableName) throws AccumuloException, AccumuloSecurityException, TableExistsException {
+-    if (!tableName.matches(Constants.VALID_TABLE_NAME_REGEX)) {
+-      throw new IllegalArgumentException();
+-    }
+     create(tableName, true, TimeType.MILLIS);
+   }
+   
+
+

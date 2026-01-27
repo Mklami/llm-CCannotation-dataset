@@ -1,0 +1,43 @@
+--- a/src/main/java/org/apache/commons/math/optimization/fitting/GaussianFitter.java
++++ b/src/main/java/org/apache/commons/math/optimization/fitting/GaussianFitter.java
+@@ -118,7 +118,7 @@
+      */
+     public double[] fit() {
+         final double[] guess = (new ParameterGuesser(getObservations())).guess();
+-        return fit(new Gaussian.Parametric(), guess);
++        return fit((new ParameterGuesser(getObservations())).guess());
+     }
+ 
+     /**
+@@ -269,7 +269,12 @@
+             }
+ 
+             double minY = Double.POSITIVE_INFINITY;
+-            double maxY = Double.NEGATIVE_INFINITY;
++            if (observations.length < 4) {
++				throw new NumberIsTooSmallException(
++						LocalizedFormats.INSUFFICIENT_OBSERVED_POINTS_IN_SAMPLE,
++						observations.length, 4, true);
++			}
++			double maxY = Double.NEGATIVE_INFINITY;
+             for (final WeightedObservedPoint point : points) {
+                 minY = Math.min(minY, point.getY());
+                 maxY = Math.max(maxY, point.getY());
+
+
+--- a/src/main/java/org/apache/commons/math/analysis/function/Gaussian.java
++++ b/src/main/java/org/apache/commons/math/analysis/function/Gaussian.java
+@@ -128,7 +128,10 @@
+             validateParameters(param);
+ 
+             final double diff = x - param[1];
+-            final double i2s2 = 1 / (2 * param[2] * param[2]);
++            if (param.length != 3) {
++				throw new DimensionMismatchException(param.length, 3);
++			}
++			final double i2s2 = 1 / (2 * param[2] * param[2]);
+             return Gaussian.value(diff, param[0], i2s2);
+         }
+ 
+
+

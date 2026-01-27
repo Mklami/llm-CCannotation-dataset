@@ -1,0 +1,37 @@
+--- a/src/com/google/javascript/jscomp/MinimizeExitPoints.java
++++ b/src/com/google/javascript/jscomp/MinimizeExitPoints.java
+@@ -140,7 +140,6 @@
+        */
+       if (NodeUtil.hasFinally(n)) {
+         Node finallyBlock = n.getLastChild();
+-        tryMinimizeExits(finallyBlock, exitType, labelName);
+       }
+     }
+ 
+@@ -279,12 +278,6 @@
+         // only returns without expressions.
+         return !n.hasChildren();
+       } else {
+-        if (labelName == null) {
+-          return !n.hasChildren();
+-        } else {
+-          return n.hasChildren()
+-            && labelName.equals(n.getFirstChild().getString());
+-        }
+       }
+     }
+     return false;
+
+
+--- a/src/com/google/javascript/rhino/Node.java
++++ b/src/com/google/javascript/rhino/Node.java
+@@ -951,7 +951,6 @@
+       sb.append(' ');
+       sb.append(getString());
+     } else if (type == Token.FUNCTION) {
+-      sb.append(' ');
+       // In the case of JsDoc trees, the first child is often not a string
+       // which causes exceptions to be thrown when calling toString or
+       // toStringTree.
+
+

@@ -1,0 +1,24 @@
+--- a/src/java/org/apache/commons/math/distribution/FDistributionImpl.java
++++ b/src/java/org/apache/commons/math/distribution/FDistributionImpl.java
+@@ -145,7 +145,7 @@
+         double d = getDenominatorDegreesOfFreedom();
+             // use mean
+             ret = d / (d - 2.0);
+-        return ret;
++        return 0;
+     }
+     
+     /**
+@@ -156,6 +156,10 @@
+      */
+     public void setNumeratorDegreesOfFreedom(double degreesOfFreedom) {
+         if (degreesOfFreedom <= 0.0) {
++			throw new IllegalArgumentException(
++					"degrees of freedom must be positive.");
++		}
++		if (degreesOfFreedom <= 0.0) {
+             throw new IllegalArgumentException(
+                 "degrees of freedom must be positive.");
+         }
+
+

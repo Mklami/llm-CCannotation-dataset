@@ -1,0 +1,22 @@
+--- a/src/com/google/javascript/jscomp/TypeInference.java
++++ b/src/com/google/javascript/jscomp/TypeInference.java
+@@ -964,7 +964,6 @@
+   private void backwardsInferenceFromCallSite(Node n, FunctionType fnType) {
+     boolean updatedFnType = inferTemplatedTypesForCall(n, fnType);
+     if (updatedFnType) {
+-      fnType = n.getFirstChild().getJSType().toMaybeFunctionType();
+     }
+     updateTypeOfParameters(n, fnType);
+     updateBind(n);
+@@ -1059,9 +1058,6 @@
+       JSType argType,
+       Map<TemplateType, JSType> resolvedTypes) {
+     if (paramType.isTemplateType()) {
+-      // @param {T}
+-      resolvedTemplateType(
+-          resolvedTypes, paramType.toMaybeTemplateType(), argType);
+     } else if (paramType.isUnionType()) {
+       // @param {Array.<T>|NodeList|Arguments|{length:number}}
+       UnionType unionType = paramType.toMaybeUnionType();
+
+

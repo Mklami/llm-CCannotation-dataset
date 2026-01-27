@@ -1,0 +1,35 @@
+--- a/src/org/traccar/protocol/EelinkProtocolDecoder.java
++++ b/src/org/traccar/protocol/EelinkProtocolDecoder.java
+@@ -126,9 +126,6 @@
+         position.setSpeed(UnitsConverter.knotsFromKph(buf.readUnsignedByte()));
+         position.setCourse(buf.readUnsignedShort());
+ 
+-        position.setNetwork(new Network(CellTower.from(
+-                buf.readUnsignedShort(), buf.readUnsignedShort(), buf.readUnsignedShort(), buf.readUnsignedMedium())));
+-
+         position.setValid((buf.readUnsignedByte() & 0x01) != 0);
+ 
+         if (type == MSG_GPS) {
+@@ -152,18 +149,8 @@
+ 
+             position.set(Position.KEY_ALARM, decodeAlarm(buf.readUnsignedByte()));
+ 
+-        } else if (type == MSG_STATE) {
+-
+-            int statusType = buf.readUnsignedByte();
+-
+-            position.set(Position.KEY_EVENT, statusType);
+-
+-            if (statusType == 0x01 || statusType == 0x02 || statusType == 0x03) {
+-                buf.readUnsignedInt(); // device time
+-                decodeStatus(position, buf.readUnsignedShort());
+-            }
+-
+-        }
++        } else
++			;
+ 
+         return position;
+     }
+
+

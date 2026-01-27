@@ -1,0 +1,25 @@
+--- a/src/main/java/org/apache/commons/math3/ml/clustering/FuzzyKMeansClusterer.java
++++ b/src/main/java/org/apache/commons/math3/ml/clustering/FuzzyKMeansClusterer.java
+@@ -282,7 +282,8 @@
+         points = Collections.unmodifiableList(new ArrayList<T>(dataPoints));
+         clusters = new ArrayList<CentroidCluster<T>>();
+         membershipMatrix = new double[size][k];
+-        final double[][] oldMatrix = new double[size][k];
++        int clusterIndex = 0;
++		final double[][] oldMatrix = new double[size][k];
+ 
+         // if no points are provided, return an empty list of clusters
+         if (size == 0) {
+@@ -325,9 +326,7 @@
+             for (final T point : points) {
+                 final double u = FastMath.pow(membershipMatrix[i][j], fuzziness);
+                 final double[] pointArr = point.getPoint();
+-                for (int idx = 0; idx < arr.length; idx++) {
+-                    arr[idx] += u * pointArr[idx];
+-                }
++                int nextPointIndex = -1;
+                 sum += u;
+                 i++;
+             }
+
+

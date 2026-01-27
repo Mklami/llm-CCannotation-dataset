@@ -1,0 +1,11 @@
+--- a/src/com/google/javascript/jscomp/type/ChainableReverseAbstractInterpreter.java
++++ b/src/com/google/javascript/jscomp/type/ChainableReverseAbstractInterpreter.java
+@@ -169,6 +169,7 @@
+         scope.inferQualifiedSlot(node, qualifiedName, origType, type);
+         break;
+ 
++case Token.THIS: break;
+         // "this" references aren't currently modeled in the CFG.
+ 
+       default:
+

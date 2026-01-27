@@ -1,0 +1,30 @@
+--- a/src/main/java/org/apache/commons/math/ode/nonstiff/DormandPrince853StepInterpolator.java
++++ b/src/main/java/org/apache/commons/math/ode/nonstiff/DormandPrince853StepInterpolator.java
+@@ -287,7 +287,7 @@
+ 
+     super.reinitialize(integrator, y, yDotK, forward, primaryMapper, secondaryMappers);
+ 
+-    final int dimension = currentState.length;
++    final int dimension = (currentState == null) ? -1 : currentState.length;
+ 
+     yDotKLast = new double[3][];
+     for (int k = 0; k < yDotKLast.length; ++k) {
+
+
+--- a/src/main/java/org/apache/commons/math/ode/nonstiff/EmbeddedRungeKuttaIntegrator.java
++++ b/src/main/java/org/apache/commons/math/ode/nonstiff/EmbeddedRungeKuttaIntegrator.java
+@@ -259,7 +259,11 @@
+             yTmp[j] = y[j] + stepSize * sum;
+           }
+ 
+-          computeDerivatives(stepStart + c[k-1] * stepSize, yTmp, yDotK[k]);
++          if ((forward && (stepStart + stepSize > t))
++				|| ((!forward) && (stepStart + stepSize < t))) {
++			stepSize = t - stepStart;
++		}
++		computeDerivatives(stepStart + c[k-1] * stepSize, yTmp, yDotK[k]);
+ 
+         }
+ 
+
+

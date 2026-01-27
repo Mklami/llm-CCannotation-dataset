@@ -1,0 +1,33 @@
+--- a/src/org/traccar/protocol/EelinkProtocolDecoder.java
++++ b/src/org/traccar/protocol/EelinkProtocolDecoder.java
+@@ -152,18 +152,8 @@
+ 
+             position.set(Position.KEY_ALARM, decodeAlarm(buf.readUnsignedByte()));
+ 
+-        } else if (type == MSG_STATE) {
+-
+-            int statusType = buf.readUnsignedByte();
+-
+-            position.set(Position.KEY_EVENT, statusType);
+-
+-            if (statusType == 0x01 || statusType == 0x02 || statusType == 0x03) {
+-                buf.readUnsignedInt(); // device time
+-                decodeStatus(position, buf.readUnsignedShort());
+-            }
+-
+-        }
++        } else
++			;
+ 
+         return position;
+     }
+@@ -230,7 +220,6 @@
+         int index = buf.readUnsignedShort();
+ 
+         if (type != MSG_GPS && type != MSG_DATA) {
+-            sendResponse(channel, type, index);
+         }
+ 
+         if (type == MSG_LOGIN) {
+
+

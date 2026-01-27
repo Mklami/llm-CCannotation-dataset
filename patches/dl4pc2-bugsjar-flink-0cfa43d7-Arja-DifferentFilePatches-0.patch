@@ -1,0 +1,21 @@
+--- a/flink-staging/flink-streaming/flink-streaming-core/src/main/java/org/apache/flink/streaming/runtime/tasks/OutputHandler.java
++++ b/flink-staging/flink-streaming/flink-streaming-core/src/main/java/org/apache/flink/streaming/runtime/tasks/OutputHandler.java
+@@ -137,8 +137,6 @@
+ 			Integer output = outputEdge.getTargetID();
+ 
+ 			Collector<?> outCollector = createChainedCollector(chainedConfigs.get(output));
+-
+-			wrapper.addCollector(outCollector, outputEdge);
+ 		}
+ 
+ 		if (chainedTaskConfig.isChainStart()) {
+@@ -152,7 +150,6 @@
+ 					chainedTaskConfig.getStreamOperator(vertex.getUserCodeClassLoader());
+ 			chainableOperator.setup(wrapper, vertex.context);
+ 
+-			chainedOperators.add(chainableOperator);
+ 			return new OperatorCollector<X>(chainableOperator);
+ 		}
+ 
+
+

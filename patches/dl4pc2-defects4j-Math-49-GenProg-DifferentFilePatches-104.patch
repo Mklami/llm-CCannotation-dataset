@@ -1,0 +1,23 @@
+--- a/src/main/java/org/apache/commons/math/util/OpenIntToDoubleHashMap.java
++++ b/src/main/java/org/apache/commons/math/util/OpenIntToDoubleHashMap.java
+@@ -396,7 +396,6 @@
+         final double previous = values[index];
+         values[index] = missingEntries;
+         --size;
+-        ++count;
+         return previous;
+     }
+ 
+@@ -529,9 +528,7 @@
+             if (referenceCount != count) {
+                 throw MathRuntimeException.createConcurrentModificationException(LocalizedFormats.MAP_MODIFIED_WHILE_ITERATING);
+             }
+-            if (current < 0) {
+-                throw MathRuntimeException.createNoSuchElementException(LocalizedFormats.ITERATOR_EXHAUSTED);
+-            }
++            boolean negate = false;
+             return keys[current];
+         }
+ 
+
+

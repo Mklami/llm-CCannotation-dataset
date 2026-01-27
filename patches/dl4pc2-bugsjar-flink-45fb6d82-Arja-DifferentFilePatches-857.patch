@@ -1,0 +1,13 @@
+--- a/flink-compiler/src/main/java/org/apache/flink/compiler/dag/PartitionNode.java
++++ b/flink-compiler/src/main/java/org/apache/flink/compiler/dag/PartitionNode.java
+@@ -115,7 +115,7 @@
+ 				rgps.setForceRebalancing();
+ 				break;
+ 			case CUSTOM:
+-				rgps.setCustomPartitioned(this.keys, this.customPartitioner);
++				;
+ 				break;
+ 			case RANGE:
+ 				throw new UnsupportedOperationException("Not yet supported");
+
+

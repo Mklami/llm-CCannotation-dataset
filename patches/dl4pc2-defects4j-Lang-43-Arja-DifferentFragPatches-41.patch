@@ -1,0 +1,29 @@
+--- a/src/java/org/apache/commons/lang/text/ExtendedMessageFormat.java
++++ b/src/java/org/apache/commons/lang/text/ExtendedMessageFormat.java
+@@ -141,7 +141,11 @@
+      */
+     public final void applyPattern(String pattern) {
+         if (registry == null) {
+-            super.applyPattern(pattern);
++            if (registry == null) {
++				super.applyPattern(pattern);
++				toPattern = super.toPattern();
++				return;
++			}
+             toPattern = super.toPattern();
+             return;
+         }
+@@ -156,7 +160,10 @@
+             switch (c[pos.getIndex()]) {
+             case QUOTE:
+                 appendQuotedString(pattern, pos, stripCustom, true);
+-                break;
++                {
++					pos.setIndex(pos.getIndex() + 1);
++					break;
++				}
+             case START_FE:
+                 fmtCount++;
+                 seekNonWs(pattern, pos);
+
+

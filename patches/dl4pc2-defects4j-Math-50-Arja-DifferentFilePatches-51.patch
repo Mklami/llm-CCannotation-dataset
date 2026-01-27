@@ -1,0 +1,36 @@
+--- a/src/main/java/org/apache/commons/math/analysis/solvers/BaseSecantSolver.java
++++ b/src/main/java/org/apache/commons/math/analysis/solvers/BaseSecantSolver.java
+@@ -142,7 +142,8 @@
+             return x1;
+         }
+ 
+-        // Verify bracketing of initial solution.
++        verifyBracketing(x0, x1);
++		// Verify bracketing of initial solution.
+         verifyBracketing(x0, x1);
+ 
+         // Get accuracies.
+@@ -185,7 +186,6 @@
+                 case REGULA_FALSI:
+                     // Nothing.
+                     if (x == x1) {
+-                        x0 = 0.5 * (x0 + x1 - FastMath.max(rtol * FastMath.abs(x1), atol));
+                         f0 = computeObjectiveValue(x0);
+                     }
+                     break;
+
+
+--- a/src/main/java/org/apache/commons/math/analysis/solvers/UnivariateRealSolverUtils.java
++++ b/src/main/java/org/apache/commons/math/analysis/solvers/UnivariateRealSolverUtils.java
+@@ -302,9 +302,6 @@
+     public static boolean isBracketing(UnivariateRealFunction function,
+                                        final double lower,
+                                        final double upper) {
+-        if (function == null) {
+-            throw new NullArgumentException(LocalizedFormats.FUNCTION);
+-        }
+         final double fLo = function.value(lower);
+         final double fHi = function.value(upper);
+         return (fLo >= 0 && fHi <= 0) || (fLo <= 0 && fHi >= 0);
+
+

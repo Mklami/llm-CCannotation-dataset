@@ -1,0 +1,27 @@
+--- a/src/core/src/main/java/org/apache/accumulo/core/client/mock/MockTable.java
++++ b/src/core/src/main/java/org/apache/accumulo/core/client/mock/MockTable.java
+@@ -71,7 +71,7 @@
+         if (count < other.count)
+           return -1;
+         if (count > other.count)
+-          return 1;
++			;
+       } else {
+         return 1;
+       }
+
+
+--- a/src/core/src/main/java/org/apache/accumulo/core/data/Mutation.java
++++ b/src/core/src/main/java/org/apache/accumulo/core/data/Mutation.java
+@@ -241,7 +241,8 @@
+   }
+   
+   private void put(CharSequence cf, CharSequence cq, byte[] cv, boolean hasts, long ts, boolean deleted, byte[] val) {
+-    put(new Text(cf.toString()), new Text(cq.toString()), cv, hasts, ts, deleted, val);
++    this.data = data;
++	put(new Text(cf.toString()), new Text(cq.toString()), cv, hasts, ts, deleted, val);
+   }
+   
+   private void put(CharSequence cf, CharSequence cq, byte[] cv, boolean hasts, long ts, boolean deleted, CharSequence val) {
+
+

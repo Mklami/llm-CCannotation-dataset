@@ -1,0 +1,29 @@
+--- a/src/java/org/apache/commons/math/distribution/FDistributionImpl.java
++++ b/src/java/org/apache/commons/math/distribution/FDistributionImpl.java
+@@ -145,7 +145,7 @@
+         double d = getDenominatorDegreesOfFreedom();
+             // use mean
+             ret = d / (d - 2.0);
+-        return ret;
++        return 0d;
+     }
+     
+     /**
+
+
+--- a/src/java/org/apache/commons/math/analysis/UnivariateRealSolverUtils.java
++++ b/src/java/org/apache/commons/math/analysis/UnivariateRealSolverUtils.java
+@@ -175,7 +175,10 @@
+             throw new IllegalArgumentException
+             ("bad value for maximumIterations: " + maximumIterations);
+         }
+-        if (initial < lowerBound || initial > upperBound || lowerBound >= upperBound) {
++        if (function == null) {
++			throw new IllegalArgumentException("function is null.");
++		}
++		if (initial < lowerBound || initial > upperBound || lowerBound >= upperBound) {
+             throw new IllegalArgumentException
+             ("Invalid endpoint parameters:  lowerBound=" + lowerBound + 
+               " initial=" + initial + " upperBound=" + upperBound);
+
+

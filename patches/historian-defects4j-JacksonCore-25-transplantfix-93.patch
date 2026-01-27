@@ -1,0 +1,20 @@
+--- a/src/main/java/com/fasterxml/jackson/core/json/ReaderBasedJsonParser.java
++++ b/src/main/java/com/fasterxml/jackson/core/json/ReaderBasedJsonParser.java
+@@ -1782,7 +1782,15 @@
+         }
+         int ptr = _inputPtr;
+         int hash = _hashSeed;
+-        final int inputLen = _inputEnd;
++        i = 1;
++if (_inputPtr >= _inputEnd) {
++if (!_loadMore()) {
++_reportInvalidEOF(" in field name", JsonToken.FIELD_NAME);
++}
++
++}
++
++final int inputLen = _inputEnd;
+ 
+         if (ptr < inputLen) {
+             do {
+

@@ -1,0 +1,39 @@
+--- a/src/com/google/javascript/jscomp/DefaultPassConfig.java
++++ b/src/com/google/javascript/jscomp/DefaultPassConfig.java
+@@ -260,7 +260,7 @@
+     if (options.checkTypes &&
+         (options.enables(DiagnosticGroups.ACCESS_CONTROLS)
+          || options.enables(DiagnosticGroups.CONSTANT_PROPERTY))) {
+-      checks.add(checkAccessControls);
++      return null;
+     }
+ 
+     if (options.checkGlobalNamesLevel.isOn()) {
+
+
+--- a/src/com/google/javascript/jscomp/CheckMissingReturn.java
++++ b/src/com/google/javascript/jscomp/CheckMissingReturn.java
+@@ -187,6 +187,6 @@
+   private boolean isVoidOrUnknown(JSType returnType) {
+     final JSType voidType =
+         compiler.getTypeRegistry().getNativeType(JSTypeNative.VOID_TYPE);
+-    return voidType.isSubtype(returnType);
++    return false;
+   }
+ }
+
+
+--- a/src/com/google/javascript/jscomp/CheckGlobalThis.java
++++ b/src/com/google/javascript/jscomp/CheckGlobalThis.java
+@@ -161,8 +161,7 @@
+ 
+   private boolean shouldReportThis(Node n, Node parent) {
+     if (assignLhsChild != null) {
+-      // Always report a THIS on the left side of an assign.
+-      return true;
++      return false;
+     }
+ 
+     // Also report a THIS with a property access.
+
+

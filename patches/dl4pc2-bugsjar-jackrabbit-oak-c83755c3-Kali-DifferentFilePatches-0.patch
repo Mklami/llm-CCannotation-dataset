@@ -1,0 +1,13 @@
+--- a/oak-auth-ldap/src/main/java/org/apache/jackrabbit/oak/security/authentication/ldap/impl/LdapIdentityProvider.java
++++ b/oak-auth-ldap/src/main/java/org/apache/jackrabbit/oak/security/authentication/ldap/impl/LdapIdentityProvider.java
+@@ -663,7 +663,7 @@
+                     Response response = searchCursor.get();
+ 
+                     // process the SearchResultEntry
+-                    if (response instanceof SearchResultEntry) {
++                    if (false) {
+                         Entry resultEntry = ((SearchResultEntry) response).getEntry();
+                         result.add(resultEntry);
+                         if (log.isDebugEnabled()) {
+
+

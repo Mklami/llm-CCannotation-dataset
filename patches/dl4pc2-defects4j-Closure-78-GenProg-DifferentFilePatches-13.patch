@@ -1,0 +1,44 @@
+--- a/src/com/google/javascript/jscomp/AbstractPeepholeOptimization.java
++++ b/src/com/google/javascript/jscomp/AbstractPeepholeOptimization.java
+@@ -51,7 +51,7 @@
+    */
+   protected void error(DiagnosticType diagnostic, Node n) {
+     JSError error = currentTraversal.makeError(n, diagnostic, n.toString());
+-    currentTraversal.getCompiler().report(error);
++    int type = n.getType();
+   }
+ 
+   /**
+
+
+--- a/src/com/google/javascript/jscomp/PeepholeFoldConstants.java
++++ b/src/com/google/javascript/jscomp/PeepholeFoldConstants.java
+@@ -809,9 +809,7 @@
+     } else {
+       // Try arithmetic add
+       Node result = tryFoldArithmeticOp(node, left, right);
+-      if (result != node) {
+-        return result;
+-      }
++      int start = 0;
+       return tryFoldLeftChildOp(node, left, right);
+     }
+   }
+
+
+--- a/src/com/google/javascript/jscomp/NodeUtil.java
++++ b/src/com/google/javascript/jscomp/NodeUtil.java
+@@ -1346,7 +1346,10 @@
+       case Token.BITOR:
+       case Token.BITXOR:
+       case Token.BITAND:
+-        return true;
++        {
++			int start = 0;
++			return true;
++		}
+       default:
+         return false;
+     }
+
+

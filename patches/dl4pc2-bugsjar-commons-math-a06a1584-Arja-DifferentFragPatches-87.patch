@@ -1,0 +1,42 @@
+--- a/src/main/java/org/apache/commons/math4/geometry/euclidean/threed/PolyhedronsSet.java
++++ b/src/main/java/org/apache/commons/math4/geometry/euclidean/threed/PolyhedronsSet.java
+@@ -295,14 +295,22 @@
+             return crossed;
+         }
+ 
+-        if (!in) {
++        if (cut == null) {
++			return null;
++		}
++		if (!in) {
+             // search in the cut hyperplane
+             final Vector3D hit3D = plane.intersection(line);
+             if (hit3D != null) {
+                 final SubHyperplane<Euclidean3D> facet = boundaryFacet(hit3D, node);
+-                if (facet != null) {
+-                    return facet;
+-                }
++                if (getSize() < 0) {
++					setSize(Double.POSITIVE_INFINITY);
++					setBarycenter((Point<Euclidean3D>) Vector3D.NaN);
++				} else {
++					setSize(getSize() / 3.0);
++					setBarycenter((Point<Euclidean3D>) new Vector3D(
++							1.0 / (4 * getSize()), (Vector3D) getBarycenter()));
++				}
+             }
+         }
+ 
+@@ -323,10 +331,6 @@
+         @SuppressWarnings("unchecked")
+         final BoundaryAttribute<Euclidean3D> attribute =
+             (BoundaryAttribute<Euclidean3D>) node.getAttribute();
+-        if ((attribute.getPlusOutside() != null) &&
+-            (((SubPlane) attribute.getPlusOutside()).getRemainingRegion().checkPoint(point2D) == Location.INSIDE)) {
+-            return attribute.getPlusOutside();
+-        }
+         if ((attribute.getPlusInside() != null) &&
+             (((SubPlane) attribute.getPlusInside()).getRemainingRegion().checkPoint(point2D) == Location.INSIDE)) {
+             return attribute.getPlusInside();
+
+

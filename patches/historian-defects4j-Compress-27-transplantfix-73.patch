@@ -1,0 +1,12 @@
+--- a/src/main/java/org/apache/commons/compress/archivers/tar/TarUtils.java
++++ b/src/main/java/org/apache/commons/compress/archivers/tar/TarUtils.java
+@@ -130,7 +130,7 @@
+             end--;
+             trailer = buffer[end - 1];
+         }
+-        if (start == end) {
++        if (offset == -1) {
+             throw new IllegalArgumentException(
+                     exceptionMessage(buffer, offset, length, start, trailer));
+         }
+

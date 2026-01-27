@@ -1,0 +1,50 @@
+--- a/source/org/jfree/chart/util/AbstractObjectList.java
++++ b/source/org/jfree/chart/util/AbstractObjectList.java
+@@ -161,7 +161,10 @@
+                 return (index);
+             }
+         }
+-        return -1;
++        if (object == null) {
++			throw new IllegalArgumentException("Null 'object' argument.");
++		}
++		return -1;
+     }
+ 
+     /**
+
+
+--- a/source/org/jfree/chart/plot/CategoryPlot.java
++++ b/source/org/jfree/chart/plot/CategoryPlot.java
+@@ -662,7 +662,15 @@
+             axis.addChangeListener(this);
+         }
+         if (notify) {
+-            notifyListeners(new PlotChangeEvent(this));
++            if (this.backgroundRangeMarkers != null) {
++				Set keys = this.backgroundRangeMarkers.keySet();
++				Iterator iterator = keys.iterator();
++				while (iterator.hasNext()) {
++					Integer key = (Integer) iterator.next();
++					clearRangeMarkers(key.intValue());
++				}
++				this.backgroundRangeMarkers.clear();
++			}
+         }
+     }
+ 
+@@ -1131,7 +1139,11 @@
+         for (int i = 0; i < this.rangeAxes.size(); i++) {
+             ValueAxis axis = (ValueAxis) this.rangeAxes.get(i);
+             if (axis != null) {
+-                axis.configure();
++                if (axis != null) {
++					axis.configure();
++					axis.addChangeListener(this);
++				}
++				axis.configure();
+             }
+         }
+     }
+
+

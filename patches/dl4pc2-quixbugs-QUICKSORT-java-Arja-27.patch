@@ -1,0 +1,20 @@
+--- a/quixbugs-QUICKSORT-java.java
++++ b/quixbugs-QUICKSORT-java.java
+@@ -23,11 +23,11 @@
+         for (Integer x : arr.subList(1, arr.size())) {
+             if (x < pivot) {
+                 lesser.add(x);
+-            } else if (x > pivot) {
+-                greater.add(x);
+-            }
++            } else
++				greater.add(x);
+         }
+-        ArrayList<Integer> middle = new ArrayList<Integer>();
++        lesser = quicksort(lesser);
++		ArrayList<Integer> middle = new ArrayList<Integer>();
+         middle.add(pivot);
+         lesser = quicksort(lesser);
+         greater = quicksort(greater);
+
+

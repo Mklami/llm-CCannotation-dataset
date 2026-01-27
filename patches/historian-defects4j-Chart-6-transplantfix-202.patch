@@ -1,0 +1,23 @@
+--- a/source/org/jfree/chart/util/ShapeList.java
++++ b/source/org/jfree/chart/util/ShapeList.java
+@@ -108,7 +108,18 @@
+         if (!(obj instanceof ShapeList)) {
+             return false;
+         }
+-        return super.equals(obj);
++        ShapeList that = (ShapeList) obj;
++int listSize = size();
++int i = 0;while (i < listSize) {
++if (!ShapeUtilities.equal(getShape(i), that.getShape(i))) {
++return false;
++}
++else {
++i++;}
++
++}
++return true;
++
+ 
+     }
+ 
+

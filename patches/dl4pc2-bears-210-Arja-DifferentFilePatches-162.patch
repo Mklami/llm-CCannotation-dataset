@@ -1,0 +1,25 @@
+--- a/src/main/java/org/joo/libra/sql/antlr/SqlParser.java
++++ b/src/main/java/org/joo/libra/sql/antlr/SqlParser.java
+@@ -812,7 +812,6 @@
+ 				_localctx = new VariableExprContext(_localctx);
+ 				_ctx = _localctx;
+ 				_prevctx = _localctx;
+-				setState(88);
+ 				match(VARIABLE);
+ 				}
+ 				break;
+
+
+--- a/src/main/java/org/joo/libra/pointer/VariablePredicate.java
++++ b/src/main/java/org/joo/libra/pointer/VariablePredicate.java
+@@ -33,7 +33,7 @@
+         	return ((Number) rawValue).doubleValue() != 0.0;
+         if (rawValue instanceof Boolean)
+         	return Boolean.TRUE.equals(rawValue);
+-        return true;
++        return value.getValue(context) == null;
+     }
+     
+     public String toString() {
+
+

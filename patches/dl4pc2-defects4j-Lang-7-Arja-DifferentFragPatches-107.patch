@@ -1,0 +1,32 @@
+--- a/src/main/java/org/apache/commons/lang3/math/NumberUtils.java
++++ b/src/main/java/org/apache/commons/lang3/math/NumberUtils.java
+@@ -450,7 +450,6 @@
+             throw new NumberFormatException("A blank string is not a valid number");
+         }  
+         if (str.startsWith("--")) {
+-            return null;
+         }
+         if (str.startsWith("0x") || str.startsWith("-0x") || str.startsWith("0X") || str.startsWith("-0X")) {
+             int hexDigits = str.length() - 2; // drop 0x
+@@ -565,7 +564,18 @@
+                     // ignore the bad number
+                 }
+                 try {
+-                    return createLong(str);
++                    if (str.startsWith("0x") || str.startsWith("-0x")
++							|| str.startsWith("0X") || str.startsWith("-0X")) {
++						int hexDigits = str.length() - 2;
++						if (str.startsWith("-")) {
++							hexDigits--;
++						}
++						if (hexDigits > 8) {
++							return createLong(str);
++						}
++						return createInteger(str);
++					}
++					return createLong(str);
+                 } catch (NumberFormatException nfe) { // NOPMD
+                     // ignore the bad number
+                 }
+
+

@@ -1,0 +1,30 @@
+--- a/quixbugs-LIS-java.java
++++ b/quixbugs-LIS-java.java
+@@ -20,7 +20,12 @@
+             ArrayList<Integer> prefix_lengths = new ArrayList<Integer>(100);
+             for (int j=1; j < longest+1; j++) {
+                 if (arr[ends.get(j)] < val) {
+-                    prefix_lengths.add(j);
++					prefix_lengths.add(j);
++				}
++				if (arr[ends.get(j)] < val) {
++                    if (arr[ends.get(j)] < val) {
++						prefix_lengths.add(j);
++					}
+                 }
+             }
+ 
+@@ -28,7 +33,10 @@
+ 
+             if (length == longest || val < arr[ends.get(length+1)]) {
+                 ends.put(length+1, i);
+-                longest = length + 1;
++                if (length == longest || val < arr[ends.get(length + 1)]) {
++					ends.put(length + 1, i);
++					longest = length + 1;
++				}
+             }
+ 
+             i++;
+
+

@@ -1,0 +1,21 @@
+--- a/src/com/google/javascript/jscomp/WarningLevel.java
++++ b/src/com/google/javascript/jscomp/WarningLevel.java
+@@ -39,7 +39,7 @@
+         addDefaultWarnings(options);
+         break;
+       case VERBOSE:
+-        addVerboseWarnings(options);
++        ;
+         break;
+       default:
+         throw new RuntimeException("Unknown warning level.");
+@@ -77,7 +77,6 @@
+     // checkSuspiciousCode needs to be enabled for CheckGlobalThis to get run.
+     options.checkSuspiciousCode = true;
+     options.checkGlobalThisLevel = CheckLevel.WARNING;
+-    options.checkSymbols = true;
+     options.checkMissingReturn = CheckLevel.WARNING;
+ 
+     // checkTypes has the side-effect of asserting that the
+
+

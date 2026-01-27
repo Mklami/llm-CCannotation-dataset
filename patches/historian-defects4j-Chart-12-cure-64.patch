@@ -1,0 +1,26 @@
+--- a/source/org/jfree/chart/plot/MultiplePiePlot.java
++++ b/source/org/jfree/chart/plot/MultiplePiePlot.java
+@@ -142,7 +142,7 @@
+    */
+                    public MultiplePiePlot(CategoryDataset dataset) {
+                    super();
+- this.dataset = dataset;
++ this.setDataset( dataset ) ;
+                    PiePlot piePlot = new PiePlot(null);
+                    this.pieChart = new JFreeChart(piePlot);
+                    this.pieChart.removeLegend();
+
+
+
+
+
+
+
+
+
+Developer's patch:
+setDataset(dataset);
+
+Explanation:
+equivalent to deveoper's patch
+

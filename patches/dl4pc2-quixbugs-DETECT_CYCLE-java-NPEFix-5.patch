@@ -1,0 +1,13 @@
+--- a/quixbugs-DETECT_CYCLE-java.java
++++ b/quixbugs-DETECT_CYCLE-java.java
+@@ -17,4 +17,9 @@
+         while (true) {
+-            if (hare.getSuccessor() == null)
++            if (hare == null) {
++                if ( tortoise.getSuccessor() == null)
+                 return false;
++            } else {
++                if (hare.getSuccessor() == null)
++                return false;
++            }
+ 

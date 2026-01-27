@@ -1,0 +1,29 @@
+--- a/src/main/java/org/apache/commons/math3/genetics/ElitisticListPopulation.java
++++ b/src/main/java/org/apache/commons/math3/genetics/ElitisticListPopulation.java
+@@ -47,7 +47,11 @@
+     public ElitisticListPopulation(final List<Chromosome> chromosomes,
+                                    final int populationLimit,
+                                    final double elitismRate) {
+-        super(chromosomes, populationLimit);
++        super(chromosomes, populationLimit);if (elitismRate < 0 || elitismRate > 1) {
++throw new OutOfRangeException(LocalizedFormats.ELITISM_RATE, elitismRate, 0, 1);
++}
++
++
+         this.elitismRate = elitismRate;
+     }
+ 
+@@ -61,7 +65,11 @@
+      * @throws OutOfRangeException if the elitism rate is outside the [0, 1] range
+      */
+     public ElitisticListPopulation(final int populationLimit, final double elitismRate) {
+-        super(populationLimit);
++        super(populationLimit);if (elitismRate < 0 || elitismRate > 1) {
++throw new OutOfRangeException(LocalizedFormats.ELITISM_RATE, elitismRate, 0, 1);
++}
++
++
+         this.elitismRate = elitismRate;
+     }
+ 
+

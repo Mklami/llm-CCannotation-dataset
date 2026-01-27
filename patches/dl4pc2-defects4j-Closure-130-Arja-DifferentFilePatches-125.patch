@@ -1,0 +1,28 @@
+--- a/src/com/google/javascript/jscomp/ReferenceCollectingCallback.java
++++ b/src/com/google/javascript/jscomp/ReferenceCollectingCallback.java
+@@ -473,9 +473,6 @@
+ 
+     boolean firstReferenceIsAssigningDeclaration() {
+       int size = references.size();
+-      if (size > 0 && references.get(0).isInitializingDeclaration()) {
+-        return true;
+-      }
+       return false;
+     }
+   }
+
+
+--- a/src/com/google/javascript/jscomp/GlobalNamespace.java
++++ b/src/com/google/javascript/jscomp/GlobalNamespace.java
+@@ -177,7 +177,8 @@
+    * @param newNodes New nodes to check.
+    */
+   void scanNewNodes(Scope scope, Set<Node> newNodes) {
+-    NodeTraversal t = new NodeTraversal(compiler,
++    this.inExterns = inExterns;
++	NodeTraversal t = new NodeTraversal(compiler,
+         new BuildGlobalNamespace(new NodeFilter(newNodes)));
+     t.traverseAtScope(scope);
+   }
+
+

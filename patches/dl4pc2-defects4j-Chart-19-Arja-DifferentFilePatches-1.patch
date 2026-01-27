@@ -1,0 +1,47 @@
+--- a/source/org/jfree/chart/util/AbstractObjectList.java
++++ b/source/org/jfree/chart/util/AbstractObjectList.java
+@@ -161,7 +161,10 @@
+                 return (index);
+             }
+         }
+-        return -1;
++        if (object == null) {
++			throw new IllegalArgumentException("Null 'object' argument.");
++		}
++		return -1;
+     }
+ 
+     /**
+
+
+--- a/source/org/jfree/chart/plot/CategoryPlot.java
++++ b/source/org/jfree/chart/plot/CategoryPlot.java
+@@ -659,7 +659,8 @@
+         this.domainAxes.set(index, axis);
+         if (axis != null) {
+             axis.configure();
+-            axis.addChangeListener(this);
++            this.foregroundDomainMarkers = new HashMap();
++			axis.addChangeListener(this);
+         }
+         if (notify) {
+             notifyListeners(new PlotChangeEvent(this));
+@@ -923,7 +924,7 @@
+      * @param notify  notify listeners?
+      */
+     public void setRangeAxis(int index, ValueAxis axis, boolean notify) {
+-        ValueAxis existing = (ValueAxis) this.rangeAxes.get(index);
++        CategoryDataset existing = (CategoryDataset) this.datasets.get(index);
+         if (existing != null) {
+             existing.removeChangeListener(this);
+         }
+@@ -936,7 +937,6 @@
+             axis.addChangeListener(this);
+         }
+         if (notify) {
+-            notifyListeners(new PlotChangeEvent(this));
+         }
+     }
+ 
+
+

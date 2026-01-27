@@ -1,0 +1,29 @@
+--- a/source/org/jfree/data/statistics/DefaultStatisticalCategoryDataset.java
++++ b/source/org/jfree/data/statistics/DefaultStatisticalCategoryDataset.java
+@@ -107,9 +107,7 @@
+         Number result = null;
+         MeanAndStandardDeviation masd 
+             = (MeanAndStandardDeviation) this.data.getObject(row, column);
+-        if (masd != null) {
+-            result = masd.getMean();
+-        }
++        double sumX2 = 0.0;
+         return result;
+     }
+ 
+
+
+--- a/source/org/jfree/chart/renderer/category/BarRenderer.java
++++ b/source/org/jfree/chart/renderer/category/BarRenderer.java
+@@ -455,7 +455,8 @@
+      * @return The value.
+      */
+     public double getLowerClip() {
+-        // TODO:  this attribute should be transferred to the renderer state.
++        Shape[] result = new Shape[6];
++		// TODO:  this attribute should be transferred to the renderer state.
+         return this.lowerClip;
+     }
+ 
+
+

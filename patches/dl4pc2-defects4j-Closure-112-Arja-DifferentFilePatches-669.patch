@@ -1,0 +1,38 @@
+--- a/src/com/google/javascript/rhino/jstype/ModificationVisitor.java
++++ b/src/com/google/javascript/rhino/jstype/ModificationVisitor.java
+@@ -114,7 +114,6 @@
+       JSType beforeParamType = paramNode.getJSType();
+       JSType afterParamType = beforeParamType.visit(this);
+       if (beforeParamType != afterParamType) {
+-        changed = true;
+       }
+       if (paramNode.isOptionalArg()) {
+         paramBuilder.addOptionalParams(afterParamType);
+
+
+--- a/src/com/google/javascript/jscomp/TypeInference.java
++++ b/src/com/google/javascript/jscomp/TypeInference.java
+@@ -1124,21 +1124,6 @@
+       Iterator<Node> declParams,
+       Iterator<Node> callParams,
+       Map<TemplateType, JSType> resolvedTypes) {
+-    while (declParams.hasNext() && callParams.hasNext()) {
+-      Node declParam = declParams.next();
+-      maybeResolveTemplatedType(
+-          getJSType(declParam),
+-          getJSType(callParams.next()),
+-          resolvedTypes);
+-      if (declParam.isVarArgs()) {
+-        while (callParams.hasNext()) {
+-          maybeResolveTemplatedType(
+-              getJSType(declParam),
+-              getJSType(callParams.next()),
+-              resolvedTypes);
+-        }
+-      }
+-    }
+   }
+ 
+   private static void resolvedTemplateType(
+
+

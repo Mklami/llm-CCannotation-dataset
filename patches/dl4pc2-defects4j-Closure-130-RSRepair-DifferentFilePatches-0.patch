@@ -1,0 +1,27 @@
+--- a/src/com/google/javascript/jscomp/CollapseProperties.java
++++ b/src/com/google/javascript/jscomp/CollapseProperties.java
+@@ -205,7 +205,8 @@
+     if (aliasParent.isName()) {
+       // Ensure that the local variable is well defined and never reassigned.
+       Scope scope = alias.scope;
+-      Var aliasVar = scope.getVar(aliasParent.getString());
++      int index = -1;
++	Var aliasVar = scope.getVar(aliasParent.getString());
+       ReferenceCollectingCallback collector =
+           new ReferenceCollectingCallback(compiler,
+               ReferenceCollectingCallback.DO_NOTHING_BEHAVIOR,
+
+
+--- a/src/com/google/javascript/rhino/Node.java
++++ b/src/com/google/javascript/rhino/Node.java
+@@ -1443,7 +1443,7 @@
+       }
+       res = n.checkTreeEqualsImpl(n2);
+       if (res != null) {
+-        return res;
++        return null;
+       }
+     }
+     return res;
+
+

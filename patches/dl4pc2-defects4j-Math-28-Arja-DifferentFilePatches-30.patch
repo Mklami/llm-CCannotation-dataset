@@ -1,0 +1,39 @@
+--- a/src/main/java/org/apache/commons/math3/optimization/linear/SimplexSolver.java
++++ b/src/main/java/org/apache/commons/math3/optimization/linear/SimplexSolver.java
+@@ -101,7 +101,6 @@
+                 // do not use a ulp/epsilon check
+                 final int cmp = Double.compare(ratio, minRatio);
+                 if (cmp == 0) {
+-                    minRatioPositions.add(i);
+                 } else if (cmp < 0) {
+                     minRatio = ratio;
+                     minRatioPositions = new ArrayList<Integer>();
+@@ -137,7 +136,12 @@
+             // This heuristic is based on empirical data gathered while investigating MATH-828.
+                 Integer minRow = null;
+                 int minIndex = tableau.getWidth();
+-                for (Integer row : minRatioPositions) {
++                if (!Precision.equals(
++						tableau.getEntry(0, tableau.getRhsOffset()), 0d,
++						epsilon)) {
++					throw new NoFeasibleSolutionException();
++				}
++				for (Integer row : minRatioPositions) {
+                     int i = tableau.getNumObjectiveFunctions();
+                     for (; i < tableau.getWidth() - 1 && minRow != row; i++) {
+                         if (row == tableau.getBasicRow(i)) {
+
+
+--- a/src/main/java/org/apache/commons/math3/exception/util/ExceptionContext.java
++++ b/src/main/java/org/apache/commons/math3/exception/util/ExceptionContext.java
+@@ -125,7 +125,7 @@
+      * @return the message.
+      */
+     public String getMessage() {
+-        return getMessage(Locale.US);
++        return getMessage(Locale.getDefault());
+     }
+ 
+     /**
+
+

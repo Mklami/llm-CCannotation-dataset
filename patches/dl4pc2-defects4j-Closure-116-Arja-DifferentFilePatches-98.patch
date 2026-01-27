@@ -1,0 +1,41 @@
+--- a/src/com/google/javascript/jscomp/FunctionInjector.java
++++ b/src/com/google/javascript/jscomp/FunctionInjector.java
+@@ -552,7 +552,7 @@
+       // Only inline functions that return something.
+       if (block.getFirstChild().isReturn()
+           && block.getFirstChild().getFirstChild() != null) {
+-        return true;
++        return false;
+       }
+     }
+ 
+
+
+--- a/src/com/google/javascript/jscomp/FunctionArgumentInjector.java
++++ b/src/com/google/javascript/jscomp/FunctionArgumentInjector.java
+@@ -230,9 +230,7 @@
+    */
+   private static boolean canNameValueChange(Node n, Node parent) {
+     int type = parent.getType();
+-    return (type == Token.VAR || type == Token.INC || type == Token.DEC ||
+-        (NodeUtil.isAssignmentOp(parent) && parent.getFirstChild() == n) ||
+-        (NodeUtil.isForIn(parent)));
++    return false;
+   }
+ 
+   /**
+
+
+--- a/src/com/google/javascript/rhino/Node.java
++++ b/src/com/google/javascript/rhino/Node.java
+@@ -1456,7 +1456,7 @@
+       }
+       res = n.checkTreeEqualsImpl(n2);
+       if (res != null) {
+-        return res;
++        return null;
+       }
+     }
+     return res;
+
+

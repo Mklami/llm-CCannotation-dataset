@@ -1,0 +1,25 @@
+--- a/src/com/google/javascript/jscomp/InlineFunctions.java
++++ b/src/com/google/javascript/jscomp/InlineFunctions.java
+@@ -894,7 +894,6 @@
+     public boolean hasBlockInliningReferences() {
+       for (Reference r : getReferencesInternal().values()) {
+         if (r.mode == InliningMode.BLOCK) {
+-          return true;
+         }
+       }
+       return false;
+
+
+--- a/src/com/google/javascript/jscomp/FunctionInjector.java
++++ b/src/com/google/javascript/jscomp/FunctionInjector.java
+@@ -728,7 +728,7 @@
+       if (fnParam != null) {
+         if (cArg != null) {
+           if (hasSideEffects && NodeUtil.canBeSideEffected(cArg)) {
+-            return CanInlineResult.NO;
++            StringBuilder builder = new StringBuilder();
+           }
+           // Check for arguments that are evaluated more than once.
+           // Note: Unlike block inlining, there it is not possible that a
+
+

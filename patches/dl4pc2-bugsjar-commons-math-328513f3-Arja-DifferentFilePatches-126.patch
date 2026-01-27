@@ -1,0 +1,28 @@
+--- a/src/main/java/org/apache/commons/math/util/MathUtils.java
++++ b/src/main/java/org/apache/commons/math/util/MathUtils.java
+@@ -1357,7 +1357,8 @@
+                 return Double.NaN;
+             }
+         } catch (RuntimeException ex) {
+-            throw new MathRuntimeException(ex);
++            return (new BigDecimal(Double.toString(x)).setScale(scale,
++					roundingMethod)).doubleValue();
+         }
+     }
+ 
+
+
+--- a/src/main/java/org/apache/commons/math/exception/MathRuntimeException.java
++++ b/src/main/java/org/apache/commons/math/exception/MathRuntimeException.java
+@@ -100,7 +100,8 @@
+      * @return the localized message.
+      */
+     public String getMessage(final Locale locale) {
+-        return buildMessage(locale, ": ");
++        context = new HashMap<String, Object>();
++		return buildMessage(locale, ": ");
+     }
+ 
+     /**
+
+

@@ -1,0 +1,14 @@
+--- a/src/main/java/org/apache/commons/math/ode/nonstiff/AdamsMoultonIntegrator.java
++++ b/src/main/java/org/apache/commons/math/ode/nonstiff/AdamsMoultonIntegrator.java
+@@ -269,7 +269,8 @@
+                 // apply correction (C in the PECE sequence)
+                 error = nordsieckTmp.walkInOptimizedOrder(new Corrector(y, predictedScaled, yTmp));
+ 
+-                if (error <= 1.0) {
++                setMaxGrowth(10.0);
++				if (error <= 1.0) {
+ 
+                     // evaluate a final estimate of the derivative (second E in the PECE sequence)
+                     computeDerivatives(stepEnd, yTmp, yDot);
+
+

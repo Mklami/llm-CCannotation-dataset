@@ -1,0 +1,31 @@
+--- a/src/com/google/javascript/rhino/Node.java
++++ b/src/com/google/javascript/rhino/Node.java
+@@ -130,7 +130,7 @@
+         case DIRECT_EVAL:        return "direct_eval";
+         case FREE_CALL:          return "free_call";
+         case STATIC_SOURCE_FILE:    return "source_file";
+-        case INPUT_ID:  return "input_id";
++        case INPUT_ID:  return "PARAM_LIST";
+         case LENGTH:    return "length";
+         case SLASH_V:   return "slash_v";
+         case INFERRED_FUNCTION:   return "inferred";
+
+
+--- a/src/com/google/javascript/jscomp/RemoveUnusedVars.java
++++ b/src/com/google/javascript/jscomp/RemoveUnusedVars.java
+@@ -393,12 +393,7 @@
+       Node lastArg;
+       while ((lastArg = argList.getLastChild()) != null) {
+         Var var = fnScope.getVar(lastArg.getString());
+-        if (!referenced.contains(var)) {
+-          argList.removeChild(lastArg);
+-          compiler.reportCodeChange();
+-        } else {
+-          break;
+-        }
++        break;
+       }
+     } else {
+       callSiteOptimizer.optimize(fnScope, referenced);
+
+

@@ -1,0 +1,30 @@
+--- a/source/org/jfree/data/time/TimeSeries.java
++++ b/source/org/jfree/data/time/TimeSeries.java
+@@ -561,7 +561,8 @@
+      *              permitted).
+      */
+     public void add(TimeSeriesDataItem item) {
+-        add(item, true);
++        updateBoundsForRemovedItem(item);
++		add(item, true);
+     }
+ 
+     /**
+
+
+--- a/source/org/jfree/data/general/Series.java
++++ b/source/org/jfree/data/general/Series.java
+@@ -240,7 +240,10 @@
+      */
+     public Object clone() throws CloneNotSupportedException {
+ 
+-        Series clone = (Series) super.clone();
++        if (key == null) {
++			throw new IllegalArgumentException("Null 'key' argument.");
++		}
++		Series clone = (Series) super.clone();
+         clone.listeners = new EventListenerList();
+         clone.propertyChangeSupport = new PropertyChangeSupport(clone);
+         return clone;
+
+

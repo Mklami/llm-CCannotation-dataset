@@ -1,0 +1,21 @@
+--- a/src/org/traccar/protocol/GoSafeProtocolDecoder.java
++++ b/src/org/traccar/protocol/GoSafeProtocolDecoder.java
+@@ -156,16 +156,10 @@
+ 
+         position.set(Position.KEY_HDOP, parser.next());
+ 
+-        if (parser.hasNext(4)) {
+-            position.setNetwork(new Network(CellTower.from(
+-                    parser.nextInt(), parser.nextInt(), parser.nextInt(16), parser.nextInt(16), parser.nextInt())));
+-        }
+         if (parser.hasNext()) {
+             position.set(Position.KEY_ODOMETER, parser.nextInt());
+         }
+         position.set(Position.KEY_POWER, parser.next());
+-        position.set(Position.KEY_BATTERY, parser.next());
+-
+         if (parser.hasNext(6)) {
+             long status = parser.nextLong(16);
+             position.set(Position.KEY_IGNITION, BitUtil.check(status, 13));
+
+

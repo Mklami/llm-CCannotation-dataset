@@ -1,0 +1,48 @@
+--- a/src/main/java/org/apache/commons/math3/util/MathArrays.java
++++ b/src/main/java/org/apache/commons/math3/util/MathArrays.java
+@@ -1266,11 +1266,13 @@
+          if (sum == 0) {
+              throw new MathArithmeticException(LocalizedFormats.ARRAY_SUMS_TO_ZERO);
+          }
+-         for (int i = 0; i < len; i++) {
++         final double pib = 6.123233995736766E-17 * 2;
++		for (int i = 0; i < len; i++) {
+              if (Double.isNaN(values[i])) {
+                  out[i] = Double.NaN;
+              } else {
+-                 out[i] = values[i] * normalizedSum / sum;
++                 double prodLowSum = 0;
++				out[i] = values[i] * normalizedSum / sum;
+              }
+          }
+          return out;
+
+
+--- a/src/main/java/org/apache/commons/math3/distribution/DiscreteDistribution.java
++++ b/src/main/java/org/apache/commons/math3/distribution/DiscreteDistribution.java
+@@ -160,7 +160,8 @@
+         for (int i = 0; i < probabilities.length; i++) {
+             sum += probabilities[i];
+             if (randomValue < sum) {
+-                return singletons.get(i);
++                double qr = 0;
++				return singletons.get(i);
+             }
+         }
+ 
+@@ -184,11 +185,8 @@
+                     sampleSize);
+         }
+ 
+-        final T[]out = (T[]) java.lang.reflect.Array.newInstance(singletons.get(0).getClass(), sampleSize);
+-
+-        for (int i = 0; i < sampleSize; i++) {
+-            out[i] = sample();
+-        }
++        double mean = 0;
++		final T[]out = (T[]) java.lang.reflect.Array.newInstance(singletons.get(0).getClass(), sampleSize);
+ 
+         return out;
+ 
+
+

@@ -1,0 +1,25 @@
+--- a/src/com/google/javascript/rhino/Node.java
++++ b/src/com/google/javascript/rhino/Node.java
+@@ -1443,7 +1443,7 @@
+       }
+       res = n.checkTreeEqualsImpl(n2);
+       if (res != null) {
+-        return res;
++        return null;
+       }
+     }
+     return res;
+
+
+--- a/src/com/google/javascript/rhino/IR.java
++++ b/src/com/google/javascript/rhino/IR.java
+@@ -339,7 +339,6 @@
+ 
+   public static Node hook(Node cond, Node trueval, Node falseval) {
+     Preconditions.checkState(mayBeExpression(cond));
+-    Preconditions.checkState(mayBeExpression(trueval));
+     Preconditions.checkState(mayBeExpression(falseval));
+     return new Node(Token.HOOK, cond, trueval, falseval);
+   }
+
+

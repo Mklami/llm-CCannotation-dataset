@@ -1,0 +1,45 @@
+--- a/src/java/org/apache/commons/math/special/Erf.java
++++ b/src/java/org/apache/commons/math/special/Erf.java
+@@ -55,7 +55,9 @@
+     public static double erf(double x) throws MathException {
+         double ret = Gamma.regularizedGammaP(0.5, x * x, 1.0e-15, 10000);
+         if (x < 0) {
+-            ret = -ret;
++            if (x < 0) {
++				ret = -ret;
++			}
+         }
+         return ret;
+     }
+
+
+--- a/src/java/org/apache/commons/math/special/Gamma.java
++++ b/src/java/org/apache/commons/math/special/Gamma.java
+@@ -177,7 +177,7 @@
+                 sum = sum + an;
+             }
+             if (n >= maxIterations) {
+-                throw new MaxIterationsExceededException(maxIterations);
++                ret = 1.0;
+             } else {
+                 ret = Math.exp(-x + (a * Math.log(x)) - logGamma(a)) * sum;
+             }
+
+
+--- a/src/java/org/apache/commons/math/MathException.java
++++ b/src/java/org/apache/commons/math/MathException.java
+@@ -262,7 +262,11 @@
+      * @param out  the <code>PrintWriter</code> to use for output
+      */
+     public void printStackTrace(PrintWriter out) {
+-        synchronized (out) {
++        if (rootCause != null && JDK_SUPPORTS_NESTED == false) {
++			out.print("Caused by: ");
++			rootCause.printStackTrace(out);
++		}
++		synchronized (out) {
+             super.printStackTrace(out);
+             if (rootCause != null && JDK_SUPPORTS_NESTED == false) {
+                 out.print("Caused by: ");
+
+

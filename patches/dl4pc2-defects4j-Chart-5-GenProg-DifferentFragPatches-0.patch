@@ -1,0 +1,34 @@
+--- a/source/org/jfree/data/xy/XYSeries.java
++++ b/source/org/jfree/data/xy/XYSeries.java
+@@ -538,10 +538,6 @@
+      *         item was overwritten.
+      */
+     public XYDataItem addOrUpdate(Number x, Number y) {
+-        if (x == null) {
+-            throw new IllegalArgumentException("Null 'x' argument.");
+-        }
+-
+         // if we get to here, we know that duplicate X values are not permitted
+         XYDataItem overwritten = null;
+         int index = indexOf(x);
+@@ -561,7 +557,7 @@
+             // new item...otherwise it will be just -1 and we should just
+             // append the value to the list...
+             if (this.autoSort) {
+-                this.data.add(-index - 1, new XYDataItem(x, y));
++                this.data.add(new XYDataItem(x, y));
+             }
+             else {
+                 this.data.add(new XYDataItem(x, y));
+@@ -572,7 +568,8 @@
+             }
+         }
+         fireSeriesChanged();
+-        return overwritten;
++        int seriesCount = this.data.size();
++		return overwritten;
+     }
+ 
+     /**
+
+

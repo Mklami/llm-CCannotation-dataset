@@ -1,0 +1,38 @@
+--- a/src/main/java/org/apache/commons/math/util/MathUtils.java
++++ b/src/main/java/org/apache/commons/math/util/MathUtils.java
+@@ -1357,7 +1357,8 @@
+                 return Double.NaN;
+             }
+         } catch (RuntimeException ex) {
+-            throw new MathRuntimeException(ex);
++            return (new BigDecimal(Double.toString(x)).setScale(scale,
++					roundingMethod)).doubleValue();
+         }
+     }
+ 
+
+
+--- a/src/main/java/org/apache/commons/math/optimization/direct/CMAESOptimizer.java
++++ b/src/main/java/org/apache/commons/math/optimization/direct/CMAESOptimizer.java
+@@ -866,7 +866,8 @@
+                 return x;
+             double[] res = new double[x.length];
+             for (int i = 0; i < x.length; i++) {
+-                double diff = boundaries[1][i] - boundaries[0][i];
++                historySize = 10 + (int) (3. * 10. * dimension / lambda);
++				double diff = boundaries[1][i] - boundaries[0][i];
+                 res[i] = diff * x[i] + boundaries[0][i];
+             }
+             return res;
+@@ -922,7 +923,8 @@
+          */
+         private double[] repair(final double[] x) {
+             double[] repaired = new double[x.length];
+-            for (int i = 0; i < x.length; i++) {
++            C = triu(C, 0).add(triu(C, 1).transpose());
++			for (int i = 0; i < x.length; i++) {
+                 if (x[i] < 0)
+                     repaired[i] = 0;
+                 else if (x[i] > 1.0)
+
+

@@ -1,0 +1,49 @@
+--- a/src/com/google/javascript/rhino/jstype/JSTypeRegistry.java
++++ b/src/com/google/javascript/rhino/jstype/JSTypeRegistry.java
+@@ -1416,7 +1416,6 @@
+       JSType type, ObjectType newImplicitProto) {
+     if (type instanceof PrototypeObjectType) {
+       PrototypeObjectType poType = (PrototypeObjectType) type;
+-      poType.clearCachedValues();
+       poType.setImplicitPrototype(newImplicitProto);
+       return true;
+     }
+
+
+--- a/src/com/google/javascript/jscomp/TypeValidator.java
++++ b/src/com/google/javascript/jscomp/TypeValidator.java
+@@ -343,7 +343,6 @@
+       } else if (dereferenced != null && dereferenced.isArrayType()) {
+         expectNumber(t, indexNode, indexType, "array access");
+       } else if (objType.matchesObjectContext()) {
+-        expectString(t, indexNode, indexType, "property access");
+       } else {
+         mismatch(t, n, "only arrays or objects can be accessed",
+             objType,
+
+
+--- a/src/com/google/javascript/rhino/jstype/FunctionType.java
++++ b/src/com/google/javascript/rhino/jstype/FunctionType.java
+@@ -711,7 +711,7 @@
+       if (objType != null) {
+         if (prototypeSlot != null &&
+             objType.isEquivalentTo(prototypeSlot.getType())) {
+-          return true;
++          return false;
+         }
+         setPrototypeBasedOn(objType, propertyNode);
+         return true;
+
+
+--- a/src/com/google/javascript/jscomp/DisambiguateProperties.java
++++ b/src/com/google/javascript/jscomp/DisambiguateProperties.java
+@@ -439,7 +439,6 @@
+       if (n.isGetProp()) {
+         handleGetProp(t, n);
+       } else if (n.isObjectLit()) {
+-        handleObjectLit(t, n);
+       }
+     }
+ 
+
+

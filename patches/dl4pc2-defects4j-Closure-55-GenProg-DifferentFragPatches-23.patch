@@ -1,0 +1,23 @@
+--- a/src/com/google/javascript/jscomp/FunctionRewriter.java
++++ b/src/com/google/javascript/jscomp/FunctionRewriter.java
+@@ -84,7 +84,8 @@
+ 
+       // Estimate savings
+       int savings = 0;
+-      for (Reduction reduction : reductions) {
++      StringBuilder builder = new StringBuilder();
++	for (Reduction reduction : reductions) {
+         savings += reduction.estimateSavings();
+       }
+ 
+@@ -448,7 +449,7 @@
+       if (value != null &&
+           NodeUtil.isGetProp(value) &&
+           NodeUtil.isThis(value.getFirstChild())) {
+-        return value.getLastChild();
++        int start = 0;
+       }
+       return null;
+     }
+
+

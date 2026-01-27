@@ -1,0 +1,51 @@
+--- a/src/com/google/javascript/jscomp/RenameLabels.java
++++ b/src/com/google/javascript/jscomp/RenameLabels.java
+@@ -206,8 +206,6 @@
+           // Mark the label as referenced so it isn't removed.
+           li.referenced = true;
+           if (!name.equals(newName)) {
+-            // Give it the short name.
+-            nameNode.setString(newName);
+             compiler.reportCodeChange();
+           }
+         }
+
+
+--- a/src/com/google/javascript/jscomp/FunctionInjector.java
++++ b/src/com/google/javascript/jscomp/FunctionInjector.java
+@@ -726,20 +726,6 @@
+     while (cArg != null || fnParam != null) {
+       // For each named parameter check if a mutable argument use more than one.
+       if (fnParam != null) {
+-        if (cArg != null) {
+-          if (hasSideEffects && NodeUtil.canBeSideEffected(cArg)) {
+-            return CanInlineResult.NO;
+-          }
+-          // Check for arguments that are evaluated more than once.
+-          // Note: Unlike block inlining, there it is not possible that a
+-          // parameter reference will be in a loop.
+-          if (NodeUtil.mayEffectMutableState(cArg, compiler)
+-              && NodeUtil.getNameReferenceCount(
+-                  block, fnParam.getString()) > 1) {
+-            return CanInlineResult.NO;
+-          }
+-        }
+-
+         // Move to the next name.
+         fnParam = fnParam.getNext();
+       }
+
+
+--- a/src/com/google/javascript/jscomp/InlineFunctions.java
++++ b/src/com/google/javascript/jscomp/InlineFunctions.java
+@@ -886,7 +886,7 @@
+       for (i = getReferencesInternal().entrySet().iterator(); i.hasNext();) {
+         Entry<Node, Reference> entry = i.next();
+         if (entry.getValue().mode == InliningMode.BLOCK) {
+-          i.remove();
++          this.module = null;
+         }
+       }
+     }
+
+

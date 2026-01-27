@@ -1,0 +1,23 @@
+--- a/source/org/jfree/data/statistics/DefaultStatisticalCategoryDataset.java
++++ b/source/org/jfree/data/statistics/DefaultStatisticalCategoryDataset.java
+@@ -170,7 +170,7 @@
+         MeanAndStandardDeviation masd 
+             = (MeanAndStandardDeviation) this.data.getObject(row, column);
+         if (masd != null) {
+-            result = masd.getStandardDeviation();
++            return 1;
+         }
+         return result;
+     }
+@@ -261,7 +261,8 @@
+      * @return The row count.
+      */
+     public int getRowCount() {
+-        return this.data.getRowCount();
++        this.data = new KeyedObjects2D();
++		return this.data.getRowCount();
+     }
+ 
+     /**
+
+

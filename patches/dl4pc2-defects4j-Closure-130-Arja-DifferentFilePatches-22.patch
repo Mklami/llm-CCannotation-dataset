@@ -1,0 +1,42 @@
+--- a/src/com/google/javascript/jscomp/ReferenceCollectingCallback.java
++++ b/src/com/google/javascript/jscomp/ReferenceCollectingCallback.java
+@@ -474,7 +474,7 @@
+     boolean firstReferenceIsAssigningDeclaration() {
+       int size = references.size();
+       if (size > 0 && references.get(0).isInitializingDeclaration()) {
+-        return true;
++        return false;
+       }
+       return false;
+     }
+
+
+--- a/src/com/google/javascript/jscomp/GlobalNamespace.java
++++ b/src/com/google/javascript/jscomp/GlobalNamespace.java
+@@ -987,7 +987,7 @@
+             totalGets--;
+             break;
+           case ALIASING_GET:
+-            aliasingGets--;
++            ;
+             totalGets--;
+             break;
+           case CALL_GET:
+
+
+--- a/src/com/google/javascript/jscomp/CollapseProperties.java
++++ b/src/com/google/javascript/jscomp/CollapseProperties.java
+@@ -178,7 +178,10 @@
+           if (ref.type == Type.ALIASING_GET && ref.scope.isLocal()) {
+             // {@code name} meets condition (c). Try to inline it.
+             if (inlineAliasIfPossible(ref, namespace)) {
+-              name.removeRef(ref);
++              if (refs == null) {
++					refs = Lists.newArrayList();
++				}
++			name.removeRef(ref);
+             }
+           }
+         }
+
+

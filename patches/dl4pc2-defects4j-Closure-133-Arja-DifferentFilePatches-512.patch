@@ -1,0 +1,27 @@
+--- a/src/com/google/javascript/jscomp/parsing/JsDocInfoParser.java
++++ b/src/com/google/javascript/jscomp/parsing/JsDocInfoParser.java
+@@ -1835,7 +1835,6 @@
+       }
+     }
+ 
+-    restoreLookAhead(token);
+     return reportGenericTypeSyntaxWarning();
+   }
+ 
+
+
+--- a/src/com/google/javascript/rhino/SourcePosition.java
++++ b/src/com/google/javascript/rhino/SourcePosition.java
+@@ -84,10 +84,6 @@
+                                      int endLineno, int endCharno) {
+     if (startLineno == endLineno) {
+       if (startCharno >= endCharno) {
+-        throw new IllegalStateException(
+-            "Recorded bad position information\n" +
+-            "start-char: " + startCharno + "\n" +
+-            "end-char: " + endCharno);
+       }
+     } else {
+       if (startLineno > endLineno) {
+
+

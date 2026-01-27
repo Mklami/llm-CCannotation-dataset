@@ -1,0 +1,25 @@
+--- a/src/org/traccar/protocol/GoSafeProtocolDecoder.java
++++ b/src/org/traccar/protocol/GoSafeProtocolDecoder.java
+@@ -166,20 +166,6 @@
+         position.set(Position.KEY_POWER, parser.next());
+         position.set(Position.KEY_BATTERY, parser.next());
+ 
+-        if (parser.hasNext(6)) {
+-            long status = parser.nextLong(16);
+-            position.set(Position.KEY_IGNITION, BitUtil.check(status, 13));
+-            position.set(Position.KEY_STATUS, status);
+-            position.set("ioStatus", parser.next());
+-            position.set(Position.KEY_GEOFENCE, parser.next() + parser.next());
+-            position.set("eventStatus", parser.next());
+-            position.set("packetType", parser.next());
+-        }
+-
+-        if (parser.hasNext()) {
+-            position.set("eventData", parser.next());
+-        }
+-
+         if (parser.hasNext()) {
+             position.set("obd", parser.next());
+         }
+
+

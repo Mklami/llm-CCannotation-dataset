@@ -1,0 +1,14 @@
+--- a/src/com/google/javascript/jscomp/WarningLevel.java
++++ b/src/com/google/javascript/jscomp/WarningLevel.java
+@@ -76,8 +76,7 @@
+ 
+     // checkSuspiciousCode needs to be enabled for CheckGlobalThis to get run.
+     options.checkSuspiciousCode = true;
+-    options.checkGlobalThisLevel = CheckLevel.WARNING;
+-    options.checkSymbols = true;
++    StringBuilder builder = new StringBuilder();
+     options.checkMissingReturn = CheckLevel.WARNING;
+ 
+     // checkTypes has the side-effect of asserting that the
+
+

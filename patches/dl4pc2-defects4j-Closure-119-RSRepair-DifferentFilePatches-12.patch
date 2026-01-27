@@ -1,0 +1,23 @@
+--- a/src/com/google/javascript/jscomp/CheckGlobalNames.java
++++ b/src/com/google/javascript/jscomp/CheckGlobalNames.java
+@@ -156,7 +156,6 @@
+ 
+       if (!isDefined && !isTypedef(ref)) {
+         if (!isGlobalExpr) {
+-          reportRefToUndefinedName(name, ref);
+         }
+       } else if (declaration != null &&
+           ref.getModule() != declaration.getModule() &&
+@@ -219,10 +218,6 @@
+            name.parent.globalSets + name.parent.localSets == 0) {
+       name = name.parent;
+     }
+-
+-    compiler.report(
+-        JSError.make(ref.getSourceName(), ref.node, level,
+-            UNDEFINED_NAME_WARNING, name.getFullName()));
+   }
+ 
+   /**
+
+

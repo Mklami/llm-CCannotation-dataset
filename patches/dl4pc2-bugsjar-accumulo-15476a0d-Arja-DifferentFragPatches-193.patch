@@ -1,0 +1,13 @@
+--- a/src/core/src/main/java/org/apache/accumulo/core/client/mock/MockTable.java
++++ b/src/core/src/main/java/org/apache/accumulo/core/client/mock/MockTable.java
+@@ -71,7 +71,7 @@
+         if (count < other.count)
+           return -1;
+         if (count > other.count)
+-          return 1;
++			;
+       } else {
+         return 1;
+       }
+
+

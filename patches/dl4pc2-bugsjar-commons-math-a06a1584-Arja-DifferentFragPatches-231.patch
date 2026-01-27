@@ -1,0 +1,27 @@
+--- a/src/main/java/org/apache/commons/math4/geometry/euclidean/threed/PolyhedronsSet.java
++++ b/src/main/java/org/apache/commons/math4/geometry/euclidean/threed/PolyhedronsSet.java
+@@ -260,7 +260,10 @@
+                                                                 final Vector3D point,
+                                                                 final Line line) {
+ 
+-        final SubHyperplane<Euclidean3D> cut = node.getCut();
++        getTree(
++																			true)
++																			.visit(new FacetsContributionVisitor());
++		final SubHyperplane<Euclidean3D> cut = node.getCut();
+         if (cut == null) {
+             return null;
+         }
+@@ -300,9 +303,7 @@
+             final Vector3D hit3D = plane.intersection(line);
+             if (hit3D != null) {
+                 final SubHyperplane<Euclidean3D> facet = boundaryFacet(hit3D, node);
+-                if (facet != null) {
+-                    return facet;
+-                }
++                getTree(true).visit(new FacetsContributionVisitor());
+             }
+         }
+ 
+
+

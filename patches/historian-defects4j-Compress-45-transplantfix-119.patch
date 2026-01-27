@@ -1,0 +1,16 @@
+--- a/src/main/java/org/apache/commons/compress/archivers/tar/TarUtils.java
++++ b/src/main/java/org/apache/commons/compress/archivers/tar/TarUtils.java
+@@ -516,7 +516,11 @@
+                                                final int offset,
+                                                final int length,
+                                                final boolean negative) {
+-        final BigInteger val = BigInteger.valueOf(value);
++        if (length < 9) {
++return ;
++}
++
++final BigInteger val = BigInteger.valueOf(value);
+         final byte[] b = val.toByteArray();
+         final int len = b.length;
+         if (len > length - 1) {
+

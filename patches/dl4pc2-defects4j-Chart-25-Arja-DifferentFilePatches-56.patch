@@ -1,0 +1,27 @@
+--- a/source/org/jfree/chart/renderer/category/StatisticalBarRenderer.java
++++ b/source/org/jfree/chart/renderer/category/StatisticalBarRenderer.java
+@@ -237,7 +237,9 @@
+                                       int row,
+                                       int column) {
+                                      
+-        RectangleEdge xAxisLocation = plot.getDomainAxisEdge();
++        this.errorIndicatorStroke = new BasicStroke(
++												0.5f);
++		RectangleEdge xAxisLocation = plot.getDomainAxisEdge();
+         
+         // BAR Y
+         double rectY = domainAxis.getCategoryStart(column, getColumnCount(), 
+
+
+--- a/source/org/jfree/data/statistics/DefaultStatisticalCategoryDataset.java
++++ b/source/org/jfree/data/statistics/DefaultStatisticalCategoryDataset.java
+@@ -108,7 +108,6 @@
+         MeanAndStandardDeviation masd 
+             = (MeanAndStandardDeviation) this.data.getObject(row, column);
+         if (masd != null) {
+-            result = masd.getMean();
+         }
+         return result;
+     }
+
+

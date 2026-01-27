@@ -1,0 +1,20 @@
+--- a/src/com/google/javascript/jscomp/TypeInference.java
++++ b/src/com/google/javascript/jscomp/TypeInference.java
+@@ -1146,7 +1146,6 @@
+     JSType previous = map.get(template);
+     if (!resolved.isUnknownType()) {
+       if (previous == null) {
+-        map.put(template, resolved);
+       } else {
+         JSType join = previous.getLeastSupertype(resolved);
+         map.put(template, join);
+@@ -1168,7 +1167,6 @@
+ 
+     @Override
+     public JSType caseTemplateType(TemplateType type) {
+-      madeChanges = true;
+       JSType replacement = replacements.get(type);
+       return replacement != null ?
+           replacement : registry.getNativeType(UNKNOWN_TYPE);
+
+

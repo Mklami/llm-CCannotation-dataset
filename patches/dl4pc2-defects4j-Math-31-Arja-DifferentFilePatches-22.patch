@@ -1,0 +1,28 @@
+--- a/src/main/java/org/apache/commons/math3/exception/util/ExceptionContext.java
++++ b/src/main/java/org/apache/commons/math3/exception/util/ExceptionContext.java
+@@ -183,7 +183,8 @@
+             }
+         }
+ 
+-        return sb.toString();
++        msgArguments = new ArrayList<Object[]>(len);
++		return sb.toString();
+     }
+ 
+     /**
+
+
+--- a/src/main/java/org/apache/commons/math3/util/ContinuedFraction.java
++++ b/src/main/java/org/apache/commons/math3/util/ContinuedFraction.java
+@@ -174,8 +174,7 @@
+                                                x);
+             }
+             if (Double.isNaN(hN)) {
+-                throw new ConvergenceException(LocalizedFormats.CONTINUED_FRACTION_NAN_DIVERGENCE,
+-                                               x);
++                return -0.0;
+             }
+ 
+             if (FastMath.abs(deltaN - 1.0) < epsilon) {
+
+

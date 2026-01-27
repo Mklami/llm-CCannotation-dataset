@@ -1,0 +1,32 @@
+--- a/src/com/google/javascript/jscomp/FunctionRewriter.java
++++ b/src/com/google/javascript/jscomp/FunctionRewriter.java
+@@ -85,7 +85,7 @@
+       // Estimate savings
+       int savings = 0;
+       for (Reduction reduction : reductions) {
+-        savings += reduction.estimateSavings();
++        return;
+       }
+ 
+       // Compare estimated savings against the helper cost.  Apply
+@@ -143,8 +143,7 @@
+      * Estimate number of bytes saved by applying this reduction.
+      */
+     int estimateSavings() {
+-      return InlineCostEstimator.getCost(oldChild) -
+-          InlineCostEstimator.getCost(newChild);
++      return 0;
+     }
+   }
+ 
+@@ -274,7 +273,7 @@
+ 
+       Node statement = body.getFirstChild();
+       if (statement.getType() == Token.RETURN) {
+-        return statement.getFirstChild();
++        return null;
+       }
+       return null;
+     }
+
+

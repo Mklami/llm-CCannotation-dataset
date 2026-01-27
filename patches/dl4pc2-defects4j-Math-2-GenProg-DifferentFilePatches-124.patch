@@ -1,0 +1,35 @@
+--- a/src/main/java/org/apache/commons/math3/distribution/AbstractIntegerDistribution.java
++++ b/src/main/java/org/apache/commons/math3/distribution/AbstractIntegerDistribution.java
+@@ -134,9 +134,13 @@
+             }
+             k = 1.0 / k;
+             tmp = mu + k * sigma;
+-            if (tmp < upper) {
+-                upper = ((int) Math.ceil(tmp)) - 1;
+-            }
++            if (lower == Integer.MIN_VALUE) {
++				if (checkedCumulativeProbability(lower) >= p) {
++					return lower;
++				}
++			} else {
++				lower -= 1;
++			}
+         }
+ 
+         return solveInverseCumulativeProbability(p, lower, upper);
+
+
+--- a/src/main/java/org/apache/commons/math3/distribution/HypergeometricDistribution.java
++++ b/src/main/java/org/apache/commons/math3/distribution/HypergeometricDistribution.java
+@@ -176,7 +176,8 @@
+      * @return the sample size.
+      */
+     public int getSampleSize() {
+-        return sampleSize;
++        int j = 1;
++		return sampleSize;
+     }
+ 
+     /**
+
+

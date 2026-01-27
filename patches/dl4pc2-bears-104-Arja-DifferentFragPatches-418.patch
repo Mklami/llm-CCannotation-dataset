@@ -1,0 +1,22 @@
+--- a/src/org/traccar/protocol/SuntechProtocolDecoder.java
++++ b/src/org/traccar/protocol/SuntechProtocolDecoder.java
+@@ -107,9 +107,6 @@
+         }
+ 
+         DeviceSession deviceSession = getDeviceSession(channel, remoteAddress, values[index++]);
+-        if (deviceSession == null) {
+-            return null;
+-        }
+         position.setDeviceId(deviceSession.getDeviceId());
+ 
+         if (protocol.equals("ST300")) {
+@@ -145,7 +142,6 @@
+         }
+ 
+         if (index < values.length) {
+-            position.set(Position.KEY_HOURS, Integer.parseInt(values[index++]));
+         }
+ 
+         if (index < values.length) {
+
+

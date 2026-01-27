@@ -1,0 +1,16 @@
+--- a/src/main/java/org/jsoup/nodes/Document.java
++++ b/src/main/java/org/jsoup/nodes/Document.java
+@@ -111,7 +111,11 @@
+ 
+     // does not recurse.
+     private void normalise(Element element) {
+-        List<Node> toMove = new ArrayList<Node>();
++        if (parent() == null) {
++return ;
++}
++
++List<Node> toMove = new ArrayList<Node>();
+         for (Node node: element.childNodes) {
+             if (node instanceof TextNode) {
+                 TextNode tn = (TextNode) node;
+

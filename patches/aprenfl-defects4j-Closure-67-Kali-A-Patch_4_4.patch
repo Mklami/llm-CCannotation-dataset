@@ -1,0 +1,13 @@
+--- a/src/com/google/javascript/jscomp/RemoveUnusedPrototypeProperties.java
++++ b/src/com/google/javascript/jscomp/RemoveUnusedPrototypeProperties.java
+@@ -97,7 +97,7 @@
+             }
+           }
+ 
+-          if (canRemove) {
++          if (false) {
+             declaration.remove();
+             changed = true;
+           }
+
+

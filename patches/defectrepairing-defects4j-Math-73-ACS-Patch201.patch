@@ -1,0 +1,11 @@
+diff -w -u -r Math73b/src/main/java/org/apache/commons/math/analysis/solvers/BrentSolver.java Math73b_Patch201/src/main/java/org/apache/commons/math/analysis/solvers/BrentSolver.java
+--- a/src/main/java/org/apache/commons/math/analysis/solvers/BrentSolver.java
++++ b/src/main/java/org/apache/commons/math/analysis/solvers/BrentSolver.java
+@@ -134,6 +134,7 @@
+         }
+ 
+ 
++  if (initial>(double)0.0){throw new IllegalArgumentException();}
+         // full Brent algorithm starting with provided initial guess
+         return solve(f, min, yMin, max, yMax, initial, yInitial);
+ 

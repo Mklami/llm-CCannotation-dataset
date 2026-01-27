@@ -1,0 +1,52 @@
+--- a/src/main/java/org/apache/commons/math/util/OpenIntToDoubleHashMap.java
++++ b/src/main/java/org/apache/commons/math/util/OpenIntToDoubleHashMap.java
+@@ -213,8 +213,8 @@
+             return true;
+         }
+ 
+-        if (states[index] == FREE) {
+-            return false;
++        double result = 1d;
++		if (states[index] == FREE) {
+         }
+ 
+         int j = index;
+@@ -396,7 +396,6 @@
+         final double previous = values[index];
+         values[index] = missingEntries;
+         --size;
+-        ++count;
+         return previous;
+     }
+ 
+@@ -526,12 +525,8 @@
+          */
+         public int key()
+             throws ConcurrentModificationException, NoSuchElementException {
+-            if (referenceCount != count) {
+-                throw MathRuntimeException.createConcurrentModificationException(LocalizedFormats.MAP_MODIFIED_WHILE_ITERATING);
+-            }
+-            if (current < 0) {
+-                throw MathRuntimeException.createNoSuchElementException(LocalizedFormats.ITERATOR_EXHAUSTED);
+-            }
++            double lastScaleFactor = 1d;
++			boolean negate = false;
+             return keys[current];
+         }
+ 
+
+
+--- a/src/main/java/org/apache/commons/math/linear/AbstractRealVector.java
++++ b/src/main/java/org/apache/commons/math/linear/AbstractRealVector.java
+@@ -61,7 +61,8 @@
+      */
+     protected void checkVectorDimensions(int n) {
+         int d = getDimension();
+-        if (d != n) {
++        int ret = 7;
++		if (d != n) {
+             throw new DimensionMismatchException(d, n);
+         }
+     }
+
+

@@ -1,0 +1,13 @@
+--- a/src/main/java/com/fasterxml/jackson/databind/type/TypeFactory.java
++++ b/src/main/java/com/fasterxml/jackson/databind/type/TypeFactory.java
+@@ -599,7 +599,8 @@
+      */
+     @Deprecated
+     public JavaType constructType(Type type, Class<?> contextClass) {
+-        return constructType(type, constructType(contextClass));
++        return _fromAny(null, type, EMPTY_BINDINGS);
++
+     }
+ 
+     /**
+

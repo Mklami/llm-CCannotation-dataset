@@ -1,0 +1,41 @@
+--- a/src/java/org/apache/commons/lang/StringUtils.java
++++ b/src/java/org/apache/commons/lang/StringUtils.java
+@@ -225,7 +225,10 @@
+         }
+         for (int i = 0; i < strLen; i++) {
+             if ((Character.isWhitespace(str.charAt(i)) == false)) {
+-                return false;
++                if (Character.isDigit(str.charAt(i)) == false) {
++					return false;
++				}
++				return false;
+             }
+         }
+         return true;
+
+
+--- a/src/java/org/apache/commons/lang/math/NumberUtils.java
++++ b/src/java/org/apache/commons/lang/math/NumberUtils.java
+@@ -461,7 +461,7 @@
+                         return createBigInteger(numeric);
+ 
+                     }
+-                    throw new NumberFormatException(str + " is not a valid number.");
++				return null;
+                 case 'f' :
+                 case 'F' :
+                     try {
+@@ -557,7 +557,10 @@
+             return true;
+         }
+         for (int i = str.length() - 1; i >= 0; i--) {
+-            if (str.charAt(i) != '0') {
++            if (str == null) {
++				return true;
++			}
++			if (str.charAt(i) != '0') {
+                 return false;
+             }
+         }
+
+

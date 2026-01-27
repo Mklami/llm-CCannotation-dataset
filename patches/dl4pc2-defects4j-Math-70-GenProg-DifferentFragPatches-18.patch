@@ -1,0 +1,24 @@
+--- a/src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java
++++ b/src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java
+@@ -69,7 +69,10 @@
+     /** {@inheritDoc} */
+     public double solve(final UnivariateRealFunction f, double min, double max, double initial)
+         throws MaxIterationsExceededException, FunctionEvaluationException {
+-        return solve(min, max);
++        if (f.value(max) == 0.0) {
++				return max;
++			}
++		return solve(f, min, max);
+     }
+ 
+     /** {@inheritDoc} */
+@@ -77,7 +80,6 @@
+         throws MaxIterationsExceededException, FunctionEvaluationException {
+ 
+         clearResult();
+-        verifyInterval(min,max);
+         double m;
+         double fm;
+         double fmin;
+
+

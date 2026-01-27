@@ -1,0 +1,23 @@
+--- a/oak-mk/src/main/java/org/apache/jackrabbit/mk/model/CommitBuilder.java
++++ b/oak-mk/src/main/java/org/apache/jackrabbit/mk/model/CommitBuilder.java
+@@ -171,18 +171,10 @@
+             newCommit.setMsg(msg);
+             StringBuilder diff = new StringBuilder();
+             for (Change change : changeLog) {
+-                if (diff.length() > 0) {
+-                    diff.append('\n');
+-                }
+                 diff.append(change.asDiff());
+             }
+             newCommit.setChanges(diff.toString());
+             newCommit.setRootNodeId(rootNodeId);
+-            if (createBranch) {
+-                newCommit.setBranchRootId(baseCommit.getId());
+-            } else {
+-                newCommit.setBranchRootId(baseCommit.getBranchRootId());
+-            }
+             newRevId = store.putCommit(token, newCommit);
+         }
+ 
+
+

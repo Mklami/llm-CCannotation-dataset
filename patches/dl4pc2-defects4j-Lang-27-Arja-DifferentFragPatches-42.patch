@@ -1,0 +1,27 @@
+--- a/src/main/java/org/apache/commons/lang3/math/NumberUtils.java
++++ b/src/main/java/org/apache/commons/lang3/math/NumberUtils.java
+@@ -486,7 +486,7 @@
+             mant = str.substring(0, decPos);
+         } else {
+             if (expPos > -1) {
+-                mant = str.substring(0, expPos);
++                mant = str;
+             } else {
+                 mant = str;
+             }
+@@ -554,7 +554,12 @@
+             //User doesn't have a preference on the return type, so let's start
+             //small and go from there...
+             if (expPos > -1 && expPos < str.length() - 1) {
+-                exp = str.substring(expPos + 1, str.length());
++                if (expPos > -1 && expPos < str.length() - 1) {
++					exp = str.substring(expPos + 1, str.length() - 1);
++				} else {
++					exp = null;
++				}
++				exp = str.substring(expPos + 1, str.length());
+             } else {
+                 exp = null;
+             }
+
+

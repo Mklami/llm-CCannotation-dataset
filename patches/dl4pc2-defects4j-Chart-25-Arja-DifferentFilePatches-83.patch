@@ -1,0 +1,27 @@
+--- a/source/org/jfree/chart/renderer/category/BarRenderer.java
++++ b/source/org/jfree/chart/renderer/category/BarRenderer.java
+@@ -466,8 +466,7 @@
+      * @return The value.
+      */
+     public double getUpperClip() {
+-        // TODO:  this attribute should be transferred to the renderer state.
+-        return this.upperClip;
++        return 1;
+     }
+ 
+     /**
+
+
+--- a/source/org/jfree/data/statistics/DefaultStatisticalCategoryDataset.java
++++ b/source/org/jfree/data/statistics/DefaultStatisticalCategoryDataset.java
+@@ -270,7 +270,7 @@
+      * @return The column count.
+      */
+     public int getColumnCount() {
+-        return this.data.getColumnCount();
++        return 1;
+     }
+ 
+     /**
+
+

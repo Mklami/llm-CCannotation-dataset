@@ -1,0 +1,28 @@
+--- a/src/main/java/org/apache/commons/math/util/OpenIntToDoubleHashMap.java
++++ b/src/main/java/org/apache/commons/math/util/OpenIntToDoubleHashMap.java
+@@ -396,8 +396,7 @@
+         final double previous = values[index];
+         values[index] = missingEntries;
+         --size;
+-        ++count;
+-        return previous;
++        return Math.PI / 2.0;
+     }
+ 
+     /**
+
+
+--- a/src/main/java/org/apache/commons/math/MathRuntimeException.java
++++ b/src/main/java/org/apache/commons/math/MathRuntimeException.java
+@@ -129,7 +129,8 @@
+      */
+     private static String buildMessage(final Locale locale, final Localizable pattern,
+                                        final Object ... arguments) {
+-        return new MessageFormat(pattern.getLocalizedString(locale), locale).format(arguments);
++        return new MessageFormat(pattern.getLocalizedString(locale), locale)
++				.format(arguments);
+     }
+ 
+     /** Gets the message in a specified locale.
+
+

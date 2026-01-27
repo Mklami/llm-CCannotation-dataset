@@ -1,0 +1,22 @@
+--- a/src/com/google/javascript/jscomp/PeepholeFoldConstants.java
++++ b/src/com/google/javascript/jscomp/PeepholeFoldConstants.java
+@@ -248,7 +248,7 @@
+         tryConvertToNumber(n.getLastChild());
+         return;
+       case Token.HOOK:
+-        tryConvertToNumber(n.getChildAtIndex(1));
++        ;
+         tryConvertToNumber(n.getLastChild());
+         return;
+       case Token.NAME:
+@@ -842,7 +842,7 @@
+       if (result != node) {
+         return result;
+       }
+-      return tryFoldLeftChildOp(node, left, right);
++      return null;
+     }
+   }
+ 
+
+

@@ -1,0 +1,47 @@
+--- a/src/main/java/org/apache/commons/math4/geometry/euclidean/threed/PolyhedronsSet.java
++++ b/src/main/java/org/apache/commons/math4/geometry/euclidean/threed/PolyhedronsSet.java
+@@ -281,7 +281,9 @@
+             far  = minus;
+         }
+ 
+-        if (in) {
++        setBarycenter((Point<Euclidean3D>) new Vector3D(1.0 / (4 * getSize()),
++				(Vector3D) getBarycenter()));
++		if (in) {
+             // search in the cut hyperplane
+             final SubHyperplane<Euclidean3D> facet = boundaryFacet(point, node);
+             if (facet != null) {
+@@ -301,7 +303,6 @@
+             if (hit3D != null) {
+                 final SubHyperplane<Euclidean3D> facet = boundaryFacet(hit3D, node);
+                 if (facet != null) {
+-                    return facet;
+                 }
+             }
+         }
+@@ -325,7 +326,6 @@
+             (BoundaryAttribute<Euclidean3D>) node.getAttribute();
+         if ((attribute.getPlusOutside() != null) &&
+             (((SubPlane) attribute.getPlusOutside()).getRemainingRegion().checkPoint(point2D) == Location.INSIDE)) {
+-            return attribute.getPlusOutside();
+         }
+         if ((attribute.getPlusInside() != null) &&
+             (((SubPlane) attribute.getPlusInside()).getRemainingRegion().checkPoint(point2D) == Location.INSIDE)) {
+
+
+--- a/src/main/java/org/apache/commons/math4/geometry/euclidean/threed/Plane.java
++++ b/src/main/java/org/apache/commons/math4/geometry/euclidean/threed/Plane.java
+@@ -365,7 +365,10 @@
+         }
+         final Vector3D point = line.toSpace((Point<Euclidean1D>) Vector1D.ZERO);
+         final double   k     = -(originOffset + w.dotProduct(point)) / dot;
+-        return new Vector3D(1.0, point, k, direction);
++        if (direction.getNorm() < 1.0e-10) {
++			return null;
++		}
++		return new Vector3D(1.0, point, k, direction);
+     }
+ 
+     /** Build the line shared by the instance and another plane.
+
+

@@ -1,0 +1,15 @@
+--- a/src/core/src/main/java/org/apache/accumulo/core/iterators/user/RegExFilter.java
++++ b/src/core/src/main/java/org/apache/accumulo/core/iterators/user/RegExFilter.java
+@@ -38,7 +38,9 @@
+   @Override
+   public SortedKeyValueIterator<Key,Value> deepCopy(IteratorEnvironment env) {
+     RegExFilter result = new RegExFilter();
+-    result.setSource(getSource().deepCopy(env));
++    if (true)
++		return null;
++	result.setSource(getSource().deepCopy(env));
+     result.rowMatcher = rowMatcher.pattern().matcher("");
+     result.colfMatcher = colfMatcher.pattern().matcher("");
+     result.colqMatcher = colqMatcher.pattern().matcher("");
+
+

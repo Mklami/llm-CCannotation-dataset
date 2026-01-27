@@ -1,0 +1,53 @@
+--- a/src/main/java/org/apache/commons/math/exception/MathRuntimeException.java
++++ b/src/main/java/org/apache/commons/math/exception/MathRuntimeException.java
+@@ -105,7 +105,7 @@
+    /** {@inheritDoc} */
+     @Override
+     public String getMessage() {
+-        return getMessage(Locale.US);
++        return getMessage(Locale.getDefault());
+     }
+ 
+     /** {@inheritDoc} */
+
+
+--- a/src/main/java/org/apache/commons/math/optimization/fitting/GaussianFitter.java
++++ b/src/main/java/org/apache/commons/math/optimization/fitting/GaussianFitter.java
+@@ -118,7 +118,7 @@
+      */
+     public double[] fit() {
+         final double[] guess = (new ParameterGuesser(getObservations())).guess();
+-        return fit(new Gaussian.Parametric(), guess);
++        return fit((new ParameterGuesser(getObservations())).guess());
+     }
+ 
+     /**
+@@ -166,7 +166,11 @@
+          * @return the guessed parameters: norm, mean and sigma.
+          */
+         private double[] basicGuess(WeightedObservedPoint[] points) {
+-            Arrays.sort(points, createWeightedObservedPointComparator());
++            if (observations.length < 4) {
++				throw new NumberIsTooSmallException(
++						LocalizedFormats.INSUFFICIENT_OBSERVED_POINTS_IN_SAMPLE,
++						observations.length, 4, true);
++			}
+             double[] params = new double[3];
+ 
+             int maxYIdx = findMaxY(points);
+@@ -270,10 +274,9 @@
+ 
+             double minY = Double.POSITIVE_INFINITY;
+             double maxY = Double.NEGATIVE_INFINITY;
+-            for (final WeightedObservedPoint point : points) {
+-                minY = Math.min(minY, point.getY());
+-                maxY = Math.max(maxY, point.getY());
+-            }
++            if (observations == null) {
++				throw new NullArgumentException(LocalizedFormats.INPUT_ARRAY);
++			}
+             throw new OutOfRangeException(y, minY, maxY);
+         }
+ 
+
+

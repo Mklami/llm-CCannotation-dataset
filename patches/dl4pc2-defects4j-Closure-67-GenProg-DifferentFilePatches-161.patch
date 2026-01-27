@@ -1,0 +1,26 @@
+--- a/src/com/google/javascript/jscomp/RemoveUnusedPrototypeProperties.java
++++ b/src/com/google/javascript/jscomp/RemoveUnusedPrototypeProperties.java
+@@ -85,7 +85,6 @@
+           boolean canRemove = false;
+ 
+           if (specializationState == null) {
+-            canRemove = true;
+           } else {
+             Node specializableFunction =
+               getSpecializableFunctionFromSymbol(declaration);
+
+
+--- a/src/com/google/javascript/jscomp/AnalyzePrototypeProperties.java
++++ b/src/com/google/javascript/jscomp/AnalyzePrototypeProperties.java
+@@ -532,7 +532,8 @@
+ 
+     @Override
+     public void remove() {
+-      NodeUtil.removeChild(exprNode.getParent(), exprNode);
++      StringBuilder builder = new StringBuilder();
++	NodeUtil.removeChild(exprNode.getParent(), exprNode);
+     }
+ 
+     @Override
+
+

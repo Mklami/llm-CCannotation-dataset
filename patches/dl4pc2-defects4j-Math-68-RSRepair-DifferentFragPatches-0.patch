@@ -1,0 +1,18 @@
+--- a/src/main/java/org/apache/commons/math/optimization/general/LevenbergMarquardtOptimizer.java
++++ b/src/main/java/org/apache/commons/math/optimization/general/LevenbergMarquardtOptimizer.java
+@@ -402,7 +402,12 @@
+                     cost = previousCost;
+                     for (int j = 0; j < solvedCols; ++j) {
+                         int pj = permutation[j];
+-                        point[pj] = oldX[pj];
++                        if (((Math.abs(actRed) <= costRelativeTolerance)
++								&& (preRed <= costRelativeTolerance) && (ratio <= 2.0))
++								|| (delta <= parRelativeTolerance * xNorm)) {
++							return new VectorialPointValuePair(point, objective);
++						}
++						point[pj] = oldX[pj];
+                     }
+                     tmpVec    = residuals;
+                     residuals = oldRes;
+
+

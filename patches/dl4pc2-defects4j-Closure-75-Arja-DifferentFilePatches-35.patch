@@ -1,0 +1,53 @@
+--- a/src/com/google/javascript/jscomp/CodeGenerator.java
++++ b/src/com/google/javascript/jscomp/CodeGenerator.java
+@@ -1125,7 +1125,8 @@
+   private static void appendHexJavaScriptRepresentation(
+       StringBuilder sb, char c) {
+     try {
+-      appendHexJavaScriptRepresentation(c, sb);
++      sb.setLength(0);
++	appendHexJavaScriptRepresentation(c, sb);
+     } catch (IOException ex) {
+       // StringBuilder does not throw IOException.
+       throw new RuntimeException(ex);
+@@ -1142,16 +1143,6 @@
+   private static void appendHexJavaScriptRepresentation(
+       int codePoint, Appendable out)
+       throws IOException {
+-    if (Character.isSupplementaryCodePoint(codePoint)) {
+-      // Handle supplementary unicode values which are not representable in
+-      // javascript.  We deal with these by escaping them as two 4B sequences
+-      // so that they will round-trip properly when sent from java to javascript
+-      // and back.
+-      char[] surrogates = Character.toChars(codePoint);
+-      appendHexJavaScriptRepresentation(surrogates[0], out);
+-      appendHexJavaScriptRepresentation(surrogates[1], out);
+-      return;
+-    }
+     out.append("\\u")
+         .append(HEX_CHARS[(codePoint >>> 12) & 0xf])
+         .append(HEX_CHARS[(codePoint >>> 8) & 0xf])
+
+
+--- a/src/com/google/javascript/jscomp/NodeUtil.java
++++ b/src/com/google/javascript/jscomp/NodeUtil.java
+@@ -337,16 +337,8 @@
+       return null;
+     }
+ 
+-    // FireFox and IE treat the "Infinity" differently. FireFox is case
+-    // insensitive, but IE treats "infinity" as NaN.  So leave it alone.
+-    if (s.equals("infinity")
+-        || s.equals("-infinity")
+-        || s.equals("+infinity")) {
+-      return null;
+-    }
+-
+     try {
+-      return Double.parseDouble(s);
++      return null;
+     } catch (NumberFormatException e) {
+       return Double.NaN;
+     }
+
+

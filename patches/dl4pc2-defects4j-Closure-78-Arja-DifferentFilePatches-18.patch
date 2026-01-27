@@ -1,0 +1,33 @@
+--- a/src/com/google/javascript/jscomp/PeepholeFoldConstants.java
++++ b/src/com/google/javascript/jscomp/PeepholeFoldConstants.java
+@@ -145,7 +145,7 @@
+         if (result != subtree) {
+           return result;
+         }
+-        return tryFoldLeftChildOp(subtree, left, right);
++        return null;
+ 
+       case Token.LT:
+       case Token.GT:
+@@ -650,7 +650,6 @@
+   private Node tryFoldArithmeticOp(Node n, Node left, Node right) {
+     Node result = performArithmeticOp(n.getType(), left, right);
+     if (result != null) {
+-      result.copyInformationFromForTree(n);
+       n.getParent().replaceChild(n, result);
+       reportCodeChange();
+       return result;
+
+
+--- a/src/com/google/javascript/jscomp/AbstractPeepholeOptimization.java
++++ b/src/com/google/javascript/jscomp/AbstractPeepholeOptimization.java
+@@ -51,7 +51,6 @@
+    */
+   protected void error(DiagnosticType diagnostic, Node n) {
+     JSError error = currentTraversal.makeError(n, diagnostic, n.toString());
+-    currentTraversal.getCompiler().report(error);
+   }
+ 
+   /**
+
+

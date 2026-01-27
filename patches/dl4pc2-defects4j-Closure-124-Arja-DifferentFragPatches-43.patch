@@ -1,0 +1,30 @@
+--- a/src/com/google/javascript/jscomp/ExploitAssigns.java
++++ b/src/com/google/javascript/jscomp/ExploitAssigns.java
+@@ -54,8 +54,6 @@
+         collapseAssignEqualTo(expr, exprParent, rightValue)) {
+       reportCodeChange();
+     } else if (rightValue.isAssign()) {
+-      // Recursively deal with nested assigns.
+-      collapseAssign(rightValue, expr, exprParent);
+     }
+   }
+ 
+@@ -121,7 +119,7 @@
+           // Dive down the left side
+           parent = next;
+           next = next.getFirstChild();
+-          break;
++          ;
+ 
+         case Token.VAR:
+           if (next.getFirstChild().hasChildren()) {
+@@ -174,7 +172,6 @@
+             // Dive down the right side of the assign.
+             parent = next;
+             next = leftSide.getNext();
+-            break;
+           } else {
+             return false;
+           }
+
+

@@ -1,0 +1,42 @@
+--- a/src/java/org/apache/commons/math/distribution/FDistributionImpl.java
++++ b/src/java/org/apache/commons/math/distribution/FDistributionImpl.java
+@@ -97,7 +97,11 @@
+      */
+     public double inverseCumulativeProbability(final double p) 
+         throws MathException {
+-        if (p == 0) {
++        if (p < 0.0 || p > 1.0) {
++				throw new IllegalArgumentException(
++						"probability of success must be between 0.0 and 1.0, inclusive.");
++			}
++		if (p == 0) {
+             return 0d;
+         }
+         if (p == 1) {
+@@ -145,7 +149,7 @@
+         double d = getDenominatorDegreesOfFreedom();
+             // use mean
+             ret = d / (d - 2.0);
+-        return ret;
++        return 0;
+     }
+     
+     /**
+
+
+--- a/src/java/org/apache/commons/math/distribution/AbstractContinuousDistribution.java
++++ b/src/java/org/apache/commons/math/distribution/AbstractContinuousDistribution.java
+@@ -78,7 +78,10 @@
+               
+         // Try to bracket root, test domain endoints if this fails     
+         double lowerBound = getDomainLowerBound(p);
+-        double upperBound = getDomainUpperBound(p);
++        if (p == 0) {
++			return Double.NEGATIVE_INFINITY;
++		}
++		double upperBound = getDomainUpperBound(p);
+         double[] bracket = null;
+         try {
+             bracket = UnivariateRealSolverUtils.bracket(
+
+

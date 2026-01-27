@@ -1,0 +1,30 @@
+--- a/src/com/google/javascript/jscomp/WarningLevel.java
++++ b/src/com/google/javascript/jscomp/WarningLevel.java
+@@ -72,12 +72,8 @@
+    * @param options The CompilerOptions object to set the options on.
+    */
+   private static void addVerboseWarnings(CompilerOptions options) {
+-    addDefaultWarnings(options);
+-
+     // checkSuspiciousCode needs to be enabled for CheckGlobalThis to get run.
+     options.checkSuspiciousCode = true;
+-    options.checkGlobalThisLevel = CheckLevel.WARNING;
+-    options.checkSymbols = true;
+     options.checkMissingReturn = CheckLevel.WARNING;
+ 
+     // checkTypes has the side-effect of asserting that the
+
+
+--- a/src/com/google/javascript/jscomp/CheckGlobalNames.java
++++ b/src/com/google/javascript/jscomp/CheckGlobalNames.java
+@@ -65,7 +65,7 @@
+    */
+   CheckGlobalNames injectNamespace(GlobalNamespace namespace) {
+     this.namespace = namespace;
+-    return this;
++    return null;
+   }
+ 
+   public void process(Node externs, Node root) {
+
+

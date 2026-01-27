@@ -1,0 +1,28 @@
+--- a/src/org/traccar/protocol/EelinkProtocolDecoder.java
++++ b/src/org/traccar/protocol/EelinkProtocolDecoder.java
+@@ -156,11 +156,8 @@
+ 
+             int statusType = buf.readUnsignedByte();
+ 
+-            position.set(Position.KEY_EVENT, statusType);
+-
+             if (statusType == 0x01 || statusType == 0x02 || statusType == 0x03) {
+                 buf.readUnsignedInt(); // device time
+-                decodeStatus(position, buf.readUnsignedShort());
+             }
+ 
+         }
+
+
+--- a/src/org/traccar/model/Network.java
++++ b/src/org/traccar/model/Network.java
+@@ -94,7 +94,6 @@
+         if (cellTowers == null) {
+             cellTowers = new ArrayList<>();
+         }
+-        cellTowers.add(cellTower);
+     }
+ 
+     private Collection<WifiAccessPoint> wifiAccessPoints;
+
+

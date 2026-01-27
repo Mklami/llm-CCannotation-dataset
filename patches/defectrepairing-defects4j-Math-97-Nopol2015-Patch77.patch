@@ -1,0 +1,11 @@
+diff -w -r -u Math97b/src/java/org/apache/commons/math/analysis/BrentSolver.java Math97b_Patch77/src/java/org/apache/commons/math/analysis/BrentSolver.java
+--- a/src/java/org/apache/commons/math/analysis/BrentSolver.java
++++ b/src/java/org/apache/commons/math/analysis/BrentSolver.java
+@@ -138,6 +138,7 @@
+         if (sign >= 0) {
+             // check if either value is close to a zero
+                 // neither value is close to zero and min and max do not bracket root.
++                if(min <= 1)
+                 throw new IllegalArgumentException
+                 ("Function values at endpoints do not have different signs." +
+                         "  Endpoints: [" + min + "," + max + "]" + 

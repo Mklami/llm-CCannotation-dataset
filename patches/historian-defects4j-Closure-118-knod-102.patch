@@ -1,0 +1,9 @@
+--- a/src/com/google/javascript/jscomp/DisambiguateProperties.java
++++ b/src/com/google/javascript/jscomp/DisambiguateProperties.java
+@@ -494,3 +494,6 @@
+         // Maybe STRING, GET, SET
++   if (child.isQuotedString() ){
++   continue  ;
++   }
+
+    // We should never see a mix of numbers and strings.

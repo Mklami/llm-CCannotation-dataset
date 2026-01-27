@@ -1,0 +1,15 @@
+--- a/src/main/java/org/apache/commons/math/util/ContinuedFraction.java
++++ b/src/main/java/org/apache/commons/math/util/ContinuedFraction.java
+@@ -183,9 +183,7 @@
+             double r = p2 / q2;
+ 
+             if (Double.isNaN(r)) {
+-                throw new ConvergenceException(
+-                  LocalizedFormats.CONTINUED_FRACTION_NAN_DIVERGENCE,
+-                  x);
++                continue;
+             }
+             relativeError = FastMath.abs(r / c - 1.0);
+ 
+
+

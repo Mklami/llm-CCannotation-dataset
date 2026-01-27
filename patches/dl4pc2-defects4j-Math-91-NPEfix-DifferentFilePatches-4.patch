@@ -1,0 +1,8 @@
+--- a/src/java/org/apache/commons/math/MathException.java
++++ b/src/java/org/apache/commons/math/MathException.java
+@@ -62,2 +62,5 @@
+         try {
++            if (cachedResources == null) {
++                return s;
++            }
+             if ((cachedResources == null) || (! cachedResources.getLocale().equals(locale))) {

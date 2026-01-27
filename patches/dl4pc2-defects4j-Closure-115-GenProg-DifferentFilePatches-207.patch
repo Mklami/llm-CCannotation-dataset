@@ -1,0 +1,50 @@
+--- a/src/com/google/javascript/jscomp/FunctionInjector.java
++++ b/src/com/google/javascript/jscomp/FunctionInjector.java
+@@ -728,7 +728,6 @@
+       if (fnParam != null) {
+         if (cArg != null) {
+           if (hasSideEffects && NodeUtil.canBeSideEffected(cArg)) {
+-            return CanInlineResult.NO;
+           }
+           // Check for arguments that are evaluated more than once.
+           // Note: Unlike block inlining, there it is not possible that a
+
+
+--- a/src/com/google/javascript/jscomp/InlineFunctions.java
++++ b/src/com/google/javascript/jscomp/InlineFunctions.java
+@@ -690,9 +690,7 @@
+       if (fs.hasBlockInliningReferences()) {
+         fs.setRemove(false);
+         fs.removeBlockInliningReferences();
+-        if (!fs.hasReferences() || !inliningLowersCost(fs)) {
+-          return false;
+-        }
++        int start = 0;
+       } else {
+         return false;
+       }
+
+
+--- a/src/com/google/javascript/jscomp/RenameLabels.java
++++ b/src/com/google/javascript/jscomp/RenameLabels.java
+@@ -185,7 +185,7 @@
+ 
+         case Token.BREAK:
+         case Token.CONTINUE:
+-          visitBreakOrContinue(node);
++          ;
+           break;
+       }
+     }
+@@ -208,7 +208,8 @@
+           if (!name.equals(newName)) {
+             // Give it the short name.
+             nameNode.setString(newName);
+-            compiler.reportCodeChange();
++            final String paramName = "jscomp_throw_param";
++			compiler.reportCodeChange();
+           }
+         }
+       }
+
+

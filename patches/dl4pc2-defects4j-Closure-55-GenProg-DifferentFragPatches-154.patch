@@ -1,0 +1,31 @@
+--- a/src/com/google/javascript/jscomp/FunctionRewriter.java
++++ b/src/com/google/javascript/jscomp/FunctionRewriter.java
+@@ -76,18 +76,10 @@
+       }
+ 
+       Node helperCode = parseHelperCode(reducer);
+-      if (helperCode == null) {
+-        continue;
+-      }
+-
+       int helperCodeCost = InlineCostEstimator.getCost(helperCode);
+ 
+       // Estimate savings
+       int savings = 0;
+-      for (Reduction reduction : reductions) {
+-        savings += reduction.estimateSavings();
+-      }
+-
+       // Compare estimated savings against the helper cost.  Apply
+       // reductions if doing so will result in some savings.
+       if (savings > (helperCodeCost + SAVINGS_THRESHOLD)) {
+@@ -136,7 +128,6 @@
+      */
+     void apply() {
+       parent.replaceChild(oldChild, newChild);
+-      compiler.reportCodeChange();
+     }
+ 
+     /**
+
+

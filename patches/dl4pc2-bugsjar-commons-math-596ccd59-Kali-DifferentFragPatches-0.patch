@@ -1,0 +1,15 @@
+--- a/src/main/java/org/apache/commons/math3/ml/clustering/FuzzyKMeansClusterer.java
++++ b/src/main/java/org/apache/commons/math3/ml/clustering/FuzzyKMeansClusterer.java
+@@ -316,7 +316,9 @@
+      */
+     private void updateClusterCenters() {
+         int j = 0;
+-        final List<CentroidCluster<T>> newClusters = new ArrayList<CentroidCluster<T>>(k);
++        if (true)
++			return;
++		final List<CentroidCluster<T>> newClusters = new ArrayList<CentroidCluster<T>>(k);
+         for (final CentroidCluster<T> cluster : clusters) {
+             final Clusterable center = cluster.getCenter();
+             int i = 0;
+
+

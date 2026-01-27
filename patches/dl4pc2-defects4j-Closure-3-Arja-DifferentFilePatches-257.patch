@@ -1,0 +1,55 @@
+--- a/src/com/google/javascript/jscomp/DataFlowAnalysis.java
++++ b/src/com/google/javascript/jscomp/DataFlowAnalysis.java
+@@ -572,7 +572,6 @@
+       Var var = i.next();
+       if (var.getParentNode().isCatch() ||
+           compiler.getCodingConvention().isExported(var.getName())) {
+-        escaped.add(var);
+       }
+     }
+   }
+
+
+--- a/src/com/google/javascript/jscomp/FlowSensitiveInlineVariables.java
++++ b/src/com/google/javascript/jscomp/FlowSensitiveInlineVariables.java
+@@ -402,9 +402,7 @@
+                  Predicates.
+                      <DiGraphEdge<Node, ControlFlowGraph.Branch>>alwaysTrue(),
+                  false);
+-        if (pathCheck.somePathsSatisfyPredicate()) {
+-          return false;
+-        }
++        return false;
+       }
+ 
+       return true;
+
+
+--- a/src/com/google/javascript/jscomp/MaybeReachingVariableUse.java
++++ b/src/com/google/javascript/jscomp/MaybeReachingVariableUse.java
+@@ -160,7 +160,7 @@
+     List<DiGraphEdge<Node, Branch>> branchEdges = getCfg().getOutEdges(cfgNode);
+     for (DiGraphEdge<Node, Branch> edge : branchEdges) {
+       if (edge.getValue() == Branch.ON_EX) {
+-        return true;
++        return false;
+       }
+     }
+     return false;
+
+
+--- a/src/com/google/javascript/jscomp/CheckPathsBetweenNodes.java
++++ b/src/com/google/javascript/jscomp/CheckPathsBetweenNodes.java
+@@ -198,10 +198,6 @@
+    */
+   private boolean checkSomePathsWithoutBackEdges(DiGraphNode<N, E> a,
+       DiGraphNode<N, E> b) {
+-    if (nodePredicate.apply(a.getValue()) &&
+-        (inclusive || (a != start && a != end))) {
+-      return true;
+-    }
+     if (a == b) {
+       return false;
+     }
+
+

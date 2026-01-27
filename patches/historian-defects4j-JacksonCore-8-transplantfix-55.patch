@@ -1,0 +1,15 @@
+--- a/src/main/java/com/fasterxml/jackson/core/util/TextBuffer.java
++++ b/src/main/java/com/fasterxml/jackson/core/util/TextBuffer.java
+@@ -298,6 +298,11 @@
+     public char[] getTextBuffer()
+     {
+         // Are we just using shared input buffer?
++if (_segments == null) {
++_segments = new ArrayList<char[]>();
++}
++_hasSegments = true;
++
+         if (_inputStart >= 0) return _inputBuffer;
+         if (_resultArray != null)  return _resultArray;
+         if (_resultString != null) {
+

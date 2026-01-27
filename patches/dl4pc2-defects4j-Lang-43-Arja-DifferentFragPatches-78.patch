@@ -1,0 +1,28 @@
+--- a/src/java/org/apache/commons/lang/text/ExtendedMessageFormat.java
++++ b/src/java/org/apache/commons/lang/text/ExtendedMessageFormat.java
+@@ -156,7 +156,10 @@
+             switch (c[pos.getIndex()]) {
+             case QUOTE:
+                 appendQuotedString(pattern, pos, stripCustom, true);
+-                break;
++                {
++					pos.setIndex(pos.getIndex() + 1);
++					break;
++				}
+             case START_FE:
+                 fmtCount++;
+                 seekNonWs(pattern, pos);
+@@ -184,7 +187,10 @@
+                 }
+                 // fall through
+             default:
+-                stripCustom.append(c[pos.getIndex()]);
++                {
++					Validate.isTrue(foundFormats.size() == fmtCount);
++					stripCustom.append(c[pos.getIndex()]);
++				}
+                 next(pos);
+             }
+         }
+
+

@@ -1,0 +1,12 @@
+--- a/src/org/traccar/protocol/Gt06ProtocolDecoder.java
++++ b/src/org/traccar/protocol/Gt06ProtocolDecoder.java
+@@ -182,7 +182,6 @@
+         }
+ 
+         if (length > 0) {
+-            buf.skipBytes(length - 12); // skip reserved
+         }
+ 
+         return true;
+
+

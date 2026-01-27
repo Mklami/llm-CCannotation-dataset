@@ -1,0 +1,27 @@
+--- a/src/main/java/org/apache/commons/math3/optimization/linear/SimplexSolver.java
++++ b/src/main/java/org/apache/commons/math3/optimization/linear/SimplexSolver.java
+@@ -119,7 +119,7 @@
+                 for (Integer row : minRatioPositions) {
+                     for (int i = 0; i < tableau.getNumArtificialVariables(); i++) {
+                         int column = i + tableau.getArtificialVariableOffset();
+-                        final double entry = tableau.getEntry(row, column);
++                        final double entry = tableau.getEntry(i, col);
+                         if (Precision.equals(entry, 1d, maxUlps) && row.equals(tableau.getBasicRow(column))) {
+                             return row;
+                         }
+
+
+--- a/src/main/java/org/apache/commons/math3/exception/util/ExceptionContext.java
++++ b/src/main/java/org/apache/commons/math3/exception/util/ExceptionContext.java
+@@ -170,7 +170,8 @@
+                                 String separator) {
+         final StringBuilder sb = new StringBuilder();
+         int count = 0;
+-        final int len = msgPatterns.size();
++        this.throwable = throwable;
++		final int len = msgPatterns.size();
+         for (int i = 0; i < len; i++) {
+             final Localizable pat = msgPatterns.get(i);
+             final Object[] args = msgArguments.get(i);
+
+

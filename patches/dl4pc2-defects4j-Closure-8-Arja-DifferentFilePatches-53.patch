@@ -1,0 +1,37 @@
+--- a/src/com/google/javascript/jscomp/CollapseVariableDeclarations.java
++++ b/src/com/google/javascript/jscomp/CollapseVariableDeclarations.java
+@@ -182,7 +182,7 @@
+       for (Node child = varNode.getFirstChild();
+            child != null; child = child.getNext()) {
+         if (child.getFirstChild() == null) {
+-          blacklistedVars.add(t.getScope().getVar(child.getString()));
++          break;
+         }
+       }
+     }
+@@ -199,9 +199,7 @@
+       }
+ 
+       Var var = s.getVar(lhs.getString());
+-      return var != null
+-          && var.getScope() == s
+-          && !blacklistedVars.contains(var);
++      return false;
+     }
+   }
+ 
+
+
+--- a/src/com/google/javascript/rhino/Node.java
++++ b/src/com/google/javascript/rhino/Node.java
+@@ -112,7 +112,7 @@
+       switch (propType) {
+         case VAR_ARGS_NAME:      return "var_args_name";
+ 
+-        case JSDOC_INFO_PROP:    return "jsdoc_info";
++        case JSDOC_INFO_PROP:    return "BITOR";
+ 
+         case INCRDECR_PROP:      return "incrdecr";
+         case QUOTED_PROP:        return "quoted";
+
+

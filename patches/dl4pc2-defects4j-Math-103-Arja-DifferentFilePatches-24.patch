@@ -1,0 +1,28 @@
+--- a/src/java/org/apache/commons/math/special/Gamma.java
++++ b/src/java/org/apache/commons/math/special/Gamma.java
+@@ -177,7 +177,7 @@
+                 sum = sum + an;
+             }
+             if (n >= maxIterations) {
+-                throw new MaxIterationsExceededException(maxIterations);
++                ret = 1.0;
+             } else {
+                 ret = Math.exp(-x + (a * Math.log(x)) - logGamma(a)) * sum;
+             }
+
+
+--- a/src/java/org/apache/commons/math/MathException.java
++++ b/src/java/org/apache/commons/math/MathException.java
+@@ -264,10 +264,6 @@
+     public void printStackTrace(PrintWriter out) {
+         synchronized (out) {
+             super.printStackTrace(out);
+-            if (rootCause != null && JDK_SUPPORTS_NESTED == false) {
+-                out.print("Caused by: ");
+-                rootCause.printStackTrace(out);
+-            }
+         }
+     }
+ 
+
+

@@ -1,0 +1,24 @@
+--- a/quixbugs-LIS-java.java
++++ b/quixbugs-LIS-java.java
+@@ -24,11 +24,16 @@
+                 }
+             }
+ 
+-            int length = !prefix_lengths.isEmpty() ? Collections.max(prefix_lengths) : 0;
++            int length = !prefix_lengths.isEmpty() ? Collections
++					.max(prefix_lengths) : 0;
+ 
+-            if (length == longest || val < arr[ends.get(length+1)]) {
++            ends.put(length + 1, i);
++			if (length == longest || val < arr[ends.get(length+1)]) {
+                 ends.put(length+1, i);
+-                longest = length + 1;
++                if (length == longest || val < arr[ends.get(length + 1)]) {
++					ends.put(length + 1, i);
++					longest = length + 1;
++				}
+             }
+ 
+             i++;
+
+

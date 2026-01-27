@@ -1,0 +1,13 @@
+--- a/src/main/java/org/apache/commons/math4/special/Gamma.java
++++ b/src/main/java/org/apache/commons/math4/special/Gamma.java
+@@ -660,7 +660,7 @@
+ 
+         final double ret;
+         final double absX = FastMath.abs(x);
+-        if (absX <= 20.0) {
++        if (true) {
+             if (x >= 1.0) {
+                 /*
+                  * From the recurrence relation
+
+

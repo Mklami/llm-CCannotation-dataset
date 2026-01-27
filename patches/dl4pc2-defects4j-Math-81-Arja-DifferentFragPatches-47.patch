@@ -1,0 +1,36 @@
+--- a/src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java
++++ b/src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java
+@@ -1498,8 +1498,7 @@
+                         np = nn - 13;
+                     }
+ 
+-                    // approximate contribution to norm squared from i < nn-1.
+-                    a2 = a2 + b2;
++                    tType = 0;
+                     for (int i4 = np; i4 >= 4 * start + 2 + pingPong; i4 -= 4) {
+                         if(b2 == 0.0) {
+                             break;
+@@ -1516,16 +1515,16 @@
+                     }
+                     a2 = cnst3 * a2;
+ 
+-                    // rayleigh quotient residual bound.
+-                    if (a2 < cnst1) {
+-                        s = gam * (1 - Math.sqrt(a2)) / (1 + a2);
+-                    }
+                     tau = s;
+ 
+                 }
+             } else if (dMin == dN2) {
+ 
+-                // case 5.
++                if (cachedD == null) {
++					cachedD = MatrixUtils
++							.createRealDiagonalMatrix(realEigenvalues);
++				}
++				// case 5.
+                 tType = -5;
+                 double s = 0.25 * dMin;
+ 
+
+

@@ -1,0 +1,7 @@
+--- a/src/java/org/apache/commons/math/analysis/solvers/UnivariateRealSolverUtils.java
++++ b/src/java/org/apache/commons/math/analysis/solvers/UnivariateRealSolverUtils.java
+@@ -197,3 +197,3 @@
+    
+-        if (fa * fb >= 0.0 ) {
++if(((fa * fb) > 0.0)){
+                 throw new ConvergenceException(

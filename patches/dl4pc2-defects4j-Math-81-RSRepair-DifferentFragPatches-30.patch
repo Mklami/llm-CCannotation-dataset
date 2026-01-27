@@ -1,0 +1,21 @@
+--- a/src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java
++++ b/src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java
+@@ -1470,8 +1470,6 @@
+                         tType = -3;
+                     }
+                 } else {
+-                    // case 4.
+-                    tType = -4;
+                     double s = 0.25 * dMin;
+                     double gam;
+                     int np;
+@@ -1481,7 +1479,6 @@
+                         if (work[nn - 5]  >  work[nn - 7]) {
+                             return;
+                         }
+-                        b2 = work[nn - 5] / work[nn - 7];
+                         np = nn - 9;
+                     } else {
+                         np = nn - 2 * pingPong;
+
+

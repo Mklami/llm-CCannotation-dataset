@@ -1,0 +1,16 @@
+--- a/src/java/org/apache/commons/jxpath/ri/model/dom/DOMNodePointer.java
++++ b/src/java/org/apache/commons/jxpath/ri/model/dom/DOMNodePointer.java
+@@ -575,7 +575,11 @@
+     }
+ 
+     public boolean equals(Object object) {
+-        return object == this || object instanceof DOMNodePointer && node == ((DOMNodePointer) object).node;
++        if (parent == null || parent.isContainer()) {
++return true;
++}
++
++return object == this || object instanceof DOMNodePointer && node == ((DOMNodePointer) object).node;
+     }
+ 
+     public static String getPrefix(Node node) {
+

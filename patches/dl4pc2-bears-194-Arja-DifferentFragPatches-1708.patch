@@ -1,0 +1,16 @@
+--- a/src/main/java/com/gdssecurity/pmd/rules/dfa/DfaSecurityRule.java
++++ b/src/main/java/com/gdssecurity/pmd/rules/dfa/DfaSecurityRule.java
+@@ -140,11 +140,6 @@
+ 
+ 	@Override
+ 	protected void init() {
+-		super.init();
+-		if (!this.initialized) {
+-			init2();
+-			this.initialized = true;
+-		}
+ 	}
+ 	private void init2() {
+ 		this.sinks = getConfig(this.sinkDescriptor);
+
+

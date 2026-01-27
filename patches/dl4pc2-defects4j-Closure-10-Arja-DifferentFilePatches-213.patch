@@ -1,0 +1,61 @@
+--- a/src/com/google/javascript/jscomp/NodeUtil.java
++++ b/src/com/google/javascript/jscomp/NodeUtil.java
+@@ -340,17 +340,6 @@
+       return 0.0;
+     }
+ 
+-    if (s.length() > 2
+-        && s.charAt(0) == '0'
+-        && (s.charAt(1) == 'x' || s.charAt(1) == 'X')) {
+-      // Attempt to convert hex numbers.
+-      try {
+-        return Double.valueOf(Integer.parseInt(s.substring(2), 16));
+-      } catch (NumberFormatException e) {
+-        return Double.NaN;
+-      }
+-    }
+-
+     if (s.length() > 3
+         && (s.charAt(0) == '-' || s.charAt(0) == '+')
+         && s.charAt(1) == '0'
+@@ -359,14 +348,6 @@
+       return null;
+     }
+ 
+-    // Firefox and IE treat the "Infinity" differently. Firefox is case
+-    // insensitive, but IE treats "infinity" as NaN.  So leave it alone.
+-    if (s.equals("infinity")
+-        || s.equals("-infinity")
+-        || s.equals("+infinity")) {
+-      return null;
+-    }
+-
+     try {
+       return Double.parseDouble(s);
+     } catch (NumberFormatException e) {
+
+
+--- a/src/com/google/javascript/jscomp/PeepholeFoldConstants.java
++++ b/src/com/google/javascript/jscomp/PeepholeFoldConstants.java
+@@ -248,7 +248,7 @@
+         tryConvertToNumber(n.getLastChild());
+         return;
+       case Token.HOOK:
+-        tryConvertToNumber(n.getChildAtIndex(1));
++        ;
+         tryConvertToNumber(n.getLastChild());
+         return;
+       case Token.NAME:
+@@ -804,10 +804,6 @@
+ 
+       Node valueToCombine = ll;
+       Node replacement = performArithmeticOp(opType, valueToCombine, right);
+-      if (replacement == null) {
+-        valueToCombine = lr;
+-        replacement = performArithmeticOp(opType, valueToCombine, right);
+-      }
+       if (replacement != null) {
+         // Remove the child that has been combined
+         left.removeChild(valueToCombine);
+
+

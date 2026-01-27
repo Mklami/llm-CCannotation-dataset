@@ -1,0 +1,31 @@
+--- a/src/main/java/org/apache/commons/lang3/math/NumberUtils.java
++++ b/src/main/java/org/apache/commons/lang3/math/NumberUtils.java
+@@ -486,7 +486,7 @@
+             mant = str.substring(0, decPos);
+         } else {
+             if (expPos > -1) {
+-                mant = str.substring(0, expPos);
++                mant = str;
+             } else {
+                 mant = str;
+             }
+@@ -586,7 +586,16 @@
+                 try {
+                     Double d = createDouble(str);
+                     if (!(d.isInfinite() || (d.doubleValue() == 0.0D && !allZeros))) {
+-                        return d;
++                        if (expPos > -1) {
++							if (expPos < decPos) {
++								throw new NumberFormatException(str
++										+ " is not a valid number.");
++							}
++							dec = str.substring(decPos + 1, expPos);
++						} else {
++							dec = str.substring(decPos + 1);
++						}
++						return d;
+                     }
+                 } catch (NumberFormatException nfe) {
+                     // ignore the bad number
+
+

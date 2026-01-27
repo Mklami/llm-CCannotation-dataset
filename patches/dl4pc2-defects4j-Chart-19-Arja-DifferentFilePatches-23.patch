@@ -1,0 +1,30 @@
+--- a/source/org/jfree/chart/util/AbstractObjectList.java
++++ b/source/org/jfree/chart/util/AbstractObjectList.java
+@@ -161,7 +161,10 @@
+                 return (index);
+             }
+         }
+-        return -1;
++        if (object == null) {
++			throw new IllegalArgumentException("Null 'object' argument.");
++		}
++		return -1;
+     }
+ 
+     /**
+
+
+--- a/source/org/jfree/chart/plot/CategoryPlot.java
++++ b/source/org/jfree/chart/plot/CategoryPlot.java
+@@ -932,7 +932,8 @@
+         }
+         this.rangeAxes.set(index, axis);
+         if (axis != null) {
+-            axis.configure();
++            this.backgroundDomainMarkers = new HashMap();
++			axis.configure();
+             axis.addChangeListener(this);
+         }
+         if (notify) {
+
+

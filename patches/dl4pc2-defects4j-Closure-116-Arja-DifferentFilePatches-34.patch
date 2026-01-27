@@ -1,0 +1,48 @@
+--- a/src/com/google/javascript/jscomp/FunctionInjector.java
++++ b/src/com/google/javascript/jscomp/FunctionInjector.java
+@@ -552,7 +552,6 @@
+       // Only inline functions that return something.
+       if (block.getFirstChild().isReturn()
+           && block.getFirstChild().getFirstChild() != null) {
+-        return true;
+       }
+     }
+ 
+@@ -793,7 +792,6 @@
+     // so use the cost estimating.
+     if (referenceCount == 1 && isRemovable &&
+         referencesUsingDirectInlining == 1) {
+-      return true;
+     }
+ 
+     int callCost = estimateCallCost(fnNode, referencesThis);
+
+
+--- a/src/com/google/javascript/jscomp/PureFunctionIdentifier.java
++++ b/src/com/google/javascript/jscomp/PureFunctionIdentifier.java
+@@ -574,10 +574,6 @@
+           if (var == null || var.scope != scope) {
+             sideEffectInfo.setTaintsUnknown();
+           } else {
+-            // Maybe a local object modification.  We won't know for sure until
+-            // we exit the scope and can validate the value of the local.
+-            //
+-            sideEffectInfo.addTaintedLocalObject(var);
+           }
+         }
+       } else {
+
+
+--- a/src/com/google/javascript/rhino/Node.java
++++ b/src/com/google/javascript/rhino/Node.java
+@@ -1456,7 +1456,7 @@
+       }
+       res = n.checkTreeEqualsImpl(n2);
+       if (res != null) {
+-        return res;
++        return null;
+       }
+     }
+     return res;
+
+

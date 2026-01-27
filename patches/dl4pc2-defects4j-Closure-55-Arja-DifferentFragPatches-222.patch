@@ -1,0 +1,23 @@
+--- a/src/com/google/javascript/jscomp/FunctionRewriter.java
++++ b/src/com/google/javascript/jscomp/FunctionRewriter.java
+@@ -274,7 +274,7 @@
+ 
+       Node statement = body.getFirstChild();
+       if (statement.getType() == Token.RETURN) {
+-        return statement.getFirstChild();
++        return null;
+       }
+       return null;
+     }
+@@ -429,8 +429,7 @@
+               "Expected STRING, got " + Token.name(propName.getType()));
+         }
+ 
+-        return buildCallNode(FACTORY_METHOD_NAME, propName,
+-                             node.getLineno(), node.getCharno());
++        return null;
+       } else {
+         return node;
+       }
+
+

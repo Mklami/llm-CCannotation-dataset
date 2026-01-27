@@ -1,0 +1,13 @@
+--- a/src/main/java/com/fasterxml/jackson/databind/deser/impl/CreatorCollector.java
++++ b/src/main/java/com/fasterxml/jackson/databind/deser/impl/CreatorCollector.java
+@@ -275,7 +275,8 @@
+ 
+     protected void verifyNonDup(AnnotatedWithParams newOne, int typeIndex, boolean explicit)
+     {
+-        final int mask = (1 << typeIndex);
++        int _explicitCreators = (typeIndex <= 32) ? (typeIndex + typeIndex) : (typeIndex + (typeIndex >> 2));
++final int mask = (1 << typeIndex);
+         _hasNonDefaultCreator = true;
+         AnnotatedWithParams oldOne = _creators[typeIndex];
+         // already had an explicitly marked one?
+

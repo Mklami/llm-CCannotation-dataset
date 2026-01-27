@@ -1,0 +1,22 @@
+--- a/src/main/java/org/apache/commons/math3/ode/nonstiff/RungeKuttaIntegrator.java
++++ b/src/main/java/org/apache/commons/math3/ode/nonstiff/RungeKuttaIntegrator.java
+@@ -128,7 +128,16 @@
+ 
+       interpolator.shift();
+ 
+-      // first stage
++      if (forward) {
++		if (stepStart + stepSize >= t) {
++			stepSize = t - stepStart;
++		}
++	} else {
++		if (stepStart + stepSize <= t) {
++			stepSize = t - stepStart;
++		}
++	}
++	// first stage
+       computeDerivatives(stepStart, y, yDotK[0]);
+ 
+       // next stages
+
+

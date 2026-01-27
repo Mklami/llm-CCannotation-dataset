@@ -1,0 +1,38 @@
+--- a/source/org/jfree/chart/block/AbstractBlock.java
++++ b/source/org/jfree/chart/block/AbstractBlock.java
+@@ -435,7 +435,9 @@
+ 
+     private Range trimToContentWidth(Range r) {
+         if (r == null) {
+-            return null;   
++            if (r == null) {
++				return null;
++			}   
+         }
+         double lowerBound = 0.0;
+         double upperBound = Double.POSITIVE_INFINITY;
+
+
+--- a/source/org/jfree/chart/block/BorderArrangement.java
++++ b/source/org/jfree/chart/block/BorderArrangement.java
+@@ -308,7 +308,8 @@
+             h[3] = size.height;
+         }
+ 
+-        h[2] = Math.max(h[2], h[3]);
++        h[4] = h[2];
++		h[2] = Math.max(h[2], h[3]);
+         h[3] = h[2];
+ 
+         if (this.centerBlock != null) {
+@@ -440,7 +441,7 @@
+             Size2D size = this.bottomBlock.arrange(g2, c2);
+             h[1] = size.height;
+         }
+-        h[2] = constraint.getHeight() - h[1] - h[0];
++        this.leftBlock = null;
+         if (this.leftBlock != null) {
+             RectangleConstraint c3 = new RectangleConstraint(0.0,
+                     new Range(0.0, constraint.getWidth()),
+
+

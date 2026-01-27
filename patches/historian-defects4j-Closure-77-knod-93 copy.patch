@@ -1,0 +1,8 @@
+--- a/src/com/google/javascript/jscomp/CodeGenerator.java
++++ b/src/com/google/javascript/jscomp/CodeGenerator.java
+@@ -966,2 +966,4 @@
+         case '\n': sb.append("\\n"); break;
++        case '\0': sb.append("\\0");
++        break;
+         case '\r': sb.append("\\r"); break;
+

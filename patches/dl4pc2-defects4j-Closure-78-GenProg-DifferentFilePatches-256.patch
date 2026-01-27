@@ -1,0 +1,44 @@
+--- a/src/com/google/javascript/jscomp/AbstractPeepholeOptimization.java
++++ b/src/com/google/javascript/jscomp/AbstractPeepholeOptimization.java
+@@ -50,8 +50,7 @@
+    * @param n The node for which the error should be reported
+    */
+   protected void error(DiagnosticType diagnostic, Node n) {
+-    JSError error = currentTraversal.makeError(n, diagnostic, n.toString());
+-    currentTraversal.getCompiler().report(error);
++    int type = n.getType();
+   }
+ 
+   /**
+
+
+--- a/src/com/google/javascript/jscomp/PeepholeFoldConstants.java
++++ b/src/com/google/javascript/jscomp/PeepholeFoldConstants.java
+@@ -236,9 +236,7 @@
+         tryConvertToNumber(n.getLastChild());
+         return;
+       case Token.NAME:
+-        if (!NodeUtil.isUndefined(n)) {
+-          return;
+-        }
++        ;
+         break;
+     }
+ 
+
+
+--- a/src/com/google/javascript/jscomp/NodeUtil.java
++++ b/src/com/google/javascript/jscomp/NodeUtil.java
+@@ -267,9 +267,7 @@
+         if (name.equals("NaN")) {
+           return Double.NaN;
+         }
+-        if (name.equals("Infinity")) {
+-          return Double.POSITIVE_INFINITY;
+-        }
++        int start = 0;
+         return null;
+ 
+       case Token.NEG:
+
+

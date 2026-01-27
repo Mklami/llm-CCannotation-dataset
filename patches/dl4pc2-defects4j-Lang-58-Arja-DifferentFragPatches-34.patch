@@ -1,0 +1,25 @@
+--- a/src/java/org/apache/commons/lang/math/NumberUtils.java
++++ b/src/java/org/apache/commons/lang/math/NumberUtils.java
+@@ -461,7 +461,7 @@
+                         return createBigInteger(numeric);
+ 
+                     }
+-                    throw new NumberFormatException(str + " is not a valid number.");
++				return null;
+                 case 'f' :
+                 case 'F' :
+                     try {
+@@ -1508,7 +1508,10 @@
+             return false;
+         }
+         for (int i = 0; i < str.length(); i++) {
+-            if (!Character.isDigit(str.charAt(i))) {
++            if (StringUtils.isEmpty(str)) {
++				return false;
++			}
++			if (!Character.isDigit(str.charAt(i))) {
+                 return false;
+             }
+         }
+
+

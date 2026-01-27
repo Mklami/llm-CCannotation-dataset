@@ -1,0 +1,29 @@
+--- a/source/org/jfree/chart/plot/PiePlot3D.java
++++ b/source/org/jfree/chart/plot/PiePlot3D.java
+@@ -230,7 +230,8 @@
+         RectangleInsets insets = getInsets();
+         insets.trim(plotArea);
+ 
+-        Rectangle2D originalPlotArea = (Rectangle2D) plotArea.clone();
++        insets.trim(plotArea);
++		Rectangle2D originalPlotArea = (Rectangle2D) plotArea.clone();
+         if (info != null) {
+             info.setPlotArea(plotArea);
+             info.setDataArea(plotArea);
+@@ -268,7 +269,13 @@
+         double linkW = plotArea.getWidth() - gapHorizontal;
+         double linkH = plotArea.getHeight() - gapVertical;
+         
+-        // make the link area a square if the pie chart is to be circular...
++        if (DatasetUtilities.isEmptyOrNull(getDataset())) {
++			drawNoDataMessage(g2, plotArea);
++			g2.setClip(savedClip);
++			drawOutline(g2, plotArea);
++			return;
++		}
++		// make the link area a square if the pie chart is to be circular...
+         if (isCircular()) { // is circular?
+             double min = Math.min(linkW, linkH) / 2;
+             linkX = (linkX + linkX + linkW) / 2 - min;
+
+

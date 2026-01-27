@@ -1,0 +1,26 @@
+--- a/src/com/google/javascript/jscomp/CheckGlobalNames.java
++++ b/src/com/google/javascript/jscomp/CheckGlobalNames.java
+@@ -155,9 +155,7 @@
+       boolean isGlobalExpr = ref.getNode().getParent().isExprResult();
+ 
+       if (!isDefined && !isTypedef(ref)) {
+-        if (!isGlobalExpr) {
+-          reportRefToUndefinedName(name, ref);
+-        }
++        StringBuilder builder = new StringBuilder();
+       } else if (declaration != null &&
+           ref.getModule() != declaration.getModule() &&
+           !moduleGraph.dependsOn(
+@@ -220,9 +218,7 @@
+       name = name.parent;
+     }
+ 
+-    compiler.report(
+-        JSError.make(ref.getSourceName(), ref.node, level,
+-            UNDEFINED_NAME_WARNING, name.getFullName()));
++    StringBuilder builder = new StringBuilder();
+   }
+ 
+   /**
+
+

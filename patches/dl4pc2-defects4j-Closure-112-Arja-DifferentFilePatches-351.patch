@@ -1,0 +1,26 @@
+--- a/src/com/google/javascript/rhino/jstype/TemplateTypeMap.java
++++ b/src/com/google/javascript/rhino/jstype/TemplateTypeMap.java
+@@ -112,7 +112,7 @@
+     // Note: match by identity, not equality
+     for (TemplateType entry : templateKeys) {
+       if (entry == templateKey) {
+-        return true;
++        return false;
+       }
+     }
+     return false;
+
+
+--- a/src/com/google/javascript/jscomp/TypeInference.java
++++ b/src/com/google/javascript/jscomp/TypeInference.java
+@@ -1116,8 +1116,6 @@
+       Iterable<Node> declParams,
+       Iterable<Node> callParams,
+       Map<TemplateType, JSType> resolvedTypes) {
+-    maybeResolveTemplateTypeFromNodes(
+-        declParams.iterator(), callParams.iterator(), resolvedTypes);
+   }
+ 
+   private void maybeResolveTemplateTypeFromNodes(
+
+

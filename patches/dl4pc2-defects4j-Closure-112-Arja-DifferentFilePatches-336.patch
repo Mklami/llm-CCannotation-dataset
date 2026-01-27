@@ -1,0 +1,38 @@
+--- a/src/com/google/javascript/rhino/jstype/ModificationVisitor.java
++++ b/src/com/google/javascript/rhino/jstype/ModificationVisitor.java
+@@ -92,7 +92,6 @@
+ 
+     // TODO(johnlenz): remove this simplifying assumption...
+     if (!type.isOrdinaryFunction()) {
+-      return type;
+     }
+ 
+     boolean changed = false;
+
+
+--- a/src/com/google/javascript/jscomp/FunctionTypeBuilder.java
++++ b/src/com/google/javascript/jscomp/FunctionTypeBuilder.java
+@@ -355,7 +355,6 @@
+             builder.add(typeRegistry.createTemplateType(typeParameter));
+           }
+           classTemplateTypeNames = builder.build();
+-          typeRegistry.setTemplateTypeNames(classTemplateTypeNames);
+         }
+       }
+ 
+
+
+--- a/src/com/google/javascript/jscomp/TypeInference.java
++++ b/src/com/google/javascript/jscomp/TypeInference.java
+@@ -1059,9 +1059,6 @@
+       JSType argType,
+       Map<TemplateType, JSType> resolvedTypes) {
+     if (paramType.isTemplateType()) {
+-      // @param {T}
+-      resolvedTemplateType(
+-          resolvedTypes, paramType.toMaybeTemplateType(), argType);
+     } else if (paramType.isUnionType()) {
+       // @param {Array.<T>|NodeList|Arguments|{length:number}}
+       UnionType unionType = paramType.toMaybeUnionType();
+
+

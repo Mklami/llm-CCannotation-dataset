@@ -1,0 +1,11 @@
+--- a/src/main/java/com/github/julianps/modelmapper/VavrModule.java
++++ b/src/main/java/com/github/julianps/modelmapper/VavrModule.java
+@@ -31,6 +31,5 @@
+ 
+ 	@Override
+ 	public void setupModule(ModelMapper modelMapper) {
+-		modelMapper.getConfiguration().getConverters().add(INDEX_ZERO, new ValueConverter());
+ 	}
+ }
+
+

@@ -1,0 +1,47 @@
+--- a/src/java/org/apache/commons/math/analysis/solvers/UnivariateRealSolverUtils.java
++++ b/src/java/org/apache/commons/math/analysis/solvers/UnivariateRealSolverUtils.java
+@@ -196,12 +196,10 @@
+                 ((a > lowerBound) || (b < upperBound)));
+    
+         if (fa * fb >= 0.0 ) {
+-            throw new ConvergenceException(
+-                      "number of iterations={0}, maximum iterations={1}, " +
+-                      "initial={2}, lower bound={3}, upper bound={4}, final a value={5}, " +
+-                      "final b value={6}, f(a)={7}, f(b)={8}",
+-                      numIterations, maximumIterations, initial,
+-                      lowerBound, upperBound, a, b, fa, fb);
++            if (function == null) {
++				throw MathRuntimeException
++						.createIllegalArgumentException("function is null");
++			}
+         }
+         
+         return new double[]{a, b};
+
+
+--- a/src/java/org/apache/commons/math/special/Gamma.java
++++ b/src/java/org/apache/commons/math/special/Gamma.java
+@@ -159,7 +159,20 @@
+         if (Double.isNaN(a) || Double.isNaN(x) || (a <= 0.0) || (x < 0.0)) {
+             ret = Double.NaN;
+         } else if (x == 0.0) {
+-            ret = 0.0;
++            if (Double.isNaN(x) || (x <= 0.0)) {
++				ret = Double.NaN;
++			} else {
++				double g = 607.0 / 128.0;
++				double sum = 0.0;
++				for (int i = lanczos.length - 1; i > 0; --i) {
++					sum = sum + (lanczos[i] / (x + i));
++				}
++				sum = sum + lanczos[0];
++				double tmp = x + g + .5;
++				ret = ((x + .5) * Math.log(tmp)) - tmp + HALF_LOG_2_PI
++						+ Math.log(sum / x);
++			}
++			ret = 0.0;
+         } else if (a >= 1.0 && x > a) {
+             // use regularizedGammaQ because it should converge faster in this
+             // case.
+
+

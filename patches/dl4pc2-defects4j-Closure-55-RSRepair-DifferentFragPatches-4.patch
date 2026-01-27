@@ -1,0 +1,20 @@
+--- a/src/com/google/javascript/jscomp/FunctionRewriter.java
++++ b/src/com/google/javascript/jscomp/FunctionRewriter.java
+@@ -448,7 +448,6 @@
+       if (value != null &&
+           NodeUtil.isGetProp(value) &&
+           NodeUtil.isThis(value.getFirstChild())) {
+-        return value.getLastChild();
+       }
+       return null;
+     }
+@@ -508,7 +507,6 @@
+     private Node getSetPropertyName(Node functionNode) {
+       Node body = functionNode.getLastChild();
+       if (!body.hasOneChild()) {
+-        return null;
+       }
+ 
+       Node argList = functionNode.getFirstChild().getNext();
+
+

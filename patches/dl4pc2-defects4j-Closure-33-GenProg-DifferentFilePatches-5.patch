@@ -1,0 +1,28 @@
+--- a/src/com/google/javascript/rhino/jstype/RecordType.java
++++ b/src/com/google/javascript/rhino/jstype/RecordType.java
+@@ -258,7 +258,7 @@
+           }
+         } else {
+           if (!propA.isSubtype(propB)) {
+-            return false;
++            return true;
+           }
+         }
+       }
+
+
+--- a/src/com/google/javascript/rhino/jstype/PrototypeObjectType.java
++++ b/src/com/google/javascript/rhino/jstype/PrototypeObjectType.java
+@@ -569,10 +569,6 @@
+         JSType propType = constraintObj.getPropertyType(prop);
+         if (!isPropertyTypeDeclared(prop)) {
+           JSType typeToInfer = propType;
+-          if (!hasProperty(prop)) {
+-            typeToInfer = getNativeType(JSTypeNative.VOID_TYPE)
+-                .getLeastSupertype(propType);
+-          }
+           defineInferredProperty(prop, typeToInfer, null);
+         }
+       }
+
+

@@ -1,0 +1,12 @@
+--- a/src/org/traccar/protocol/SuntechProtocolDecoder.java
++++ b/src/org/traccar/protocol/SuntechProtocolDecoder.java
+@@ -141,7 +141,6 @@
+         index += 1; // mode
+ 
+         if (type.equals("STT")) {
+-            position.set(Position.KEY_INDEX, Integer.parseInt(values[index++]));
+         }
+ 
+         if (index < values.length) {
+
+

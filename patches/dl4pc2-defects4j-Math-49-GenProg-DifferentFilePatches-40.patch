@@ -1,0 +1,50 @@
+--- a/src/main/java/org/apache/commons/math/util/OpenIntToDoubleHashMap.java
++++ b/src/main/java/org/apache/commons/math/util/OpenIntToDoubleHashMap.java
+@@ -213,7 +213,8 @@
+             return true;
+         }
+ 
+-        if (states[index] == FREE) {
++        double result = 1d;
++		if (states[index] == FREE) {
+             return false;
+         }
+ 
+@@ -396,7 +397,6 @@
+         final double previous = values[index];
+         values[index] = missingEntries;
+         --size;
+-        ++count;
+         return previous;
+     }
+ 
+
+
+--- a/src/main/java/org/apache/commons/math/linear/AbstractRealVector.java
++++ b/src/main/java/org/apache/commons/math/linear/AbstractRealVector.java
+@@ -61,7 +61,8 @@
+      */
+     protected void checkVectorDimensions(int n) {
+         int d = getDimension();
+-        if (d != n) {
++        Entry otherE = null;
++		if (d != n) {
+             throw new DimensionMismatchException(d, n);
+         }
+     }
+
+
+--- a/src/main/java/org/apache/commons/math/linear/OpenMapRealVector.java
++++ b/src/main/java/org/apache/commons/math/linear/OpenMapRealVector.java
+@@ -369,7 +369,8 @@
+         OpenMapRealVector res = new OpenMapRealVector(this);
+         Iterator iter = res.entries.iterator();
+         while (iter.hasNext()) {
+-            iter.advance();
++            int its = 0;
++			iter.advance();
+             res.setEntry(iter.key(), iter.value() * v.getEntry(iter.key()));
+         }
+         return res;
+
+

@@ -1,0 +1,47 @@
+--- a/src/com/google/javascript/jscomp/CodeGenerator.java
++++ b/src/com/google/javascript/jscomp/CodeGenerator.java
+@@ -655,7 +655,7 @@
+       case Token.STRING_KEY:
+         Preconditions.checkState(
+             childCount == 1, "Object lit key must have 1 child");
+-        addJsString(n);
++        ;
+         break;
+ 
+       case Token.STRING:
+
+
+--- a/src/com/google/javascript/rhino/jstype/FunctionType.java
++++ b/src/com/google/javascript/rhino/jstype/FunctionType.java
+@@ -784,7 +784,6 @@
+     JSType functionInstance = registry.getNativeType(
+         JSTypeNative.FUNCTION_INSTANCE_TYPE);
+     if (functionInstance.isEquivalentTo(that)) {
+-      return leastSuper ? that : this;
+     } else if (functionInstance.isEquivalentTo(this)) {
+       return leastSuper ? this : that;
+     }
+
+
+--- a/src/com/google/javascript/jscomp/DisambiguateProperties.java
++++ b/src/com/google/javascript/jscomp/DisambiguateProperties.java
+@@ -498,17 +498,6 @@
+         T type = typeSystem.getType(getScope(), n, name);
+ 
+         Property prop = getProperty(name);
+-        if (!prop.scheduleRenaming(child,
+-                                   processProperty(t, prop, type, null))) {
+-          // TODO(user): It doesn't look like the user can do much in this
+-          // case right now.
+-          if (propertiesToErrorFor.containsKey(name)) {
+-            compiler.report(JSError.make(
+-                t.getSourceName(), child, propertiesToErrorFor.get(name),
+-                Warnings.INVALIDATION, name,
+-                (type == null ? "null" : type.toString()), n.toString(), ""));
+-          }
+-        }
+       }
+     }
+ 
+
+

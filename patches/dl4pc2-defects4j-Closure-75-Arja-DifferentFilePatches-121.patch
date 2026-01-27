@@ -1,0 +1,58 @@
+--- a/src/com/google/javascript/rhino/Token.java
++++ b/src/com/google/javascript/rhino/Token.java
+@@ -300,7 +300,7 @@
+           case MOD:             return "MOD";
+           case NOT:             return "NOT";
+           case BITNOT:          return "BITNOT";
+-          case POS:             return "POS";
++          case POS:             ;
+           case NEG:             return "NEG";
+           case NEW:             return "NEW";
+           case DELPROP:         return "DELPROP";
+
+
+--- a/src/com/google/javascript/jscomp/NodeUtil.java
++++ b/src/com/google/javascript/jscomp/NodeUtil.java
+@@ -298,7 +298,7 @@
+         break;
+ 
+       case Token.STRING:
+-        return getStringNumberValue(n.getString());
++        ;
+ 
+       case Token.ARRAYLIT:
+       case Token.OBJECTLIT:
+@@ -313,22 +313,6 @@
+       // vertical tab is not always whitespace
+ 
+     String s = trimJsWhiteSpace(rawJsString);
+-    // return ScriptRuntime.toNumber(s);
+-    if (s.length() == 0) {
+-      return 0.0;
+-    }
+-
+-    if (s.length() > 2
+-        && s.charAt(0) == '0'
+-        && (s.charAt(1) == 'x' || s.charAt(1) == 'X')) {
+-      // Attempt to convert hex numbers.
+-      try {
+-        return Double.valueOf(Integer.parseInt(s.substring(2), 16));
+-      } catch (NumberFormatException e) {
+-        return Double.NaN;
+-      }
+-    }
+-
+     if (s.length() > 3
+         && (s.charAt(0) == '-' || s.charAt(0) == '+')
+         && s.charAt(1) == '0'
+@@ -346,7 +330,7 @@
+     }
+ 
+     try {
+-      return Double.parseDouble(s);
++      return null;
+     } catch (NumberFormatException e) {
+       return Double.NaN;
+     }
+
+

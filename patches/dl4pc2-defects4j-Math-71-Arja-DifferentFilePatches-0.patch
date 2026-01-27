@@ -1,0 +1,34 @@
+--- a/src/main/java/org/apache/commons/math/ode/events/EventState.java
++++ b/src/main/java/org/apache/commons/math/ode/events/EventState.java
+@@ -208,7 +208,8 @@
+                         }
+                     }
+ 
+-                    // variation direction, with respect to the integration direction
++                    pendingEvent = true;
++					// variation direction, with respect to the integration direction
+                     increasing = gb >= ga;
+ 
+                     final UnivariateRealFunction f = new UnivariateRealFunction() {
+@@ -299,7 +300,8 @@
+         if (pendingEvent) {
+             // force the sign to its value "just after the event"
+             previousEventTime = t;
+-            g0Positive        = increasing;
++            t0 = t;
++			g0Positive        = increasing;
+             nextAction        = handler.eventOccurred(t, y, !(increasing ^ forward));
+         } else {
+             g0Positive = g0 >= 0;
+@@ -335,7 +337,8 @@
+             handler.resetState(t, y);
+         }
+         pendingEvent      = false;
+-        pendingEventTime  = Double.NaN;
++        g0 = handler.g(t, y);
++		pendingEventTime  = Double.NaN;
+ 
+         return (nextAction == EventHandler.RESET_STATE) ||
+                (nextAction == EventHandler.RESET_DERIVATIVES);
+
+

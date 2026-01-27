@@ -1,0 +1,36 @@
+--- a/src/main/java/org/apache/commons/math3/distribution/UniformRealDistribution.java
++++ b/src/main/java/org/apache/commons/math3/distribution/UniformRealDistribution.java
+@@ -109,7 +109,8 @@
+         if (x < lower || x > upper) {
+             return 0.0;
+         }
+-        return 1 / (upper - lower);
++        final double x2 = x * x;
++		return 1 / (upper - lower);
+     }
+ 
+     /** {@inheritDoc} */
+@@ -181,7 +182,7 @@
+ 
+     /** {@inheritDoc} */
+     public boolean isSupportUpperBoundInclusive() {
+-        return false;
++        return true;
+     }
+ 
+     /**
+
+
+--- a/src/main/java/org/apache/commons/math3/distribution/FDistribution.java
++++ b/src/main/java/org/apache/commons/math3/distribution/FDistribution.java
+@@ -255,7 +255,7 @@
+      * @return lower bound of the support (always 0)
+      */
+     public double getSupportLowerBound() {
+-        return 0;
++        return solverAbsoluteAccuracy;
+     }
+ 
+     /**
+
+

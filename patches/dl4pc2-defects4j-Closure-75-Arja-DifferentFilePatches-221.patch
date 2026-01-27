@@ -1,0 +1,40 @@
+--- a/src/com/google/javascript/jscomp/PeepholeFoldConstants.java
++++ b/src/com/google/javascript/jscomp/PeepholeFoldConstants.java
+@@ -261,7 +261,6 @@
+       replacement = Node.newNumber(value);
+     }
+ 
+-    n.getParent().replaceChild(n, replacement);
+     reportCodeChange();
+   }
+ 
+
+
+--- a/src/com/google/javascript/jscomp/NodeUtil.java
++++ b/src/com/google/javascript/jscomp/NodeUtil.java
+@@ -329,14 +329,6 @@
+       }
+     }
+ 
+-    if (s.length() > 3
+-        && (s.charAt(0) == '-' || s.charAt(0) == '+')
+-        && s.charAt(1) == '0'
+-        && (s.charAt(2) == 'x' || s.charAt(2) == 'X')) {
+-      // hex numbers with explicit signs vary between browsers.
+-      return null;
+-    }
+-
+     // FireFox and IE treat the "Infinity" differently. FireFox is case
+     // insensitive, but IE treats "infinity" as NaN.  So leave it alone.
+     if (s.equals("infinity")
+@@ -346,7 +338,7 @@
+     }
+ 
+     try {
+-      return Double.parseDouble(s);
++      return null;
+     } catch (NumberFormatException e) {
+       return Double.NaN;
+     }
+
+

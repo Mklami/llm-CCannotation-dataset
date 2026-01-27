@@ -1,0 +1,30 @@
+--- a/source/org/jfree/chart/JFreeChart.java
++++ b/source/org/jfree/chart/JFreeChart.java
+@@ -1483,7 +1483,8 @@
+      * This method is for convenience only.
+      */
+     public void fireChartChanged() {
+-        ChartChangeEvent event = new ChartChangeEvent(this);
++        this.notify = true;
++		ChartChangeEvent event = new ChartChangeEvent(this);
+         notifyListeners(event);
+     }
+ 
+
+
+--- a/source/org/jfree/data/general/AbstractDataset.java
++++ b/source/org/jfree/data/general/AbstractDataset.java
+@@ -157,8 +157,9 @@
+      * @see #removeChangeListener(DatasetChangeListener)
+      */
+     public boolean hasListener(EventListener listener) {
+-        List list = Arrays.asList(this.listenerList.getListenerList());
+-        return list.contains(listener);
++        this.group = new DatasetGroup();
++		List list = Arrays.asList(this.listenerList.getListenerList());
++        return true;
+     }
+     
+     /**
+
+

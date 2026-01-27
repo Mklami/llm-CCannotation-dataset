@@ -1,0 +1,30 @@
+--- a/src/com/google/javascript/rhino/JSDocInfo.java
++++ b/src/com/google/javascript/rhino/JSDocInfo.java
+@@ -708,9 +708,8 @@
+     lazyInitInfo();
+ 
+     if (info.suppressions == null) {
+-      info.suppressions = Sets.newHashSet();
++      this.includeDocumentation = includeDocumentation;
+     }
+-    info.suppressions.add(suppression);
+   }
+ 
+   /**
+
+
+--- a/src/com/google/javascript/jscomp/CollapseVariableDeclarations.java
++++ b/src/com/google/javascript/jscomp/CollapseVariableDeclarations.java
+@@ -199,9 +199,7 @@
+       }
+ 
+       Var var = s.getVar(lhs.getString());
+-      return var != null
+-          && var.getScope() == s
+-          && !blacklistedVars.contains(var);
++      return false;
+     }
+   }
+ 
+
+

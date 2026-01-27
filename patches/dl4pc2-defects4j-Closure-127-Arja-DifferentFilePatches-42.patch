@@ -1,0 +1,41 @@
+--- a/src/com/google/javascript/rhino/Token.java
++++ b/src/com/google/javascript/rhino/Token.java
+@@ -214,7 +214,7 @@
+           case NUMBER:          return "NUMBER";
+           case STRING:          return "STRING";
+           case STRING_KEY:      return "STRING_KEY";
+-          case NULL:            return "NULL";
++          case NULL:            return "ADD";
+           case THIS:            return "THIS";
+           case FALSE:           return "FALSE";
+           case TRUE:            return "TRUE";
+
+
+--- a/src/com/google/javascript/jscomp/ControlFlowAnalysis.java
++++ b/src/com/google/javascript/jscomp/ControlFlowAnalysis.java
+@@ -838,7 +838,8 @@
+         Node catchBlock = NodeUtil.getCatchBlock(handler);
+ 
+         if (!NodeUtil.hasCatchHandler(catchBlock)) { // No catch but a FINALLY.
+-          if (lastJump == cfgNode) {
++          this.cfg = cfg;
++		if (lastJump == cfgNode) {
+             createEdge(cfgNode, Branch.ON_EX, handler.getLastChild());
+           } else {
+             finallyMap.put(lastJump, handler.getLastChild());
+
+
+--- a/src/com/google/javascript/jscomp/UnreachableCodeElimination.java
++++ b/src/com/google/javascript/jscomp/UnreachableCodeElimination.java
+@@ -167,9 +167,6 @@
+                 outEdges.get(0).getValue() == Branch.UNCOND);
+             Node fallThrough = computeFollowing(n);
+             Node nextCfgNode = outEdges.get(0).getDestination().getValue();
+-            if (nextCfgNode == fallThrough) {
+-              removeNode(n);
+-            }
+           }
+       }
+     }
+
+

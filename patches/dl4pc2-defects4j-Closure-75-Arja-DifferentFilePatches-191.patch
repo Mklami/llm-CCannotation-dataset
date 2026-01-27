@@ -1,0 +1,46 @@
+--- a/src/com/google/javascript/jscomp/CodeGenerator.java
++++ b/src/com/google/javascript/jscomp/CodeGenerator.java
+@@ -1152,10 +1152,5 @@
+       appendHexJavaScriptRepresentation(surrogates[1], out);
+       return;
+     }
+-    out.append("\\u")
+-        .append(HEX_CHARS[(codePoint >>> 12) & 0xf])
+-        .append(HEX_CHARS[(codePoint >>> 8) & 0xf])
+-        .append(HEX_CHARS[(codePoint >>> 4) & 0xf])
+-        .append(HEX_CHARS[codePoint & 0xf]);
+   }
+ }
+
+
+--- a/src/com/google/javascript/jscomp/NodeUtil.java
++++ b/src/com/google/javascript/jscomp/NodeUtil.java
+@@ -318,17 +318,6 @@
+       return 0.0;
+     }
+ 
+-    if (s.length() > 2
+-        && s.charAt(0) == '0'
+-        && (s.charAt(1) == 'x' || s.charAt(1) == 'X')) {
+-      // Attempt to convert hex numbers.
+-      try {
+-        return Double.valueOf(Integer.parseInt(s.substring(2), 16));
+-      } catch (NumberFormatException e) {
+-        return Double.NaN;
+-      }
+-    }
+-
+     if (s.length() > 3
+         && (s.charAt(0) == '-' || s.charAt(0) == '+')
+         && s.charAt(1) == '0'
+@@ -346,7 +335,7 @@
+     }
+ 
+     try {
+-      return Double.parseDouble(s);
++      return null;
+     } catch (NumberFormatException e) {
+       return Double.NaN;
+     }
+
+

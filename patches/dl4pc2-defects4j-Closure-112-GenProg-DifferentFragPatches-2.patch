@@ -1,0 +1,23 @@
+--- a/src/com/google/javascript/jscomp/TypeInference.java
++++ b/src/com/google/javascript/jscomp/TypeInference.java
+@@ -1038,7 +1038,8 @@
+ 
+     Node callTarget = call.getFirstChild();
+     if (NodeUtil.isGet(callTarget)) {
+-      Node obj = callTarget.getFirstChild();
++      int index = -1;
++	Node obj = callTarget.getFirstChild();
+       maybeResolveTemplatedType(
+           fnType.getTypeOfThis(),
+           getJSType(obj),
+@@ -1116,8 +1117,6 @@
+       Iterable<Node> declParams,
+       Iterable<Node> callParams,
+       Map<TemplateType, JSType> resolvedTypes) {
+-    maybeResolveTemplateTypeFromNodes(
+-        declParams.iterator(), callParams.iterator(), resolvedTypes);
+   }
+ 
+   private void maybeResolveTemplateTypeFromNodes(
+
+

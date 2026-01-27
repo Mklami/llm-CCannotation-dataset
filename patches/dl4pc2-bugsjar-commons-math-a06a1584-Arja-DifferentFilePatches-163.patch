@@ -1,0 +1,34 @@
+--- a/src/main/java/org/apache/commons/math4/geometry/euclidean/threed/PolyhedronsSet.java
++++ b/src/main/java/org/apache/commons/math4/geometry/euclidean/threed/PolyhedronsSet.java
+@@ -292,7 +292,6 @@
+         // search in the near branch
+         final SubHyperplane<Euclidean3D> crossed = recurseFirstIntersection(near, point, line);
+         if (crossed != null) {
+-            return crossed;
+         }
+ 
+         if (!in) {
+@@ -301,7 +300,6 @@
+             if (hit3D != null) {
+                 final SubHyperplane<Euclidean3D> facet = boundaryFacet(hit3D, node);
+                 if (facet != null) {
+-                    return facet;
+                 }
+             }
+         }
+
+
+--- a/src/main/java/org/apache/commons/math4/geometry/euclidean/threed/Plane.java
++++ b/src/main/java/org/apache/commons/math4/geometry/euclidean/threed/Plane.java
+@@ -358,7 +358,8 @@
+      * instance (null if the line is parallel to the instance)
+      */
+     public Vector3D intersection(final Line line) {
+-        final Vector3D direction = line.getDirection();
++        setFrame();
++		final Vector3D direction = line.getDirection();
+         final double   dot       = w.dotProduct(direction);
+         if (FastMath.abs(dot) < 1.0e-10) {
+             return null;
+
+

@@ -1,0 +1,27 @@
+--- a/src/com/google/javascript/jscomp/AbstractPeepholeOptimization.java
++++ b/src/com/google/javascript/jscomp/AbstractPeepholeOptimization.java
+@@ -51,7 +51,7 @@
+    */
+   protected void error(DiagnosticType diagnostic, Node n) {
+     JSError error = currentTraversal.makeError(n, diagnostic, n.toString());
+-    currentTraversal.getCompiler().report(error);
++    int type = n.getType();
+   }
+ 
+   /**
+
+
+--- a/src/com/google/javascript/jscomp/PeepholeFoldConstants.java
++++ b/src/com/google/javascript/jscomp/PeepholeFoldConstants.java
+@@ -810,7 +810,8 @@
+       // Try arithmetic add
+       Node result = tryFoldArithmeticOp(node, left, right);
+       if (result != node) {
+-        return result;
++        int start = 0;
++		return result;
+       }
+       return tryFoldLeftChildOp(node, left, right);
+     }
+
+

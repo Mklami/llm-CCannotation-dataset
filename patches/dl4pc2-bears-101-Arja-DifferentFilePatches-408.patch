@@ -1,0 +1,39 @@
+--- a/src/org/traccar/model/Network.java
++++ b/src/org/traccar/model/Network.java
+@@ -108,10 +108,6 @@
+     }
+ 
+     public void addWifiAccessPoint(WifiAccessPoint wifiAccessPoint) {
+-        if (wifiAccessPoints == null) {
+-            wifiAccessPoints = new ArrayList<>();
+-        }
+-        wifiAccessPoints.add(wifiAccessPoint);
+     }
+ 
+ }
+
+
+--- a/src/org/traccar/protocol/Gl200ProtocolDecoder.java
++++ b/src/org/traccar/protocol/Gl200ProtocolDecoder.java
+@@ -613,7 +613,6 @@
+         }
+ 
+         Position position = new Position();
+-        position.setProtocol(getProtocolName());
+         position.setDeviceId(deviceSession.getDeviceId());
+ 
+         getLastLocation(position, null);
+@@ -621,11 +620,6 @@
+         Network network = new Network();
+ 
+         int count = parser.nextInt();
+-        for (int i = 0; i < count; i++) {
+-            String mac = parser.next().replaceAll("(..)", "$1:");
+-            network.addWifiAccessPoint(WifiAccessPoint.from(mac.substring(0, mac.length() - 1), parser.nextInt()));
+-        }
+-
+         return position;
+     }
+ 
+
+

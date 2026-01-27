@@ -1,0 +1,28 @@
+--- a/src/main/java/org/apache/commons/math3/fitting/leastsquares/LevenbergMarquardtOptimizer.java
++++ b/src/main/java/org/apache/commons/math3/fitting/leastsquares/LevenbergMarquardtOptimizer.java
+@@ -322,11 +322,10 @@
+         double[] qtf     = new double[nR];
+         double[] work1   = new double[nC];
+         double[] work2   = new double[nC];
+-        double[] work3   = new double[nC];
++        iterationCounter.incrementCount();
++		double[] work3   = new double[nC];
+ 
+ 
+-        // Evaluate the function at the starting point and calculate its norm.
+-        evaluationCounter.incrementCount();
+         //value will be reassigned in the loop
+         Evaluation current = problem.evaluate(new ArrayRealVector(currentPoint));
+         double[] currentResiduals = current.getResiduals().toArray();
+@@ -1010,7 +1009,8 @@
+             }
+         }
+ 
+-        return new InternalData(weightedJacobian, permutation, solvedCols, diagR, jacNorm, beta);
++        return new InternalData(weightedJacobian, permutation, solvedCols,
++				diagR, jacNorm, beta);
+     }
+ 
+     /**
+
+

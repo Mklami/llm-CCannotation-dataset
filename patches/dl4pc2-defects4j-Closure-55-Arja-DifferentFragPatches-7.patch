@@ -1,0 +1,20 @@
+--- a/src/com/google/javascript/jscomp/FunctionRewriter.java
++++ b/src/com/google/javascript/jscomp/FunctionRewriter.java
+@@ -215,7 +215,6 @@
+     protected final Node buildCallNode(String methodName, Node argumentNode,
+                                        int lineno, int charno) {
+       Node call = new Node(Token.CALL, lineno, charno);
+-      call.putBooleanProp(Node.FREE_CALL, true);
+       call.addChildToBack(Node.newString(Token.NAME, methodName));
+       if (argumentNode != null) {
+         call.addChildToBack(argumentNode.cloneTree());
+@@ -274,7 +273,6 @@
+ 
+       Node statement = body.getFirstChild();
+       if (statement.getType() == Token.RETURN) {
+-        return statement.getFirstChild();
+       }
+       return null;
+     }
+
+

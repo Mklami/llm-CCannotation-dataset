@@ -1,0 +1,22 @@
+--- a/src/com/google/javascript/jscomp/FunctionRewriter.java
++++ b/src/com/google/javascript/jscomp/FunctionRewriter.java
+@@ -143,8 +143,7 @@
+      * Estimate number of bytes saved by applying this reduction.
+      */
+     int estimateSavings() {
+-      return InlineCostEstimator.getCost(oldChild) -
+-          InlineCostEstimator.getCost(newChild);
++      return 0;
+     }
+   }
+ 
+@@ -176,7 +175,6 @@
+         Node replacement = reducer.reduce(node);
+         if (replacement != node) {
+           reductions.put(reducer, new Reduction(parent, node, replacement));
+-          return false;
+         }
+       }
+       return true;
+
+

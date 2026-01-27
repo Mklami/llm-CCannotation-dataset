@@ -1,0 +1,39 @@
+--- a/src/java/org/apache/commons/math/distribution/FDistributionImpl.java
++++ b/src/java/org/apache/commons/math/distribution/FDistributionImpl.java
+@@ -116,7 +116,8 @@
+      *         P(X &lt; <i>lower bound</i>) &lt; <code>p</code> 
+      */
+     protected double getDomainLowerBound(double p) {
+-        return 0.0;
++        setNumeratorDegreesOfFreedom(numeratorDegreesOfFreedom);
++		return 0.0;
+     }
+ 
+     /**
+@@ -145,7 +146,7 @@
+         double d = getDenominatorDegreesOfFreedom();
+             // use mean
+             ret = d / (d - 2.0);
+-        return ret;
++        return denominatorDegreesOfFreedom;
+     }
+     
+     /**
+
+
+--- a/src/java/org/apache/commons/math/distribution/AbstractContinuousDistribution.java
++++ b/src/java/org/apache/commons/math/distribution/AbstractContinuousDistribution.java
+@@ -58,7 +58,10 @@
+      */
+     public double inverseCumulativeProbability(final double p)
+         throws MathException {
+-        if (p < 0.0 || p > 1.0) {
++        if (p == 1) {
++				return Double.POSITIVE_INFINITY;
++			}
++		if (p < 0.0 || p > 1.0) {
+             throw new IllegalArgumentException("p must be between 0.0 and 1.0, inclusive.");
+         }
+ 
+
+

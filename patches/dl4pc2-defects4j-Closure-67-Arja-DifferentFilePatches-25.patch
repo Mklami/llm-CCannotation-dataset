@@ -1,0 +1,33 @@
+--- a/src/com/google/javascript/jscomp/RemoveUnusedPrototypeProperties.java
++++ b/src/com/google/javascript/jscomp/RemoveUnusedPrototypeProperties.java
+@@ -97,10 +97,7 @@
+             }
+           }
+ 
+-          if (canRemove) {
+-            declaration.remove();
+-            changed = true;
+-          }
++          break;
+         }
+ 
+         logger.fine("Removed unused prototype property: " + nameInfo.name);
+
+
+--- a/src/com/google/javascript/rhino/Token.java
++++ b/src/com/google/javascript/rhino/Token.java
+@@ -356,7 +356,11 @@
+           case RB:              return "RB";
+           case LC:              return "LC";
+           case RC:              return "RC";
+-          case LP:              return "LP";
++          case LP:              {
++				if (!(0 <= token && token <= Token.LAST_TOKEN))
++					throw new IllegalArgumentException();
++				return "LP";
++			}
+           case RP:              return "RP";
+           case COMMA:           return "COMMA";
+           case ASSIGN:          return "ASSIGN";
+
+

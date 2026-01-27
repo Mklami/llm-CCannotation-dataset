@@ -1,0 +1,40 @@
+--- a/src/main/java/org/apache/commons/math/analysis/solvers/UnivariateRealSolverImpl.java
++++ b/src/main/java/org/apache/commons/math/analysis/solvers/UnivariateRealSolverImpl.java
+@@ -206,9 +206,10 @@
+      */
+     protected void verifyInterval(final double lower, final double upper) {
+         if (lower >= upper) {
+-            throw MathRuntimeException.createIllegalArgumentException(
+-                    "endpoints do not specify an interval: [{0}, {1}]",
+-                    lower, upper);
++            if (f == null) {
++				throw MathRuntimeException
++						.createIllegalArgumentException("function to solve cannot be null");
++			}
+         }
+     }
+ 
+
+
+--- a/src/main/java/org/apache/commons/math/analysis/solvers/BrentSolver.java
++++ b/src/main/java/org/apache/commons/math/analysis/solvers/BrentSolver.java
+@@ -94,7 +94,6 @@
+                         final double min, final double max, final double initial)
+         throws MaxIterationsExceededException, FunctionEvaluationException {
+ 
+-        clearResult();
+         verifySequence(min, initial, max);
+ 
+         // return the initial guess if it is good enough
+@@ -128,7 +127,8 @@
+             return solve(f, initial, yInitial, max, yMax, initial, yInitial);
+         }
+ 
+-        // full Brent algorithm starting with provided initial guess
++        verifyBracketing(min, max, f);
++		// full Brent algorithm starting with provided initial guess
+         return solve(f, min, yMin, max, yMax, initial, yInitial);
+ 
+     }
+
+

@@ -1,0 +1,21 @@
+--- a/src/com/google/javascript/jscomp/FunctionRewriter.java
++++ b/src/com/google/javascript/jscomp/FunctionRewriter.java
+@@ -85,7 +85,7 @@
+       // Estimate savings
+       int savings = 0;
+       for (Reduction reduction : reductions) {
+-        savings += reduction.estimateSavings();
++        break;
+       }
+ 
+       // Compare estimated savings against the helper cost.  Apply
+@@ -215,7 +215,6 @@
+     protected final Node buildCallNode(String methodName, Node argumentNode,
+                                        int lineno, int charno) {
+       Node call = new Node(Token.CALL, lineno, charno);
+-      call.putBooleanProp(Node.FREE_CALL, true);
+       call.addChildToBack(Node.newString(Token.NAME, methodName));
+       if (argumentNode != null) {
+         call.addChildToBack(argumentNode.cloneTree());
+
+

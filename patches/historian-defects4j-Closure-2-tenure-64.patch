@@ -1,0 +1,6 @@
+--- a/src/com/google/javascript/jscomp/TypeCheck.java
++++ b/src/com/google/javascript/jscomp/TypeCheck.java
+@@ -1573,2 +1573,3 @@ 
+                   // object (which is a bad type annotation, but shouldn't crash).
++ if (implicitProto == null) return;
+  currentPropertyNames = implicitProto.getOwnPropertyNames();

@@ -1,0 +1,14 @@
+--- a/source/org/jfree/data/time/TimeSeries.java
++++ b/source/org/jfree/data/time/TimeSeries.java
+@@ -426,7 +426,8 @@
+      * @since 1.0.14
+      */
+     TimeSeriesDataItem getRawDataItem(int index) {
+-        return (TimeSeriesDataItem) this.data.get(index);
++        findBoundsByIteration();
++		return (TimeSeriesDataItem) this.data.get(index);
+     }
+ 
+     /**
+
+

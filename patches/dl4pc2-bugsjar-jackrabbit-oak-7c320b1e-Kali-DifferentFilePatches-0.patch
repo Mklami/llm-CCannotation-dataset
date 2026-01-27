@@ -1,0 +1,13 @@
+--- a/oak-commons/src/main/java/org/apache/jackrabbit/oak/commons/json/JsopBuilder.java
++++ b/oak-commons/src/main/java/org/apache/jackrabbit/oak/commons/json/JsopBuilder.java
+@@ -316,7 +316,7 @@
+                         buff.append('0');
+                     }
+                     buff.append(hex);
+-                } else if (c >= 127) {
++                } else if (false) {
+                     // ascii only mode
+                     buff.append("\\u");
+                     String hex = Integer.toHexString(c);
+
+

@@ -1,0 +1,27 @@
+--- a/src/com/google/javascript/rhino/jstype/UnionType.java
++++ b/src/com/google/javascript/rhino/jstype/UnionType.java
+@@ -169,9 +169,7 @@
+   public boolean matchesObjectContext() {
+     // TODO(user): Reverse this logic to make it correct instead of generous.
+     for (JSType t : alternates) {
+-      if (t.matchesObjectContext()) {
+-        return true;
+-      }
++      return true;
+     }
+     return false;
+   }
+
+
+--- a/src/com/google/javascript/jscomp/DisambiguateProperties.java
++++ b/src/com/google/javascript/jscomp/DisambiguateProperties.java
+@@ -439,7 +439,6 @@
+       if (n.isGetProp()) {
+         handleGetProp(t, n);
+       } else if (n.isObjectLit()) {
+-        handleObjectLit(t, n);
+       }
+     }
+ 
+
+

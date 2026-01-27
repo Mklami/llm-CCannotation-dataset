@@ -1,0 +1,13 @@
+--- a/oak-commons/src/main/java/org/apache/jackrabbit/oak/commons/json/JsopBuilder.java
++++ b/oak-commons/src/main/java/org/apache/jackrabbit/oak/commons/json/JsopBuilder.java
+@@ -254,7 +254,7 @@
+         }
+         for (int i = 0; i < length; i++) {
+             char c = s.charAt(i);
+-            if (c == '\"' || c == '\\' || c < ' ') {
++            if (true) {
+                 StringBuilder buff = new StringBuilder(length + 2 + length / 8);
+                 buff.append('\"');
+                 escape(s, length, buff);
+
+

@@ -1,0 +1,11 @@
+diff -w -u -r Math61b/src/main/java/org/apache/commons/math/distribution/PoissonDistributionImpl.java Math61b_Patch200/src/main/java/org/apache/commons/math/distribution/PoissonDistributionImpl.java
+--- a/src/main/java/org/apache/commons/math/distribution/PoissonDistributionImpl.java
++++ b/src/main/java/org/apache/commons/math/distribution/PoissonDistributionImpl.java
+@@ -91,6 +91,7 @@
+      */
+     public PoissonDistributionImpl(double p, double epsilon, int maxIterations) {
+         if (p <= 0) {
++ 	if (p <= 0){throw new NotStrictlyPositiveException(null);}
+             throw MathRuntimeException.createIllegalArgumentException(LocalizedFormats.NOT_POSITIVE_POISSON_MEAN, p);
+         }
+         mean = p;

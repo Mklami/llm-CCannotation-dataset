@@ -1,0 +1,37 @@
+--- a/src/org/traccar/events/IgnitionEventHandler.java
++++ b/src/org/traccar/events/IgnitionEventHandler.java
+@@ -48,8 +48,6 @@
+         }
+ 
+         if (ignition && !oldIgnition) {
+-            result = Collections.singleton(
+-                    new Event(Event.TYPE_IGNITION_ON, position.getDeviceId(), position.getId()));
+         } else if (!ignition && oldIgnition) {
+             result = Collections.singleton(
+                     new Event(Event.TYPE_IGNITION_OFF, position.getDeviceId(), position.getId()));
+
+
+--- a/src/org/traccar/model/Message.java
++++ b/src/org/traccar/model/Message.java
+@@ -34,7 +34,6 @@
+     }
+ 
+     public void setType(String type) {
+-        this.type = type;
+     }
+ 
+ }
+
+
+--- a/src/org/traccar/model/Event.java
++++ b/src/org/traccar/model/Event.java
+@@ -83,7 +83,6 @@
+     }
+ 
+     public void setPositionId(long positionId) {
+-        this.positionId = positionId;
+     }
+ 
+     private long geofenceId = 0;
+
+

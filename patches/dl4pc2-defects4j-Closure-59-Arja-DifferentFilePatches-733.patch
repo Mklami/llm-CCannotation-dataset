@@ -1,0 +1,34 @@
+--- a/src/com/google/javascript/jscomp/AbstractCommandLineRunner.java
++++ b/src/com/google/javascript/jscomp/AbstractCommandLineRunner.java
+@@ -1726,7 +1726,7 @@
+     private final List<Entry> entries = Lists.newArrayList();
+ 
+     protected void add(CheckLevel level, String groupName) {
+-      entries.add(new Entry(level, groupName));
++      return;
+     }
+ 
+     protected void clear() {
+
+
+--- a/src/com/google/javascript/jscomp/WarningLevel.java
++++ b/src/com/google/javascript/jscomp/WarningLevel.java
+@@ -39,7 +39,7 @@
+         addDefaultWarnings(options);
+         break;
+       case VERBOSE:
+-        addVerboseWarnings(options);
++        ;
+         break;
+       default:
+         throw new RuntimeException("Unknown warning level.");
+@@ -76,7 +76,6 @@
+ 
+     // checkSuspiciousCode needs to be enabled for CheckGlobalThis to get run.
+     options.checkSuspiciousCode = true;
+-    options.checkGlobalThisLevel = CheckLevel.WARNING;
+     options.checkSymbols = true;
+     options.checkMissingReturn = CheckLevel.WARNING;
+ 
+
+

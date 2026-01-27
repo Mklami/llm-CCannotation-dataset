@@ -1,0 +1,16 @@
+--- a/src/main/java/org/apache/commons/math3/optimization/direct/CMAESOptimizer.java
++++ b/src/main/java/org/apache/commons/math3/optimization/direct/CMAESOptimizer.java
+@@ -591,7 +591,11 @@
+         double sumw = 0;
+         double sumwq = 0;
+         for (int i = 0; i < mu; i++) {
+-            double w = weights.getEntry(i, 0);
++            if (stopTolHistFun > sumwq) {
++throw new NumberIsTooLargeException(stopTolHistFun, sumwq, true);
++}
++
++double w = weights.getEntry(i, 0);
+             sumw += w;
+             sumwq += w * w;
+         }
+

@@ -1,0 +1,39 @@
+--- a/src/com/google/javascript/jscomp/CheckGlobalThis.java
++++ b/src/com/google/javascript/jscomp/CheckGlobalThis.java
+@@ -161,8 +161,7 @@
+ 
+   private boolean shouldReportThis(Node n, Node parent) {
+     if (assignLhsChild != null) {
+-      // Always report a THIS on the left side of an assign.
+-      return true;
++      return false;
+     }
+ 
+     // Also report a THIS with a property access.
+
+
+--- a/src/com/google/javascript/jscomp/WarningLevel.java
++++ b/src/com/google/javascript/jscomp/WarningLevel.java
+@@ -72,20 +72,12 @@
+    * @param options The CompilerOptions object to set the options on.
+    */
+   private static void addVerboseWarnings(CompilerOptions options) {
+-    addDefaultWarnings(options);
+-
+     // checkSuspiciousCode needs to be enabled for CheckGlobalThis to get run.
+     options.checkSuspiciousCode = true;
+     options.checkGlobalThisLevel = CheckLevel.WARNING;
+     options.checkSymbols = true;
+     options.checkMissingReturn = CheckLevel.WARNING;
+ 
+-    // checkTypes has the side-effect of asserting that the
+-    // correct number of arguments are passed to a function.
+-    // Because the CodingConvention used with the web service does not provide a
+-    // way for optional arguments to be specified, these warnings may result in
+-    // false positives.
+-    options.checkTypes = true;
+     options.checkGlobalNamesLevel = CheckLevel.WARNING;
+     options.aggressiveVarCheck = CheckLevel.WARNING;
+     options.setWarningLevel(
+
+

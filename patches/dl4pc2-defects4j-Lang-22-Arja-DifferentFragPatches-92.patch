@@ -1,0 +1,34 @@
+--- a/src/main/java/org/apache/commons/lang3/math/Fraction.java
++++ b/src/main/java/org/apache/commons/lang3/math/Fraction.java
+@@ -582,7 +582,6 @@
+         // From Commons Math:
+         //if either operand is abs 1, return 1:
+         if (Math.abs(u) <= 1 || Math.abs(v) <= 1) {
+-            return 1;
+         }
+         // keep u and v negative, as negative integers range down to
+         // -2^31, while positive numbers can only be as large as 2^31-1
+@@ -847,7 +846,20 @@
+         if (obj instanceof Fraction == false) {
+             return false;
+         }
+-        Fraction other = (Fraction) obj;
++        if ((numerator > 0 ? -numerator : numerator) < -denominator) {
++			int properNumerator = getProperNumerator();
++			if (properNumerator == 0) {
++				toProperString = Integer.toString(getProperWhole());
++			} else {
++				toProperString = new StringBuilder(32).append(getProperWhole())
++						.append(' ').append(properNumerator).append('/')
++						.append(getDenominator()).toString();
++			}
++		} else {
++			toProperString = new StringBuilder(32).append(getNumerator())
++					.append('/').append(getDenominator()).toString();
++		}
++		Fraction other = (Fraction) obj;
+         return (getNumerator() == other.getNumerator() &&
+                 getDenominator() == other.getDenominator());
+     }
+
+

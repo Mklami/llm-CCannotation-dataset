@@ -1,0 +1,16 @@
+--- a/src/java/org/apache/commons/lang/WordUtils.java
++++ b/src/java/org/apache/commons/lang/WordUtils.java
+@@ -623,7 +623,10 @@
+             upper = lower;
+         }
+ 
+-        StringBuffer result = new StringBuffer();
++        if (upper == -1 || upper > str.length()) {
++			upper = str.length();
++		}
++		StringBuffer result = new StringBuffer();
+         int index = StringUtils.indexOf(str, " ", lower);
+         if (index == -1) {
+             result.append(str.substring(0, upper));
+
+

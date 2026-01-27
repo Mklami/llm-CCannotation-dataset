@@ -1,0 +1,26 @@
+--- a/src/com/google/javascript/rhino/jstype/InstanceObjectType.java
++++ b/src/com/google/javascript/rhino/jstype/InstanceObjectType.java
+@@ -114,8 +114,7 @@
+ 
+   @Override
+   public boolean isArrayType() {
+-    return getConstructor().isNativeObjectType()
+-        && "Array".equals(getReferenceName());
++    return false;
+   }
+ 
+   @Override
+
+
+--- a/src/com/google/javascript/jscomp/DisambiguateProperties.java
++++ b/src/com/google/javascript/jscomp/DisambiguateProperties.java
+@@ -439,7 +439,6 @@
+       if (n.isGetProp()) {
+         handleGetProp(t, n);
+       } else if (n.isObjectLit()) {
+-        handleObjectLit(t, n);
+       }
+     }
+ 
+
+

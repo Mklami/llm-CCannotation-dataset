@@ -1,0 +1,27 @@
+--- a/src/main/java/org/apache/commons/lang3/math/Fraction.java
++++ b/src/main/java/org/apache/commons/lang3/math/Fraction.java
+@@ -582,7 +582,7 @@
+         // From Commons Math:
+         //if either operand is abs 1, return 1:
+         if (Math.abs(u) <= 1 || Math.abs(v) <= 1) {
+-            return 1;
++            u = -u;
+         }
+         // keep u and v negative, as negative integers range down to
+         // -2^31, while positive numbers can only be as large as 2^31-1
+@@ -613,7 +613,12 @@
+             if (t>0) {
+                 u = -t;
+             } else {
+-                v = t;
++                if (t > 0) {
++					u = -t;
++				} else {
++					v = t;
++				}
++				v = t;
+             }
+             // B6/B3. at this point both u and v should be odd.
+             t = (v - u)/2;
+
+

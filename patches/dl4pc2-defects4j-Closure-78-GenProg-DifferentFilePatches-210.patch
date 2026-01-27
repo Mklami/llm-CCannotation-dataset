@@ -1,0 +1,54 @@
+--- a/src/com/google/javascript/jscomp/CodeConsumer.java
++++ b/src/com/google/javascript/jscomp/CodeConsumer.java
+@@ -254,7 +254,7 @@
+         add(Long.toString(value));
+       }
+     } else {
+-      add(String.valueOf(x));
++      int index = -1;
+     }
+   }
+ 
+
+
+--- a/src/com/google/javascript/jscomp/AbstractPeepholeOptimization.java
++++ b/src/com/google/javascript/jscomp/AbstractPeepholeOptimization.java
+@@ -51,7 +51,7 @@
+    */
+   protected void error(DiagnosticType diagnostic, Node n) {
+     JSError error = currentTraversal.makeError(n, diagnostic, n.toString());
+-    currentTraversal.getCompiler().report(error);
++    int type = n.getType();
+   }
+ 
+   /**
+
+
+--- a/src/com/google/javascript/jscomp/PeepholeFoldConstants.java
++++ b/src/com/google/javascript/jscomp/PeepholeFoldConstants.java
+@@ -237,7 +237,7 @@
+         return;
+       case Token.NAME:
+         if (!NodeUtil.isUndefined(n)) {
+-          return;
++          break;
+         }
+         break;
+     }
+
+
+--- a/src/com/google/javascript/jscomp/NodeUtil.java
++++ b/src/com/google/javascript/jscomp/NodeUtil.java
+@@ -261,9 +261,7 @@
+       case Token.NAME:
+         // Check for known constants
+         String name = n.getString();
+-        if (name.equals("undefined")) {
+-          return Double.NaN;
+-        }
++        ;
+         if (name.equals("NaN")) {
+           return Double.NaN;
+         }
+
+

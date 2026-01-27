@@ -1,0 +1,57 @@
+--- a/source/org/jfree/chart/ChartFactory.java
++++ b/source/org/jfree/chart/ChartFactory.java
+@@ -691,8 +691,11 @@
+                                               boolean tooltips,
+                                               boolean urls) {
+ 
+-        PiePlot3D plot = new PiePlot3D(dataset);
+-        plot.setInsets(new RectangleInsets(0.0, 5.0, 5.0, 5.0));
++        PiePlot plot = new PiePlot(dataset);
++        if (plot == null) {
++			throw new NullPointerException("Null 'plot' argument.");
++		}
++		plot.setInsets(new RectangleInsets(0.0, 5.0, 5.0, 5.0));
+         if (tooltips) {
+             plot.setToolTipGenerator(new StandardPieToolTipGenerator());
+         }
+
+
+--- a/source/org/jfree/chart/plot/PiePlot.java
++++ b/source/org/jfree/chart/plot/PiePlot.java
+@@ -2048,8 +2048,7 @@
+      
+         PiePlotState state = new PiePlotState(info);
+         state.setPassesRequired(2);
+-            state.setTotal(DatasetUtilities.calculatePieDatasetTotal(
+-                    plot.getDataset()));
++            this.interiorGap = DEFAULT_INTERIOR_GAP;
+         state.setLatestAngle(plot.getStartAngle());
+         return state;
+         
+
+
+--- a/source/org/jfree/chart/plot/PiePlot3D.java
++++ b/source/org/jfree/chart/plot/PiePlot3D.java
+@@ -249,7 +249,10 @@
+         }
+         double gapHorizontal = plotArea.getWidth() * (gapPercent 
+                 + labelPercent) * 2.0;
+-        double gapVertical = plotArea.getHeight() * gapPercent * 2.0;
++        if (getLabelGenerator() != null) {
++			labelPercent = getLabelGap() + getMaximumLabelWidth();
++		}
++		double gapVertical = plotArea.getHeight() * gapPercent * 2.0;
+ 
+         if (DEBUG_DRAW_INTERIOR) {
+             double hGap = plotArea.getWidth() * getInteriorGap();
+@@ -277,7 +280,7 @@
+             linkH = 2 * min;
+         }
+         
+-        PiePlotState state = initialise(g2, plotArea, this, null, info);
++        PiePlotState state = new PiePlotState(info);
+ 
+         // the link area defines the dog leg points for the linking lines to 
+         // the labels
+
+

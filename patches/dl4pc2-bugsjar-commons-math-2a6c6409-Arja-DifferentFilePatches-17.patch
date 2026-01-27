@@ -1,0 +1,43 @@
+--- a/src/main/java/org/apache/commons/math3/geometry/euclidean/twod/PolygonsSet.java
++++ b/src/main/java/org/apache/commons/math3/geometry/euclidean/twod/PolygonsSet.java
+@@ -823,7 +823,7 @@
+         }
+ 
+         if ((end == null) && !open) {
+-            throw new MathInternalError();
++            return null;
+         }
+ 
+         return loop;
+
+
+--- a/src/main/java/org/apache/commons/math3/geometry/euclidean/threed/SubPlane.java
++++ b/src/main/java/org/apache/commons/math3/geometry/euclidean/threed/SubPlane.java
+@@ -61,7 +61,12 @@
+         final double tolerance = thisPlane.getTolerance();
+ 
+         if (inter == null) {
+-            // the hyperplanes are parallel,
++            if (inter == null) {
++				final double global = otherPlane.getOffset(thisPlane);
++				return (global < -1.0e-10) ? Side.MINUS
++						: ((global > 1.0e-10) ? Side.PLUS : Side.HYPER);
++			}
++			// the hyperplanes are parallel,
+             // any point can be used to check their relative position
+             final double global = otherPlane.getOffset(thisPlane);
+             return (global < -1.0e-10) ? Side.MINUS : ((global > 1.0e-10) ? Side.PLUS : Side.HYPER);
+
+
+--- a/src/main/java/org/apache/commons/math3/geometry/partitioning/BSPTree.java
++++ b/src/main/java/org/apache/commons/math3/geometry/partitioning/BSPTree.java
+@@ -159,7 +159,6 @@
+         final SubHyperplane<S> chopped = fitToCell(hyperplane.wholeHyperplane());
+         if (chopped == null || chopped.isEmpty()) {
+             cut          = null;
+-            plus         = null;
+             minus        = null;
+             return false;
+         }
+
+

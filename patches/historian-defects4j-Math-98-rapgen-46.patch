@@ -1,0 +1,7 @@
+--- a/src/java/org/apache/commons/math/linear/RealMatrixImpl.java
++++ b/src/java/org/apache/commons/math/linear/RealMatrixImpl.java
+@@ -778,3 +778,3 @@
+         }
+- final double[] out = new double[v.length];
++ final double[] out = new double[nRows];
+         for (int row = 0; row < nRows; row++) {

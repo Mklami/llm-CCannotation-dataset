@@ -1,0 +1,52 @@
+--- a/src/com/google/javascript/rhino/Node.java
++++ b/src/com/google/javascript/rhino/Node.java
+@@ -936,7 +936,6 @@
+       sb.append(' ');
+       sb.append(getString());
+     } else if (type == Token.FUNCTION) {
+-      sb.append(' ');
+       // In the case of JsDoc trees, the first child is often not a string
+       // which causes exceptions to be thrown when calling toString or
+       // toStringTree.
+@@ -968,7 +967,20 @@
+         String value;
+         switch (type) {
+           default:
+-            value = x.toString();
++            {
++				if (type == Token.FUNCTION) {
++					sb.append(' ');
++					if (first == null || first.getType() != Token.NAME) {
++						sb.append("<invalid>");
++					} else {
++						sb.append(first.getString());
++					}
++				} else if (type == Token.NUMBER) {
++					sb.append(' ');
++					sb.append(getDouble());
++				}
++				value = x.toString();
++			}
+             break;
+         }
+         sb.append(value);
+
+
+--- a/src/com/google/javascript/jscomp/RemoveUnusedVars.java
++++ b/src/com/google/javascript/jscomp/RemoveUnusedVars.java
+@@ -393,12 +393,7 @@
+       Node lastArg;
+       while ((lastArg = argList.getLastChild()) != null) {
+         Var var = fnScope.getVar(lastArg.getString());
+-        if (!referenced.contains(var)) {
+-          argList.removeChild(lastArg);
+-          compiler.reportCodeChange();
+-        } else {
+-          break;
+-        }
++        break;
+       }
+     } else {
+       callSiteOptimizer.optimize(fnScope, referenced);
+
+

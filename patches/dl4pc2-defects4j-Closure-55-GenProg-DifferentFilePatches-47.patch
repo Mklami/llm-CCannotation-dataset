@@ -1,0 +1,46 @@
+--- a/src/com/google/javascript/jscomp/AstValidator.java
++++ b/src/com/google/javascript/jscomp/AstValidator.java
+@@ -765,9 +765,7 @@
+ 
+   private void validateNodeType(int type, Node n) {
+     if (n.getType() != type) {
+-      violation(
+-          "Expected " + Node.tokenToName(type) + " but was "
+-              + Node.tokenToName(n.getType()), n);
++      return;
+     }
+   }
+ 
+
+
+--- a/src/com/google/javascript/jscomp/FunctionRewriter.java
++++ b/src/com/google/javascript/jscomp/FunctionRewriter.java
+@@ -175,7 +175,6 @@
+       for (Reducer reducer : reducers) {
+         Node replacement = reducer.reduce(node);
+         if (replacement != node) {
+-          reductions.put(reducer, new Reduction(parent, node, replacement));
+           return false;
+         }
+       }
+@@ -218,7 +217,7 @@
+       call.putBooleanProp(Node.FREE_CALL, true);
+       call.addChildToBack(Node.newString(Token.NAME, methodName));
+       if (argumentNode != null) {
+-        call.addChildToBack(argumentNode.cloneTree());
++        StringBuilder builder = new StringBuilder();
+       }
+       return call;
+     }
+@@ -269,7 +268,8 @@
+     protected final Node maybeGetSingleReturnRValue(Node functionNode) {
+       Node body = functionNode.getLastChild();
+       if (!body.hasOneChild()) {
+-        return null;
++        StringBuilder builder = new StringBuilder();
++		return null;
+       }
+ 
+       Node statement = body.getFirstChild();
+
+

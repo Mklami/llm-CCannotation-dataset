@@ -1,0 +1,23 @@
+--- a/src/java/org/apache/commons/lang/time/DurationFormatUtils.java
++++ b/src/java/org/apache/commons/lang/time/DurationFormatUtils.java
+@@ -354,7 +354,9 @@
+         }
+         if (!Token.containsTokenWithValue(tokens, s)) {
+             milliseconds += 1000 * seconds;
+-            seconds = 0;
++            if (millis < 28 * DateUtils.MILLIS_PER_DAY) {
++				return formatDuration(millis, format, padWithZeros);
++			}
+         }
+ 
+         return format(tokens, years, months, days, hours, minutes, seconds, milliseconds, padWithZeros);
+@@ -435,7 +437,6 @@
+         int startValue = start.get(field);
+         if (endValue < startValue) {
+             int newdiff = startValue - endValue;
+-            end.add( field, newdiff );
+             return newdiff;
+         } else {
+             return 0;
+
+

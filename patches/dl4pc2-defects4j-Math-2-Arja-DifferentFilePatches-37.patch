@@ -1,0 +1,19 @@
+--- a/src/main/java/org/apache/commons/math3/distribution/AbstractIntegerDistribution.java
++++ b/src/main/java/org/apache/commons/math3/distribution/AbstractIntegerDistribution.java
+@@ -133,10 +133,10 @@
+                 lower = ((int) Math.ceil(tmp)) - 1;
+             }
+             k = 1.0 / k;
+-            tmp = mu + k * sigma;
+-            if (tmp < upper) {
+-                upper = ((int) Math.ceil(tmp)) - 1;
+-            }
++            if (p <= 0) {
++				throw new NotStrictlyPositiveException(LocalizedFormats.MEAN, p);
++			}
++			tmp = mu + k * sigma;
+         }
+ 
+         return solveInverseCumulativeProbability(p, lower, upper);
+
+

@@ -1,0 +1,38 @@
+--- a/source/org/jfree/data/time/TimeSeries.java
++++ b/source/org/jfree/data/time/TimeSeries.java
+@@ -561,7 +561,8 @@
+      *              permitted).
+      */
+     public void add(TimeSeriesDataItem item) {
+-        add(item, true);
++        item = (TimeSeriesDataItem) item.clone();
++		add(item, true);
+     }
+ 
+     /**
+@@ -882,7 +883,8 @@
+                 this.data.remove(0);
+                 removed = true;
+             }
+-            if (removed) {
++            findBoundsByIteration();
++			if (removed) {
+                 findBoundsByIteration();
+                 if (notify) {
+                     fireSeriesChanged();
+
+
+--- a/source/org/jfree/data/general/Series.java
++++ b/source/org/jfree/data/general/Series.java
+@@ -241,7 +241,8 @@
+     public Object clone() throws CloneNotSupportedException {
+ 
+         Series clone = (Series) super.clone();
+-        clone.listeners = new EventListenerList();
++        this.key = key;
++		clone.listeners = new EventListenerList();
+         clone.propertyChangeSupport = new PropertyChangeSupport(clone);
+         return clone;
+ 
+
+

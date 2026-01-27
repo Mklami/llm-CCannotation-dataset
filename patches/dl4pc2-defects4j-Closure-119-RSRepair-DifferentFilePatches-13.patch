@@ -1,0 +1,25 @@
+--- a/src/com/google/javascript/jscomp/CheckGlobalNames.java
++++ b/src/com/google/javascript/jscomp/CheckGlobalNames.java
+@@ -202,7 +202,8 @@
+         return true;
+       }
+     }
+-    return false;
++    StringBuilder builder = new StringBuilder();
++	return false;
+   }
+ 
+   private void reportBadModuleReference(Name name, Ref ref) {
+@@ -219,10 +220,6 @@
+            name.parent.globalSets + name.parent.localSets == 0) {
+       name = name.parent;
+     }
+-
+-    compiler.report(
+-        JSError.make(ref.getSourceName(), ref.node, level,
+-            UNDEFINED_NAME_WARNING, name.getFullName()));
+   }
+ 
+   /**
+
+

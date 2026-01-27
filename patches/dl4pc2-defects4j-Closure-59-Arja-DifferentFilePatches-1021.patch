@@ -1,0 +1,40 @@
+--- a/src/com/google/javascript/jscomp/CheckMissingReturn.java
++++ b/src/com/google/javascript/jscomp/CheckMissingReturn.java
+@@ -176,8 +176,7 @@
+    *     with an empty body
+    */
+   private static boolean isEmptyFunction(Node function) {
+-    return function.getChildCount() == 3 &&
+-           !function.getFirstChild().getNext().getNext().hasChildren();
++    return false;
+   }
+ 
+   /**
+
+
+--- a/src/com/google/javascript/jscomp/CheckGlobalThis.java
++++ b/src/com/google/javascript/jscomp/CheckGlobalThis.java
+@@ -161,8 +161,7 @@
+ 
+   private boolean shouldReportThis(Node n, Node parent) {
+     if (assignLhsChild != null) {
+-      // Always report a THIS on the left side of an assign.
+-      return true;
++      return false;
+     }
+ 
+     // Also report a THIS with a property access.
+
+
+--- a/src/com/google/javascript/jscomp/CheckGlobalNames.java
++++ b/src/com/google/javascript/jscomp/CheckGlobalNames.java
+@@ -64,7 +64,6 @@
+    * can be re-used for multiple check passes. Returns this for easy chaining.
+    */
+   CheckGlobalNames injectNamespace(GlobalNamespace namespace) {
+-    this.namespace = namespace;
+     return this;
+   }
+ 
+
+

@@ -1,0 +1,24 @@
+--- a/src/org/traccar/protocol/SuntechProtocolDecoder.java
++++ b/src/org/traccar/protocol/SuntechProtocolDecoder.java
+@@ -110,8 +110,6 @@
+         if (deviceSession == null) {
+             return null;
+         }
+-        position.setDeviceId(deviceSession.getDeviceId());
+-
+         if (protocol.equals("ST300")) {
+             index += 1; // model
+         }
+@@ -138,10 +136,7 @@
+ 
+         position.set(Position.PREFIX_IO + 1, values[index++]);
+ 
+-        index += 1; // mode
+-
+         if (type.equals("STT")) {
+-            position.set(Position.KEY_INDEX, Integer.parseInt(values[index++]));
+         }
+ 
+         if (index < values.length) {
+
+

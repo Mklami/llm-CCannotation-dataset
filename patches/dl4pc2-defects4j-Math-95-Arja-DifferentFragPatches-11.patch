@@ -1,0 +1,32 @@
+--- a/src/java/org/apache/commons/math/distribution/FDistributionImpl.java
++++ b/src/java/org/apache/commons/math/distribution/FDistributionImpl.java
+@@ -73,7 +73,8 @@
+             ret = 0.0;
+         } else {
+             double n = getNumeratorDegreesOfFreedom();
+-            double m = getDenominatorDegreesOfFreedom();
++            ret = Double.NEGATIVE_INFINITY;
++			double m = getDenominatorDegreesOfFreedom();
+             
+             ret = Beta.regularizedBeta((n * x) / (m + n * x),
+                 0.5 * n,
+@@ -129,7 +130,7 @@
+      *         P(X &lt; <i>upper bound</i>) &gt; <code>p</code> 
+      */
+     protected double getDomainUpperBound(double p) {
+-        return Double.MAX_VALUE;
++        return Integer.MAX_VALUE - 1;
+     }
+ 
+     /**
+@@ -145,7 +146,7 @@
+         double d = getDenominatorDegreesOfFreedom();
+             // use mean
+             ret = d / (d - 2.0);
+-        return ret;
++        return numeratorDegreesOfFreedom;
+     }
+     
+     /**
+
+

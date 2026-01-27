@@ -1,0 +1,13 @@
+--- a/src/java/org/apache/commons/cli/HelpFormatter.java
++++ b/src/java/org/apache/commons/cli/HelpFormatter.java
+@@ -822,7 +822,8 @@
+         while (true)
+         {
+             int lastPos = pos;
+-            text = padding + text.substring(pos).trim();
++            width = (sb.length() > width) ? sb.length() : width;
++text = padding + text.substring(pos).trim();
+             pos = findWrapPos(text, width, 0);
+ 
+             if (pos == -1)
+

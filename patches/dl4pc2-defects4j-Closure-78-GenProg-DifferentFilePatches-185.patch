@@ -1,0 +1,29 @@
+--- a/src/com/google/javascript/jscomp/AbstractPeepholeOptimization.java
++++ b/src/com/google/javascript/jscomp/AbstractPeepholeOptimization.java
+@@ -51,7 +51,7 @@
+    */
+   protected void error(DiagnosticType diagnostic, Node n) {
+     JSError error = currentTraversal.makeError(n, diagnostic, n.toString());
+-    currentTraversal.getCompiler().report(error);
++    int type = n.getType();
+   }
+ 
+   /**
+
+
+--- a/src/com/google/javascript/jscomp/NodeUtil.java
++++ b/src/com/google/javascript/jscomp/NodeUtil.java
+@@ -1208,7 +1208,10 @@
+       case Token.POS:
+       case Token.NEG:
+       case Token.NUMBER:
+-        return true;
++        {
++			int index = -1;
++			return true;
++		}
+       case Token.NAME:
+         String name = n.getString();
+         if (name.equals("NaN")) {
+
+

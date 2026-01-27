@@ -1,0 +1,28 @@
+--- a/oak-mk/src/main/java/org/apache/jackrabbit/mk/store/DefaultRevisionStore.java
++++ b/oak-mk/src/main/java/org/apache/jackrabbit/mk/store/DefaultRevisionStore.java
+@@ -195,13 +195,10 @@
+         verifyInitialized();
+ 
+         if (gcExecutor != null) {
+-            gcExecutor.shutdown();
+         }
+ 
+         cache.invalidateAll();
+ 
+-        IOUtils.closeQuietly(pm);
+-
+         initialized = false;
+     }
+ 
+@@ -238,9 +235,6 @@
+ 
+         @Override
+         public boolean equals(Object obj) {
+-            if (obj instanceof PutTokenImpl) {
+-                return ((PutTokenImpl) obj).id == id;
+-            }
+             return super.equals(obj);
+         }
+ 
+
+

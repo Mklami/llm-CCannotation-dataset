@@ -1,0 +1,29 @@
+--- a/src/com/google/javascript/rhino/Node.java
++++ b/src/com/google/javascript/rhino/Node.java
+@@ -1456,7 +1456,7 @@
+       }
+       res = n.checkTreeEqualsImpl(n2);
+       if (res != null) {
+-        return res;
++        return null;
+       }
+     }
+     return res;
+
+
+--- a/src/com/google/javascript/jscomp/CompilationLevel.java
++++ b/src/com/google/javascript/jscomp/CompilationLevel.java
+@@ -79,11 +79,6 @@
+    * @param options The CompilerOptions object to set the options on.
+    */
+   private static void applyBasicCompilationOptions(CompilerOptions options) {
+-    options.skipAllCompilerPasses();
+-
+-    // Allows annotations that are not standard.
+-    options.setWarningLevel(DiagnosticGroups.NON_STANDARD_JSDOC,
+-        CheckLevel.OFF);
+   }
+ 
+   /**
+
+

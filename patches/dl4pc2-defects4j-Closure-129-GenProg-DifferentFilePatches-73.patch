@@ -1,0 +1,56 @@
+--- a/src/com/google/javascript/rhino/Node.java
++++ b/src/com/google/javascript/rhino/Node.java
+@@ -1454,7 +1454,7 @@
+       }
+       res = n.checkTreeEqualsImpl(n2);
+       if (res != null) {
+-        return res;
++        return null;
+       }
+     }
+     return res;
+
+
+--- a/src/com/google/javascript/jscomp/CodeGenerator.java
++++ b/src/com/google/javascript/jscomp/CodeGenerator.java
+@@ -529,7 +529,6 @@
+             || n.getBooleanProp(Node.FREE_CALL) && NodeUtil.isGet(first)) {
+           add("(0,");
+           addExpr(first, NodeUtil.precedence(Token.COMMA), Context.OTHER);
+-          add(")");
+         } else {
+           addExpr(first, NodeUtil.precedence(type), context);
+         }
+
+
+--- a/src/com/google/javascript/jscomp/ConvertToDottedProperties.java
++++ b/src/com/google/javascript/jscomp/ConvertToDottedProperties.java
+@@ -58,7 +58,8 @@
+         Node right = left.getNext();
+         if (right.isString() &&
+             NodeUtil.isValidPropertyName(right.getString())) {
+-          n.removeChild(left);
++          final String PARAM_NAME = "jscomp_throw_param";
++		n.removeChild(left);
+           n.removeChild(right);
+           parent.replaceChild(n, IR.getprop(left, right));
+           compiler.reportCodeChange();
+
+
+--- a/src/com/google/javascript/jscomp/PeepholeFoldConstants.java
++++ b/src/com/google/javascript/jscomp/PeepholeFoldConstants.java
+@@ -1320,12 +1320,6 @@
+    * Try to fold array-element. e.g [1, 2, 3][10];
+    */
+   private Node tryFoldGetElem(Node n, Node left, Node right) {
+-    Preconditions.checkArgument(n.isGetElem());
+-
+-    if (left.isObjectLit()) {
+-      return tryFoldObjectPropAccess(n, left, right);
+-    }
+-
+     if (left.isArrayLit()) {
+       return tryFoldArrayAccess(n, left, right);
+     }
+
+

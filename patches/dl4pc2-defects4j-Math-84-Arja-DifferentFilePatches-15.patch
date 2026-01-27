@@ -1,0 +1,32 @@
+--- a/src/main/java/org/apache/commons/math/optimization/direct/DirectSearchOptimizer.java
++++ b/src/main/java/org/apache/commons/math/optimization/direct/DirectSearchOptimizer.java
+@@ -317,7 +317,8 @@
+     protected void incrementIterationsCounter()
+         throws OptimizationException {
+         if (++iterations > maxIterations) {
+-            throw new OptimizationException(new MaxIterationsExceededException(maxIterations));
++            throw new OptimizationException(new MaxIterationsExceededException(
++					maxIterations));
+         }
+     }
+ 
+
+
+--- a/src/main/java/org/apache/commons/math/optimization/direct/MultiDirectional.java
++++ b/src/main/java/org/apache/commons/math/optimization/direct/MultiDirectional.java
+@@ -87,12 +87,7 @@
+ 
+             // compute the contracted simplex
+             final RealPointValuePair contracted = evaluateNewSimplex(original, gamma, comparator);
+-            if (comparator.compare(contracted, best) < 0) {
+-                // accept the contracted simplex
+-
+-            // check convergence
+-                return;
+-            }
++            break;
+ 
+         }
+ 
+
+

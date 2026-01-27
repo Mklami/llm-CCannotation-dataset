@@ -1,0 +1,14 @@
+--- a/src/main/java/org/apache/commons/math/analysis/solvers/BrentSolver.java
++++ b/src/main/java/org/apache/commons/math/analysis/solvers/BrentSolver.java
+@@ -104,7 +104,8 @@
+             return result;
+         }
+ 
+-        // return the first endpoint if it is good enough
++        verifyBracketing(min, max, f);
++		// return the first endpoint if it is good enough
+         double yMin = f.value(min);
+         if (Math.abs(yMin) <= functionValueAccuracy) {
+             setResult(yMin, 0);
+
+

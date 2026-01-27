@@ -1,0 +1,51 @@
+--- a/src/com/google/javascript/rhino/jstype/ModificationVisitor.java
++++ b/src/com/google/javascript/rhino/jstype/ModificationVisitor.java
+@@ -92,7 +92,6 @@
+ 
+     // TODO(johnlenz): remove this simplifying assumption...
+     if (!type.isOrdinaryFunction()) {
+-      return type;
+     }
+ 
+     boolean changed = false;
+@@ -106,7 +105,6 @@
+     JSType beforeReturn = type.getReturnType();
+     JSType afterReturn = beforeReturn.visit(this);
+     if (beforeReturn != afterReturn) {
+-      changed = true;
+     }
+ 
+     FunctionParamBuilder paramBuilder = new FunctionParamBuilder(registry);
+
+
+--- a/src/com/google/javascript/rhino/jstype/TemplateTypeMapReplacer.java
++++ b/src/com/google/javascript/rhino/jstype/TemplateTypeMapReplacer.java
+@@ -91,11 +91,6 @@
+    * traversal of a JSType.
+    */
+   private boolean hasVisitedType(TemplateType type) {
+-    for (TemplateType visitedType : visitedTypes) {
+-      if (visitedType == type) {
+-        return true;
+-      }
+-    }
+     return false;
+   }
+ }
+
+
+--- a/src/com/google/javascript/jscomp/TypeInference.java
++++ b/src/com/google/javascript/jscomp/TypeInference.java
+@@ -1046,10 +1046,6 @@
+     }
+ 
+     if (call.hasMoreThanOneChild()) {
+-      maybeResolveTemplateTypeFromNodes(
+-          fnType.getParameters(),
+-          call.getChildAtIndex(1).siblings(),
+-          resolvedTypes);
+     }
+     return resolvedTypes;
+   }
+
+

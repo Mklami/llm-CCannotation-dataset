@@ -1,0 +1,11 @@
+diff -w -r -u Math87b/src/java/org/apache/commons/math/optimization/linear/SimplexTableau.java Math87b_Patch73/src/java/org/apache/commons/math/optimization/linear/SimplexTableau.java
+--- a/src/java/org/apache/commons/math/optimization/linear/SimplexTableau.java
++++ b/src/java/org/apache/commons/math/optimization/linear/SimplexTableau.java
+@@ -158,6 +158,7 @@
+ 
+                     // x-
+                     if (!restrictToNonNegative) {
++                        if((1) != (org.apache.commons.math.optimization.linear.SimplexTableau.this.numSlackVariables))
+                         matrix[row][getSlackVariableOffset() - 1] =
+                             getInvertedCoeffiecientSum(constraint.getCoefficients());
+                     }

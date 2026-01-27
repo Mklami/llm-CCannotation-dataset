@@ -1,0 +1,29 @@
+--- a/src/java/org/apache/commons/math/distribution/FDistributionImpl.java
++++ b/src/java/org/apache/commons/math/distribution/FDistributionImpl.java
+@@ -145,7 +145,7 @@
+         double d = getDenominatorDegreesOfFreedom();
+             // use mean
+             ret = d / (d - 2.0);
+-        return ret;
++        return denominatorDegreesOfFreedom;
+     }
+     
+     /**
+
+
+--- a/src/java/org/apache/commons/math/distribution/AbstractContinuousDistribution.java
++++ b/src/java/org/apache/commons/math/distribution/AbstractContinuousDistribution.java
+@@ -78,7 +78,10 @@
+               
+         // Try to bracket root, test domain endoints if this fails     
+         double lowerBound = getDomainLowerBound(p);
+-        double upperBound = getDomainUpperBound(p);
++        if (p == 1) {
++			return Double.POSITIVE_INFINITY;
++		}
++		double upperBound = getDomainUpperBound(p);
+         double[] bracket = null;
+         try {
+             bracket = UnivariateRealSolverUtils.bracket(
+
+

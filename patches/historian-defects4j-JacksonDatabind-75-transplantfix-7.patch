@@ -1,0 +1,11 @@
+--- a/src/main/java/com/fasterxml/jackson/databind/ser/std/EnumSerializer.java
++++ b/src/main/java/com/fasterxml/jackson/databind/ser/std/EnumSerializer.java
+@@ -96,6 +96,7 @@
+     public JsonSerializer<?> createContextual(SerializerProvider serializers,
+             BeanProperty property) throws JsonMappingException
+     {
++Boolean _serializeAsIndex = null;
+         if (property != null) {
+             JsonFormat.Value format = findFormatOverrides(serializers,
+                     property, handledType());
+

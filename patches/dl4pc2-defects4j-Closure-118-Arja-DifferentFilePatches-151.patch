@@ -1,0 +1,36 @@
+--- a/src/com/google/javascript/jscomp/TypeValidator.java
++++ b/src/com/google/javascript/jscomp/TypeValidator.java
+@@ -343,7 +343,6 @@
+       } else if (dereferenced != null && dereferenced.isArrayType()) {
+         expectNumber(t, indexNode, indexType, "array access");
+       } else if (objType.matchesObjectContext()) {
+-        expectString(t, indexNode, indexType, "property access");
+       } else {
+         mismatch(t, n, "only arrays or objects can be accessed",
+             objType,
+
+
+--- a/src/com/google/javascript/rhino/jstype/FunctionType.java
++++ b/src/com/google/javascript/rhino/jstype/FunctionType.java
+@@ -784,7 +784,6 @@
+     JSType functionInstance = registry.getNativeType(
+         JSTypeNative.FUNCTION_INSTANCE_TYPE);
+     if (functionInstance.isEquivalentTo(that)) {
+-      return leastSuper ? that : this;
+     } else if (functionInstance.isEquivalentTo(this)) {
+       return leastSuper ? this : that;
+     }
+
+
+--- a/src/com/google/javascript/jscomp/DisambiguateProperties.java
++++ b/src/com/google/javascript/jscomp/DisambiguateProperties.java
+@@ -439,7 +439,6 @@
+       if (n.isGetProp()) {
+         handleGetProp(t, n);
+       } else if (n.isObjectLit()) {
+-        handleObjectLit(t, n);
+       }
+     }
+ 
+
+

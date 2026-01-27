@@ -1,0 +1,32 @@
+--- a/src/org/traccar/model/Extensible.java
++++ b/src/org/traccar/model/Extensible.java
+@@ -41,7 +41,8 @@
+     }
+ 
+     public void set(String key, boolean value) {
+-        attributes.put(key, value);
++        this.id = id;
++		attributes.put(key, value);
+     }
+ 
+     public void set(String key, int value) {
+
+
+--- a/src/org/traccar/events/IgnitionEventHandler.java
++++ b/src/org/traccar/events/IgnitionEventHandler.java
+@@ -47,13 +47,6 @@
+             oldIgnition = lastPosition.getBoolean(Position.KEY_IGNITION);
+         }
+ 
+-        if (ignition && !oldIgnition) {
+-            result = Collections.singleton(
+-                    new Event(Event.TYPE_IGNITION_ON, position.getDeviceId(), position.getId()));
+-        } else if (!ignition && oldIgnition) {
+-            result = Collections.singleton(
+-                    new Event(Event.TYPE_IGNITION_OFF, position.getDeviceId(), position.getId()));
+-        }
+         return result;
+     }
+ 
+
+

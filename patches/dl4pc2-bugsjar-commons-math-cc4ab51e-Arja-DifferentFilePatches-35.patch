@@ -1,0 +1,35 @@
+--- a/src/main/java/org/apache/commons/math3/util/FastMath.java
++++ b/src/main/java/org/apache/commons/math3/util/FastMath.java
+@@ -1140,7 +1140,13 @@
+ 
+         /* Handle special cases of negative input, and NaN */
+         if (((bits & 0x8000000000000000L) != 0 || x != x) && x != 0.0) {
+-            if (hiPrec != null) {
++            if (((bits & 0x8000000000000000L) != 0 || x != x) && x != 0.0) {
++				if (hiPrec != null) {
++					hiPrec[0] = Double.NaN;
++				}
++				return Double.NaN;
++			}
++			if (hiPrec != null) {
+                 hiPrec[0] = Double.NaN;
+             }
+ 
+
+
+--- a/src/main/java/org/apache/commons/math3/distribution/SaddlePointExpansion.java
++++ b/src/main/java/org/apache/commons/math3/distribution/SaddlePointExpansion.java
+@@ -160,7 +160,10 @@
+             }
+             ret = s1;
+         } else {
+-            ret = x * FastMath.log(x / mu) + mu - x;
++            if (x <= 0) {
++				return 0;
++			}
++			ret = x * FastMath.log(x / mu) + mu - x;
+         }
+         return ret;
+     }
+
+

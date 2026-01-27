@@ -1,0 +1,27 @@
+--- a/src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java
++++ b/src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java
+@@ -1472,7 +1472,10 @@
+                 } else {
+                     // case 4.
+                     tType = -4;
+-                    double s = 0.25 * dMin;
++                    if (work[nn - 9] > work[nn - 11]) {
++						return;
++					}
++					double s = 0.25 * dMin;
+                     double gam;
+                     int np;
+                     if (dMin == dN) {
+@@ -1516,10 +1519,6 @@
+                     }
+                     a2 = cnst3 * a2;
+ 
+-                    // rayleigh quotient residual bound.
+-                    if (a2 < cnst1) {
+-                        s = gam * (1 - Math.sqrt(a2)) / (1 + a2);
+-                    }
+                     tau = s;
+ 
+                 }
+
+

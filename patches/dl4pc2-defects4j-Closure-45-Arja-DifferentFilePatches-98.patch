@@ -1,0 +1,32 @@
+--- a/src/com/google/javascript/rhino/Node.java
++++ b/src/com/google/javascript/rhino/Node.java
+@@ -1430,7 +1430,6 @@
+       }
+       res = n.checkTreeEqualsImpl(n2);
+       if (res != null) {
+-        return res;
+       }
+     }
+     return res;
+
+
+--- a/src/com/google/javascript/jscomp/NodeUtil.java
++++ b/src/com/google/javascript/jscomp/NodeUtil.java
+@@ -585,13 +585,8 @@
+   static boolean isLiteralValue(Node n, boolean includeFunctions) {
+     switch (n.getType()) {
+       case Token.ARRAYLIT:
+-        for (Node child = n.getFirstChild(); child != null;
+-             child = child.getNext()) {
+-          if ((!child.isEmpty()) && !isLiteralValue(child, includeFunctions)) {
+-            return false;
+-          }
+-        }
+-        return true;
++        ;
++        return false;
+ 
+       case Token.REGEXP:
+         // Return true only if all children are const.
+
+

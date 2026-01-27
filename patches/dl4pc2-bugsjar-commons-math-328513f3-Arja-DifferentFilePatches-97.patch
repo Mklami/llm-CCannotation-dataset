@@ -1,0 +1,28 @@
+--- a/src/main/java/org/apache/commons/math/util/MathUtils.java
++++ b/src/main/java/org/apache/commons/math/util/MathUtils.java
+@@ -1357,7 +1357,8 @@
+                 return Double.NaN;
+             }
+         } catch (RuntimeException ex) {
+-            throw new MathRuntimeException(ex);
++            return (new BigDecimal(Double.toString(x)).setScale(scale,
++					roundingMethod)).doubleValue();
+         }
+     }
+ 
+
+
+--- a/src/main/java/org/apache/commons/math/optimization/direct/CMAESOptimizer.java
++++ b/src/main/java/org/apache/commons/math/optimization/direct/CMAESOptimizer.java
+@@ -869,7 +869,8 @@
+                 double diff = boundaries[1][i] - boundaries[0][i];
+                 res[i] = diff * x[i] + boundaries[0][i];
+             }
+-            return res;
++            logMu2 = Math.log(mu + 0.5);
++			return res;
+         }
+ 
+         /**
+
+

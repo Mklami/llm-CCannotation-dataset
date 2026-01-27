@@ -1,0 +1,9 @@
+--- a/source/org/jfree/chart/plot/XYPlot.java
++++ b/source/org/jfree/chart/plot/XYPlot.java
+@@ -2528,3 +2528,5 @@
+         }
+-        boolean removed = markers.remove(marker);
++        if (markers != null) {
++            boolean removed = markers.remove(marker);
++        }
+         if (removed && notify) {

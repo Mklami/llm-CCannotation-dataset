@@ -1,0 +1,61 @@
+--- a/src/com/google/javascript/jscomp/FunctionInjector.java
++++ b/src/com/google/javascript/jscomp/FunctionInjector.java
+@@ -728,7 +728,6 @@
+       if (fnParam != null) {
+         if (cArg != null) {
+           if (hasSideEffects && NodeUtil.canBeSideEffected(cArg)) {
+-            return CanInlineResult.NO;
+           }
+           // Check for arguments that are evaluated more than once.
+           // Note: Unlike block inlining, there it is not possible that a
+
+
+--- a/src/com/google/javascript/jscomp/InlineFunctions.java
++++ b/src/com/google/javascript/jscomp/InlineFunctions.java
+@@ -756,8 +756,6 @@
+           // For functions that can no longer be removed, check if they should
+           // still be inlined.
+           if (!mimimizeCost(fsCalled)) {
+-            // It can't be inlined remove it from the list.
+-            fsCalled.setInline(false);
+           }
+         }
+       }
+
+
+--- a/src/com/google/javascript/jscomp/RenameLabels.java
++++ b/src/com/google/javascript/jscomp/RenameLabels.java
+@@ -206,8 +206,7 @@
+           // Mark the label as referenced so it isn't removed.
+           li.referenced = true;
+           if (!name.equals(newName)) {
+-            // Give it the short name.
+-            nameNode.setString(newName);
++            StringBuilder builder = new StringBuilder();
+             compiler.reportCodeChange();
+           }
+         }
+
+
+--- a/src/com/google/javascript/jscomp/FunctionArgumentInjector.java
++++ b/src/com/google/javascript/jscomp/FunctionArgumentInjector.java
+@@ -63,15 +63,12 @@
+     if (node.isName()) {
+       Node replacementTemplate = replacements.get(node.getString());
+       if (replacementTemplate != null) {
+-        // This should not be replacing declared names.
+-        Preconditions.checkState(!parent.isFunction()
+-            || !parent.isVar()
+-            || !parent.isCatch());
+         // The name may need to be replaced more than once,
+         // so we need to clone the node.
+         Node replacement = replacementTemplate.cloneTree();
+         parent.replaceChild(node, replacement);
+-        return replacement;
++        int index = -1;
++		return replacement;
+       }
+     } else if (replaceThis && node.isThis()) {
+       Node replacementTemplate = replacements.get(THIS_MARKER);
+
+

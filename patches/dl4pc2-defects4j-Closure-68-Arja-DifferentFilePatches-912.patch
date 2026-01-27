@@ -1,0 +1,29 @@
+--- a/src/com/google/javascript/jscomp/parsing/JsDocTokenStream.java
++++ b/src/com/google/javascript/jscomp/parsing/JsDocTokenStream.java
+@@ -349,7 +349,6 @@
+       if (sourceCursor == sourceEnd) {
+         hitEOF = true;
+         if (charno == -1) {
+-          charno = getOffset();
+         }
+         return EOF_CHAR;
+       }
+
+
+--- a/src/com/google/javascript/jscomp/parsing/JsDocInfoParser.java
++++ b/src/com/google/javascript/jscomp/parsing/JsDocInfoParser.java
+@@ -882,10 +882,8 @@
+           return true;
+ 
+         case EOF:
+-          // discard any accumulated information
+-          jsdocBuilder.build(null);
+-          parser.addParserWarning("msg.unexpected.eof",
+-              stream.getLineno(), stream.getCharno());
++          ;
++          ;
+           checkExtendedTypes(extendedTypes);
+           return false;
+ 
+
+

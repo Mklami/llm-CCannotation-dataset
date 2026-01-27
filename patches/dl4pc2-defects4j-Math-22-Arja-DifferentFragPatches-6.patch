@@ -1,0 +1,29 @@
+--- a/src/main/java/org/apache/commons/math3/distribution/FDistribution.java
++++ b/src/main/java/org/apache/commons/math3/distribution/FDistribution.java
+@@ -128,7 +128,10 @@
+     public double density(double x) {
+         final double nhalf = numeratorDegreesOfFreedom / 2;
+         final double mhalf = denominatorDegreesOfFreedom / 2;
+-        final double logx = FastMath.log(x);
++        if (x <= 0) {
++			return 0;
++		}
++		final double logx = FastMath.log(x);
+         final double logn = FastMath.log(numeratorDegreesOfFreedom);
+         final double logm = FastMath.log(denominatorDegreesOfFreedom);
+         final double lognxm = FastMath.log(numeratorDegreesOfFreedom * x +
+
+
+--- a/src/main/java/org/apache/commons/math3/distribution/UniformRealDistribution.java
++++ b/src/main/java/org/apache/commons/math3/distribution/UniformRealDistribution.java
+@@ -181,7 +181,7 @@
+ 
+     /** {@inheritDoc} */
+     public boolean isSupportUpperBoundInclusive() {
+-        return false;
++        return true;
+     }
+ 
+     /**
+
+

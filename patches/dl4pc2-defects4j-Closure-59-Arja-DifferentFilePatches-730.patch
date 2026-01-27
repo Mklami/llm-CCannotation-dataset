@@ -1,0 +1,38 @@
+--- a/src/com/google/javascript/jscomp/DefaultPassConfig.java
++++ b/src/com/google/javascript/jscomp/DefaultPassConfig.java
+@@ -260,7 +260,7 @@
+     if (options.checkTypes &&
+         (options.enables(DiagnosticGroups.ACCESS_CONTROLS)
+          || options.enables(DiagnosticGroups.CONSTANT_PROPERTY))) {
+-      checks.add(checkAccessControls);
++      return null;
+     }
+ 
+     if (options.checkGlobalNamesLevel.isOn()) {
+
+
+--- a/src/com/google/javascript/jscomp/WarningLevel.java
++++ b/src/com/google/javascript/jscomp/WarningLevel.java
+@@ -72,8 +72,6 @@
+    * @param options The CompilerOptions object to set the options on.
+    */
+   private static void addVerboseWarnings(CompilerOptions options) {
+-    addDefaultWarnings(options);
+-
+     // checkSuspiciousCode needs to be enabled for CheckGlobalThis to get run.
+     options.checkSuspiciousCode = true;
+     options.checkGlobalThisLevel = CheckLevel.WARNING;
+
+
+--- a/src/com/google/javascript/jscomp/CheckGlobalNames.java
++++ b/src/com/google/javascript/jscomp/CheckGlobalNames.java
+@@ -64,7 +64,6 @@
+    * can be re-used for multiple check passes. Returns this for easy chaining.
+    */
+   CheckGlobalNames injectNamespace(GlobalNamespace namespace) {
+-    this.namespace = namespace;
+     return this;
+   }
+ 
+
+

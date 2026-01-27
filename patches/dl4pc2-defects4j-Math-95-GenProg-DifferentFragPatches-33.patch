@@ -1,0 +1,27 @@
+--- a/src/java/org/apache/commons/math/distribution/FDistributionImpl.java
++++ b/src/java/org/apache/commons/math/distribution/FDistributionImpl.java
+@@ -75,7 +75,9 @@
+             double n = getNumeratorDegreesOfFreedom();
+             double m = getDenominatorDegreesOfFreedom();
+             
+-            ret = Beta.regularizedBeta((n * x) / (m + n * x),
++            if (x < 0)
++				return 0;
++			ret = Beta.regularizedBeta((n * x) / (m + n * x),
+                 0.5 * n,
+                 0.5 * m);
+         }
+@@ -142,10 +144,7 @@
+      */
+     protected double getInitialDomain(double p) {
+         double ret;
+-        double d = getDenominatorDegreesOfFreedom();
+-            // use mean
+-            ret = d / (d - 2.0);
+-        return ret;
++        return 0;
+     }
+     
+     /**
+
+

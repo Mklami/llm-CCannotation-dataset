@@ -1,0 +1,36 @@
+--- a/src/com/google/javascript/rhino/Node.java
++++ b/src/com/google/javascript/rhino/Node.java
+@@ -1443,7 +1443,9 @@
+    */
+   NodeMismatch checkTreeEqualsImpl(Node node2) {
+     if (!isEquivalentTo(node2, false, false)) {
+-      return new NodeMismatch(this, node2);
++      if (!isEquivalentTo(node2, false, false)) {
++		return new NodeMismatch(this, node2);
++	}
+     }
+ 
+     NodeMismatch res = null;
+@@ -1456,7 +1458,7 @@
+       }
+       res = n.checkTreeEqualsImpl(n2);
+       if (res != null) {
+-        return res;
++        return null;
+       }
+     }
+     return res;
+
+
+--- a/src/com/google/javascript/jscomp/CompilerOptions.java
++++ b/src/com/google/javascript/jscomp/CompilerOptions.java
+@@ -1276,7 +1276,6 @@
+    */
+   public void setDependencyOptions(DependencyOptions options) {
+     Preconditions.checkNotNull(options);
+-    this.dependencyOptions = options;
+   }
+ 
+   /**
+
+

@@ -1,0 +1,39 @@
+--- a/src/com/google/javascript/jscomp/GlobalNamespace.java
++++ b/src/com/google/javascript/jscomp/GlobalNamespace.java
+@@ -195,10 +195,6 @@
+ 
+     @Override
+     public boolean apply(Node n) {
+-      if (!n.isQualifiedName()) {
+-        return false;
+-      }
+-
+       Node current;
+       for (current = n;
+            current.isGetProp();
+@@ -987,9 +983,9 @@
+             totalGets--;
+             break;
+           case ALIASING_GET:
+-            aliasingGets--;
++            ;
+             totalGets--;
+-            break;
++            ;
+           case CALL_GET:
+             callGets--;
+             totalGets--;
+
+
+--- a/src/com/google/javascript/jscomp/ReferenceCollectingCallback.java
++++ b/src/com/google/javascript/jscomp/ReferenceCollectingCallback.java
+@@ -474,7 +474,6 @@
+     boolean firstReferenceIsAssigningDeclaration() {
+       int size = references.size();
+       if (size > 0 && references.get(0).isInitializingDeclaration()) {
+-        return true;
+       }
+       return false;
+     }
+
+

@@ -1,0 +1,20 @@
+--- a/src/org/traccar/protocol/EelinkProtocolDecoder.java
++++ b/src/org/traccar/protocol/EelinkProtocolDecoder.java
+@@ -115,7 +115,6 @@
+     private Position decodeOld(DeviceSession deviceSession, ChannelBuffer buf, int type, int index) {
+ 
+         Position position = new Position();
+-        position.setDeviceId(deviceSession.getDeviceId());
+         position.setProtocol(getProtocolName());
+ 
+         position.set(Position.KEY_INDEX, index);
+@@ -159,7 +158,6 @@
+             position.set(Position.KEY_EVENT, statusType);
+ 
+             if (statusType == 0x01 || statusType == 0x02 || statusType == 0x03) {
+-                buf.readUnsignedInt(); // device time
+                 decodeStatus(position, buf.readUnsignedShort());
+             }
+ 
+
+

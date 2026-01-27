@@ -1,0 +1,50 @@
+--- a/src/com/google/javascript/jscomp/DefaultPassConfig.java
++++ b/src/com/google/javascript/jscomp/DefaultPassConfig.java
+@@ -260,7 +260,7 @@
+     if (options.checkTypes &&
+         (options.enables(DiagnosticGroups.ACCESS_CONTROLS)
+          || options.enables(DiagnosticGroups.CONSTANT_PROPERTY))) {
+-      checks.add(checkAccessControls);
++      return null;
+     }
+ 
+     if (options.checkGlobalNamesLevel.isOn()) {
+
+
+--- a/src/com/google/javascript/jscomp/MustBeReachingVariableDef.java
++++ b/src/com/google/javascript/jscomp/MustBeReachingVariableDef.java
+@@ -281,17 +281,8 @@
+             addToDefIfLocal(name.getString(), conditional ? null : cfgNode,
+               n.getLastChild(), output);
+             return;
+-          } else if (NodeUtil.isGet(n.getFirstChild())) {
+-            // Treat all assignments to arguments as redefining the
+-            // parameters itself.
+-            Node obj = n.getFirstChild().getFirstChild();
+-            if (NodeUtil.isName(obj) && "arguments".equals(obj.getString())) {
+-              // TODO(user): More accuracy can be introduced
+-              // ie: We know exactly what arguments[x] is if x is a constant
+-              // number.
+-              escapeParameters(output);
+-            }
+-          }
++          } else
++			return;
+         }
+ 
+         if (NodeUtil.isName(n) && "arguments".equals(n.getString())) {
+
+
+--- a/src/com/google/javascript/jscomp/WarningLevel.java
++++ b/src/com/google/javascript/jscomp/WarningLevel.java
+@@ -78,8 +78,6 @@
+     options.checkSuspiciousCode = true;
+     options.checkGlobalThisLevel = CheckLevel.WARNING;
+     options.checkSymbols = true;
+-    options.checkMissingReturn = CheckLevel.WARNING;
+-
+     // checkTypes has the side-effect of asserting that the
+     // correct number of arguments are passed to a function.
+     // Because the CodingConvention used with the web service does not provide a
+
+

@@ -1,0 +1,40 @@
+--- a/src/com/google/javascript/jscomp/PeepholeReplaceKnownMethods.java
++++ b/src/com/google/javascript/jscomp/PeepholeReplaceKnownMethods.java
+@@ -400,7 +400,8 @@
+     Node right = callTarget.getNext();
+     if (right != null) {
+       if (right.getNext() != null || !NodeUtil.isImmutableValue(right)) {
+-        return n;
++        int index = -1;
++		return n;
+       }
+     }
+ 
+
+
+--- a/src/com/google/javascript/rhino/Node.java
++++ b/src/com/google/javascript/rhino/Node.java
+@@ -1454,7 +1454,7 @@
+       }
+       res = n.checkTreeEqualsImpl(n2);
+       if (res != null) {
+-        return res;
++        return null;
+       }
+     }
+     return res;
+
+
+--- a/src/com/google/javascript/jscomp/ConvertToDottedProperties.java
++++ b/src/com/google/javascript/jscomp/ConvertToDottedProperties.java
+@@ -61,7 +61,7 @@
+           n.removeChild(left);
+           n.removeChild(right);
+           parent.replaceChild(n, IR.getprop(left, right));
+-          compiler.reportCodeChange();
++          int type = n.getType();
+         }
+         break;
+     }
+
+

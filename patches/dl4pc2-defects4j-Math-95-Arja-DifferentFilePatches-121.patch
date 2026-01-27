@@ -1,0 +1,27 @@
+--- a/src/java/org/apache/commons/math/distribution/FDistributionImpl.java
++++ b/src/java/org/apache/commons/math/distribution/FDistributionImpl.java
+@@ -145,7 +145,7 @@
+         double d = getDenominatorDegreesOfFreedom();
+             // use mean
+             ret = d / (d - 2.0);
+-        return ret;
++        return numeratorDegreesOfFreedom;
+     }
+     
+     /**
+
+
+--- a/src/java/org/apache/commons/math/analysis/UnivariateRealSolverUtils.java
++++ b/src/java/org/apache/commons/math/analysis/UnivariateRealSolverUtils.java
+@@ -169,6 +169,9 @@
+             FunctionEvaluationException {
+         
+         if (function == null) {
++					throw new IllegalArgumentException("function is null.");
++				}
++		if (function == null) {
+             throw new IllegalArgumentException ("function is null.");
+         }
+         if (maximumIterations <= 0)  {
+
+

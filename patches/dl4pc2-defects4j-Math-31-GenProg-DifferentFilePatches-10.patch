@@ -1,0 +1,29 @@
+--- a/src/main/java/org/apache/commons/math3/exception/util/ExceptionContext.java
++++ b/src/main/java/org/apache/commons/math3/exception/util/ExceptionContext.java
+@@ -144,7 +144,8 @@
+      * @return the localized message.
+      */
+     public String getMessage(final Locale locale) {
+-        return buildMessage(locale, ": ");
++        final List<Object> list = new ArrayList<Object>();
++		return buildMessage(locale, ": ");
+     }
+ 
+     /**
+
+
+--- a/src/main/java/org/apache/commons/math3/util/ContinuedFraction.java
++++ b/src/main/java/org/apache/commons/math3/util/ContinuedFraction.java
+@@ -174,8 +174,8 @@
+                                                x);
+             }
+             if (Double.isNaN(hN)) {
+-                throw new ConvergenceException(LocalizedFormats.CONTINUED_FRACTION_NAN_DIVERGENCE,
+-                                               x);
++                return FastMath.floor(FastMath.exp(ArithmeticUtils
++						.factorialLog(n)) + 0.5);
+             }
+ 
+             if (FastMath.abs(deltaN - 1.0) < epsilon) {
+
+

@@ -1,0 +1,25 @@
+--- a/src/org/traccar/protocol/EelinkProtocolDecoder.java
++++ b/src/org/traccar/protocol/EelinkProtocolDecoder.java
+@@ -118,8 +118,6 @@
+         position.setDeviceId(deviceSession.getDeviceId());
+         position.setProtocol(getProtocolName());
+ 
+-        position.set(Position.KEY_INDEX, index);
+-
+         position.setTime(new Date(buf.readUnsignedInt() * 1000));
+         position.setLatitude(buf.readInt() / 1800000.0);
+         position.setLongitude(buf.readInt() / 1800000.0);
+@@ -158,11 +156,6 @@
+ 
+             position.set(Position.KEY_EVENT, statusType);
+ 
+-            if (statusType == 0x01 || statusType == 0x02 || statusType == 0x03) {
+-                buf.readUnsignedInt(); // device time
+-                decodeStatus(position, buf.readUnsignedShort());
+-            }
+-
+         }
+ 
+         return position;
+
+

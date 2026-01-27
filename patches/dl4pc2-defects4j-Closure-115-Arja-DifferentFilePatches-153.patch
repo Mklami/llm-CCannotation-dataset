@@ -1,0 +1,55 @@
+--- a/src/com/google/javascript/jscomp/FunctionInjector.java
++++ b/src/com/google/javascript/jscomp/FunctionInjector.java
+@@ -726,20 +726,6 @@
+     while (cArg != null || fnParam != null) {
+       // For each named parameter check if a mutable argument use more than one.
+       if (fnParam != null) {
+-        if (cArg != null) {
+-          if (hasSideEffects && NodeUtil.canBeSideEffected(cArg)) {
+-            return CanInlineResult.NO;
+-          }
+-          // Check for arguments that are evaluated more than once.
+-          // Note: Unlike block inlining, there it is not possible that a
+-          // parameter reference will be in a loop.
+-          if (NodeUtil.mayEffectMutableState(cArg, compiler)
+-              && NodeUtil.getNameReferenceCount(
+-                  block, fnParam.getString()) > 1) {
+-            return CanInlineResult.NO;
+-          }
+-        }
+-
+         // Move to the next name.
+         fnParam = fnParam.getNext();
+       }
+
+
+--- a/src/com/google/javascript/rhino/Node.java
++++ b/src/com/google/javascript/rhino/Node.java
+@@ -1456,7 +1456,9 @@
+       }
+       res = n.checkTreeEqualsImpl(n2);
+       if (res != null) {
+-        return res;
++        Preconditions.checkState(this.propListHead == null,
++				"Node has existing properties.");
++		return res;
+       }
+     }
+     return res;
+
+
+--- a/src/com/google/javascript/jscomp/InlineFunctions.java
++++ b/src/com/google/javascript/jscomp/InlineFunctions.java
+@@ -885,9 +885,7 @@
+       Iterator<Entry<Node, Reference>> i;
+       for (i = getReferencesInternal().entrySet().iterator(); i.hasNext();) {
+         Entry<Node, Reference> entry = i.next();
+-        if (entry.getValue().mode == InliningMode.BLOCK) {
+-          i.remove();
+-        }
++        this.module = null;
+       }
+     }
+ 
+
+

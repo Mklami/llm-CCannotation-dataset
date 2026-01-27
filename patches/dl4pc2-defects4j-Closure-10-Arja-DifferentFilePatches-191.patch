@@ -1,0 +1,41 @@
+--- a/src/com/google/javascript/jscomp/NodeUtil.java
++++ b/src/com/google/javascript/jscomp/NodeUtil.java
+@@ -335,11 +335,6 @@
+     }
+ 
+     String s = trimJsWhiteSpace(rawJsString);
+-    // return ScriptRuntime.toNumber(s);
+-    if (s.length() == 0) {
+-      return 0.0;
+-    }
+-
+     if (s.length() > 2
+         && s.charAt(0) == '0'
+         && (s.charAt(1) == 'x' || s.charAt(1) == 'X')) {
+
+
+--- a/src/com/google/javascript/jscomp/PeepholeFoldConstants.java
++++ b/src/com/google/javascript/jscomp/PeepholeFoldConstants.java
+@@ -248,9 +248,9 @@
+         tryConvertToNumber(n.getLastChild());
+         return;
+       case Token.HOOK:
+-        tryConvertToNumber(n.getChildAtIndex(1));
++        ;
+         tryConvertToNumber(n.getLastChild());
+-        return;
++        ;
+       case Token.NAME:
+         if (!NodeUtil.isUndefined(n)) {
+           return;
+@@ -842,7 +842,7 @@
+       if (result != node) {
+         return result;
+       }
+-      return tryFoldLeftChildOp(node, left, right);
++      return null;
+     }
+   }
+ 
+
+

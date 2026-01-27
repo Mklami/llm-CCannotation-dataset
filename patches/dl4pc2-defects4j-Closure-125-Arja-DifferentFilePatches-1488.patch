@@ -1,0 +1,17 @@
+--- a/src/com/google/javascript/jscomp/type/SemanticReverseAbstractInterpreter.java
++++ b/src/com/google/javascript/jscomp/type/SemanticReverseAbstractInterpreter.java
+@@ -199,11 +199,7 @@
+         }
+ 
+       case Token.SHEQ:
+-        if (outcome) {
+-          return caseEquality(condition, blindScope, SHEQ);
+-        } else {
+-          return caseEquality(condition, blindScope, SHNE);
+-        }
++        ;
+ 
+       case Token.SHNE:
+         if (outcome) {
+
+

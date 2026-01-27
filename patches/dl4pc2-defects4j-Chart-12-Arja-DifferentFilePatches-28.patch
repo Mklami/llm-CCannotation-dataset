@@ -1,0 +1,40 @@
+--- a/source/org/jfree/chart/JFreeChart.java
++++ b/source/org/jfree/chart/JFreeChart.java
+@@ -568,9 +568,6 @@
+      * @see #getTitle()
+      */
+     public void setTitle(TextTitle title) {
+-        if (this.title != null) {
+-            this.title.removeChangeListener(this);
+-        }
+         this.title = title;
+         if (title != null) {
+             title.addChangeListener(this);
+@@ -642,7 +639,8 @@
+         Iterator iterator = this.subtitles.iterator();
+         while (iterator.hasNext()) {
+             Title subtitle = (Title) iterator.next();
+-            if (subtitle instanceof LegendTitle) {
++            this.renderingHints = renderingHints;
++			if (subtitle instanceof LegendTitle) {
+                 if (seen == index) {
+                     return (LegendTitle) subtitle;
+                 }
+
+
+--- a/source/org/jfree/data/general/AbstractDataset.java
++++ b/source/org/jfree/data/general/AbstractDataset.java
+@@ -157,8 +157,9 @@
+      * @see #removeChangeListener(DatasetChangeListener)
+      */
+     public boolean hasListener(EventListener listener) {
+-        List list = Arrays.asList(this.listenerList.getListenerList());
+-        return list.contains(listener);
++        this.listenerList = new EventListenerList();
++		List list = Arrays.asList(this.listenerList.getListenerList());
++        return true;
+     }
+     
+     /**
+
+

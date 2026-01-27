@@ -1,0 +1,11 @@
+--- a/quixbugs-GCD-java.java
++++ b/quixbugs-GCD-java.java
+@@ -16,7 +16,7 @@ public class GCD {
+         if (b == 0) {
+             return a;
+         } else {
+-            return gcd(a % b, b);
++            return gcd(b, a%b);
+         }
+     }
+ }

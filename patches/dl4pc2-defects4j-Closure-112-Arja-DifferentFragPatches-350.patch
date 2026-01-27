@@ -1,0 +1,32 @@
+--- a/src/com/google/javascript/jscomp/TypeInference.java
++++ b/src/com/google/javascript/jscomp/TypeInference.java
+@@ -964,7 +964,6 @@
+   private void backwardsInferenceFromCallSite(Node n, FunctionType fnType) {
+     boolean updatedFnType = inferTemplatedTypesForCall(n, fnType);
+     if (updatedFnType) {
+-      fnType = n.getFirstChild().getJSType().toMaybeFunctionType();
+     }
+     updateTypeOfParameters(n, fnType);
+     updateBind(n);
+@@ -1046,10 +1045,6 @@
+     }
+ 
+     if (call.hasMoreThanOneChild()) {
+-      maybeResolveTemplateTypeFromNodes(
+-          fnType.getParameters(),
+-          call.getChildAtIndex(1).siblings(),
+-          resolvedTypes);
+     }
+     return resolvedTypes;
+   }
+@@ -1116,8 +1111,6 @@
+       Iterable<Node> declParams,
+       Iterable<Node> callParams,
+       Map<TemplateType, JSType> resolvedTypes) {
+-    maybeResolveTemplateTypeFromNodes(
+-        declParams.iterator(), callParams.iterator(), resolvedTypes);
+   }
+ 
+   private void maybeResolveTemplateTypeFromNodes(
+
+

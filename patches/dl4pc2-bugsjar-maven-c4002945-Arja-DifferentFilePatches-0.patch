@@ -1,0 +1,18 @@
+--- a/maven-plugin-api/src/main/java/org/apache/maven/plugin/descriptor/PluginDescriptorBuilder.java
++++ b/maven-plugin-api/src/main/java/org/apache/maven/plugin/descriptor/PluginDescriptorBuilder.java
+@@ -50,13 +50,11 @@
+ 
+         PluginDescriptor pluginDescriptor = new PluginDescriptor();
+ 
+-        pluginDescriptor.setSource( source );
+         pluginDescriptor.setGroupId( c.getChild( "groupId" ).getValue() );
+         pluginDescriptor.setArtifactId( c.getChild( "artifactId" ).getValue() );
+         pluginDescriptor.setVersion( c.getChild( "version" ).getValue() );
+         pluginDescriptor.setGoalPrefix( c.getChild( "goalPrefix" ).getValue() );
+ 
+-        pluginDescriptor.setName( c.getChild( "name" ).getValue() );
+         pluginDescriptor.setDescription( c.getChild( "description" ).getValue() );
+ 
+         String isolatedRealm = c.getChild( "isolatedRealm" ).getValue();
+
+

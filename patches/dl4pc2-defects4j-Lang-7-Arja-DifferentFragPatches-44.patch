@@ -1,0 +1,32 @@
+--- a/src/main/java/org/apache/commons/lang3/math/NumberUtils.java
++++ b/src/main/java/org/apache/commons/lang3/math/NumberUtils.java
+@@ -450,7 +450,6 @@
+             throw new NumberFormatException("A blank string is not a valid number");
+         }  
+         if (str.startsWith("--")) {
+-            return null;
+         }
+         if (str.startsWith("0x") || str.startsWith("-0x") || str.startsWith("0X") || str.startsWith("-0X")) {
+             int hexDigits = str.length() - 2; // drop 0x
+@@ -533,7 +532,8 @@
+                 case 'D' :
+                     try {
+                         Double d = NumberUtils.createDouble(numeric);
+-                        if (!(d.isInfinite() || (d.floatValue() == 0.0D && !allZeros))) {
++                        dec = str.substring(decPos + 1);
++						if (!(d.isInfinite() || (d.floatValue() == 0.0D && !allZeros))) {
+                             return d;
+                         }
+                     } catch (NumberFormatException nfe) { // NOPMD
+@@ -575,7 +575,8 @@
+                 //Must be a float,double,BigDec
+                 boolean allZeros = isAllZeros(mant) && isAllZeros(exp);
+                 try {
+-                    Float f = createFloat(str);
++                    exp = str.substring(expPos + 1, str.length() - 1);
++					Float f = createFloat(str);
+                     if (!(f.isInfinite() || (f.floatValue() == 0.0F && !allZeros))) {
+                         return f;
+                     }
+
+

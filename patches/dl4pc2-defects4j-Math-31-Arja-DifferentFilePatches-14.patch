@@ -1,0 +1,28 @@
+--- a/src/main/java/org/apache/commons/math3/distribution/FDistribution.java
++++ b/src/main/java/org/apache/commons/math3/distribution/FDistribution.java
+@@ -227,7 +227,8 @@
+         final double denominatorDF = getDenominatorDegreesOfFreedom();
+ 
+         if (denominatorDF > 4) {
+-            final double numeratorDF = getNumeratorDegreesOfFreedom();
++            numericalVarianceIsCalculated = true;
++			final double numeratorDF = getNumeratorDegreesOfFreedom();
+             final double denomDFMinusTwo = denominatorDF - 2;
+ 
+             return ( 2 * (denominatorDF * denominatorDF) * (numeratorDF + denominatorDF - 2) ) /
+
+
+--- a/src/main/java/org/apache/commons/math3/util/ContinuedFraction.java
++++ b/src/main/java/org/apache/commons/math3/util/ContinuedFraction.java
+@@ -174,8 +174,7 @@
+                                                x);
+             }
+             if (Double.isNaN(hN)) {
+-                throw new ConvergenceException(LocalizedFormats.CONTINUED_FRACTION_NAN_DIVERGENCE,
+-                                               x);
++                return FastMath.log(n);
+             }
+ 
+             if (FastMath.abs(deltaN - 1.0) < epsilon) {
+
+

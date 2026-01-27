@@ -1,0 +1,29 @@
+--- a/src/main/java/org/apache/commons/lang3/math/NumberUtils.java
++++ b/src/main/java/org/apache/commons/lang3/math/NumberUtils.java
+@@ -478,6 +478,15 @@
+             mant = str.substring(0, decPos);
+         } else {
+             if (expPos > -1) {
++				if (expPos > str.length()) {
++					throw new NumberFormatException(str
++							+ " is not a valid number.");
++				}
++				mant = str.substring(0, expPos);
++			} else {
++				mant = str;
++			}
++			if (expPos > -1) {
+                 if (expPos > str.length()) {
+                     throw new NumberFormatException(str + " is not a valid number.");
+                 }
+@@ -542,7 +551,7 @@
+                     }
+                     //$FALL-THROUGH$
+                 default :
+-                    throw new NumberFormatException(str + " is not a valid number.");
++				return Integer.decode(str);
+ 
+             }
+         } else {
+
+

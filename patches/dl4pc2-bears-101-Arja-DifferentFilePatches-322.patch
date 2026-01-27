@@ -1,0 +1,33 @@
+--- a/src/org/traccar/protocol/Gl200ProtocolDecoder.java
++++ b/src/org/traccar/protocol/Gl200ProtocolDecoder.java
+@@ -616,16 +616,9 @@
+         position.setProtocol(getProtocolName());
+         position.setDeviceId(deviceSession.getDeviceId());
+ 
+-        getLastLocation(position, null);
+-
+         Network network = new Network();
+ 
+         int count = parser.nextInt();
+-        for (int i = 0; i < count; i++) {
+-            String mac = parser.next().replaceAll("(..)", "$1:");
+-            network.addWifiAccessPoint(WifiAccessPoint.from(mac.substring(0, mac.length() - 1), parser.nextInt()));
+-        }
+-
+         return position;
+     }
+ 
+
+
+--- a/src/org/traccar/model/WifiAccessPoint.java
++++ b/src/org/traccar/model/WifiAccessPoint.java
+@@ -40,7 +40,6 @@
+     }
+ 
+     public void setMacAddress(String macAddress) {
+-        this.macAddress = macAddress;
+     }
+ 
+     private Integer signalStrength;
+
+

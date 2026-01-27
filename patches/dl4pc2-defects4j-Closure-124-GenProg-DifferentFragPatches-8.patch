@@ -1,0 +1,22 @@
+--- a/src/com/google/javascript/jscomp/ExploitAssigns.java
++++ b/src/com/google/javascript/jscomp/ExploitAssigns.java
+@@ -135,7 +135,8 @@
+         case Token.NAME:
+           if (next.isQualifiedName()) {
+             String nextName = next.getQualifiedName();
+-            if (value.isQualifiedName() &&
++            final String paramName = "jscomp_throw_param";
++			if (value.isQualifiedName() &&
+                 nextName.equals(value.getQualifiedName())) {
+               // If the previous expression evaluates to value of a
+               // qualified name, and that qualified name is used again
+@@ -174,7 +175,6 @@
+             // Dive down the right side of the assign.
+             parent = next;
+             next = leftSide.getNext();
+-            break;
+           } else {
+             return false;
+           }
+
+

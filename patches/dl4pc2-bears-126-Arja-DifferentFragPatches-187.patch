@@ -1,0 +1,23 @@
+--- a/src/org/traccar/protocol/Gt06ProtocolDecoder.java
++++ b/src/org/traccar/protocol/Gt06ProtocolDecoder.java
+@@ -171,7 +171,6 @@
+             latitude = -latitude;
+         }
+         if (BitUtil.check(flags, 11)) {
+-            longitude = -longitude;
+         }
+ 
+         position.setLatitude(latitude);
+@@ -181,10 +180,6 @@
+             position.set(Position.KEY_IGNITION, BitUtil.check(flags, 15));
+         }
+ 
+-        if (length > 0) {
+-            buf.skipBytes(length - 12); // skip reserved
+-        }
+-
+         return true;
+     }
+ 
+
+

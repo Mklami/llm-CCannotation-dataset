@@ -1,0 +1,39 @@
+--- a/src/com/google/javascript/rhino/jstype/PrototypeObjectType.java
++++ b/src/com/google/javascript/rhino/jstype/PrototypeObjectType.java
+@@ -569,10 +569,6 @@
+         JSType propType = constraintObj.getPropertyType(prop);
+         if (!isPropertyTypeDeclared(prop)) {
+           JSType typeToInfer = propType;
+-          if (!hasProperty(prop)) {
+-            typeToInfer = getNativeType(JSTypeNative.VOID_TYPE)
+-                .getLeastSupertype(propType);
+-          }
+           defineInferredProperty(prop, typeToInfer, null);
+         }
+       }
+
+
+--- a/src/com/google/javascript/rhino/jstype/RecordType.java
++++ b/src/com/google/javascript/rhino/jstype/RecordType.java
+@@ -109,11 +109,6 @@
+     if (!otherProps.keySet().equals(keySet)) {
+       return false;
+     }
+-    for (String key : keySet) {
+-      if (!otherProps.get(key).isEquivalentTo(properties.get(key))) {
+-        return false;
+-      }
+-    }
+     return true;
+   }
+ 
+@@ -212,7 +207,6 @@
+     // Top of the record types is the empty record, or OBJECT_TYPE.
+     if (registry.getNativeObjectType(
+             JSTypeNative.OBJECT_TYPE).isSubtype(that)) {
+-      return true;
+     }
+ 
+     // A type is a subtype of a record type if it itself is a record
+
+

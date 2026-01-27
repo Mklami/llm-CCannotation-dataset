@@ -1,0 +1,13 @@
+--- a/src/java/org/apache/commons/jxpath/ri/compiler/CoreFunction.java
++++ b/src/java/org/apache/commons/jxpath/ri/compiler/CoreFunction.java
+@@ -665,7 +665,8 @@
+     protected Object functionRound(EvalContext context) {
+         assertArgCount(1);
+         double v = InfoSetUtil.doubleValue(getArg1().computeValue(context));
+-        return new Double(Math.round(v));
++        return new Double(Math.ceil(v));
++
+     }
+ 
+     private Object functionFormatNumber(EvalContext context) {
+

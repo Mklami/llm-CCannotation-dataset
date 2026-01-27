@@ -1,0 +1,46 @@
+--- a/src/com/google/javascript/jscomp/FunctionInjector.java
++++ b/src/com/google/javascript/jscomp/FunctionInjector.java
+@@ -278,7 +278,6 @@
+       Node safeReturnNode = returnNode.cloneTree();
+       Node inlineResult = FunctionArgumentInjector.inject(
+           null, safeReturnNode, null, argMap);
+-      Preconditions.checkArgument(safeReturnNode == inlineResult);
+       newExpression = safeReturnNode.removeFirstChild();
+     }
+ 
+@@ -552,7 +551,7 @@
+       // Only inline functions that return something.
+       if (block.getFirstChild().isReturn()
+           && block.getFirstChild().getFirstChild() != null) {
+-        return true;
++        return false;
+       }
+     }
+ 
+
+
+--- a/src/com/google/javascript/jscomp/FunctionArgumentInjector.java
++++ b/src/com/google/javascript/jscomp/FunctionArgumentInjector.java
+@@ -70,7 +70,6 @@
+         // The name may need to be replaced more than once,
+         // so we need to clone the node.
+         Node replacement = replacementTemplate.cloneTree();
+-        parent.replaceChild(node, replacement);
+         return replacement;
+       }
+     } else if (replaceThis && node.isThis()) {
+
+
+--- a/src/com/google/javascript/rhino/Node.java
++++ b/src/com/google/javascript/rhino/Node.java
+@@ -1456,7 +1456,7 @@
+       }
+       res = n.checkTreeEqualsImpl(n2);
+       if (res != null) {
+-        return res;
++        return null;
+       }
+     }
+     return res;
+
+

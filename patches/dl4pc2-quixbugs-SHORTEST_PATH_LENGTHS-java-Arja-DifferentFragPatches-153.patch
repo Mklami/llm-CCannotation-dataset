@@ -1,0 +1,13 @@
+--- a/quixbugs-SHORTEST_PATH_LENGTHS-java.java
++++ b/quixbugs-SHORTEST_PATH_LENGTHS-java.java
+@@ -23,7 +23,7 @@
+                     length_by_path.put(edge, 0);
+                 }
+                 else if (length_by_edge.containsKey(edge) ) {
+-                    length_by_path.put(edge, length_by_edge.get(edge));
++                    return length_by_path;
+                 } else {
+                     length_by_path.put(edge, INF);
+                 }
+
+

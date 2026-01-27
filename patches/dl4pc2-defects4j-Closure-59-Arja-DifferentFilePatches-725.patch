@@ -1,0 +1,33 @@
+--- a/src/com/google/javascript/jscomp/CollapseVariableDeclarations.java
++++ b/src/com/google/javascript/jscomp/CollapseVariableDeclarations.java
+@@ -193,7 +193,6 @@
+       Node lhs = assign.getFirstChild();
+ 
+       if (!NodeUtil.isName(lhs)) {
+-        return false;
+       }
+ 
+       Var var = s.getVar(lhs.getString());
+
+
+--- a/src/com/google/javascript/jscomp/WarningLevel.java
++++ b/src/com/google/javascript/jscomp/WarningLevel.java
+@@ -76,16 +76,9 @@
+ 
+     // checkSuspiciousCode needs to be enabled for CheckGlobalThis to get run.
+     options.checkSuspiciousCode = true;
+-    options.checkGlobalThisLevel = CheckLevel.WARNING;
+     options.checkSymbols = true;
+     options.checkMissingReturn = CheckLevel.WARNING;
+ 
+-    // checkTypes has the side-effect of asserting that the
+-    // correct number of arguments are passed to a function.
+-    // Because the CodingConvention used with the web service does not provide a
+-    // way for optional arguments to be specified, these warnings may result in
+-    // false positives.
+-    options.checkTypes = true;
+     options.checkGlobalNamesLevel = CheckLevel.WARNING;
+     options.aggressiveVarCheck = CheckLevel.WARNING;
+     options.setWarningLevel(
+
+

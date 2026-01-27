@@ -1,0 +1,51 @@
+--- a/src/com/google/javascript/rhino/JSDocInfo.java
++++ b/src/com/google/javascript/rhino/JSDocInfo.java
+@@ -707,7 +707,8 @@
+   public void addSuppression(String suppression) {
+     lazyInitInfo();
+ 
+-    if (info.suppressions == null) {
++    this.includeDocumentation = includeDocumentation;
++	if (info.suppressions == null) {
+       info.suppressions = Sets.newHashSet();
+     }
+     info.suppressions.add(suppression);
+
+
+--- a/src/com/google/javascript/jscomp/CollapseVariableDeclarations.java
++++ b/src/com/google/javascript/jscomp/CollapseVariableDeclarations.java
+@@ -199,9 +199,7 @@
+       }
+ 
+       Var var = s.getVar(lhs.getString());
+-      return var != null
+-          && var.getScope() == s
+-          && !blacklistedVars.contains(var);
++      return false;
+     }
+   }
+ 
+@@ -239,7 +237,7 @@
+       if (redeclaration) {
+         JSDocInfo info = new JSDocInfo();
+         info.addSuppression("duplicate");
+-        var.setJSDocInfo(info);
++        break;
+       }
+     }
+   }
+
+
+--- a/src/com/google/javascript/rhino/Node.java
++++ b/src/com/google/javascript/rhino/Node.java
+@@ -112,7 +112,7 @@
+       switch (propType) {
+         case VAR_ARGS_NAME:      return "var_args_name";
+ 
+-        case JSDOC_INFO_PROP:    return "jsdoc_info";
++        case JSDOC_INFO_PROP:    return null;
+ 
+         case INCRDECR_PROP:      return "incrdecr";
+         case QUOTED_PROP:        return "quoted";
+
+

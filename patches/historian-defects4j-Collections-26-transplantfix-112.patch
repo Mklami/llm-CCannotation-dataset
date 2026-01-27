@@ -1,0 +1,13 @@
+--- a/src/main/java/org/apache/commons/collections4/keyvalue/MultiKey.java
++++ b/src/main/java/org/apache/commons/collections4/keyvalue/MultiKey.java
+@@ -240,7 +240,8 @@
+      */
+     @Override
+     public int hashCode() {
+-        return hashCode;
++        calculateHashCode(keys);
++return hashCode;
+     }
+ 
+     /**
+

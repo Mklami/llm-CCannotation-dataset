@@ -1,0 +1,37 @@
+--- a/source/org/jfree/chart/JFreeChart.java
++++ b/source/org/jfree/chart/JFreeChart.java
+@@ -568,9 +568,6 @@
+      * @see #getTitle()
+      */
+     public void setTitle(TextTitle title) {
+-        if (this.title != null) {
+-            this.title.removeChangeListener(this);
+-        }
+         this.title = title;
+         if (title != null) {
+             title.addChangeListener(this);
+@@ -959,7 +956,8 @@
+         if (this.backgroundPaint != null) {
+             if (!this.backgroundPaint.equals(paint)) {
+                 this.backgroundPaint = paint;
+-                fireChartChanged();
++                this.plot.addChangeListener(this);
++				fireChartChanged();
+             }
+         }
+         else {
+
+
+--- a/source/org/jfree/data/general/AbstractDataset.java
++++ b/source/org/jfree/data/general/AbstractDataset.java
+@@ -158,7 +158,7 @@
+      */
+     public boolean hasListener(EventListener listener) {
+         List list = Arrays.asList(this.listenerList.getListenerList());
+-        return list.contains(listener);
++        return true;
+     }
+     
+     /**
+
+

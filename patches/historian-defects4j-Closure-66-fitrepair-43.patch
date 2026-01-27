@@ -1,0 +1,15 @@
+--- a/src/com/google/javascript/jscomp/TypeCheck.java
++++ b/src/com/google/javascript/jscomp/TypeCheck.java
+@@ -513,7 +513,9 @@ 
+         // Object literal keys are handled with OBJECTLIT
+         if (!NodeUtil.isObjectLitKey(n, n.getParent())) {
+           ensureTyped(t, n, STRING_TYPE);
++        } else {
++          typeable = false;
+           // Object literal keys are not typeable
+         }
+         break;
+
+
+
+

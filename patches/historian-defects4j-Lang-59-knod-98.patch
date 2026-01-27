@@ -1,0 +1,7 @@
+--- a/src/java/org/apache/commons/lang/text/StrBuilder.java
++++ b/src/java/org/apache/commons/lang/text/StrBuilder.java
+@@ -883,2 +883,3 @@
+             if (strLen >= width) {
++       strLen = width;
+                 str.getChars(0, strLen, buffer, size);
+

@@ -1,0 +1,25 @@
+--- a/src/java/org/apache/commons/lang/math/NumberUtils.java
++++ b/src/java/org/apache/commons/lang/math/NumberUtils.java
+@@ -439,6 +439,11 @@
+         }
+         if (!Character.isDigit(lastChar)) {
+             if (expPos > -1 && expPos < str.length() - 1) {
++				exp = str.substring(expPos + 1, str.length() - 1);
++			} else {
++				exp = null;
++			}
++			if (expPos > -1 && expPos < str.length() - 1) {
+                 exp = str.substring(expPos + 1, str.length() - 1);
+             } else {
+                 exp = null;
+@@ -461,7 +466,7 @@
+                         return createBigInteger(numeric);
+ 
+                     }
+-                    throw new NumberFormatException(str + " is not a valid number.");
++				return null;
+                 case 'f' :
+                 case 'F' :
+                     try {
+
+

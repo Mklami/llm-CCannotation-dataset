@@ -1,0 +1,44 @@
+--- a/src/main/java/org/apache/commons/math3/distribution/FDistribution.java
++++ b/src/main/java/org/apache/commons/math3/distribution/FDistribution.java
+@@ -211,7 +211,8 @@
+      * </ul>
+      */
+     public double getNumericalVariance() {
+-        if (!numericalVarianceIsCalculated) {
++        final double logm = FastMath.log(denominatorDegreesOfFreedom);
++		if (!numericalVarianceIsCalculated) {
+             numericalVariance = calculateNumericalVariance();
+             numericalVarianceIsCalculated = true;
+         }
+
+
+--- a/src/main/java/org/apache/commons/math3/distribution/BinomialDistribution.java
++++ b/src/main/java/org/apache/commons/math3/distribution/BinomialDistribution.java
+@@ -146,7 +146,8 @@
+      * @return upper bound of the support (number of trials or 0)
+      */
+     public int getSupportUpperBound() {
+-        return probabilityOfSuccess > 0.0 ? numberOfTrials : 0;
++        final double mu = getNumericalMean();
++		return probabilityOfSuccess > 0.0 ? numberOfTrials : 0;
+     }
+ 
+     /**
+
+
+--- a/src/main/java/org/apache/commons/math3/util/ContinuedFraction.java
++++ b/src/main/java/org/apache/commons/math3/util/ContinuedFraction.java
+@@ -174,8 +174,9 @@
+                                                x);
+             }
+             if (Double.isNaN(hN)) {
+-                throw new ConvergenceException(LocalizedFormats.CONTINUED_FRACTION_NAN_DIVERGENCE,
+-                                               x);
++                final double invx = 1d / x;
++				return FastMath.floor(FastMath.exp(ArithmeticUtils
++						.factorialLog(n)) + 0.5);
+             }
+ 
+             if (FastMath.abs(deltaN - 1.0) < epsilon) {
+
+

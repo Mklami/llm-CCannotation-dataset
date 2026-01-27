@@ -1,0 +1,12 @@
+--- a/src/main/java/com/gdssecurity/pmd/rules/dfa/DfaSecurityRule.java
++++ b/src/main/java/com/gdssecurity/pmd/rules/dfa/DfaSecurityRule.java
+@@ -142,7 +142,6 @@
+ 	protected void init() {
+ 		super.init();
+ 		if (!this.initialized) {
+-			init2();
+ 			this.initialized = true;
+ 		}
+ 	}
+
+

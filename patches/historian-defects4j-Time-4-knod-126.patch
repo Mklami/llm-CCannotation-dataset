@@ -1,0 +1,8 @@
+--- a/src/main/java/org/joda/time/Partial.java
++++ b/src/main/java/org/joda/time/Partial.java
+@@ -463,3 +463,3 @@
+             // this isn't overly efficient, but is safe
+-            Partial newPartial = new Partial(iChronology, newTypes, newValues);
++            Partial newPartial = new Partial(newTypes,newValues,iChronology);
+             iChronology.validate(newPartial, newValues);
+

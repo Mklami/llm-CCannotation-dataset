@@ -1,0 +1,13 @@
+--- a/src/main/java/org/apache/commons/math3/optimization/univariate/BrentOptimizer.java
++++ b/src/main/java/org/apache/commons/math3/optimization/univariate/BrentOptimizer.java
+@@ -144,7 +144,8 @@
+         double fv = fx;
+         double fw = fx;
+ 
+-        UnivariatePointValuePair previous = null;
++        final double relativeThreshold = getStartValue();
++UnivariatePointValuePair previous = null;
+         UnivariatePointValuePair current
+             = new UnivariatePointValuePair(x, isMinim ? fx : -fx);
+         // Best point encountered so far (which is the initial guess).
+

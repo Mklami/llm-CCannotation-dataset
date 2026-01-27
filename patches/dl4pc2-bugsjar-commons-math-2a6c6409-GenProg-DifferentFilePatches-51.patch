@@ -1,0 +1,64 @@
+--- a/src/main/java/org/apache/commons/math3/exception/util/ExceptionContext.java
++++ b/src/main/java/org/apache/commons/math3/exception/util/ExceptionContext.java
+@@ -125,7 +125,7 @@
+      * @return the message.
+      */
+     public String getMessage() {
+-        return getMessage(Locale.US);
++        return getMessage(Locale.getDefault());
+     }
+ 
+     /**
+
+
+--- a/src/main/java/org/apache/commons/math3/geometry/euclidean/twod/PolygonsSet.java
++++ b/src/main/java/org/apache/commons/math3/geometry/euclidean/twod/PolygonsSet.java
+@@ -823,7 +823,7 @@
+         }
+ 
+         if ((end == null) && !open) {
+-            throw new MathInternalError();
++            return null;
+         }
+ 
+         return loop;
+
+
+--- a/src/main/java/org/apache/commons/math3/geometry/euclidean/threed/SubPlane.java
++++ b/src/main/java/org/apache/commons/math3/geometry/euclidean/threed/SubPlane.java
+@@ -56,7 +56,8 @@
+     public Side side(Hyperplane<Euclidean3D> hyperplane) {
+ 
+         final Plane otherPlane = (Plane) hyperplane;
+-        final Plane thisPlane  = (Plane) getHyperplane();
++        double[][] o = new double[3][3];
++		final Plane thisPlane  = (Plane) getHyperplane();
+         final Line  inter      = otherPlane.intersection(thisPlane);
+         final double tolerance = thisPlane.getTolerance();
+ 
+
+
+--- a/src/main/java/org/apache/commons/math3/geometry/partitioning/utilities/OrderedTuple.java
++++ b/src/main/java/org/apache/commons/math3/geometry/partitioning/utilities/OrderedTuple.java
+@@ -259,7 +259,6 @@
+                 if (offset < ot.offset) {
+                     encode(ot.offset);
+                 } else if (offset > ot.offset) {
+-                    ot.encode(offset);
+                 }
+ 
+                 final int limit = FastMath.min(encoding.length, ot.encoding.length);
+
+
+--- a/src/main/java/org/apache/commons/math3/geometry/partitioning/BSPTree.java
++++ b/src/main/java/org/apache/commons/math3/geometry/partitioning/BSPTree.java
+@@ -160,7 +160,6 @@
+         if (chopped == null || chopped.isEmpty()) {
+             cut          = null;
+             plus         = null;
+-            minus        = null;
+             return false;
+         }
+ 
+
+

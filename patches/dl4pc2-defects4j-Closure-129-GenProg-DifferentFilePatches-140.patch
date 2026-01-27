@@ -1,0 +1,32 @@
+--- a/src/com/google/javascript/rhino/Node.java
++++ b/src/com/google/javascript/rhino/Node.java
+@@ -1454,7 +1454,7 @@
+       }
+       res = n.checkTreeEqualsImpl(n2);
+       if (res != null) {
+-        return res;
++        return null;
+       }
+     }
+     return res;
+
+
+--- a/src/com/google/javascript/jscomp/ConvertToDottedProperties.java
++++ b/src/com/google/javascript/jscomp/ConvertToDottedProperties.java
+@@ -56,13 +56,7 @@
+       case Token.GETELEM:
+         Node left = n.getFirstChild();
+         Node right = left.getNext();
+-        if (right.isString() &&
+-            NodeUtil.isValidPropertyName(right.getString())) {
+-          n.removeChild(left);
+-          n.removeChild(right);
+-          parent.replaceChild(n, IR.getprop(left, right));
+-          compiler.reportCodeChange();
+-        }
++        StringBuilder builder = new StringBuilder();
+         break;
+     }
+   }
+
+

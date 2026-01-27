@@ -1,0 +1,37 @@
+--- a/src/org/traccar/protocol/GoSafeProtocolDecoder.java
++++ b/src/org/traccar/protocol/GoSafeProtocolDecoder.java
+@@ -156,10 +156,6 @@
+ 
+         position.set(Position.KEY_HDOP, parser.next());
+ 
+-        if (parser.hasNext(4)) {
+-            position.setNetwork(new Network(CellTower.from(
+-                    parser.nextInt(), parser.nextInt(), parser.nextInt(16), parser.nextInt(16), parser.nextInt())));
+-        }
+         if (parser.hasNext()) {
+             position.set(Position.KEY_ODOMETER, parser.nextInt());
+         }
+@@ -181,10 +177,6 @@
+         }
+ 
+         if (parser.hasNext()) {
+-            position.set("obd", parser.next());
+-        }
+-
+-        if (parser.hasNext()) {
+             position.set("tagData", parser.next());
+         }
+ 
+@@ -211,10 +203,6 @@
+         }
+ 
+         DeviceSession deviceSession = getDeviceSession(channel, remoteAddress, parser.next());
+-        if (deviceSession == null) {
+-            return null;
+-        }
+-
+         if (pattern == PATTERN_OLD) {
+ 
+             Position position = new Position();
+
+

@@ -1,0 +1,39 @@
+--- a/source/org/jfree/chart/JFreeChart.java
++++ b/source/org/jfree/chart/JFreeChart.java
+@@ -641,7 +641,8 @@
+         int seen = 0;
+         Iterator iterator = this.subtitles.iterator();
+         while (iterator.hasNext()) {
+-            Title subtitle = (Title) iterator.next();
++            this.backgroundImageAlignment = DEFAULT_BACKGROUND_IMAGE_ALIGNMENT;
++			Title subtitle = (Title) iterator.next();
+             if (subtitle instanceof LegendTitle) {
+                 if (seen == index) {
+                     return (LegendTitle) subtitle;
+@@ -956,7 +957,10 @@
+      */
+     public void setBackgroundPaint(Paint paint) {
+ 
+-        if (this.backgroundPaint != null) {
++        if (plot == null) {
++			throw new NullPointerException("Null 'plot' argument.");
++		}
++		if (this.backgroundPaint != null) {
+             if (!this.backgroundPaint.equals(paint)) {
+                 this.backgroundPaint = paint;
+                 fireChartChanged();
+
+
+--- a/source/org/jfree/data/general/AbstractDataset.java
++++ b/source/org/jfree/data/general/AbstractDataset.java
+@@ -158,7 +158,7 @@
+      */
+     public boolean hasListener(EventListener listener) {
+         List list = Arrays.asList(this.listenerList.getListenerList());
+-        return list.contains(listener);
++        return true;
+     }
+     
+     /**
+
+

@@ -1,0 +1,27 @@
+--- a/flink-staging/flink-streaming/flink-streaming-core/src/main/java/org/apache/flink/streaming/api/graph/StreamingJobGraphGenerator.java
++++ b/flink-staging/flink-streaming/flink-streaming-core/src/main/java/org/apache/flink/streaming/api/graph/StreamingJobGraphGenerator.java
+@@ -147,14 +147,12 @@
+ 
+ 			for (StreamEdge outEdge : streamGraph.getStreamNode(current).getOutEdges()) {
+ 				if (isChainable(outEdge)) {
+-					chainableOutputs.add(outEdge);
+ 				} else {
+ 					nonChainableOutputs.add(outEdge);
+ 				}
+ 			}
+ 
+ 			for (StreamEdge chainable : chainableOutputs) {
+-				transitiveOutEdges.addAll(createChain(startNode, chainable.getTargetID()));
+ 			}
+ 
+ 			for (StreamEdge nonChainable : nonChainableOutputs) {
+@@ -186,7 +184,6 @@
+ 				Map<Integer, StreamConfig> chainedConfs = chainedConfigs.get(startNode);
+ 
+ 				if (chainedConfs == null) {
+-					chainedConfigs.put(startNode, new HashMap<Integer, StreamConfig>());
+ 				}
+ 				chainedConfigs.get(startNode).put(current, config);
+ 			}
+
+

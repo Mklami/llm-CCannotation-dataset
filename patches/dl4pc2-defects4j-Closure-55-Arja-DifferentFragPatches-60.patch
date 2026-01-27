@@ -1,0 +1,36 @@
+--- a/src/com/google/javascript/jscomp/FunctionRewriter.java
++++ b/src/com/google/javascript/jscomp/FunctionRewriter.java
+@@ -97,7 +97,6 @@
+ 
+         Node addingRoot = compiler.getNodeForCodeInsertion(null);
+         addingRoot.addChildrenToFront(helperCode);
+-        compiler.reportCodeChange();
+       }
+     }
+   }
+@@ -135,7 +134,6 @@
+      * Apply the reduction by replacing the old child with the new child.
+      */
+     void apply() {
+-      parent.replaceChild(oldChild, newChild);
+       compiler.reportCodeChange();
+     }
+ 
+@@ -274,7 +272,6 @@
+ 
+       Node statement = body.getFirstChild();
+       if (statement.getType() == Token.RETURN) {
+-        return statement.getFirstChild();
+       }
+       return null;
+     }
+@@ -448,7 +445,6 @@
+       if (value != null &&
+           NodeUtil.isGetProp(value) &&
+           NodeUtil.isThis(value.getFirstChild())) {
+-        return value.getLastChild();
+       }
+       return null;
+     }
+
+

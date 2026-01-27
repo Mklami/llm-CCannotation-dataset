@@ -1,0 +1,43 @@
+--- a/src/main/java/org/apache/commons/math/ode/events/CombinedEventsManager.java
++++ b/src/main/java/org/apache/commons/math/ode/events/CombinedEventsManager.java
+@@ -151,7 +151,23 @@
+ 
+                 if (state.evaluateStep(interpolator)) {
+                     if (first == null) {
+-                        first = state;
++                        if (state.evaluateStep(interpolator)) {
++							if (first == null) {
++								first = state;
++							} else {
++								if (interpolator.isForward()) {
++									if (state.getEventTime() < first
++											.getEventTime()) {
++										first = state;
++									}
++								} else {
++									if (state.getEventTime() > first
++											.getEventTime()) {
++										first = state;
++									}
++								}
++							}
++						}
+                     } else {
+                         if (interpolator.isForward()) {
+                             if (state.getEventTime() < first.getEventTime()) {
+
+
+--- a/src/main/java/org/apache/commons/math/ode/nonstiff/AdaptiveStepsizeIntegrator.java
++++ b/src/main/java/org/apache/commons/math/ode/nonstiff/AdaptiveStepsizeIntegrator.java
+@@ -207,7 +207,8 @@
+       throws DerivativeException {
+ 
+     if (initialStep > 0) {
+-      // use the user provided value
++      computeDerivatives(stepStart + stepSize, y1, yDot1);
++	// use the user provided value
+       return forward ? initialStep : -initialStep;
+     }
+ 
+
+

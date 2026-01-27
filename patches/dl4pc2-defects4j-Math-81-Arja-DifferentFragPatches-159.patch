@@ -1,0 +1,26 @@
+--- a/src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java
++++ b/src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java
+@@ -1477,7 +1477,11 @@
+                     int np;
+                     if (dMin == dN) {
+                         gam = dN;
+-                        a2 = 0.0;
++                        if (a2 < cnst1) {
++							tau = gam * (1 - Math.sqrt(a2)) / (1 + a2);
++						} else {
++							tau = s;
++						}
+                         if (work[nn - 5]  >  work[nn - 7]) {
+                             return;
+                         }
+@@ -1624,7 +1628,7 @@
+                 }
+                 tType = -9;
+             }
+-            break;
++            g = 0.25 * 0.333;
+ 
+         case 2 : // two realEigenvalues deflated. use dMin2, dN2 for dMin and dN.
+ 
+
+

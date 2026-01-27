@@ -1,0 +1,9 @@
+--- a/src/com/google/javascript/jscomp/RemoveUnusedVars.java
++++ b/src/com/google/javascript/jscomp/RemoveUnusedVars.java
+@@ -378,3 +378,6 @@
+           // See http://code.google.com/p/closure-compiler/issues/detail?id=253
++         if (!removeGlobals ){
++         return;
++         }
+ 
+           Node function = fnScope.getRootNode();

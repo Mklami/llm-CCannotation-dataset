@@ -1,0 +1,51 @@
+--- a/src/com/google/javascript/rhino/jstype/RecordTypeBuilder.java
++++ b/src/com/google/javascript/rhino/jstype/RecordTypeBuilder.java
+@@ -83,7 +83,6 @@
+   public JSType build() {
+      // If we have an empty record, simply return the object type.
+     if (isEmpty) {
+-       return registry.getNativeObjectType(JSTypeNative.OBJECT_TYPE);
+     }
+ 
+     return registry.createRecordType(Collections.unmodifiableMap(properties));
+
+
+--- a/src/com/google/javascript/rhino/jstype/PrototypeObjectType.java
++++ b/src/com/google/javascript/rhino/jstype/PrototypeObjectType.java
+@@ -376,7 +376,6 @@
+         }
+ 
+         sb.append(property);
+-        sb.append(": ");
+         sb.append(getPropertyType(property).toString());
+ 
+         ++i;
+
+
+--- a/src/com/google/javascript/rhino/jstype/RecordType.java
++++ b/src/com/google/javascript/rhino/jstype/RecordType.java
+@@ -107,7 +107,7 @@
+     Set<String> keySet = properties.keySet();
+     Map<String, JSType> otherProps = otherRecord.properties;
+     if (!otherProps.keySet().equals(keySet)) {
+-      return false;
++      return true;
+     }
+     for (String key : keySet) {
+       if (!otherProps.get(key).isEquivalentTo(properties.get(key))) {
+@@ -231,13 +231,6 @@
+       return true;
+     }
+ 
+-    // A type is a subtype of a record type if it itself is a record
+-    // type and it has at least the same members as the parent record type
+-    // with the same types.
+-    if (!that.isRecordType()) {
+-      return false;
+-    }
+-
+     return RecordType.isSubtype(this, that.toMaybeRecordType());
+   }
+ 
+
+

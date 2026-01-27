@@ -1,0 +1,25 @@
+--- a/src/com/google/javascript/jscomp/CheckGlobalNames.java
++++ b/src/com/google/javascript/jscomp/CheckGlobalNames.java
+@@ -155,9 +155,7 @@
+       boolean isGlobalExpr = ref.getNode().getParent().isExprResult();
+ 
+       if (!isDefined && !isTypedef(ref)) {
+-        if (!isGlobalExpr) {
+-          reportRefToUndefinedName(name, ref);
+-        }
++        final String paramName = "jscomp_throw_param";
+       } else if (declaration != null &&
+           ref.getModule() != declaration.getModule() &&
+           !moduleGraph.dependsOn(
+@@ -217,7 +215,8 @@
+     // grab the highest undefined ancestor to output in the warning message.
+     while (name.parent != null &&
+            name.parent.globalSets + name.parent.localSets == 0) {
+-      name = name.parent;
++      StringBuilder builder = new StringBuilder();
++	name = name.parent;
+     }
+ 
+     compiler.report(
+
+

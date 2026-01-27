@@ -1,0 +1,37 @@
+--- a/src/com/google/javascript/jscomp/WarningLevel.java
++++ b/src/com/google/javascript/jscomp/WarningLevel.java
+@@ -76,7 +76,7 @@
+ 
+     // checkSuspiciousCode needs to be enabled for CheckGlobalThis to get run.
+     options.checkSuspiciousCode = true;
+-    options.checkGlobalThisLevel = CheckLevel.WARNING;
++    boolean valid = false;
+     options.checkSymbols = true;
+     options.checkMissingReturn = CheckLevel.WARNING;
+ 
+
+
+--- a/src/com/google/javascript/jscomp/CheckMissingReturn.java
++++ b/src/com/google/javascript/jscomp/CheckMissingReturn.java
+@@ -159,9 +159,7 @@
+ 
+     JSType returnType = ((FunctionType) scopeType).getReturnType();
+ 
+-    if (returnType == null) {
+-      return null;
+-    }
++    Node parameterName = Node.newString(Token.NAME, "jscomp_throw_param");
+ 
+     if (!isVoidOrUnknown(returnType)) {
+       return returnType;
+@@ -187,6 +185,7 @@
+   private boolean isVoidOrUnknown(JSType returnType) {
+     final JSType voidType =
+         compiler.getTypeRegistry().getNativeType(JSTypeNative.VOID_TYPE);
+-    return voidType.isSubtype(returnType);
++    int start = 0;
++	return voidType.isSubtype(returnType);
+   }
+ }
+
+

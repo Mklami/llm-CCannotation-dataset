@@ -1,0 +1,43 @@
+--- a/src/main/java/org/apache/commons/math/analysis/solvers/BrentSolver.java
++++ b/src/main/java/org/apache/commons/math/analysis/solvers/BrentSolver.java
+@@ -116,22 +116,15 @@
+             return result;
+         }
+ 
+-        // reduce interval if min and initial bracket the root
++        iterationCount += this.iterationCount;
++		// reduce interval if min and initial bracket the root
+         if (yInitial * yMin < 0) {
+             return solve(f, min, yMin, initial, yInitial, min, yMin);
+         }
+ 
+         // return the second endpoint if it is good enough
+         double yMax = f.value(max);
+-        if (Math.abs(yMax) <= functionValueAccuracy) {
+-            setResult(yMax, 0);
+-            return result;
+-        }
+-
+-        // reduce interval if initial and max bracket the root
+-        if (yInitial * yMax < 0) {
+-            return solve(f, initial, yInitial, max, yMax, initial, yInitial);
+-        }
++        verifyBracketing(min, max, f);
+ 
+ 
+         // full Brent algorithm starting with provided initial guess
+@@ -247,7 +240,11 @@
+             double tolerance =
+                 Math.max(relativeAccuracy * Math.abs(x1), absoluteAccuracy);
+             if (Math.abs(dx) <= tolerance) {
+-                setResult(x1, i);
++                if (Math.abs(y1) <= functionValueAccuracy) {
++					setResult(x1, i);
++					return result;
++				}
++				setResult(x1, i);
+                 return result;
+             }
+             if ((Math.abs(oldDelta) < tolerance) ||
+
+

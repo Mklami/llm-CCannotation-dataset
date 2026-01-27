@@ -1,0 +1,11 @@
+--- a/quixbugs-WRAP-java.java
++++ b/quixbugs-WRAP-java.java
+@@ -28,7 +28,7 @@ public class WRAP {
+             text = text.substring(end);
+             lines.add(line);
+         }
+-
++        lines.add(text);
+         return lines;
+     }
+ }

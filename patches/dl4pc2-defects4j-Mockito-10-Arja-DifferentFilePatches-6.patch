@@ -1,0 +1,41 @@
+--- a/src/org/mockito/internal/util/reflection/GenericMetadataSupport.java
++++ b/src/org/mockito/internal/util/reflection/GenericMetadataSupport.java
+@@ -96,6 +96,9 @@
+ 
+     protected void registerTypeParametersOn(TypeVariable[] typeParameters) {
+         for (TypeVariable typeVariable : typeParameters) {
++			registerTypeVariableIfNotPresent(typeVariable);
++		}
++		for (TypeVariable typeVariable : typeParameters) {
+             registerTypeVariableIfNotPresent(typeVariable);
+         }
+     }
+@@ -212,7 +215,12 @@
+         // logger.log("Method '" + method.toGenericString() + "' has return type : " + genericReturnType.getClass().getInterfaces()[0].getSimpleName() + " : " + genericReturnType);
+ 
+         if (genericReturnType instanceof Class) {
+-            return new NotGenericReturnTypeSupport(genericReturnType);
++            if (genericReturnType instanceof ParameterizedType) {
++				return new ParameterizedReturnType(this,
++						method.getTypeParameters(),
++						(ParameterizedType) method.getGenericReturnType());
++			}
++			return new NotGenericReturnTypeSupport(genericReturnType);
+         }
+         if (genericReturnType instanceof ParameterizedType) {
+             return new ParameterizedReturnType(this, method.getTypeParameters(), (ParameterizedType) method.getGenericReturnType());
+
+
+--- a/src/org/mockito/internal/util/MockCreationValidator.java
++++ b/src/org/mockito/internal/util/MockCreationValidator.java
+@@ -60,7 +60,6 @@
+                 && !(Serializable.class.isAssignableFrom(classToMock))
+                 && Constructors.noArgConstructorOf(classToMock) == null
+                 ) {
+-            new Reporter().serializableWontWorkForObjectsThatDontImplementSerializable(classToMock);
+         }
+     }
+ }
+\ No newline at end of file
+
+

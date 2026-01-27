@@ -1,0 +1,13 @@
+--- a/src/main/java/org/apache/commons/compress/archivers/tar/TarArchiveInputStream.java
++++ b/src/main/java/org/apache/commons/compress/archivers/tar/TarArchiveInputStream.java
+@@ -224,7 +224,8 @@
+      */
+     public TarArchiveEntry getNextTarEntry() throws IOException {
+         if (hasHitEOF) {
+-            return null;
++            throw new IOException("The stream is closed");
++
+         }
+ 
+         if (currEntry != null) {
+

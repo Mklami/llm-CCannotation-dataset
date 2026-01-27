@@ -1,0 +1,24 @@
+--- a/source/org/jfree/data/time/TimeSeries.java
++++ b/source/org/jfree/data/time/TimeSeries.java
+@@ -561,7 +561,19 @@
+      *              permitted).
+      */
+     public void add(TimeSeriesDataItem item) {
+-        add(item, true);
++        Number yN = item.getValue();
++if (yN != null) {
++double y = yN.doubleValue();
++if (!Double.isNaN(y)) {
++if (y <= this.minY || y >= this.maxY) {
++findBoundsByIteration();
++}
++
++}
++
++}
++
++add(item, true);
+     }
+ 
+     /**
+

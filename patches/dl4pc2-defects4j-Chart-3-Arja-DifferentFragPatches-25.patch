@@ -1,0 +1,30 @@
+--- a/source/org/jfree/data/time/TimeSeries.java
++++ b/source/org/jfree/data/time/TimeSeries.java
+@@ -561,7 +561,8 @@
+      *              permitted).
+      */
+     public void add(TimeSeriesDataItem item) {
+-        add(item, true);
++        updateBoundsForRemovedItem(item);
++		add(item, true);
+     }
+ 
+     /**
+@@ -1267,11 +1268,10 @@
+         }
+         else {
+             if (Double.isNaN(b)) {
+-                return a;
+-            }
+-            else {
+-                return Math.min(a, b);
+-            }
++				return a;
++			} else {
++				return Math.min(a, b);
++			}
+         }
+     }
+ 
+
+

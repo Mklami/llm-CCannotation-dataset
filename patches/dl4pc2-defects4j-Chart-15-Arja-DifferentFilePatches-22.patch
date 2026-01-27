@@ -1,0 +1,44 @@
+--- a/source/org/jfree/chart/plot/PiePlot3D.java
++++ b/source/org/jfree/chart/plot/PiePlot3D.java
+@@ -239,7 +239,8 @@
+         drawBackground(g2, plotArea);
+ 
+         Shape savedClip = g2.getClip();
+-        g2.clip(plotArea);
++        this.notifyListeners(new PlotChangeEvent(this));
++		g2.clip(plotArea);
+ 
+         // adjust the plot area by the interior spacing value
+         double gapPercent = getInteriorGap();
+@@ -268,7 +269,13 @@
+         double linkW = plotArea.getWidth() - gapHorizontal;
+         double linkH = plotArea.getHeight() - gapVertical;
+         
+-        // make the link area a square if the pie chart is to be circular...
++        if (DatasetUtilities.isEmptyOrNull(getDataset())) {
++			drawNoDataMessage(g2, plotArea);
++			g2.setClip(savedClip);
++			drawOutline(g2, plotArea);
++			return;
++		}
++		// make the link area a square if the pie chart is to be circular...
+         if (isCircular()) { // is circular?
+             double min = Math.min(linkW, linkH) / 2;
+             linkX = (linkX + linkX + linkW) / 2 - min;
+
+
+--- a/source/org/jfree/data/general/DatasetUtilities.java
++++ b/source/org/jfree/data/general/DatasetUtilities.java
+@@ -150,7 +150,9 @@
+      */
+     public static double calculatePieDatasetTotal(PieDataset dataset) {
+         if (dataset == null) {
+-            throw new IllegalArgumentException("Null 'dataset' argument.");
++            if (dataset == null) {
++				throw new IllegalArgumentException("Null 'dataset' argument.");
++			}
+         }
+         List keys = dataset.getKeys();
+         double totalValue = 0;
+
+

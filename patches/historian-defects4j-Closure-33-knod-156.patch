@@ -1,0 +1,8 @@
+--- a/src/com/google/javascript/rhino/jstype/PrototypeObjectType.java
++++ b/src/com/google/javascript/rhino/jstype/PrototypeObjectType.java
+@@ -556,2 +556,5 @@
+     // We only want to match contraints on anonymous types.
++    if (getConstructor() != null ){
++    return;
++    }
+ 

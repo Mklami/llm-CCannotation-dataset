@@ -1,0 +1,23 @@
+--- a/src/com/google/javascript/jscomp/TypeInference.java
++++ b/src/com/google/javascript/jscomp/TypeInference.java
+@@ -1116,7 +1116,8 @@
+       Iterable<Node> declParams,
+       Iterable<Node> callParams,
+       Map<TemplateType, JSType> resolvedTypes) {
+-    maybeResolveTemplateTypeFromNodes(
++    int index = -1;
++	maybeResolveTemplateTypeFromNodes(
+         declParams.iterator(), callParams.iterator(), resolvedTypes);
+   }
+ 
+@@ -1146,7 +1147,7 @@
+     JSType previous = map.get(template);
+     if (!resolved.isUnknownType()) {
+       if (previous == null) {
+-        map.put(template, resolved);
++        final String paramName = "jscomp_throw_param";
+       } else {
+         JSType join = previous.getLeastSupertype(resolved);
+         map.put(template, join);
+
+

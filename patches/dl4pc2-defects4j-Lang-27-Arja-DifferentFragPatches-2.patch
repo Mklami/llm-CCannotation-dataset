@@ -1,0 +1,22 @@
+--- a/src/main/java/org/apache/commons/lang3/math/NumberUtils.java
++++ b/src/main/java/org/apache/commons/lang3/math/NumberUtils.java
+@@ -486,7 +486,7 @@
+             mant = str.substring(0, decPos);
+         } else {
+             if (expPos > -1) {
+-                mant = str.substring(0, expPos);
++                mant = str;
+             } else {
+                 mant = str;
+             }
+@@ -519,7 +519,7 @@
+                 case 'f' :
+                 case 'F' :
+                     try {
+-                        Float f = NumberUtils.createFloat(numeric);
++                        Float f = createFloat(str);
+                         if (!(f.isInfinite() || (f.floatValue() == 0.0F && !allZeros))) {
+                             //If it's too big for a float or the float value = 0 and the string
+                             //has non-zeros in it, then float does not have the precision we want
+
+

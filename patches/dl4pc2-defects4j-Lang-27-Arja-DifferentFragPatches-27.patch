@@ -1,0 +1,27 @@
+--- a/src/main/java/org/apache/commons/lang3/math/NumberUtils.java
++++ b/src/main/java/org/apache/commons/lang3/math/NumberUtils.java
+@@ -486,7 +486,7 @@
+             mant = str.substring(0, decPos);
+         } else {
+             if (expPos > -1) {
+-                mant = str.substring(0, expPos);
++                mant = str;
+             } else {
+                 mant = str;
+             }
+@@ -577,7 +577,12 @@
+                 boolean allZeros = isAllZeros(mant) && isAllZeros(exp);
+                 try {
+                     Float f = createFloat(str);
+-                    if (!(f.isInfinite() || (f.floatValue() == 0.0F && !allZeros))) {
++                    if (expPos > -1) {
++						mant = str.substring(0, expPos);
++					} else {
++						mant = str;
++					}
++					if (!(f.isInfinite() || (f.floatValue() == 0.0F && !allZeros))) {
+                         return f;
+                     }
+                 } catch (NumberFormatException nfe) {
+
+

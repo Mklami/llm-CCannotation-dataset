@@ -1,0 +1,7 @@
+--- a/src/java/org/apache/commons/math/stat/regression/SimpleRegression.java
++++ b/src/java/org/apache/commons/math/stat/regression/SimpleRegression.java
+@@ -263,3 +263,3 @@
+     public double getSumSquaredErrors() {
+-        return sumYY - sumXY * sumXY / sumXX;
++       return Math.max((sumYY - ((sumXY * sumXY) / sumXX)), 0);
+     }

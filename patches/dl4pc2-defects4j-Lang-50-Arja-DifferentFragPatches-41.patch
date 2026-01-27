@@ -1,0 +1,31 @@
+--- a/src/java/org/apache/commons/lang/time/FastDateFormat.java
++++ b/src/java/org/apache/commons/lang/time/FastDateFormat.java
+@@ -283,11 +283,15 @@
+         }
+ 
+         if (locale != null) {
+-            key = new Pair(key, locale);
++            if (locale == null) {
++				locale = Locale.getDefault();
++			}
++			key = new Pair(key, locale);
+         }
+ 
+ 
+-        FastDateFormat format = (FastDateFormat) cDateInstanceCache.get(key);
++        FastDateFormat format = (FastDateFormat) cDateTimeInstanceCache
++				.get(key);
+         if (format == null) {
+             if (locale == null) {
+                 locale = Locale.getDefault();
+@@ -466,7 +470,7 @@
+             key = new Pair(key, locale);
+         }
+ 
+-        FastDateFormat format = (FastDateFormat) cDateTimeInstanceCache.get(key);
++        FastDateFormat format = (FastDateFormat) cDateInstanceCache.get(key);
+         if (format == null) {
+             if (locale == null) {
+                 locale = Locale.getDefault();
+
+

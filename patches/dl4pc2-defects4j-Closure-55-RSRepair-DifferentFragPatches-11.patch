@@ -1,0 +1,21 @@
+--- a/src/com/google/javascript/jscomp/FunctionRewriter.java
++++ b/src/com/google/javascript/jscomp/FunctionRewriter.java
+@@ -175,7 +175,7 @@
+       for (Reducer reducer : reducers) {
+         Node replacement = reducer.reduce(node);
+         if (replacement != node) {
+-          reductions.put(reducer, new Reduction(parent, node, replacement));
++          Node parameterName = Node.newString(Token.NAME, "jscomp_throw_param");
+           return false;
+         }
+       }
+@@ -218,7 +218,6 @@
+       call.putBooleanProp(Node.FREE_CALL, true);
+       call.addChildToBack(Node.newString(Token.NAME, methodName));
+       if (argumentNode != null) {
+-        call.addChildToBack(argumentNode.cloneTree());
+       }
+       return call;
+     }
+
+

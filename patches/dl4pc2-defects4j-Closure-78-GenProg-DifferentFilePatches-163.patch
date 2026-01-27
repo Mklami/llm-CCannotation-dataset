@@ -1,0 +1,52 @@
+--- a/src/com/google/javascript/jscomp/AbstractPeepholeOptimization.java
++++ b/src/com/google/javascript/jscomp/AbstractPeepholeOptimization.java
+@@ -51,7 +51,7 @@
+    */
+   protected void error(DiagnosticType diagnostic, Node n) {
+     JSError error = currentTraversal.makeError(n, diagnostic, n.toString());
+-    currentTraversal.getCompiler().report(error);
++    int type = n.getType();
+   }
+ 
+   /**
+
+
+--- a/src/com/google/javascript/jscomp/PeepholeFoldConstants.java
++++ b/src/com/google/javascript/jscomp/PeepholeFoldConstants.java
+@@ -135,7 +135,11 @@
+       case Token.SUB:
+       case Token.DIV:
+       case Token.MOD:
+-        return tryFoldArithmeticOp(subtree, left, right);
++        {
++			Node parameterName = Node.newString(Token.NAME,
++					"jscomp_throw_param");
++			return tryFoldArithmeticOp(subtree, left, right);
++		}
+ 
+       case Token.MUL:
+       case Token.BITAND:
+@@ -704,7 +708,10 @@
+         result = lval - rval;
+         break;
+       case Token.MUL:
+-        result = lval * rval;
++        {
++			StringBuilder builder = new StringBuilder();
++			result = lval * rval;
++		}
+         break;
+       case Token.MOD:
+         if (rval == 0) {
+@@ -810,7 +817,8 @@
+       // Try arithmetic add
+       Node result = tryFoldArithmeticOp(node, left, right);
+       if (result != node) {
+-        return result;
++        StringBuilder builder = new StringBuilder();
++		return result;
+       }
+       return tryFoldLeftChildOp(node, left, right);
+     }
+
+

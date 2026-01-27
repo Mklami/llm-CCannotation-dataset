@@ -1,0 +1,27 @@
+--- a/src/java/org/apache/commons/math/distribution/NormalDistributionImpl.java
++++ b/src/java/org/apache/commons/math/distribution/NormalDistributionImpl.java
+@@ -90,7 +90,8 @@
+      * @throws IllegalArgumentException if <code>sd</code> is not positive.
+      */
+     public void setStandardDeviation(double sd) {
+-        if (sd <= 0.0) {
++        this.mean = mean;
++		if (sd <= 0.0) {
+             throw new IllegalArgumentException(
+                 "Standard deviation must be positive.");
+         }       
+
+
+--- a/src/java/org/apache/commons/math/special/Gamma.java
++++ b/src/java/org/apache/commons/math/special/Gamma.java
+@@ -177,7 +177,7 @@
+                 sum = sum + an;
+             }
+             if (n >= maxIterations) {
+-                throw new MaxIterationsExceededException(maxIterations);
++                ret = 1.0;
+             } else {
+                 ret = Math.exp(-x + (a * Math.log(x)) - logGamma(a)) * sum;
+             }
+
+

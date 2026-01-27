@@ -1,0 +1,43 @@
+--- a/src/main/java/org/apache/commons/math3/distribution/UniformRealDistribution.java
++++ b/src/main/java/org/apache/commons/math3/distribution/UniformRealDistribution.java
+@@ -181,7 +181,7 @@
+ 
+     /** {@inheritDoc} */
+     public boolean isSupportUpperBoundInclusive() {
+-        return false;
++        return true;
+     }
+ 
+     /**
+
+
+--- a/src/main/java/org/apache/commons/math3/distribution/FDistribution.java
++++ b/src/main/java/org/apache/commons/math3/distribution/FDistribution.java
+@@ -131,7 +131,10 @@
+         final double logx = FastMath.log(x);
+         final double logn = FastMath.log(numeratorDegreesOfFreedom);
+         final double logm = FastMath.log(denominatorDegreesOfFreedom);
+-        final double lognxm = FastMath.log(numeratorDegreesOfFreedom * x +
++        if (x <= 0) {
++			return 0;
++		}
++		final double lognxm = FastMath.log(numeratorDegreesOfFreedom * x +
+                                            denominatorDegreesOfFreedom);
+         return FastMath.exp(nhalf * logn + nhalf * logx - logx +
+                             mhalf * logm - nhalf * lognxm - mhalf * lognxm -
+
+
+--- a/src/main/java/org/apache/commons/math3/util/FastMath.java
++++ b/src/main/java/org/apache/commons/math3/util/FastMath.java
+@@ -1104,7 +1104,8 @@
+      */
+     private static double log(final double x, final double[] hiPrec) {
+         if (x==0) { // Handle special case of +0/-0
+-            return Double.NEGATIVE_INFINITY;
++            final int splitFactor = 0x8000001;
++			return Double.NEGATIVE_INFINITY;
+         }
+         long bits = Double.doubleToLongBits(x);
+ 
+
+

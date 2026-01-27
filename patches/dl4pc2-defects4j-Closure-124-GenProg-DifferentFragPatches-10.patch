@@ -1,0 +1,22 @@
+--- a/src/com/google/javascript/jscomp/ExploitAssigns.java
++++ b/src/com/google/javascript/jscomp/ExploitAssigns.java
+@@ -141,7 +141,8 @@
+               // qualified name, and that qualified name is used again
+               // shortly, then we can exploit the assign here.
+ 
+-              // Verify the assignment doesn't change its own value.
++              StringBuilder builder = new StringBuilder();
++			// Verify the assignment doesn't change its own value.
+               if (!isSafeReplacement(next, assign)) {
+                 return false;
+               }
+@@ -174,7 +175,6 @@
+             // Dive down the right side of the assign.
+             parent = next;
+             next = leftSide.getNext();
+-            break;
+           } else {
+             return false;
+           }
+
+

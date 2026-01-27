@@ -1,0 +1,12 @@
+--- a/src/main/java/io/opentracing/contrib/p6spy/TracingP6SpyListener.java
++++ b/src/main/java/io/opentracing/contrib/p6spy/TracingP6SpyListener.java
+@@ -98,7 +98,6 @@
+         spanBuilder.asChildOf(activeScope.span());
+       }
+       final Scope scope = spanBuilder.startActive(true);
+-      decorate(scope.span(), statementInformation);
+       return scope;
+     } catch (SQLException e) {
+       return NoopScopeManager.NoopScope.INSTANCE;
+
+

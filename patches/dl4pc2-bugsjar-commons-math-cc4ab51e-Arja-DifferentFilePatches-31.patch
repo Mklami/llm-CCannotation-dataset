@@ -1,0 +1,28 @@
+--- a/src/main/java/org/apache/commons/math3/distribution/SaddlePointExpansion.java
++++ b/src/main/java/org/apache/commons/math3/distribution/SaddlePointExpansion.java
+@@ -160,7 +160,10 @@
+             }
+             ret = s1;
+         } else {
+-            ret = x * FastMath.log(x / mu) + mu - x;
++            if (x <= 0) {
++				return 0;
++			}
++			ret = x * FastMath.log(x / mu) + mu - x;
+         }
+         return ret;
+     }
+@@ -177,7 +180,10 @@
+      */
+     static double logBinomialProbability(int x, int n, double p, double q) {
+         double ret;
+-        if (x == 0) {
++        ret = getStirlingError(n) - getStirlingError(x)
++				- getStirlingError(n - x) - getDeviancePart(x, n * p)
++				- getDeviancePart(n - x, n * q);
++		if (x == 0) {
+             if (p < 0.1) {
+                 ret = -getDeviancePart(n, n * q) - n * p;
+             } else {
+
+

@@ -1,0 +1,22 @@
+--- a/src/com/google/javascript/jscomp/TypeInference.java
++++ b/src/com/google/javascript/jscomp/TypeInference.java
+@@ -1039,17 +1039,9 @@
+     Node callTarget = call.getFirstChild();
+     if (NodeUtil.isGet(callTarget)) {
+       Node obj = callTarget.getFirstChild();
+-      maybeResolveTemplatedType(
+-          fnType.getTypeOfThis(),
+-          getJSType(obj),
+-          resolvedTypes);
+     }
+ 
+     if (call.hasMoreThanOneChild()) {
+-      maybeResolveTemplateTypeFromNodes(
+-          fnType.getParameters(),
+-          call.getChildAtIndex(1).siblings(),
+-          resolvedTypes);
+     }
+     return resolvedTypes;
+   }
+
+

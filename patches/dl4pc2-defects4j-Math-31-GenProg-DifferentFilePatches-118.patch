@@ -1,0 +1,29 @@
+--- a/src/main/java/org/apache/commons/math3/distribution/FDistribution.java
++++ b/src/main/java/org/apache/commons/math3/distribution/FDistribution.java
+@@ -188,7 +188,8 @@
+      * </ul>
+      */
+     public double getNumericalMean() {
+-        final double denominatorDF = getDenominatorDegreesOfFreedom();
++        final double mhalf = denominatorDegreesOfFreedom / 2;
++		final double denominatorDF = getDenominatorDegreesOfFreedom();
+ 
+         if (denominatorDF > 2) {
+             return denominatorDF / (denominatorDF - 2);
+
+
+--- a/src/main/java/org/apache/commons/math3/util/ContinuedFraction.java
++++ b/src/main/java/org/apache/commons/math3/util/ContinuedFraction.java
+@@ -174,8 +174,8 @@
+                                                x);
+             }
+             if (Double.isNaN(hN)) {
+-                throw new ConvergenceException(LocalizedFormats.CONTINUED_FRACTION_NAN_DIVERGENCE,
+-                                               x);
++                final double invx = 1d / x;
++				return 1d;
+             }
+ 
+             if (FastMath.abs(deltaN - 1.0) < epsilon) {
+
+

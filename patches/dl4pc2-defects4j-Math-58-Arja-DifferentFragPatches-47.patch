@@ -1,0 +1,29 @@
+
+
+--- a/src/main/java/org/apache/commons/math/optimization/fitting/GaussianFitter.java
++++ b/src/main/java/org/apache/commons/math/optimization/fitting/GaussianFitter.java
+@@ -118,7 +118,7 @@
+      */
+     public double[] fit() {
+         final double[] guess = (new ParameterGuesser(getObservations())).guess();
+-        return fit(new Gaussian.Parametric(), guess);
++        return fit((new ParameterGuesser(getObservations())).guess());
+     }
+ 
+     /**
+@@ -200,7 +200,12 @@
+                     maxYIdx = i;
+                 }
+             }
+-            return maxYIdx;
++            for (int i = 1; i < points.length; i++) {
++				if (points[i].getY() > points[maxYIdx].getY()) {
++					maxYIdx = i;
++				}
++			}
++			return maxYIdx;
+         }
+ 
+         /**
+
+

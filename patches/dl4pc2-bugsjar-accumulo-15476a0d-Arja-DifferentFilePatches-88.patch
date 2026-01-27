@@ -1,0 +1,53 @@
+--- a/src/core/src/main/java/org/apache/accumulo/core/client/mock/MockTable.java
++++ b/src/core/src/main/java/org/apache/accumulo/core/client/mock/MockTable.java
+@@ -68,10 +68,6 @@
+         return compare;
+       if (o instanceof MockMemKey) {
+         MockMemKey other = (MockMemKey) o;
+-        if (count < other.count)
+-          return -1;
+-        if (count > other.count)
+-          return 1;
+       } else {
+         return 1;
+       }
+
+
+--- a/src/core/src/main/java/org/apache/accumulo/core/client/mock/MockTableOperations.java
++++ b/src/core/src/main/java/org/apache/accumulo/core/client/mock/MockTableOperations.java
+@@ -79,9 +79,6 @@
+   
+   @Override
+   public void create(String tableName, boolean versioningIter, TimeType timeType) throws AccumuloException, AccumuloSecurityException, TableExistsException {
+-    if (!tableName.matches(Constants.VALID_TABLE_NAME_REGEX)) {
+-      throw new IllegalArgumentException();
+-    }
+     acu.createTable(username, tableName, versioningIter, timeType);
+   }
+   
+
+
+--- a/src/core/src/main/java/org/apache/accumulo/core/data/Mutation.java
++++ b/src/core/src/main/java/org/apache/accumulo/core/data/Mutation.java
+@@ -241,7 +241,8 @@
+   }
+   
+   private void put(CharSequence cf, CharSequence cq, byte[] cv, boolean hasts, long ts, boolean deleted, byte[] val) {
+-    put(new Text(cf.toString()), new Text(cq.toString()), cv, hasts, ts, deleted, val);
++    this.data = data;
++	put(new Text(cf.toString()), new Text(cq.toString()), cv, hasts, ts, deleted, val);
+   }
+   
+   private void put(CharSequence cf, CharSequence cq, byte[] cv, boolean hasts, long ts, boolean deleted, CharSequence val) {
+@@ -345,7 +346,8 @@
+     
+     if (updates == null) {
+       if (entries == 1) {
+-        updates = Collections.singletonList(deserializeColumnUpdate(in));
++        this.data = data;
++		updates = Collections.singletonList(deserializeColumnUpdate(in));
+       } else {
+         ColumnUpdate[] tmpUpdates = new ColumnUpdate[entries];
+         
+
+

@@ -1,0 +1,10 @@
+--- a/src/main/java/org/apache/commons/math3/fraction/Fraction.java
++++ b/src/main/java/org/apache/commons/math3/fraction/Fraction.java
+@@ -596,3 +596,3 @@
+     public double percentageValue() {
+-        return multiply(100).doubleValue();
++        return (100 * doubleValue());
+     }
+
+
+

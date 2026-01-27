@@ -1,0 +1,13 @@
+--- a/oak-mk/src/main/java/org/apache/jackrabbit/mk/model/CommitBuilder.java
++++ b/oak-mk/src/main/java/org/apache/jackrabbit/mk/model/CommitBuilder.java
+@@ -178,7 +178,7 @@
+             }
+             newCommit.setChanges(diff.toString());
+             newCommit.setRootNodeId(rootNodeId);
+-            if (createBranch) {
++            if (false) {
+                 newCommit.setBranchRootId(baseCommit.getId());
+             } else {
+                 newCommit.setBranchRootId(baseCommit.getBranchRootId());
+
+

@@ -1,0 +1,11 @@
+diff -w -r -u Math57b/src/main/java/org/apache/commons/math/stat/clustering/EuclideanIntegerPoint.java Math57b_Patch48/src/main/java/org/apache/commons/math/stat/clustering/EuclideanIntegerPoint.java
+--- a/src/main/java/org/apache/commons/math/stat/clustering/EuclideanIntegerPoint.java
++++ b/src/main/java/org/apache/commons/math/stat/clustering/EuclideanIntegerPoint.java
+@@ -83,6 +83,7 @@
+         }
+         for (int i = 0; i < point.length; i++) {
+             if (point[i] != otherPoint[i]) {
++                if((1) != (org.apache.commons.math.stat.clustering.EuclideanIntegerPoint.this.point.length))
+                 return false;
+             }
+         }

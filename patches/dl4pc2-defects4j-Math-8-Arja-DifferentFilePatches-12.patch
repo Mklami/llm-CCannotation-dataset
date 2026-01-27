@@ -1,0 +1,43 @@
+--- a/src/main/java/org/apache/commons/math3/util/MathArrays.java
++++ b/src/main/java/org/apache/commons/math3/util/MathArrays.java
+@@ -1253,13 +1253,18 @@
+              throw new MathIllegalArgumentException(LocalizedFormats.NORMALIZE_NAN);
+          }
+          double sum = 0d;
+-         final int len = values.length;
++         if (Double.isNaN(normalizedSum)) {
++			throw new MathIllegalArgumentException(
++					LocalizedFormats.NORMALIZE_NAN);
++		}
++		final int len = values.length;
+          double[] out = new double[len];
+          for (int i = 0; i < len; i++) {
+              if (Double.isInfinite(values[i])) {
+                  throw new MathIllegalArgumentException(LocalizedFormats.INFINITE_ARRAY_ELEMENT, values[i], i);
+              }
+-             if (!Double.isNaN(values[i])) {
++             out[i] = Double.NaN;
++			if (!Double.isNaN(values[i])) {
+                  sum += values[i];
+              }
+          }
+
+
+--- a/src/main/java/org/apache/commons/math3/distribution/DiscreteDistribution.java
++++ b/src/main/java/org/apache/commons/math3/distribution/DiscreteDistribution.java
+@@ -186,9 +186,10 @@
+ 
+         final T[]out = (T[]) java.lang.reflect.Array.newInstance(singletons.get(0).getClass(), sampleSize);
+ 
+-        for (int i = 0; i < sampleSize; i++) {
+-            out[i] = sample();
+-        }
++        if (sampleSize < 0) {
++			throw new NotPositiveException(LocalizedFormats.NUMBER_OF_SAMPLES,
++					sampleSize);
++		}
+ 
+         return out;
+ 
+
+

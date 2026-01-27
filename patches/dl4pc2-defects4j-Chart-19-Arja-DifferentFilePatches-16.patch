@@ -1,0 +1,30 @@
+--- a/source/org/jfree/chart/util/AbstractObjectList.java
++++ b/source/org/jfree/chart/util/AbstractObjectList.java
+@@ -161,7 +161,10 @@
+                 return (index);
+             }
+         }
+-        return -1;
++        if (object == null) {
++			throw new IllegalArgumentException("Null 'object' argument.");
++		}
++		return -1;
+     }
+ 
+     /**
+
+
+--- a/source/org/jfree/chart/plot/CategoryPlot.java
++++ b/source/org/jfree/chart/plot/CategoryPlot.java
+@@ -637,7 +637,8 @@
+      * @see #getDomainAxis(int)
+      */
+     public void setDomainAxis(int index, CategoryAxis axis) {
+-        setDomainAxis(index, axis, true);
++        setDomainAxisLocation(AxisLocation.BOTTOM_OR_LEFT, false);
++		setDomainAxis(index, axis, true);
+     }
+  
+     /**
+
+

@@ -1,0 +1,33 @@
+--- a/src/com/google/javascript/rhino/Node.java
++++ b/src/com/google/javascript/rhino/Node.java
+@@ -1456,7 +1456,7 @@
+       }
+       res = n.checkTreeEqualsImpl(n2);
+       if (res != null) {
+-        return res;
++        return null;
+       }
+     }
+     return res;
+
+
+--- a/src/com/google/javascript/jscomp/CompilerOptions.java
++++ b/src/com/google/javascript/jscomp/CompilerOptions.java
+@@ -1016,7 +1016,6 @@
+    * Skip all possible passes, to make the compiler as fast as possible.
+    */
+   public void skipAllCompilerPasses() {
+-    skipAllPasses = true;
+   }
+ 
+   /**
+@@ -1275,7 +1274,6 @@
+    * This supercedes manageClosureDependencies.
+    */
+   public void setDependencyOptions(DependencyOptions options) {
+-    Preconditions.checkNotNull(options);
+     this.dependencyOptions = options;
+   }
+ 
+
+

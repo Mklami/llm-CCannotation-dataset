@@ -1,0 +1,34 @@
+--- a/src/main/java/org/apache/commons/lang3/math/NumberUtils.java
++++ b/src/main/java/org/apache/commons/lang3/math/NumberUtils.java
+@@ -446,6 +446,10 @@
+             return null;
+         }
+         if (StringUtils.isBlank(str)) {
++			throw new NumberFormatException(
++					"A blank string is not a valid number");
++		}
++		if (StringUtils.isBlank(str)) {
+             throw new NumberFormatException("A blank string is not a valid number");
+         }  
+         if (str.startsWith("--")) {
+@@ -481,7 +485,8 @@
+                 if (expPos > str.length()) {
+                     throw new NumberFormatException(str + " is not a valid number.");
+                 }
+-                mant = str.substring(0, expPos);
++                exp = null;
++				mant = str.substring(0, expPos);
+             } else {
+                 mant = str;
+             }
+@@ -542,7 +547,7 @@
+                     }
+                     //$FALL-THROUGH$
+                 default :
+-                    throw new NumberFormatException(str + " is not a valid number.");
++				return Integer.decode(str);
+ 
+             }
+         } else {
+
+

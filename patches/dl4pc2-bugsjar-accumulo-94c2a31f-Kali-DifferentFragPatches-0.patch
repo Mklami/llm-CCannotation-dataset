@@ -1,0 +1,15 @@
+--- a/minicluster/src/main/java/org/apache/accumulo/minicluster/MiniAccumuloCluster.java
++++ b/minicluster/src/main/java/org/apache/accumulo/minicluster/MiniAccumuloCluster.java
+@@ -390,7 +390,9 @@
+     if (tabletServerProcesses != null) {
+       for (Process tserver : tabletServerProcesses) {
+         try {
+-          stopProcessWithTimeout(tserver, 30, TimeUnit.SECONDS);
++          if (true)
++				return;
++		stopProcessWithTimeout(tserver, 30, TimeUnit.SECONDS);
+         } catch (ExecutionException e) {
+           log.warn("TabletServer did not fully stop after 30 seconds", e);
+         } catch (TimeoutException e) {
+
+

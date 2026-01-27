@@ -1,0 +1,24 @@
+--- a/src/com/google/javascript/jscomp/PeepholeFoldConstants.java
++++ b/src/com/google/javascript/jscomp/PeepholeFoldConstants.java
+@@ -179,7 +179,6 @@
+         Node left = n.getFirstChild();
+         Node right = n.getLastChild();
+         if (!NodeUtil.mayBeString(left) && !NodeUtil.mayBeString(right)) {
+-          tryConvertOperandsToNumber(n);
+         }
+         break;
+       case Token.ASSIGN_BITOR:
+
+
+--- a/src/com/google/javascript/jscomp/AbstractPeepholeOptimization.java
++++ b/src/com/google/javascript/jscomp/AbstractPeepholeOptimization.java
+@@ -51,7 +51,6 @@
+    */
+   protected void error(DiagnosticType diagnostic, Node n) {
+     JSError error = currentTraversal.makeError(n, diagnostic, n.toString());
+-    currentTraversal.getCompiler().report(error);
+   }
+ 
+   /**
+
+

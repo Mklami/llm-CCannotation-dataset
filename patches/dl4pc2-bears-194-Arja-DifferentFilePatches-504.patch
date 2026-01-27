@@ -1,0 +1,22 @@
+--- a/src/main/java/com/gdssecurity/pmd/rules/BaseSecurityRule.java
++++ b/src/main/java/com/gdssecurity/pmd/rules/BaseSecurityRule.java
+@@ -110,7 +110,6 @@
+ 			this.sources = getConfig(this.sourceDescriptor);
+ 			this.unsafeTypes = getConfig(this.unsafeTypesDescriptor);
+ 			this.safeTypes = getConfig(this.safeTypesDescriptor);
+-			this.initialized = true;
+ 		}
+ 	}
+ 	
+@@ -118,9 +117,6 @@
+ 		Set<String> ret = new HashSet<String>();
+ 		List<String> props = getProperty(descriptor);
+ 		for (String value: props) {
+-			if (!StringUtils.isBlank(value)) {
+-				ret.add(value.trim());
+-			}
+ 		}
+ 		
+ 		return ret;
+
+

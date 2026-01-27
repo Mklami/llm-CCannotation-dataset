@@ -1,0 +1,28 @@
+--- a/src/main/java/org/apache/commons/lang3/math/NumberUtils.java
++++ b/src/main/java/org/apache/commons/lang3/math/NumberUtils.java
+@@ -462,8 +462,12 @@
+         String mant;
+         String dec;
+         String exp;
+-        int decPos = str.indexOf('.');
+-        int expPos = str.indexOf('e') + str.indexOf('E') + 1;
++        if (str == null) {
++			throw new IllegalArgumentException("The string must not be null");
++		}
++		int decPos = str.indexOf('.');
++        exp = null;
++		int expPos = str.indexOf('e') + str.indexOf('E') + 1;
+ 
+         if (decPos > -1) {
+ 
+@@ -542,7 +546,7 @@
+                     }
+                     //$FALL-THROUGH$
+                 default :
+-                    throw new NumberFormatException(str + " is not a valid number.");
++				return Integer.decode(str);
+ 
+             }
+         } else {
+
+

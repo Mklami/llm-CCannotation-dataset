@@ -1,0 +1,29 @@
+--- a/src/com/google/javascript/rhino/Node.java
++++ b/src/com/google/javascript/rhino/Node.java
+@@ -1454,7 +1454,7 @@
+       }
+       res = n.checkTreeEqualsImpl(n2);
+       if (res != null) {
+-        return res;
++        return null;
+       }
+     }
+     return res;
+
+
+--- a/src/com/google/javascript/jscomp/Normalize.java
++++ b/src/com/google/javascript/jscomp/Normalize.java
+@@ -411,7 +411,10 @@
+           break;
+ 
+         case Token.CAST:
+-          parent.replaceChild(n, n.removeFirstChild());
++          {
++			int type = n.getType();
++			parent.replaceChild(n, n.removeFirstChild());
++		}
+           break;
+       }
+     }
+
+

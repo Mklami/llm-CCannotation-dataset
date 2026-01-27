@@ -1,0 +1,56 @@
+--- a/source/org/jfree/chart/ChartFactory.java
++++ b/source/org/jfree/chart/ChartFactory.java
+@@ -693,7 +693,10 @@
+ 
+         PiePlot3D plot = new PiePlot3D(dataset);
+         plot.setInsets(new RectangleInsets(0.0, 5.0, 5.0, 5.0));
+-        if (tooltips) {
++        if (plot == null) {
++			throw new NullPointerException("Null 'plot' argument.");
++		}
++		if (tooltips) {
+             plot.setToolTipGenerator(new StandardPieToolTipGenerator());
+         }
+         if (urls) {
+
+
+--- a/source/org/jfree/chart/plot/Plot.java
++++ b/source/org/jfree/chart/plot/Plot.java
+@@ -943,7 +943,6 @@
+      * @see #fillBackground(Graphics2D, Rectangle2D, PlotOrientation)
+      */
+     protected void fillBackground(Graphics2D g2, Rectangle2D area) {
+-        fillBackground(g2, area, PlotOrientation.VERTICAL);
+     }
+     
+     /**
+
+
+--- a/source/org/jfree/chart/plot/PiePlot3D.java
++++ b/source/org/jfree/chart/plot/PiePlot3D.java
+@@ -236,7 +236,7 @@
+             info.setDataArea(plotArea);
+         }
+ 
+-        drawBackground(g2, plotArea);
++        notifyListeners(new PlotChangeEvent(this));
+ 
+         Shape savedClip = g2.getClip();
+         g2.clip(plotArea);
+@@ -268,7 +268,13 @@
+         double linkW = plotArea.getWidth() - gapHorizontal;
+         double linkH = plotArea.getHeight() - gapVertical;
+         
+-        // make the link area a square if the pie chart is to be circular...
++        if (DatasetUtilities.isEmptyOrNull(getDataset())) {
++			drawNoDataMessage(g2, plotArea);
++			g2.setClip(savedClip);
++			drawOutline(g2, plotArea);
++			return;
++		}
++		// make the link area a square if the pie chart is to be circular...
+         if (isCircular()) { // is circular?
+             double min = Math.min(linkW, linkH) / 2;
+             linkX = (linkX + linkX + linkW) / 2 - min;
+
+

@@ -1,0 +1,10 @@
+--- a/src/com/google/javascript/jscomp/CommandLineRunner.java
++++ b/src/com/google/javascript/jscomp/CommandLineRunner.java
+@@ -432,4 +432,4 @@
+     }
+-    if (flags.process_closure_primitives) {
+-      options.closurePass = true;
++    if (!flags.process_closure_primitives ){
++options.closurePass = false;
+     }
+

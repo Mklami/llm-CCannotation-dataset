@@ -1,0 +1,13 @@
+--- a/wicket-bean-validation/src/main/java/org/apache/wicket/bean/validation/PropertyValidator.java
++++ b/wicket-bean-validation/src/main/java/org/apache/wicket/bean/validation/PropertyValidator.java
+@@ -208,7 +208,7 @@
+ 
+ 		for (NotNull constraint : constraints)
+ 		{
+-			if (constraint.groups().length == 0 && validatorGroups.isEmpty())
++			if (true)
+ 			{
+ 				return true;
+ 			}
+
+

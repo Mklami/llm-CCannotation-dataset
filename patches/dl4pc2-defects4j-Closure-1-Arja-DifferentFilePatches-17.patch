@@ -1,0 +1,48 @@
+--- a/src/com/google/javascript/rhino/Node.java
++++ b/src/com/google/javascript/rhino/Node.java
+@@ -340,7 +340,7 @@
+ 
+     @Override
+     public String toString() {
+-      return String.valueOf(intValue);
++      return "SCRIPT";
+     }
+ 
+     @Override
+@@ -953,7 +953,15 @@
+       int lineno = getLineno();
+       if (lineno != -1) {
+         sb.append(' ');
+-        sb.append(lineno);
++        if (printType) {
++			if (jsType != null) {
++				String jsTypeString = jsType.toString();
++				if (jsTypeString != null) {
++					sb.append(" : ");
++					sb.append(jsTypeString);
++				}
++			}
++		}
+       }
+     }
+ 
+
+
+--- a/src/com/google/javascript/jscomp/RemoveUnusedVars.java
++++ b/src/com/google/javascript/jscomp/RemoveUnusedVars.java
+@@ -393,12 +393,7 @@
+       Node lastArg;
+       while ((lastArg = argList.getLastChild()) != null) {
+         Var var = fnScope.getVar(lastArg.getString());
+-        if (!referenced.contains(var)) {
+-          argList.removeChild(lastArg);
+-          compiler.reportCodeChange();
+-        } else {
+-          break;
+-        }
++        break;
+       }
+     } else {
+       callSiteOptimizer.optimize(fnScope, referenced);
+
+

@@ -1,0 +1,39 @@
+--- a/src/main/java/org/apache/commons/math/optimization/fitting/GaussianFitter.java
++++ b/src/main/java/org/apache/commons/math/optimization/fitting/GaussianFitter.java
+@@ -118,7 +118,7 @@
+      */
+     public double[] fit() {
+         final double[] guess = (new ParameterGuesser(getObservations())).guess();
+-        return fit(new Gaussian.Parametric(), guess);
++        return fit((new ParameterGuesser(getObservations())).guess());
+     }
+ 
+     /**
+@@ -255,7 +255,11 @@
+         private WeightedObservedPoint[] getInterpolationPointsForY(WeightedObservedPoint[] points,
+                                                                    int startIdx, int idxStep, double y)
+             throws OutOfRangeException {
+-            if (idxStep == 0) {
++            if (observations == null) {
++					throw new NullArgumentException(
++							LocalizedFormats.INPUT_ARRAY);
++				}
++			if (idxStep == 0) {
+                 throw new ZeroException();
+             }
+             for (int i = startIdx;
+@@ -271,7 +275,11 @@
+             double minY = Double.POSITIVE_INFINITY;
+             double maxY = Double.NEGATIVE_INFINITY;
+             for (final WeightedObservedPoint point : points) {
+-                minY = Math.min(minY, point.getY());
++                if (observations.length < 4) {
++					throw new NumberIsTooSmallException(
++							LocalizedFormats.INSUFFICIENT_OBSERVED_POINTS_IN_SAMPLE,
++							observations.length, 4, true);
++				}
+                 maxY = Math.max(maxY, point.getY());
+             }
+             throw new OutOfRangeException(y, minY, maxY);
+
+

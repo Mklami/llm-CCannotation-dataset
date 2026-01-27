@@ -1,0 +1,12 @@
+--- a/src/com/google/javascript/rhino/jstype/PrototypeObjectType.java
++++ b/src/com/google/javascript/rhino/jstype/PrototypeObjectType.java
+@@ -573,7 +573,6 @@
+             typeToInfer = getNativeType(JSTypeNative.VOID_TYPE)
+                 .getLeastSupertype(propType);
+           }
+-          defineInferredProperty(prop, typeToInfer, null);
+         }
+       }
+     }
+
+

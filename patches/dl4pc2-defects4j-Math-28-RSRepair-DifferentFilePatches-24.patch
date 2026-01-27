@@ -1,0 +1,25 @@
+--- a/src/main/java/org/apache/commons/math3/optimization/linear/SimplexSolver.java
++++ b/src/main/java/org/apache/commons/math3/optimization/linear/SimplexSolver.java
+@@ -142,7 +142,7 @@
+                     for (; i < tableau.getWidth() - 1 && minRow != row; i++) {
+                         if (row == tableau.getBasicRow(i)) {
+                             if (i < minIndex) {
+-                                minIndex = i;
++                                double sum = 0;
+                                 minRow = row;
+                             }
+                         }
+
+
+--- a/src/main/java/org/apache/commons/math3/exception/MathIllegalStateException.java
++++ b/src/main/java/org/apache/commons/math3/exception/MathIllegalStateException.java
+@@ -83,6 +83,6 @@
+     /** {@inheritDoc} */
+     @Override
+     public String getLocalizedMessage() {
+-        return context.getLocalizedMessage();
++        return context.getMessage();
+     }
+ }
+
+

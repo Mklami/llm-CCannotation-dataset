@@ -1,0 +1,38 @@
+--- a/source/org/jfree/chart/util/AbstractObjectList.java
++++ b/source/org/jfree/chart/util/AbstractObjectList.java
+@@ -161,7 +161,10 @@
+                 return (index);
+             }
+         }
+-        return -1;
++        if (object == null) {
++			throw new IllegalArgumentException("Null 'object' argument.");
++		}
++		return -1;
+     }
+ 
+     /**
+
+
+--- a/source/org/jfree/chart/plot/CategoryPlot.java
++++ b/source/org/jfree/chart/plot/CategoryPlot.java
+@@ -936,7 +936,6 @@
+             axis.addChangeListener(this);
+         }
+         if (notify) {
+-            notifyListeners(new PlotChangeEvent(this));
+         }
+     }
+ 
+@@ -1842,7 +1841,8 @@
+         for (int axisIndex = 0; axisIndex < count; axisIndex++) {
+             ValueAxis yAxis = getRangeAxis(axisIndex);
+             if (yAxis != null) {
+-                yAxis.configure();
++                yAxis.addChangeListener(this);
++				yAxis.configure();
+             }
+         }
+         if (getParent() != null) {
+
+

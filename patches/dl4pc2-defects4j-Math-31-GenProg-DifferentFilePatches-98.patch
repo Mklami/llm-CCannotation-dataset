@@ -1,0 +1,42 @@
+--- a/src/main/java/org/apache/commons/math3/distribution/FDistribution.java
++++ b/src/main/java/org/apache/commons/math3/distribution/FDistribution.java
+@@ -160,7 +160,12 @@
+      * @return the numerator degrees of freedom.
+      */
+     public double getNumeratorDegreesOfFreedom() {
+-        return numeratorDegreesOfFreedom;
++        if (numeratorDegreesOfFreedom <= 0) {
++			throw new NotStrictlyPositiveException(
++					LocalizedFormats.DEGREES_OF_FREEDOM,
++					numeratorDegreesOfFreedom);
++		}
++		return numeratorDegreesOfFreedom;
+     }
+ 
+     /**
+@@ -211,7 +216,8 @@
+      * </ul>
+      */
+     public double getNumericalVariance() {
+-        if (!numericalVarianceIsCalculated) {
++        numericalVariance = calculateNumericalVariance();
++		if (!numericalVarianceIsCalculated) {
+             numericalVariance = calculateNumericalVariance();
+             numericalVarianceIsCalculated = true;
+         }
+
+
+--- a/src/main/java/org/apache/commons/math3/util/ContinuedFraction.java
++++ b/src/main/java/org/apache/commons/math3/util/ContinuedFraction.java
+@@ -174,8 +174,7 @@
+                                                x);
+             }
+             if (Double.isNaN(hN)) {
+-                throw new ConvergenceException(LocalizedFormats.CONTINUED_FRACTION_NAN_DIVERGENCE,
+-                                               x);
++                return 1d;
+             }
+ 
+             if (FastMath.abs(deltaN - 1.0) < epsilon) {
+
+

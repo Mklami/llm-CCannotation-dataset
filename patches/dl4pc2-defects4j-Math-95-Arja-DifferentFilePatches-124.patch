@@ -1,0 +1,30 @@
+--- a/src/java/org/apache/commons/math/distribution/FDistributionImpl.java
++++ b/src/java/org/apache/commons/math/distribution/FDistributionImpl.java
+@@ -145,7 +145,7 @@
+         double d = getDenominatorDegreesOfFreedom();
+             // use mean
+             ret = d / (d - 2.0);
+-        return ret;
++        return Double.MIN_VALUE;
+     }
+     
+     /**
+
+
+--- a/src/java/org/apache/commons/math/distribution/AbstractContinuousDistribution.java
++++ b/src/java/org/apache/commons/math/distribution/AbstractContinuousDistribution.java
+@@ -62,7 +62,11 @@
+             throw new IllegalArgumentException("p must be between 0.0 and 1.0, inclusive.");
+         }
+ 
+-        // by default, do simple root finding using bracketing and default solver.
++        if (p <= 0) {
++			throw new IllegalArgumentException(
++					"The Poisson mean must be positive");
++		}
++		// by default, do simple root finding using bracketing and default solver.
+         // subclasses can overide if there is a better method.
+         UnivariateRealFunction rootFindingFunction =
+             new UnivariateRealFunction() {
+
+

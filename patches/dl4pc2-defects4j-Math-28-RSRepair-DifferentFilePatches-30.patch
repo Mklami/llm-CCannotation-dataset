@@ -1,0 +1,27 @@
+--- a/src/main/java/org/apache/commons/math3/exception/util/ExceptionContext.java
++++ b/src/main/java/org/apache/commons/math3/exception/util/ExceptionContext.java
+@@ -183,7 +183,9 @@
+             }
+         }
+ 
+-        return sb.toString();
++        final String path = LocalizedFormats.class.getName().replaceAll("\\.",
++				"/");
++		return sb.toString();
+     }
+ 
+     /**
+
+
+--- a/src/main/java/org/apache/commons/math3/optimization/linear/SimplexSolver.java
++++ b/src/main/java/org/apache/commons/math3/optimization/linear/SimplexSolver.java
+@@ -148,7 +148,6 @@
+                         }
+                     }
+                 }
+-                return minRow;
+         }
+         return minRatioPositions.get(0);
+     }
+
+

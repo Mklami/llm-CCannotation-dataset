@@ -1,0 +1,14 @@
+diff -w -u -r Math28b/src/main/java/org/apache/commons/math3/optimization/linear/SimplexSolver.java Math28b_Patch158/src/main/java/org/apache/commons/math3/optimization/linear/SimplexSolver.java
+--- a/src/main/java/org/apache/commons/math3/optimization/linear/SimplexSolver.java
++++ b/src/main/java/org/apache/commons/math3/optimization/linear/SimplexSolver.java
+@@ -148,8 +148,10 @@
+                         }
+                     }
+                 }
++                if (minRatioPositions.isEmpty()) {
+                 return minRow;
+         }
++        }
+         return minRatioPositions.get(0);
+     }
+ 

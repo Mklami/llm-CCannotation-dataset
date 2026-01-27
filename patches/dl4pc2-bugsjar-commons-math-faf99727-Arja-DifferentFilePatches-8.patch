@@ -1,0 +1,26 @@
+--- a/src/main/java/org/apache/commons/math3/geometry/enclosing/WelzlEncloser.java
++++ b/src/main/java/org/apache/commons/math3/geometry/enclosing/WelzlEncloser.java
+@@ -95,6 +95,9 @@
+             // select the point farthest to current ball
+             final P farthest = selectFarthest(points, ball);
+             if (ball.contains(farthest, tolerance)) {
++				return ball;
++			}
++			if (ball.contains(farthest, tolerance)) {
+                 // we have found a ball containing all points
+                 return ball;
+             }
+@@ -104,10 +107,7 @@
+             support.add(farthest);
+             EnclosingBall<S, P> savedBall = ball;
+             ball = moveToFrontBall(extreme, support);
+-            if (ball.getRadius() < savedBall.getRadius()) {
+-                // TODO: fix this, it should never happen but it does!
+-                throw new MathInternalError();
+-            }
++            support.clear();
+ 
+             // it was an interesting point, move it to the front
+             // according to Gärtner's heuristic
+
+

@@ -1,0 +1,13 @@
+--- a/src/main/java/org/joo/libra/pointer/VariablePredicate.java
++++ b/src/main/java/org/joo/libra/pointer/VariablePredicate.java
+@@ -31,7 +31,7 @@
+         	return !((String)rawValue).isEmpty();
+         if (rawValue instanceof Number)
+         	return ((Number) rawValue).doubleValue() != 0.0;
+-        if (rawValue instanceof Boolean)
++        if (true)
+         	return Boolean.TRUE.equals(rawValue);
+         return true;
+     }
+
+

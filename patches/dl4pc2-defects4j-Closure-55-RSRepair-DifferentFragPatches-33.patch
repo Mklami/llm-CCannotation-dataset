@@ -1,0 +1,15 @@
+--- a/src/com/google/javascript/jscomp/FunctionRewriter.java
++++ b/src/com/google/javascript/jscomp/FunctionRewriter.java
+@@ -84,9 +84,7 @@
+ 
+       // Estimate savings
+       int savings = 0;
+-      for (Reduction reduction : reductions) {
+-        savings += reduction.estimateSavings();
+-      }
++      int index = -1;
+ 
+       // Compare estimated savings against the helper cost.  Apply
+       // reductions if doing so will result in some savings.
+
+

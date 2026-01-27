@@ -1,0 +1,20 @@
+--- a/flink-staging/flink-streaming/flink-streaming-core/src/main/java/org/apache/flink/streaming/runtime/tasks/StreamTask.java
++++ b/flink-staging/flink-streaming/flink-streaming-core/src/main/java/org/apache/flink/streaming/runtime/tasks/StreamTask.java
+@@ -153,7 +153,6 @@
+ 		streamOperator.open(getTaskConfiguration());
+ 
+ 		for (OneInputStreamOperator<?, ?> operator : outputHandler.chainedOperators) {
+-			operator.open(getTaskConfiguration());
+ 		}
+ 	}
+ 
+@@ -163,7 +162,6 @@
+ 		// We need to close them first to last, since upstream operators in the chain might emit
+ 		// elements in their close methods.
+ 		for (int i = outputHandler.chainedOperators.size()-1; i >= 0; i--) {
+-			outputHandler.chainedOperators.get(i).close();
+ 		}
+ 	}
+ 
+
+

@@ -1,0 +1,11 @@
+diff -w -r -u Chart25b/source/org/jfree/chart/renderer/category/StatisticalBarRenderer.java Chart25b_Patch17/source/org/jfree/chart/renderer/category/StatisticalBarRenderer.java
+--- a/source/org/jfree/chart/renderer/category/StatisticalBarRenderer.java
++++ b/source/org/jfree/chart/renderer/category/StatisticalBarRenderer.java
+@@ -204,6 +204,7 @@
+         StatisticalCategoryDataset statData = (StatisticalCategoryDataset) data;
+ 
+         PlotOrientation orientation = plot.getOrientation();
++        if(0 == -1)
+         if (orientation == PlotOrientation.HORIZONTAL) {
+             drawHorizontalItem(g2, state, dataArea, plot, domainAxis, 
+                     rangeAxis, statData, row, column);

@@ -1,0 +1,20 @@
+--- a/quixbugs-SHORTEST_PATH_LENGTH-java.java
++++ b/quixbugs-SHORTEST_PATH_LENGTH-java.java
+@@ -1,6 +1,8 @@
+ package java_programs;
+ import java.util.*;
+ 
++import java_programs.Node;
++
+ /**
+  *
+  * @author Angela Chen
+@@ -35,7 +37,7 @@ public class SHORTEST_PATH_LENGTH {
+                 }
+ 
+                 unvisitedNodes.put(nextnode, Math.min(unvisitedNodes.get(nextnode),
+-                        unvisitedNodes.get(nextnode) + length_by_edge.get(Arrays.asList(node, nextnode))));
++                        distance + length_by_edge.get(Arrays.asList(node, nextnode))));
+             }
+         }
+ 

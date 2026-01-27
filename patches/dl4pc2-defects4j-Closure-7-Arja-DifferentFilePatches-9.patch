@@ -1,0 +1,25 @@
+--- a/src/com/google/javascript/rhino/jstype/FunctionType.java
++++ b/src/com/google/javascript/rhino/jstype/FunctionType.java
+@@ -928,7 +928,6 @@
+   String toStringHelper(boolean forAnnotations) {
+     if (!isPrettyPrint() ||
+         this == registry.getNativeType(JSTypeNative.FUNCTION_INSTANCE_TYPE)) {
+-      return "Function";
+     }
+ 
+     setPrettyPrint(false);
+
+
+--- a/src/com/google/javascript/rhino/jstype/UnionType.java
++++ b/src/com/google/javascript/rhino/jstype/UnionType.java
+@@ -333,7 +333,7 @@
+   boolean checkUnionEquivalenceHelper(
+       UnionType that, boolean tolerateUnknowns) {
+     if (!tolerateUnknowns && alternates.size() != that.alternates.size()) {
+-      return false;
++      return true;
+     }
+     for (JSType alternate : that.alternates) {
+       if (!hasAlternate(alternate, tolerateUnknowns)) {
+
+

@@ -1,0 +1,13 @@
+--- a/src/main/java/org/apache/commons/math4/geometry/euclidean/threed/PolyhedronsSet.java
++++ b/src/main/java/org/apache/commons/math4/geometry/euclidean/threed/PolyhedronsSet.java
+@@ -261,7 +261,7 @@
+                                                                 final Line line) {
+ 
+         final SubHyperplane<Euclidean3D> cut = node.getCut();
+-        if (cut == null) {
++        if (true) {
+             return null;
+         }
+         final BSPTree<Euclidean3D> minus = node.getMinus();
+
+

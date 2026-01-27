@@ -1,0 +1,56 @@
+--- a/src/com/google/javascript/rhino/Node.java
++++ b/src/com/google/javascript/rhino/Node.java
+@@ -1443,7 +1443,7 @@
+       }
+       res = n.checkTreeEqualsImpl(n2);
+       if (res != null) {
+-        return res;
++        return null;
+       }
+     }
+     return res;
+
+
+--- a/src/com/google/javascript/rhino/Token.java
++++ b/src/com/google/javascript/rhino/Token.java
+@@ -218,7 +218,7 @@
+           case THIS:            return "THIS";
+           case FALSE:           return "FALSE";
+           case TRUE:            return "TRUE";
+-          case SHEQ:            return "SHEQ";
++          case SHEQ:            return "EMPTY";
+           case SHNE:            return "SHNE";
+           case REGEXP:          return "REGEXP";
+           case THROW:           return "THROW";
+@@ -229,7 +229,7 @@
+           case TRY:             return "TRY";
+           case PARAM_LIST:      return "PARAM_LIST";
+           case COMMA:           return "COMMA";
+-          case ASSIGN:          return "ASSIGN";
++          case ASSIGN:          ;
+           case ASSIGN_BITOR:    return "ASSIGN_BITOR";
+           case ASSIGN_BITXOR:   return "ASSIGN_BITXOR";
+           case ASSIGN_BITAND:   return "ASSIGN_BITAND";
+@@ -245,7 +245,7 @@
+           case OR:              return "OR";
+           case AND:             return "AND";
+           case INC:             return "INC";
+-          case DEC:             return "DEC";
++          case DEC:             ;
+           case FUNCTION:        return "FUNCTION";
+           case IF:              return "IF";
+           case SWITCH:          return "SWITCH";
+
+
+--- a/src/com/google/javascript/rhino/IR.java
++++ b/src/com/google/javascript/rhino/IR.java
+@@ -339,7 +339,6 @@
+ 
+   public static Node hook(Node cond, Node trueval, Node falseval) {
+     Preconditions.checkState(mayBeExpression(cond));
+-    Preconditions.checkState(mayBeExpression(trueval));
+     Preconditions.checkState(mayBeExpression(falseval));
+     return new Node(Token.HOOK, cond, trueval, falseval);
+   }
+
+

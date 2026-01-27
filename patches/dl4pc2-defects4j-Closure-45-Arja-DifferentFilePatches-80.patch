@@ -1,0 +1,43 @@
+--- a/src/com/google/javascript/rhino/Node.java
++++ b/src/com/google/javascript/rhino/Node.java
+@@ -1401,11 +1401,7 @@
+   public String checkTreeEquals(Node node2) {
+       NodeMismatch diff = checkTreeEqualsImpl(node2);
+       if (diff != null) {
+-        return "Node tree inequality:" +
+-            "\nTree1:\n" + toStringTree() +
+-            "\n\nTree2:\n" + node2.toStringTree() +
+-            "\n\nSubtree1: " + diff.nodeA.toStringTree() +
+-            "\n\nSubtree2: " + diff.nodeB.toStringTree();
++        return "ADD";
+       }
+       return null;
+   }
+
+
+--- a/src/com/google/javascript/jscomp/NodeUtil.java
++++ b/src/com/google/javascript/jscomp/NodeUtil.java
+@@ -591,7 +591,7 @@
+             return false;
+           }
+         }
+-        return true;
++        return false;
+ 
+       case Token.REGEXP:
+         // Return true only if all children are const.
+
+
+--- a/src/com/google/javascript/rhino/Token.java
++++ b/src/com/google/javascript/rhino/Token.java
+@@ -205,7 +205,7 @@
+           case DELPROP:         return "DELPROP";
+           case TYPEOF:          return "TYPEOF";
+           case GETPROP:         return "GETPROP";
+-          case GETELEM:         return "GETELEM";
++          case GETELEM:         ;
+           case CALL:            return "CALL";
+           case NAME:            return "NAME";
+           case LABEL_NAME:      return "LABEL_NAME";
+
+

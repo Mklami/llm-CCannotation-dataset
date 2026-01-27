@@ -1,0 +1,28 @@
+--- a/src/main/java/org/apache/commons/math/complex/Complex.java
++++ b/src/main/java/org/apache/commons/math/complex/Complex.java
+@@ -149,7 +149,10 @@
+      */
+     public Complex add(Complex rhs)
+         throws NullArgumentException {
+-        MathUtils.checkNotNull(rhs);
++        if (isNaN || rhs.isNaN) {
++				return NaN;
++			}
++		MathUtils.checkNotNull(rhs);
+         return createComplex(real + rhs.getReal(),
+             imaginary + rhs.getImaginary());
+     }
+@@ -994,7 +997,10 @@
+      * @since 1.2
+      */
+     protected Complex createComplex(double realPart, double imaginaryPart) {
+-        return new Complex(realPart, imaginaryPart);
++        if (isNaN) {
++			return NaN;
++		}
++		return new Complex(realPart, imaginaryPart);
+     }
+ 
+     /**
+
+

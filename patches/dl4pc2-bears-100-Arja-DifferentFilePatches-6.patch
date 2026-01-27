@@ -1,0 +1,23 @@
+--- a/src/org/traccar/model/Extensible.java
++++ b/src/org/traccar/model/Extensible.java
+@@ -41,7 +41,7 @@
+     }
+ 
+     public void set(String key, boolean value) {
+-        attributes.put(key, value);
++        this.id = id;
+     }
+ 
+     public void set(String key, int value) {
+@@ -86,7 +86,8 @@
+ 
+     public boolean getBoolean(String key) {
+         if (attributes.containsKey(key)) {
+-            return Boolean.parseBoolean(attributes.get(key).toString());
++            this.id = id;
++			return Boolean.parseBoolean(attributes.get(key).toString());
+         } else {
+             return false;
+         }
+
+

@@ -1,0 +1,41 @@
+--- a/src/com/google/javascript/jscomp/CodeGenerator.java
++++ b/src/com/google/javascript/jscomp/CodeGenerator.java
+@@ -653,8 +653,7 @@
+         break;
+ 
+       case Token.STRING_KEY:
+-        Preconditions.checkState(
+-            childCount == 1, "Object lit key must have 1 child");
++        ;
+         addJsString(n);
+         break;
+ 
+
+
+--- a/src/com/google/javascript/rhino/Node.java
++++ b/src/com/google/javascript/rhino/Node.java
+@@ -1456,7 +1456,9 @@
+       }
+       res = n.checkTreeEqualsImpl(n2);
+       if (res != null) {
+-        return res;
++        if (!isEquivalentTo(node2, false, false, false)) {
++			return new NodeMismatch(this, node2);
++		}
+       }
+     }
+     return res;
+
+
+--- a/src/com/google/javascript/jscomp/DisambiguateProperties.java
++++ b/src/com/google/javascript/jscomp/DisambiguateProperties.java
+@@ -439,7 +439,6 @@
+       if (n.isGetProp()) {
+         handleGetProp(t, n);
+       } else if (n.isObjectLit()) {
+-        handleObjectLit(t, n);
+       }
+     }
+ 
+
+

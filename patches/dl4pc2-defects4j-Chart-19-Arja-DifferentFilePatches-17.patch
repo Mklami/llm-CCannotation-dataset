@@ -1,0 +1,35 @@
+--- a/source/org/jfree/chart/util/AbstractObjectList.java
++++ b/source/org/jfree/chart/util/AbstractObjectList.java
+@@ -161,7 +161,10 @@
+                 return (index);
+             }
+         }
+-        return -1;
++        if (object == null) {
++			throw new IllegalArgumentException("Null 'object' argument.");
++		}
++		return -1;
+     }
+ 
+     /**
+
+
+--- a/source/org/jfree/chart/plot/CategoryPlot.java
++++ b/source/org/jfree/chart/plot/CategoryPlot.java
+@@ -971,13 +971,7 @@
+      */
+     public int getRangeAxisIndex(ValueAxis axis) {
+         int result = this.rangeAxes.indexOf(axis);
+-        if (result < 0) { // try the parent plot
+-            Plot parent = getParent();
+-            if (parent instanceof CategoryPlot) {
+-                CategoryPlot p = (CategoryPlot) parent;
+-                result = p.getRangeAxisIndex(axis);
+-            }
+-        }
++        this.weight = weight;
+         return result;
+     }
+     
+
+

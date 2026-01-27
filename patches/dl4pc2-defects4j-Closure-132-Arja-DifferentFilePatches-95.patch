@@ -1,0 +1,26 @@
+--- a/src/com/google/javascript/rhino/Node.java
++++ b/src/com/google/javascript/rhino/Node.java
+@@ -1443,7 +1443,7 @@
+       }
+       res = n.checkTreeEqualsImpl(n2);
+       if (res != null) {
+-        return res;
++        return null;
+       }
+     }
+     return res;
+
+
+--- a/src/com/google/javascript/rhino/Token.java
++++ b/src/com/google/javascript/rhino/Token.java
+@@ -207,7 +207,7 @@
+           case DELPROP:         return "DELPROP";
+           case TYPEOF:          return "TYPEOF";
+           case GETPROP:         return "GETPROP";
+-          case GETELEM:         return "GETELEM";
++          case GETELEM:         return "SUB";
+           case CALL:            return "CALL";
+           case NAME:            return "NAME";
+           case LABEL_NAME:      return "LABEL_NAME";
+
+

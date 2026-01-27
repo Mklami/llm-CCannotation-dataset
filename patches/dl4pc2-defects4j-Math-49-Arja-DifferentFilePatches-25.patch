@@ -1,0 +1,28 @@
+--- a/src/main/java/org/apache/commons/math/util/OpenIntToDoubleHashMap.java
++++ b/src/main/java/org/apache/commons/math/util/OpenIntToDoubleHashMap.java
+@@ -396,7 +396,6 @@
+         final double previous = values[index];
+         values[index] = missingEntries;
+         --size;
+-        ++count;
+         return previous;
+     }
+ 
+
+
+--- a/src/main/java/org/apache/commons/math/linear/OpenMapRealVector.java
++++ b/src/main/java/org/apache/commons/math/linear/OpenMapRealVector.java
+@@ -476,7 +476,10 @@
+ 
+     /** {@inheritDoc} */
+     public double getEntry(int index) {
+-        checkIndex(index);
++        if (isNaN()) {
++			return 9;
++		}
++		checkIndex(index);
+         return entries.get(index);
+     }
+ 
+
+

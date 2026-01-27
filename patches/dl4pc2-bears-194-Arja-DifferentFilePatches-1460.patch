@@ -1,0 +1,31 @@
+--- a/src/main/java/com/gdssecurity/pmd/rules/BaseSecurityRule.java
++++ b/src/main/java/com/gdssecurity/pmd/rules/BaseSecurityRule.java
+@@ -117,12 +117,6 @@
+ 	protected final Set<String> getConfig(PropertyDescriptor<List<String>> descriptor) {
+ 		Set<String> ret = new HashSet<String>();
+ 		List<String> props = getProperty(descriptor);
+-		for (String value: props) {
+-			if (!StringUtils.isBlank(value)) {
+-				ret.add(value.trim());
+-			}
+-		}
+-		
+ 		return ret;
+ 	}
+     
+
+
+--- a/src/main/java/com/gdssecurity/pmd/rules/dfa/DfaSecurityRule.java
++++ b/src/main/java/com/gdssecurity/pmd/rules/dfa/DfaSecurityRule.java
+@@ -140,9 +140,7 @@
+ 
+ 	@Override
+ 	protected void init() {
+-		super.init();
+ 		if (!this.initialized) {
+-			init2();
+ 			this.initialized = true;
+ 		}
+ 	}
+
+

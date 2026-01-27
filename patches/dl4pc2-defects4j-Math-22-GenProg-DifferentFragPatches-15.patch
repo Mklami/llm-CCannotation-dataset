@@ -1,0 +1,40 @@
+--- a/src/main/java/org/apache/commons/math3/distribution/UniformRealDistribution.java
++++ b/src/main/java/org/apache/commons/math3/distribution/UniformRealDistribution.java
+@@ -181,7 +181,7 @@
+ 
+     /** {@inheritDoc} */
+     public boolean isSupportUpperBoundInclusive() {
+-        return false;
++        return true;
+     }
+ 
+     /**
+
+
+--- a/src/main/java/org/apache/commons/math3/distribution/FDistribution.java
++++ b/src/main/java/org/apache/commons/math3/distribution/FDistribution.java
+@@ -127,7 +127,12 @@
+      */
+     public double density(double x) {
+         final double nhalf = numeratorDegreesOfFreedom / 2;
+-        final double mhalf = denominatorDegreesOfFreedom / 2;
++        if (denominatorDegreesOfFreedom <= 0) {
++			throw new NotStrictlyPositiveException(
++					LocalizedFormats.DEGREES_OF_FREEDOM,
++					denominatorDegreesOfFreedom);
++		}
++		final double mhalf = denominatorDegreesOfFreedom / 2;
+         final double logx = FastMath.log(x);
+         final double logn = FastMath.log(numeratorDegreesOfFreedom);
+         final double logm = FastMath.log(denominatorDegreesOfFreedom);
+@@ -255,7 +260,7 @@
+      * @return lower bound of the support (always 0)
+      */
+     public double getSupportLowerBound() {
+-        return 0;
++        return solverAbsoluteAccuracy;
+     }
+ 
+     /**
+
+

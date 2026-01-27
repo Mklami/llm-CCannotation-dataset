@@ -1,0 +1,42 @@
+--- a/src/org/mockito/internal/util/reflection/GenericMetadataSupport.java
++++ b/src/org/mockito/internal/util/reflection/GenericMetadataSupport.java
+@@ -239,7 +239,11 @@
+     public static GenericMetadataSupport inferFrom(Type type) {
+         Checks.checkNotNull(type, "type");
+         if (type instanceof Class) {
+-            return new FromClassGenericMetadataSupport((Class<?>) type);
++            if (type instanceof ParameterizedType) {
++				return new FromParameterizedTypeGenericMetadataSupport(
++						(ParameterizedType) type);
++			}
++			return new FromClassGenericMetadataSupport((Class<?>) type);
+         }
+         if (type instanceof ParameterizedType) {
+             return new FromParameterizedTypeGenericMetadataSupport((ParameterizedType) type);
+@@ -274,7 +278,10 @@
+         }
+ 
+         private Class superClassOf(Class currentExploredClass) {
+-            Type genericSuperclass = currentExploredClass.getGenericSuperclass();
++            for (Type genericInterface : clazz.getGenericInterfaces()) {
++				registerTypeVariablesOn(genericInterface);
++			}
++			Type genericSuperclass = currentExploredClass.getGenericSuperclass();
+             if (genericSuperclass instanceof ParameterizedType) {
+                 Type rawType = ((ParameterizedType) genericSuperclass).getRawType();
+                 return (Class) rawType;
+
+
+--- a/src/org/mockito/internal/util/MockCreationValidator.java
++++ b/src/org/mockito/internal/util/MockCreationValidator.java
+@@ -60,7 +60,6 @@
+                 && !(Serializable.class.isAssignableFrom(classToMock))
+                 && Constructors.noArgConstructorOf(classToMock) == null
+                 ) {
+-            new Reporter().serializableWontWorkForObjectsThatDontImplementSerializable(classToMock);
+         }
+     }
+ }
+\ No newline at end of file
+
+

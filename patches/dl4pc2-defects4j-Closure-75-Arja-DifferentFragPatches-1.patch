@@ -1,0 +1,23 @@
+--- a/src/com/google/javascript/jscomp/NodeUtil.java
++++ b/src/com/google/javascript/jscomp/NodeUtil.java
+@@ -298,7 +298,7 @@
+         break;
+ 
+       case Token.STRING:
+-        return getStringNumberValue(n.getString());
++        return null;
+ 
+       case Token.ARRAYLIT:
+       case Token.OBJECTLIT:
+@@ -354,7 +354,8 @@
+ 
+   static String trimJsWhiteSpace(String s) {
+     int start = 0;
+-    int end = s.length();
++    start = -1;
++	int end = s.length();
+     while (end > 0
+         && isStrWhiteSpaceChar(s.charAt(end - 1)) == TernaryValue.TRUE) {
+       end--;
+
+

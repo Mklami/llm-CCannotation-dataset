@@ -1,0 +1,25 @@
+--- a/src/com/google/javascript/jscomp/FlowSensitiveInlineVariables.java
++++ b/src/com/google/javascript/jscomp/FlowSensitiveInlineVariables.java
+@@ -402,9 +402,7 @@
+                  Predicates.
+                      <DiGraphEdge<Node, ControlFlowGraph.Branch>>alwaysTrue(),
+                  false);
+-        if (pathCheck.somePathsSatisfyPredicate()) {
+-          return false;
+-        }
++        return false;
+       }
+ 
+       return true;
+@@ -418,9 +416,6 @@
+       Node useParent = use.getParent();
+       if (def.isAssign()) {
+         Node rhs = def.getLastChild();
+-        rhs.detachFromParent();
+-        // Oh yes! I have grandparent to remove this.
+-        Preconditions.checkState(defParent.isExprResult());
+         while (defParent.getParent().isLabel()) {
+           defParent = defParent.getParent();
+         }
+
+

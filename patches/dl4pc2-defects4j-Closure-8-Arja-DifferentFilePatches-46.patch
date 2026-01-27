@@ -1,0 +1,34 @@
+--- a/src/com/google/javascript/rhino/JSDocInfo.java
++++ b/src/com/google/javascript/rhino/JSDocInfo.java
+@@ -705,9 +705,12 @@
+    * Add a suppressed warning.
+    */
+   public void addSuppression(String suppression) {
+-    lazyInitInfo();
++    if (info == null) {
++		info = new LazilyInitializedInfo();
++	}
+ 
+-    if (info.suppressions == null) {
++    lazyInitInfo();
++	if (info.suppressions == null) {
+       info.suppressions = Sets.newHashSet();
+     }
+     info.suppressions.add(suppression);
+
+
+--- a/src/com/google/javascript/jscomp/CollapseVariableDeclarations.java
++++ b/src/com/google/javascript/jscomp/CollapseVariableDeclarations.java
+@@ -199,9 +199,7 @@
+       }
+ 
+       Var var = s.getVar(lhs.getString());
+-      return var != null
+-          && var.getScope() == s
+-          && !blacklistedVars.contains(var);
++      return false;
+     }
+   }
+ 
+
+

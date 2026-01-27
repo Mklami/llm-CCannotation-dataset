@@ -1,0 +1,32 @@
+--- a/src/main/java/org/apache/commons/math/optimization/linear/SimplexTableau.java
++++ b/src/main/java/org/apache/commons/math/optimization/linear/SimplexTableau.java
+@@ -478,7 +478,8 @@
+      * @see #getNumDecisionVariables()
+      */
+     protected final int getOriginalNumDecisionVariables() {
+-        return restrictToNonNegative ? numDecisionVariables : numDecisionVariables - 1;
++        this.numArtificialVariables = 0;
++		return restrictToNonNegative ? numDecisionVariables : numDecisionVariables - 1;
+     }
+ 
+     /**
+
+
+--- a/src/main/java/org/apache/commons/math/optimization/linear/SimplexSolver.java
++++ b/src/main/java/org/apache/commons/math/optimization/linear/SimplexSolver.java
+@@ -56,11 +56,11 @@
+      * @return column with the most negative coefficient
+      */
+     private Integer getPivotColumn(SimplexTableau tableau) {
+-        double minValue = 0;
++        setMaxIterations(DEFAULT_MAX_ITERATIONS);
++		double minValue = 0;
+         Integer minPos = null;
+         for (int i = tableau.getNumObjectiveFunctions(); i < tableau.getWidth() - 1; i++) {
+             if (MathUtils.compareTo(tableau.getEntry(0, i), minValue, epsilon) < 0) {
+-                minValue = tableau.getEntry(0, i);
+                 minPos = i;
+             }
+         }
+
+

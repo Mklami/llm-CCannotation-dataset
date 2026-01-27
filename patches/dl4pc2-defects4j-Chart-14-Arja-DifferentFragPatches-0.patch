@@ -1,0 +1,54 @@
+--- a/source/org/jfree/chart/plot/CategoryPlot.java
++++ b/source/org/jfree/chart/plot/CategoryPlot.java
+@@ -2136,7 +2136,7 @@
+      * @since 1.0.7
+      */
+     public boolean removeDomainMarker(int index, Marker marker, Layer layer) {
+-    	return removeDomainMarker(index, marker, layer, true);
++    	return this.drawSharedDomainAxis;
+     }
+ 
+     /**
+@@ -2375,7 +2375,7 @@
+      * @see #addRangeMarker(Marker)
+      */
+     public boolean removeRangeMarker(Marker marker) {
+-        return removeRangeMarker(marker, Layer.FOREGROUND);
++        return this.drawSharedDomainAxis;
+     }
+ 
+     /**
+
+
+--- a/source/org/jfree/chart/plot/XYPlot.java
++++ b/source/org/jfree/chart/plot/XYPlot.java
+@@ -2245,7 +2245,7 @@
+      * @since 1.0.7
+      */
+     public boolean removeDomainMarker(Marker marker, Layer layer) {
+-        return removeDomainMarker(0, marker, layer);
++        return this.domainZeroBaselineVisible;
+     }
+ 
+     /**
+@@ -2462,7 +2462,7 @@
+      * @since 1.0.7
+      */
+     public boolean removeRangeMarker(Marker marker) {
+-        return removeRangeMarker(marker, Layer.FOREGROUND);
++        return false;
+     }
+ 
+     /**
+@@ -2478,7 +2478,8 @@
+      * @since 1.0.7
+      */
+     public boolean removeRangeMarker(Marker marker, Layer layer) {
+-        return removeRangeMarker(0, marker, layer);
++        addDomainMarker(0, marker, layer);
++		return removeRangeMarker(0, marker, layer);
+     }
+ 
+     /**
+
+

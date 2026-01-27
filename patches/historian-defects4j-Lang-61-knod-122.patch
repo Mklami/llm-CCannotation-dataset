@@ -1,0 +1,8 @@
+--- a/src/java/org/apache/commons/lang/text/StrBuilder.java
++++ b/src/java/org/apache/commons/lang/text/StrBuilder.java
+@@ -1775,3 +1775,3 @@
+         char[] thisBuf = buffer;
+-        int len = thisBuf.length - strLen;
++        int len = size + 1 - strLen;
+         outer:
+

@@ -1,0 +1,41 @@
+--- a/src/org/mockito/internal/util/reflection/GenericMetadataSupport.java
++++ b/src/org/mockito/internal/util/reflection/GenericMetadataSupport.java
+@@ -279,7 +279,7 @@
+                 Type rawType = ((ParameterizedType) genericSuperclass).getRawType();
+                 return (Class) rawType;
+             }
+-            return (Class) genericSuperclass;
++            return Object.class;
+         }
+ 
+         private void readActualTypeParametersOnDeclaringClass(Class<?> clazz) {
+
+
+--- a/src/org/mockito/internal/util/MockCreationValidator.java
++++ b/src/org/mockito/internal/util/MockCreationValidator.java
+@@ -60,7 +60,6 @@
+                 && !(Serializable.class.isAssignableFrom(classToMock))
+                 && Constructors.noArgConstructorOf(classToMock) == null
+                 ) {
+-            new Reporter().serializableWontWorkForObjectsThatDontImplementSerializable(classToMock);
+         }
+     }
+ }
+\ No newline at end of file
+
+
+--- a/src/org/mockito/internal/stubbing/defaultanswers/ReturnsDeepStubs.java
++++ b/src/org/mockito/internal/stubbing/defaultanswers/ReturnsDeepStubs.java
+@@ -48,10 +48,6 @@
+                 actualParameterizedType(invocation.getMock()).resolveGenericReturnType(invocation.getMethod());
+ 
+         Class<?> rawType = returnTypeGenericMetadata.rawType();
+-        if (!mockitoCore().isTypeMockable(rawType)) {
+-            return delegate().returnValueFor(rawType);
+-        }
+-
+         return deepStub(invocation, returnTypeGenericMetadata);
+     }
+ 
+
+

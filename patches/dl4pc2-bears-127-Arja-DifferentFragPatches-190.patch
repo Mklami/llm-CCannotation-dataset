@@ -1,0 +1,12 @@
+--- a/src/org/traccar/protocol/EelinkProtocolDecoder.java
++++ b/src/org/traccar/protocol/EelinkProtocolDecoder.java
+@@ -159,7 +159,6 @@
+             position.set(Position.KEY_EVENT, statusType);
+ 
+             if (statusType == 0x01 || statusType == 0x02 || statusType == 0x03) {
+-                buf.readUnsignedInt(); // device time
+                 decodeStatus(position, buf.readUnsignedShort());
+             }
+ 
+
+

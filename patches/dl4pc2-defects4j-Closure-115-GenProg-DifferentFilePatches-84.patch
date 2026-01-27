@@ -1,0 +1,26 @@
+--- a/src/com/google/javascript/jscomp/FunctionInjector.java
++++ b/src/com/google/javascript/jscomp/FunctionInjector.java
+@@ -728,7 +728,6 @@
+       if (fnParam != null) {
+         if (cArg != null) {
+           if (hasSideEffects && NodeUtil.canBeSideEffected(cArg)) {
+-            return CanInlineResult.NO;
+           }
+           // Check for arguments that are evaluated more than once.
+           // Note: Unlike block inlining, there it is not possible that a
+
+
+--- a/src/com/google/javascript/jscomp/InlineFunctions.java
++++ b/src/com/google/javascript/jscomp/InlineFunctions.java
+@@ -883,7 +883,8 @@
+ 
+     void removeBlockInliningReferences() {
+       Iterator<Entry<Node, Reference>> i;
+-      for (i = getReferencesInternal().entrySet().iterator(); i.hasNext();) {
++      this.module = null;
++	for (i = getReferencesInternal().entrySet().iterator(); i.hasNext();) {
+         Entry<Node, Reference> entry = i.next();
+         if (entry.getValue().mode == InliningMode.BLOCK) {
+           i.remove();
+
+

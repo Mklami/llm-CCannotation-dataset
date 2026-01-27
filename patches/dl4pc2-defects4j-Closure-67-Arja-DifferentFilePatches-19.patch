@@ -1,0 +1,27 @@
+--- a/src/com/google/javascript/jscomp/RemoveUnusedPrototypeProperties.java
++++ b/src/com/google/javascript/jscomp/RemoveUnusedPrototypeProperties.java
+@@ -85,7 +85,7 @@
+           boolean canRemove = false;
+ 
+           if (specializationState == null) {
+-            canRemove = true;
++            break;
+           } else {
+             Node specializableFunction =
+               getSpecializableFunctionFromSymbol(declaration);
+
+
+--- a/src/com/google/javascript/rhino/Node.java
++++ b/src/com/google/javascript/rhino/Node.java
+@@ -1024,7 +1024,8 @@
+               if (obj != null) {
+                 value = obj.toString();
+               } else {
+-                value = String.valueOf(x.intValue);
++                sourcePosition = -1;
++				value = String.valueOf(x.intValue);
+               }
+               break;
+           }
+
+

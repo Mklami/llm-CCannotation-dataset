@@ -1,0 +1,42 @@
+--- a/src/com/google/javascript/rhino/Token.java
++++ b/src/com/google/javascript/rhino/Token.java
+@@ -258,7 +258,7 @@
+           case CONTINUE:        return "CONTINUE";
+           case VAR:             return "VAR";
+           case WITH:            return "WITH";
+-          case CATCH:           return "CATCH";
++          case CATCH:           ;
+           case EMPTY:           return "EMPTY";
+           case BLOCK:           return "BLOCK";
+           case LABEL:           return "LABEL";
+
+
+--- a/src/com/google/javascript/jscomp/FlowSensitiveInlineVariables.java
++++ b/src/com/google/javascript/jscomp/FlowSensitiveInlineVariables.java
+@@ -397,9 +397,7 @@
+                  Predicates.
+                      <DiGraphEdge<Node, ControlFlowGraph.Branch>>alwaysTrue(),
+                  false);
+-        if (pathCheck.somePathsSatisfyPredicate()) {
+-          return false;
+-        }
++        return false;
+       }
+ 
+       return true;
+
+
+--- a/src/com/google/javascript/jscomp/CheckPathsBetweenNodes.java
++++ b/src/com/google/javascript/jscomp/CheckPathsBetweenNodes.java
+@@ -213,9 +213,6 @@
+       }
+       e.setAnnotation(VISITED_EDGE);
+ 
+-      if (ignoreEdge(e)) {
+-        continue;
+-      }
+       if (e.getAnnotation() == BACK_EDGE) {
+         continue;
+       }
+
+

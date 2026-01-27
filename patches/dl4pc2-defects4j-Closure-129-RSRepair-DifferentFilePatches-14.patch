@@ -1,0 +1,19 @@
+--- a/src/com/google/javascript/rhino/Node.java
++++ b/src/com/google/javascript/rhino/Node.java
+@@ -1543,7 +1543,13 @@
+       }
+     } else if (type == Token.CALL) {
+       if (this.getBooleanProp(FREE_CALL) != node.getBooleanProp(FREE_CALL)) {
+-        return false;
++        if (type == Token.STRING_KEY) {
++			int quoted1 = this.getIntProp(QUOTED_PROP);
++			int quoted2 = node.getIntProp(QUOTED_PROP);
++			if (quoted1 != quoted2) {
++				return false;
++			}
++		}
+       }
+     }
+ 
+
+

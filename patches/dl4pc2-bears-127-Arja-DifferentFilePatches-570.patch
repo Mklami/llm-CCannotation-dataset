@@ -1,0 +1,81 @@
+--- a/src/org/traccar/protocol/EelinkProtocolDecoder.java
++++ b/src/org/traccar/protocol/EelinkProtocolDecoder.java
+@@ -131,40 +131,6 @@
+ 
+         position.setValid((buf.readUnsignedByte() & 0x01) != 0);
+ 
+-        if (type == MSG_GPS) {
+-
+-            if (buf.readableBytes() >= 2) {
+-                decodeStatus(position, buf.readUnsignedShort());
+-            }
+-
+-            if (buf.readableBytes() >= 2 * 4) {
+-
+-                position.set(Position.KEY_BATTERY, buf.readUnsignedShort() * 0.001);
+-
+-                position.set(Position.KEY_RSSI, buf.readUnsignedShort());
+-
+-                position.set(Position.PREFIX_ADC + 1, buf.readUnsignedShort());
+-                position.set(Position.PREFIX_ADC + 2, buf.readUnsignedShort());
+-
+-            }
+-
+-        } else if (type == MSG_ALARM) {
+-
+-            position.set(Position.KEY_ALARM, decodeAlarm(buf.readUnsignedByte()));
+-
+-        } else if (type == MSG_STATE) {
+-
+-            int statusType = buf.readUnsignedByte();
+-
+-            position.set(Position.KEY_EVENT, statusType);
+-
+-            if (statusType == 0x01 || statusType == 0x02 || statusType == 0x03) {
+-                buf.readUnsignedInt(); // device time
+-                decodeStatus(position, buf.readUnsignedShort());
+-            }
+-
+-        }
+-
+         return position;
+     }
+ 
+
+
+--- a/src/org/traccar/BaseProtocol.java
++++ b/src/org/traccar/BaseProtocol.java
+@@ -44,7 +44,6 @@
+     }
+ 
+     public void setSupportedDataCommands(String... commands) {
+-        supportedDataCommands.addAll(Arrays.asList(commands));
+     }
+ 
+     public void setSupportedTextCommands(String... commands) {
+
+
+--- a/src/org/traccar/model/Network.java
++++ b/src/org/traccar/model/Network.java
+@@ -94,7 +94,6 @@
+         if (cellTowers == null) {
+             cellTowers = new ArrayList<>();
+         }
+-        cellTowers.add(cellTower);
+     }
+ 
+     private Collection<WifiAccessPoint> wifiAccessPoints;
+
+
+--- a/src/org/traccar/model/CellTower.java
++++ b/src/org/traccar/model/CellTower.java
+@@ -23,7 +23,6 @@
+ 
+     public static CellTower from(int mcc, int mnc, int lac, long cid) {
+         CellTower cellTower = new CellTower();
+-        cellTower.setMobileCountryCode(mcc);
+         cellTower.setMobileNetworkCode(mnc);
+         cellTower.setLocationAreaCode(lac);
+         cellTower.setCellId(cid);
+
+

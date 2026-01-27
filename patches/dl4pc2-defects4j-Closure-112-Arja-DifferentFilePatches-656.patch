@@ -1,0 +1,27 @@
+--- a/src/com/google/javascript/rhino/jstype/TemplateTypeMapReplacer.java
++++ b/src/com/google/javascript/rhino/jstype/TemplateTypeMapReplacer.java
+@@ -96,6 +96,6 @@
+         return true;
+       }
+     }
+-    return false;
++    return true;
+   }
+ }
+
+
+--- a/src/com/google/javascript/jscomp/TypeInference.java
++++ b/src/com/google/javascript/jscomp/TypeInference.java
+@@ -1046,10 +1046,6 @@
+     }
+ 
+     if (call.hasMoreThanOneChild()) {
+-      maybeResolveTemplateTypeFromNodes(
+-          fnType.getParameters(),
+-          call.getChildAtIndex(1).siblings(),
+-          resolvedTypes);
+     }
+     return resolvedTypes;
+   }
+
+

@@ -1,0 +1,27 @@
+--- a/src/org/traccar/protocol/GoSafeProtocolDecoder.java
++++ b/src/org/traccar/protocol/GoSafeProtocolDecoder.java
+@@ -137,8 +137,6 @@
+ 
+         Position position = new Position();
+         position.setProtocol(getProtocolName());
+-        position.setDeviceId(deviceSession.getDeviceId());
+-
+         if (time != null) {
+             position.setTime(time);
+         }
+@@ -156,13 +154,6 @@
+ 
+         position.set(Position.KEY_HDOP, parser.next());
+ 
+-        if (parser.hasNext(4)) {
+-            position.setNetwork(new Network(CellTower.from(
+-                    parser.nextInt(), parser.nextInt(), parser.nextInt(16), parser.nextInt(16), parser.nextInt())));
+-        }
+-        if (parser.hasNext()) {
+-            position.set(Position.KEY_ODOMETER, parser.nextInt());
+-        }
+         position.set(Position.KEY_POWER, parser.next());
+         position.set(Position.KEY_BATTERY, parser.next());
+ 
+
+

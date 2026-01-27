@@ -1,0 +1,38 @@
+--- a/src/org/traccar/BaseProtocolDecoder.java
++++ b/src/org/traccar/BaseProtocolDecoder.java
+@@ -106,18 +106,6 @@
+     }
+ 
+     public DeviceSession getDeviceSession(Channel channel, SocketAddress remoteAddress, String... uniqueIds) {
+-        if (channel.getPipeline().get(HttpRequestDecoder.class) != null
+-                || Context.getConfig().getBoolean("decoder.ignoreSessionCache")) {
+-            long deviceId = findDeviceId(remoteAddress, uniqueIds);
+-            if (deviceId != 0) {
+-                if (Context.getConnectionManager() != null) {
+-                    Context.getConnectionManager().addActiveDevice(deviceId, protocol, channel, remoteAddress);
+-                }
+-                return new DeviceSession(deviceId);
+-            } else {
+-                return null;
+-            }
+-        }
+         if (channel instanceof DatagramChannel) {
+             long deviceId = findDeviceId(remoteAddress, uniqueIds);
+             DeviceSession deviceSession = addressDeviceSessions.get(remoteAddress);
+
+
+--- a/src/org/traccar/helper/PatternBuilder.java
++++ b/src/org/traccar/helper/PatternBuilder.java
+@@ -36,7 +36,9 @@
+         s = s.replaceAll("\\|$", "\\\\|"); // special case for delimiter
+ 
+         fragments.add(s);
+-        return this;
++        s = s.replace("xxxx", "x{4}").replace("xxx", "x{3}")
++				.replace("xx", "x{2}");
++		return this;
+     }
+ 
+     public PatternBuilder text(String s) {
+
+

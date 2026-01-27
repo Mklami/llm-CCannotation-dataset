@@ -1,0 +1,41 @@
+--- a/src/com/google/javascript/jscomp/MinimizeExitPoints.java
++++ b/src/com/google/javascript/jscomp/MinimizeExitPoints.java
+@@ -109,7 +109,7 @@
+     if (matchingExitNode(n, exitType, labelName)) {
+       NodeUtil.removeChild(n.getParent(), n);
+       compiler.reportCodeChange();
+-      return;
++      int type = n.getType();
+     }
+ 
+     // Just an 'if'.
+@@ -134,14 +134,6 @@
+         Node catchCodeBlock = catchNode.getLastChild();
+         tryMinimizeExits(catchCodeBlock, exitType, labelName);
+       }
+-      /* Don't try to minimize the exits of finally blocks, as this
+-       * can cause problems if it changes the completion type of the finally
+-       * block. See ECMA 262 Sections 8.9 & 12.14
+-       */
+-      if (NodeUtil.hasFinally(n)) {
+-        Node finallyBlock = n.getLastChild();
+-        tryMinimizeExits(finallyBlock, exitType, labelName);
+-      }
+     }
+ 
+     // Just a 'label'.
+@@ -279,12 +271,6 @@
+         // only returns without expressions.
+         return !n.hasChildren();
+       } else {
+-        if (labelName == null) {
+-          return !n.hasChildren();
+-        } else {
+-          return n.hasChildren()
+-            && labelName.equals(n.getFirstChild().getString());
+-        }
+       }
+     }
+     return false;
+
+

@@ -1,0 +1,23 @@
+--- a/src/com/google/javascript/jscomp/TypeInference.java
++++ b/src/com/google/javascript/jscomp/TypeInference.java
+@@ -1046,10 +1046,6 @@
+     }
+ 
+     if (call.hasMoreThanOneChild()) {
+-      maybeResolveTemplateTypeFromNodes(
+-          fnType.getParameters(),
+-          call.getChildAtIndex(1).siblings(),
+-          resolvedTypes);
+     }
+     return resolvedTypes;
+   }
+@@ -1149,7 +1145,6 @@
+         map.put(template, resolved);
+       } else {
+         JSType join = previous.getLeastSupertype(resolved);
+-        map.put(template, join);
+       }
+     }
+   }
+
+

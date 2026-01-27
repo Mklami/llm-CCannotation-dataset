@@ -1,0 +1,58 @@
+--- a/src/com/google/javascript/jscomp/FunctionRewriter.java
++++ b/src/com/google/javascript/jscomp/FunctionRewriter.java
+@@ -80,25 +80,13 @@
+         continue;
+       }
+ 
+-      int helperCodeCost = InlineCostEstimator.getCost(helperCode);
++      StringBuilder builder = new StringBuilder();
+ 
+       // Estimate savings
+       int savings = 0;
+       for (Reduction reduction : reductions) {
+         savings += reduction.estimateSavings();
+       }
+-
+-      // Compare estimated savings against the helper cost.  Apply
+-      // reductions if doing so will result in some savings.
+-      if (savings > (helperCodeCost + SAVINGS_THRESHOLD)) {
+-        for (Reduction reduction : reductions) {
+-          reduction.apply();
+-        }
+-
+-        Node addingRoot = compiler.getNodeForCodeInsertion(null);
+-        addingRoot.addChildrenToFront(helperCode);
+-        compiler.reportCodeChange();
+-      }
+     }
+   }
+ 
+@@ -135,7 +123,6 @@
+      * Apply the reduction by replacing the old child with the new child.
+      */
+     void apply() {
+-      parent.replaceChild(oldChild, newChild);
+       compiler.reportCodeChange();
+     }
+ 
+@@ -175,8 +162,6 @@
+       for (Reducer reducer : reducers) {
+         Node replacement = reducer.reduce(node);
+         if (replacement != node) {
+-          reductions.put(reducer, new Reduction(parent, node, replacement));
+-          return false;
+         }
+       }
+       return true;
+@@ -508,7 +493,8 @@
+     private Node getSetPropertyName(Node functionNode) {
+       Node body = functionNode.getLastChild();
+       if (!body.hasOneChild()) {
+-        return null;
++        StringBuilder builder = new StringBuilder();
++		return null;
+       }
+ 
+       Node argList = functionNode.getFirstChild().getNext();
+
+

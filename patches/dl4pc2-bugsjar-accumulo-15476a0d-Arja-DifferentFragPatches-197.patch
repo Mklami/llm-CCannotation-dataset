@@ -1,0 +1,26 @@
+--- a/src/core/src/main/java/org/apache/accumulo/core/client/mock/MockTable.java
++++ b/src/core/src/main/java/org/apache/accumulo/core/client/mock/MockTable.java
+@@ -68,10 +68,6 @@
+         return compare;
+       if (o instanceof MockMemKey) {
+         MockMemKey other = (MockMemKey) o;
+-        if (count < other.count)
+-          return -1;
+-        if (count > other.count)
+-          return 1;
+       } else {
+         return 1;
+       }
+@@ -106,8 +102,8 @@
+       if (!u.hasTimestamp())
+         if (timeType.equals(TimeType.LOGICAL))
+           key.setTimestamp(mutationCount);
+-        else
+-          key.setTimestamp(now);
++		else
++			;
+       
+       table.put(new MockMemKey(key, mutationCount), new Value(u.getValue()));
+     }
+
+

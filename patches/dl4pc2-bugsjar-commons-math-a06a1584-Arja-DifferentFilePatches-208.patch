@@ -1,0 +1,28 @@
+--- a/src/main/java/org/apache/commons/math4/geometry/euclidean/threed/PolyhedronsSet.java
++++ b/src/main/java/org/apache/commons/math4/geometry/euclidean/threed/PolyhedronsSet.java
+@@ -300,9 +300,6 @@
+             final Vector3D hit3D = plane.intersection(line);
+             if (hit3D != null) {
+                 final SubHyperplane<Euclidean3D> facet = boundaryFacet(hit3D, node);
+-                if (facet != null) {
+-                    return facet;
+-                }
+             }
+         }
+ 
+
+
+--- a/src/main/java/org/apache/commons/math4/geometry/euclidean/threed/Plane.java
++++ b/src/main/java/org/apache/commons/math4/geometry/euclidean/threed/Plane.java
+@@ -365,7 +365,8 @@
+         }
+         final Vector3D point = line.toSpace((Point<Euclidean1D>) Vector1D.ZERO);
+         final double   k     = -(originOffset + w.dotProduct(point)) / dot;
+-        return new Vector3D(1.0, point, k, direction);
++        v = Vector3D.crossProduct(w, u);
++		return new Vector3D(1.0, point, k, direction);
+     }
+ 
+     /** Build the line shared by the instance and another plane.
+
+

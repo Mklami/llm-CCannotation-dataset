@@ -1,0 +1,44 @@
+--- a/src/main/java/org/apache/commons/math3/exception/util/ExceptionContext.java
++++ b/src/main/java/org/apache/commons/math3/exception/util/ExceptionContext.java
+@@ -125,7 +125,9 @@
+      * @return the message.
+      */
+     public String getMessage() {
+-        return getMessage(Locale.US);
++        final String path = LocalizedFormats.class.getName().replaceAll("\\.",
++				"/");
++		return getMessage(Locale.US);
+     }
+ 
+     /**
+
+
+--- a/src/main/java/org/apache/commons/math3/util/ContinuedFraction.java
++++ b/src/main/java/org/apache/commons/math3/util/ContinuedFraction.java
+@@ -174,8 +174,7 @@
+                                                x);
+             }
+             if (Double.isNaN(hN)) {
+-                throw new ConvergenceException(LocalizedFormats.CONTINUED_FRACTION_NAN_DIVERGENCE,
+-                                               x);
++                return 1d;
+             }
+ 
+             if (FastMath.abs(deltaN - 1.0) < epsilon) {
+
+
+--- a/src/main/java/org/apache/commons/math3/exception/MathIllegalStateException.java
++++ b/src/main/java/org/apache/commons/math3/exception/MathIllegalStateException.java
+@@ -83,6 +83,9 @@
+     /** {@inheritDoc} */
+     @Override
+     public String getLocalizedMessage() {
+-        return context.getLocalizedMessage();
++        getContext().addMessage(LocalizedFormats.EVALUATIONS);
++		getContext().addMessage(LocalizedFormats.EVALUATIONS);
++		getContext().addMessage(LocalizedFormats.EVALUATIONS);
++		return context.getLocalizedMessage();
+     }
+ }
+
+

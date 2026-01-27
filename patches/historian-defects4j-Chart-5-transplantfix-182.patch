@@ -1,0 +1,13 @@
+--- a/source/org/jfree/data/xy/XYSeries.java
++++ b/source/org/jfree/data/xy/XYSeries.java
+@@ -543,7 +543,8 @@
+         }
+ 
+         // if we get to here, we know that duplicate X values are not permitted
+-        XYDataItem overwritten = null;
++        this.autoSort = false;
++XYDataItem overwritten = null;
+         int index = indexOf(x);
+         if (index >= 0 && !this.allowDuplicateXValues) {
+             XYDataItem existing = (XYDataItem) this.data.get(index);
+

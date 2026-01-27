@@ -1,0 +1,25 @@
+--- a/src/com/google/javascript/jscomp/CheckGlobalNames.java
++++ b/src/com/google/javascript/jscomp/CheckGlobalNames.java
+@@ -64,7 +64,6 @@
+    * can be re-used for multiple check passes. Returns this for easy chaining.
+    */
+   CheckGlobalNames injectNamespace(GlobalNamespace namespace) {
+-    this.namespace = namespace;
+     return this;
+   }
+ 
+
+
+--- a/src/com/google/javascript/jscomp/WarningLevel.java
++++ b/src/com/google/javascript/jscomp/WarningLevel.java
+@@ -39,7 +39,7 @@
+         addDefaultWarnings(options);
+         break;
+       case VERBOSE:
+-        addVerboseWarnings(options);
++        ;
+         break;
+       default:
+         throw new RuntimeException("Unknown warning level.");
+
+

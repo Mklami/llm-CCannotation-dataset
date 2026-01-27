@@ -1,0 +1,10 @@
+--- a/src/main/java/org/apache/commons/lang3/text/translate/CharSequenceTranslator.java
++++ b/src/main/java/org/apache/commons/lang3/text/translate/CharSequenceTranslator.java
+@@ -94,5 +94,5 @@
+                        for (int pt = 0; pt < consumed; pt++) {
+- pos += Character.charCount(Character.codePointAt(input, pos));
++ pos += Character.charCount(Character.codePointAt(input, pt));
+                         }
+                                         }
+                                     }
+                                     

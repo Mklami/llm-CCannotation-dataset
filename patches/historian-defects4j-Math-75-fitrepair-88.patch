@@ -1,0 +1,14 @@
+--- a/src/main/java/org/apache/commons/math/stat/Frequency.java
++++ b/src/main/java/org/apache/commons/math/stat/Frequency.java
+@@ -300,7 +300,7 @@ 
+      */
+     @Deprecated
+     public double getPct(Object v) {
+-        return getCumPct((Comparable<?>) v);
++        return (double) this.getPct((Comparable<?>) v);
+     }
+ 
+     /**
+
+
+

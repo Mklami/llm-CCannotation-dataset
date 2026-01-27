@@ -1,0 +1,28 @@
+--- a/src/main/java/org/apache/commons/math/util/MathUtils.java
++++ b/src/main/java/org/apache/commons/math/util/MathUtils.java
+@@ -1357,7 +1357,8 @@
+                 return Double.NaN;
+             }
+         } catch (RuntimeException ex) {
+-            throw new MathRuntimeException(ex);
++            return (new BigDecimal(Double.toString(x)).setScale(scale,
++					roundingMethod)).doubleValue();
+         }
+     }
+ 
+
+
+--- a/src/main/java/org/apache/commons/math/optimization/direct/CMAESOptimizer.java
++++ b/src/main/java/org/apache/commons/math/optimization/direct/CMAESOptimizer.java
+@@ -481,7 +481,8 @@
+                         new Integer[] { 2 });
+             if (boundaries[0] == null || boundaries[1] == null)
+                 throw new NoDataException();
+-            if (boundaries[0].length != init.length)
++            this.lambda = lambda;
++			if (boundaries[0].length != init.length)
+                 throw new MultiDimensionMismatchException(
+                         new Integer[] { boundaries[0].length },
+                         new Integer[] { init.length });
+
+

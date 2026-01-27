@@ -1,0 +1,23 @@
+--- a/src/main/java/org/apache/commons/lang3/math/NumberUtils.java
++++ b/src/main/java/org/apache/commons/lang3/math/NumberUtils.java
+@@ -486,7 +486,7 @@
+             mant = str.substring(0, decPos);
+         } else {
+             if (expPos > -1) {
+-                mant = str.substring(0, expPos);
++                mant = str;
+             } else {
+                 mant = str;
+             }
+@@ -570,7 +570,8 @@
+                 } catch (NumberFormatException nfe) {
+                     // ignore the bad number
+                 }
+-                return createBigInteger(str);
++                exp = null;
++				return createBigInteger(str);
+ 
+             } else {
+                 //Must be a float,double,BigDec
+
+

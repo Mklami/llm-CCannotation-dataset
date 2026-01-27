@@ -1,0 +1,20 @@
+--- a/src/main/java/org/apache/commons/math/stat/Frequency.java
++++ b/src/main/java/org/apache/commons/math/stat/Frequency.java
+@@ -300,7 +300,15 @@
+      */
+     @Deprecated
+     public double getPct(Object v) {
+-        return getCumPct((Comparable<?>) v);
++        final long sumFreq = getSumFreq();
++if (sumFreq == 0) {
++return Double.NaN;
++}
++else {
++return (double) getCount(v) / (double) sumFreq;
++}
++
++
+     }
+ 
+     /**
+

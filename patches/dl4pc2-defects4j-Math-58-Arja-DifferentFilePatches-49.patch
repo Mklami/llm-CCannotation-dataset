@@ -1,0 +1,47 @@
+--- a/src/main/java/org/apache/commons/math/optimization/fitting/GaussianFitter.java
++++ b/src/main/java/org/apache/commons/math/optimization/fitting/GaussianFitter.java
+@@ -118,7 +118,7 @@
+      */
+     public double[] fit() {
+         final double[] guess = (new ParameterGuesser(getObservations())).guess();
+-        return fit(new Gaussian.Parametric(), guess);
++        return fit((new ParameterGuesser(getObservations())).guess());
+     }
+ 
+     /**
+@@ -269,7 +269,16 @@
+             }
+ 
+             double minY = Double.POSITIVE_INFINITY;
+-            double maxY = Double.NEGATIVE_INFINITY;
++            for (int i = startIdx; (idxStep < 0) ? (i + idxStep >= 0) : (i
++					+ idxStep < points.length); i += idxStep) {
++				if (isBetween(y, points[i].getY(), points[i + idxStep].getY())) {
++					return (idxStep < 0) ? new WeightedObservedPoint[] {
++							points[i + idxStep], points[i] }
++							: new WeightedObservedPoint[] { points[i],
++									points[i + idxStep] };
++				}
++			}
++			double maxY = Double.NEGATIVE_INFINITY;
+             for (final WeightedObservedPoint point : points) {
+                 minY = Math.min(minY, point.getY());
+                 maxY = Math.max(maxY, point.getY());
+
+
+--- a/src/main/java/org/apache/commons/math/analysis/function/Gaussian.java
++++ b/src/main/java/org/apache/commons/math/analysis/function/Gaussian.java
+@@ -180,7 +180,10 @@
+                 throw new DimensionMismatchException(param.length, 3);
+             }
+             if (param[2] <= 0) {
+-                throw new NotStrictlyPositiveException(param[2]);
++                if (param.length != 3) {
++					throw new DimensionMismatchException(param.length, 3);
++				}
++				throw new NotStrictlyPositiveException(param[2]);
+             }
+         }
+     }
+
+

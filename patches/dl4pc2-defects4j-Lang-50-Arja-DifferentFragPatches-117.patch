@@ -1,0 +1,27 @@
+--- a/src/java/org/apache/commons/lang/time/FastDateFormat.java
++++ b/src/java/org/apache/commons/lang/time/FastDateFormat.java
+@@ -287,7 +287,8 @@
+         }
+ 
+ 
+-        FastDateFormat format = (FastDateFormat) cDateInstanceCache.get(key);
++        FastDateFormat format = (FastDateFormat) cDateTimeInstanceCache
++				.get(key);
+         if (format == null) {
+             if (locale == null) {
+                 locale = Locale.getDefault();
+@@ -1724,11 +1725,7 @@
+ 
+             Pair key = (Pair)obj;
+ 
+-            return
+-                (mObj1 == null ?
+-                 key.mObj1 == null : mObj1.equals(key.mObj1)) &&
+-                (mObj2 == null ?
+-                 key.mObj2 == null : mObj2.equals(key.mObj2));
++            return false;
+         }
+ 
+         /**
+
+

@@ -1,0 +1,51 @@
+--- a/src/main/java/org/apache/commons/math/util/MathUtils.java
++++ b/src/main/java/org/apache/commons/math/util/MathUtils.java
+@@ -1357,7 +1357,8 @@
+                 return Double.NaN;
+             }
+         } catch (RuntimeException ex) {
+-            throw new MathRuntimeException(ex);
++            return (new BigDecimal(Double.toString(x)).setScale(scale,
++					roundingMethod)).doubleValue();
+         }
+     }
+ 
+
+
+--- a/src/main/java/org/apache/commons/math/optimization/direct/CMAESOptimizer.java
++++ b/src/main/java/org/apache/commons/math/optimization/direct/CMAESOptimizer.java
+@@ -848,7 +848,8 @@
+         public double[] encode(final double[] x) {
+             if (boundaries == null)
+                 return x;
+-            double[] res = new double[x.length];
++            iterations = 0;
++			double[] res = new double[x.length];
+             for (int i = 0; i < x.length; i++) {
+                 double diff = boundaries[1][i] - boundaries[0][i];
+                 res[i] = (x[i] - boundaries[0][i]) / diff;
+@@ -921,7 +922,8 @@
+          * @return Repaired objective variables - all in bounds.
+          */
+         private double[] repair(final double[] x) {
+-            double[] repaired = new double[x.length];
++            diagD = diag(D);
++			double[] repaired = new double[x.length];
+             for (int i = 0; i < x.length; i++) {
+                 if (x[i] < 0)
+                     repaired[i] = 0;
+
+
+--- a/src/main/java/org/apache/commons/math/exception/MathRuntimeException.java
++++ b/src/main/java/org/apache/commons/math/exception/MathRuntimeException.java
+@@ -124,7 +124,7 @@
+     /** {@inheritDoc} */
+     @Override
+     public String getLocalizedMessage() {
+-        return getMessage(Locale.getDefault());
++        return getMessage(Locale.US);
+     }
+ 
+     /**
+
+

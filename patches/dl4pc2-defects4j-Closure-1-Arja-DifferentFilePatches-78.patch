@@ -1,0 +1,41 @@
+--- a/src/com/google/javascript/rhino/Node.java
++++ b/src/com/google/javascript/rhino/Node.java
+@@ -952,7 +952,6 @@
+     if (printSource) {
+       int lineno = getLineno();
+       if (lineno != -1) {
+-        sb.append(' ');
+         sb.append(lineno);
+       }
+     }
+
+
+--- a/src/com/google/javascript/jscomp/RemoveUnusedVars.java
++++ b/src/com/google/javascript/jscomp/RemoveUnusedVars.java
+@@ -393,12 +393,7 @@
+       Node lastArg;
+       while ((lastArg = argList.getLastChild()) != null) {
+         Var var = fnScope.getVar(lastArg.getString());
+-        if (!referenced.contains(var)) {
+-          argList.removeChild(lastArg);
+-          compiler.reportCodeChange();
+-        } else {
+-          break;
+-        }
++        break;
+       }
+     } else {
+       callSiteOptimizer.optimize(fnScope, referenced);
+@@ -741,9 +736,7 @@
+             assignedToUnknownValue = value != null &&
+                 !NodeUtil.isLiteralValue(value, true);
+           } else {
+-            // This was initialized to a function arg or a catch param
+-            // or a for...in variable.
+-            assignedToUnknownValue = true;
++            break;
+           }
+ 
+           boolean maybeEscaped = false;
+
+

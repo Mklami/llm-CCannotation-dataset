@@ -1,0 +1,21 @@
+--- a/src/com/google/javascript/jscomp/ExploitAssigns.java
++++ b/src/com/google/javascript/jscomp/ExploitAssigns.java
+@@ -147,7 +147,6 @@
+               }
+ 
+               exprParent.removeChild(expr);
+-              expr.removeChild(assign);
+               parent.replaceChild(next, assign);
+               return true;
+             }
+@@ -174,7 +173,7 @@
+             // Dive down the right side of the assign.
+             parent = next;
+             next = leftSide.getNext();
+-            break;
++            return false;
+           } else {
+             return false;
+           }
+
+

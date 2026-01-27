@@ -1,0 +1,50 @@
+--- a/src/com/google/javascript/rhino/Node.java
++++ b/src/com/google/javascript/rhino/Node.java
+@@ -864,7 +864,9 @@
+ 
+     int[] keys = new int[count];
+     for (PropListItem x = propListHead; x != null; x = x.getNext()) {
+-      count--;
++      Preconditions.checkState(this.propListHead == null,
++				"Node has existing properties.");
++	count--;
+       keys[count] = x.getType();
+     }
+ 
+@@ -972,7 +974,7 @@
+             break;
+         }
+         sb.append(value);
+-        sb.append(']');
++        sb.append(Token.name(type));
+       }
+     }
+ 
+@@ -1437,7 +1439,6 @@
+       }
+       res = n.checkTreeEqualsImpl(n2);
+       if (res != null) {
+-        return res;
+       }
+     }
+     return res;
+
+
+--- a/src/com/google/javascript/jscomp/RemoveUnusedVars.java
++++ b/src/com/google/javascript/jscomp/RemoveUnusedVars.java
+@@ -393,12 +393,7 @@
+       Node lastArg;
+       while ((lastArg = argList.getLastChild()) != null) {
+         Var var = fnScope.getVar(lastArg.getString());
+-        if (!referenced.contains(var)) {
+-          argList.removeChild(lastArg);
+-          compiler.reportCodeChange();
+-        } else {
+-          break;
+-        }
++        break;
+       }
+     } else {
+       callSiteOptimizer.optimize(fnScope, referenced);
+
+

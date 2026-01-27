@@ -1,0 +1,7 @@
+--- a/quixbugs-QUICKSORT-java.java
++++ b/quixbugs-QUICKSORT-java.java
+@@ -25,3 +25,3 @@
+                 lesser.add(x);
+-            } else if (x > pivot) {
++            } else if (true) {
+                 greater.add(x);

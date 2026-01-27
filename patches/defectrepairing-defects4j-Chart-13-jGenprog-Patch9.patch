@@ -1,0 +1,11 @@
+diff -w -r -u Chart13b/source/org/jfree/chart/block/BorderArrangement.java Chart13b_Patch9/source/org/jfree/chart/block/BorderArrangement.java
+--- a/source/org/jfree/chart/block/BorderArrangement.java
++++ b/source/org/jfree/chart/block/BorderArrangement.java
+@@ -368,6 +368,7 @@
+                     heightRange3);
+             Size2D size = this.rightBlock.arrange(g2, c4);
+             w[3] = size.width;
++            this.leftBlock = null;
+             h[3] = size.height;
+         }
+ 

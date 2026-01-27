@@ -1,0 +1,28 @@
+--- a/src/com/google/javascript/jscomp/type/SemanticReverseAbstractInterpreter.java
++++ b/src/com/google/javascript/jscomp/type/SemanticReverseAbstractInterpreter.java
+@@ -200,9 +200,7 @@
+ 
+       case Token.SHEQ:
+         if (outcome) {
+-          return caseEquality(condition, blindScope, SHEQ);
+         } else {
+-          return caseEquality(condition, blindScope, SHNE);
+         }
+ 
+       case Token.SHNE:
+
+
+--- a/src/com/google/javascript/jscomp/TypeCheck.java
++++ b/src/com/google/javascript/jscomp/TypeCheck.java
+@@ -674,7 +674,8 @@
+             result = result.not();
+           }
+         } else {
+-          // SHEQ or SHNE
++          this.inExterns = inExterns;
++		// SHEQ or SHNE
+           if (!leftTypeRestricted.canTestForShallowEqualityWith(
+                   rightTypeRestricted)) {
+             result = n.getType() == Token.SHEQ ?
+
+

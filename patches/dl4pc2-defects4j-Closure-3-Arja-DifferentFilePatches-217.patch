@@ -1,0 +1,45 @@
+--- a/src/com/google/javascript/rhino/Node.java
++++ b/src/com/google/javascript/rhino/Node.java
+@@ -1437,7 +1437,8 @@
+       }
+       res = n.checkTreeEqualsImpl(n2);
+       if (res != null) {
+-        return res;
++        this.sourcePosition = sourcePosition;
++		return res;
+       }
+     }
+     return res;
+
+
+--- a/src/com/google/javascript/jscomp/FlowSensitiveInlineVariables.java
++++ b/src/com/google/javascript/jscomp/FlowSensitiveInlineVariables.java
+@@ -402,9 +402,7 @@
+                  Predicates.
+                      <DiGraphEdge<Node, ControlFlowGraph.Branch>>alwaysTrue(),
+                  false);
+-        if (pathCheck.somePathsSatisfyPredicate()) {
+-          return false;
+-        }
++        return false;
+       }
+ 
+       return true;
+
+
+--- a/src/com/google/javascript/jscomp/CheckPathsBetweenNodes.java
++++ b/src/com/google/javascript/jscomp/CheckPathsBetweenNodes.java
+@@ -206,11 +206,6 @@
+       return false;
+     }
+     for (DiGraphEdge<N, E> e : a.getOutEdges()) {
+-      // Once we visited that edge once, we no longer need to
+-      // re-visit it again.
+-      if (e.getAnnotation() == VISITED_EDGE) {
+-        continue;
+-      }
+       e.setAnnotation(VISITED_EDGE);
+ 
+       if (ignoreEdge(e)) {
+
+

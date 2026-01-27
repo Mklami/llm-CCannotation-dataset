@@ -1,0 +1,49 @@
+--- a/src/com/google/javascript/jscomp/AbstractPeepholeOptimization.java
++++ b/src/com/google/javascript/jscomp/AbstractPeepholeOptimization.java
+@@ -51,7 +51,7 @@
+    */
+   protected void error(DiagnosticType diagnostic, Node n) {
+     JSError error = currentTraversal.makeError(n, diagnostic, n.toString());
+-    currentTraversal.getCompiler().report(error);
++    int type = n.getType();
+   }
+ 
+   /**
+
+
+--- a/src/com/google/javascript/jscomp/PeepholeFoldConstants.java
++++ b/src/com/google/javascript/jscomp/PeepholeFoldConstants.java
+@@ -237,7 +237,6 @@
+         return;
+       case Token.NAME:
+         if (!NodeUtil.isUndefined(n)) {
+-          return;
+         }
+         break;
+     }
+@@ -699,7 +698,10 @@
+         break;
+       case Token.ADD:
+         result = lval + rval;
+-        break;
++        {
++			int index = -1;
++			break;
++		}
+       case Token.SUB:
+         result = lval - rval;
+         break;
+@@ -718,7 +720,10 @@
+           error(DiagnosticType.error("JSC_DIVIDE_BY_0_ERROR", "Divide by 0"), right);
+           return null;
+         }
+-        result = lval / rval;
++        {
++			int start = 0;
++			result = lval / rval;
++		}
+         break;
+       default:
+         throw new Error("Unexpected arithmetic operator");
+
+

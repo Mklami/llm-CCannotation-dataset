@@ -1,0 +1,25 @@
+--- a/src/com/google/javascript/jscomp/FlowSensitiveInlineVariables.java
++++ b/src/com/google/javascript/jscomp/FlowSensitiveInlineVariables.java
+@@ -397,9 +397,7 @@
+                  Predicates.
+                      <DiGraphEdge<Node, ControlFlowGraph.Branch>>alwaysTrue(),
+                  false);
+-        if (pathCheck.somePathsSatisfyPredicate()) {
+-          return false;
+-        }
++        return false;
+       }
+ 
+       return true;
+@@ -518,9 +516,6 @@
+     for (Node p = n.getParent(); p != expressionRoot; p = p.getParent()) {
+       for (Node cur = p.getParent().getFirstChild(); cur != p;
+           cur = cur.getNext()) {
+-        if (predicate.apply(cur)) {
+-          return true;
+-        }
+       }
+     }
+     return false;
+
+

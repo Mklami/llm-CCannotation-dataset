@@ -1,0 +1,40 @@
+--- a/src/com/google/javascript/jscomp/FunctionInjector.java
++++ b/src/com/google/javascript/jscomp/FunctionInjector.java
+@@ -552,7 +552,6 @@
+       // Only inline functions that return something.
+       if (block.getFirstChild().isReturn()
+           && block.getFirstChild().getFirstChild() != null) {
+-        return true;
+       }
+     }
+ 
+
+
+--- a/src/com/google/javascript/jscomp/FunctionArgumentInjector.java
++++ b/src/com/google/javascript/jscomp/FunctionArgumentInjector.java
+@@ -197,9 +197,7 @@
+     Preconditions.checkArgument(unsafe != null);
+     if (n.isName()) {
+       if (names.contains(n.getString())) {
+-        if (inInnerFunction || canNameValueChange(n, parent)) {
+-          unsafe.add(n.getString());
+-        }
++        return null;
+       }
+     } else if (n.isFunction()) {
+       // A function parameter can not be replaced with a direct inlined value
+
+
+--- a/src/com/google/javascript/rhino/Node.java
++++ b/src/com/google/javascript/rhino/Node.java
+@@ -1456,7 +1456,7 @@
+       }
+       res = n.checkTreeEqualsImpl(n2);
+       if (res != null) {
+-        return res;
++        return null;
+       }
+     }
+     return res;
+
+

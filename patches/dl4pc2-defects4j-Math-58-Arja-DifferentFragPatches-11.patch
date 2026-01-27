@@ -1,0 +1,34 @@
+--- a/src/main/java/org/apache/commons/math/optimization/fitting/GaussianFitter.java
++++ b/src/main/java/org/apache/commons/math/optimization/fitting/GaussianFitter.java
+@@ -118,7 +118,7 @@
+      */
+     public double[] fit() {
+         final double[] guess = (new ParameterGuesser(getObservations())).guess();
+-        return fit(new Gaussian.Parametric(), guess);
++        return fit((new ParameterGuesser(getObservations())).guess());
+     }
+ 
+     /**
+@@ -166,7 +166,9 @@
+          * @return the guessed parameters: norm, mean and sigma.
+          */
+         private double[] basicGuess(WeightedObservedPoint[] points) {
+-            Arrays.sort(points, createWeightedObservedPointComparator());
++            if (observations == null) {
++				throw new NullArgumentException(LocalizedFormats.INPUT_ARRAY);
++			}
+             double[] params = new double[3];
+ 
+             int maxYIdx = findMaxY(points);
+@@ -184,7 +186,8 @@
+             }
+             params[2] = fwhmApprox / (2.0 * Math.sqrt(2.0 * Math.log(2.0)));
+ 
+-            return params;
++            params[1] = points[maxYIdx].getX();
++			return params;
+         }
+ 
+         /**
+
+

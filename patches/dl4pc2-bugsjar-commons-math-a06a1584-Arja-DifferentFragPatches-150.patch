@@ -1,0 +1,29 @@
+--- a/src/main/java/org/apache/commons/math4/geometry/euclidean/threed/PolyhedronsSet.java
++++ b/src/main/java/org/apache/commons/math4/geometry/euclidean/threed/PolyhedronsSet.java
+@@ -273,7 +273,13 @@
+         final boolean in    = FastMath.abs(offset) < 1.0e-10;
+         final BSPTree<Euclidean3D> near;
+         final BSPTree<Euclidean3D> far;
+-        if (offset < 0) {
++        if (in) {
++			final SubHyperplane<Euclidean3D> facet = boundaryFacet(point, node);
++			if (facet != null) {
++				return facet;
++			}
++		}
++		if (offset < 0) {
+             near = minus;
+             far  = plus;
+         } else {
+@@ -300,9 +306,6 @@
+             final Vector3D hit3D = plane.intersection(line);
+             if (hit3D != null) {
+                 final SubHyperplane<Euclidean3D> facet = boundaryFacet(hit3D, node);
+-                if (facet != null) {
+-                    return facet;
+-                }
+             }
+         }
+ 
+
+

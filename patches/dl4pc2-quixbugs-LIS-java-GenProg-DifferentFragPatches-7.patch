@@ -1,0 +1,32 @@
+--- a/quixbugs-LIS-java.java
++++ b/quixbugs-LIS-java.java
+@@ -11,9 +11,8 @@
+  */
+ public class LIS {
+     public static int lis(int[] arr) {
+-        Map<Integer,Integer> ends = new HashMap<Integer, Integer>(100);
+         int longest = 0;
+-
++		Map<Integer,Integer> ends = new HashMap<Integer, Integer>(100);
+         int i = 0;
+         for (int val : arr) {
+ 
+@@ -24,10 +23,13 @@
+                 }
+             }
+ 
+-            int length = !prefix_lengths.isEmpty() ? Collections.max(prefix_lengths) : 0;
++            int length = !prefix_lengths.isEmpty() ? Collections
++					.max(prefix_lengths) : 0;
+ 
+-            if (length == longest || val < arr[ends.get(length+1)]) {
+-                ends.put(length+1, i);
++            ends.put(length + 1, i);
++			ends.put(length + 1, i);
++			ends.put(length + 1, i);
++			if (length == longest || val < arr[ends.get(length+1)]) {
+                 longest = length + 1;
+             }
+ 
+
+

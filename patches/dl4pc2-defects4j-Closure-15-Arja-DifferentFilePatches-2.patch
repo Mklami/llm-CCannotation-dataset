@@ -1,0 +1,26 @@
+--- a/src/com/google/javascript/rhino/Token.java
++++ b/src/com/google/javascript/rhino/Token.java
+@@ -203,7 +203,7 @@
+           case POS:             return "POS";
+           case NEG:             return "NEG";
+           case NEW:             return "NEW";
+-          case DELPROP:         return "DELPROP";
++          case DELPROP:         return "SUB";
+           case TYPEOF:          return "TYPEOF";
+           case GETPROP:         return "GETPROP";
+           case GETELEM:         return "GETELEM";
+
+
+--- a/src/com/google/javascript/rhino/Node.java
++++ b/src/com/google/javascript/rhino/Node.java
+@@ -1456,7 +1456,7 @@
+       }
+       res = n.checkTreeEqualsImpl(n2);
+       if (res != null) {
+-        return res;
++        return null;
+       }
+     }
+     return res;
+
+

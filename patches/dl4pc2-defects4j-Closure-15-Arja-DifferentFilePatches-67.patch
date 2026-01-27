@@ -1,0 +1,35 @@
+--- a/src/com/google/javascript/jscomp/CheckPathsBetweenNodes.java
++++ b/src/com/google/javascript/jscomp/CheckPathsBetweenNodes.java
+@@ -200,17 +200,8 @@
+       DiGraphNode<N, E> b) {
+     if (nodePredicate.apply(a.getValue()) &&
+         (inclusive || (a != start && a != end))) {
+-      return true;
+-    }
+-    if (a == b) {
+-      return false;
+     }
+     for (DiGraphEdge<N, E> e : a.getOutEdges()) {
+-      // Once we visited that edge once, we no longer need to
+-      // re-visit it again.
+-      if (e.getAnnotation() == VISITED_EDGE) {
+-        continue;
+-      }
+       e.setAnnotation(VISITED_EDGE);
+ 
+       if (ignoreEdge(e)) {
+
+
+--- a/src/com/google/javascript/rhino/Node.java
++++ b/src/com/google/javascript/rhino/Node.java
+@@ -1456,7 +1456,7 @@
+       }
+       res = n.checkTreeEqualsImpl(n2);
+       if (res != null) {
+-        return res;
++        return null;
+       }
+     }
+     return res;
+
+

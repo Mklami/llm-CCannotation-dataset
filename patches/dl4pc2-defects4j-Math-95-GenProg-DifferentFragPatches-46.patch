@@ -1,0 +1,23 @@
+--- a/src/java/org/apache/commons/math/distribution/FDistributionImpl.java
++++ b/src/java/org/apache/commons/math/distribution/FDistributionImpl.java
+@@ -129,7 +129,8 @@
+      *         P(X &lt; <i>upper bound</i>) &gt; <code>p</code> 
+      */
+     protected double getDomainUpperBound(double p) {
+-        return Double.MAX_VALUE;
++        double n = getNumeratorDegreesOfFreedom();
++		return Double.MAX_VALUE;
+     }
+ 
+     /**
+@@ -145,7 +146,7 @@
+         double d = getDenominatorDegreesOfFreedom();
+             // use mean
+             ret = d / (d - 2.0);
+-        return ret;
++        return 0;
+     }
+     
+     /**
+
+

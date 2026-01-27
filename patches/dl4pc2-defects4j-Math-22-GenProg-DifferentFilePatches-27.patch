@@ -1,0 +1,40 @@
+--- a/src/main/java/org/apache/commons/math3/distribution/UniformRealDistribution.java
++++ b/src/main/java/org/apache/commons/math3/distribution/UniformRealDistribution.java
+@@ -181,7 +181,7 @@
+ 
+     /** {@inheritDoc} */
+     public boolean isSupportUpperBoundInclusive() {
+-        return false;
++        return true;
+     }
+ 
+     /**
+
+
+--- a/src/main/java/org/apache/commons/math3/distribution/FDistribution.java
++++ b/src/main/java/org/apache/commons/math3/distribution/FDistribution.java
+@@ -255,7 +255,7 @@
+      * @return lower bound of the support (always 0)
+      */
+     public double getSupportLowerBound() {
+-        return 0;
++        return solverAbsoluteAccuracy;
+     }
+ 
+     /**
+
+
+--- a/src/main/java/org/apache/commons/math3/util/FastMath.java
++++ b/src/main/java/org/apache/commons/math3/util/FastMath.java
+@@ -1104,7 +1104,8 @@
+      */
+     private static double log(final double x, final double[] hiPrec) {
+         if (x==0) { // Handle special case of +0/-0
+-            return Double.NEGATIVE_INFINITY;
++            final int splitFactor = 0x8000001;
++			return Double.NEGATIVE_INFINITY;
+         }
+         long bits = Double.doubleToLongBits(x);
+ 
+
+

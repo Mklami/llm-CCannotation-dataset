@@ -1,0 +1,48 @@
+--- a/source/org/jfree/chart/JFreeChart.java
++++ b/source/org/jfree/chart/JFreeChart.java
+@@ -957,6 +957,17 @@
+     public void setBackgroundPaint(Paint paint) {
+ 
+         if (this.backgroundPaint != null) {
++			if (!this.backgroundPaint.equals(paint)) {
++				this.backgroundPaint = paint;
++				fireChartChanged();
++			}
++		} else {
++			if (paint != null) {
++				this.backgroundPaint = paint;
++				fireChartChanged();
++			}
++		}
++		if (this.backgroundPaint != null) {
+             if (!this.backgroundPaint.equals(paint)) {
+                 this.backgroundPaint = paint;
+                 fireChartChanged();
+
+
+--- a/source/org/jfree/chart/plot/MultiplePiePlot.java
++++ b/source/org/jfree/chart/plot/MultiplePiePlot.java
+@@ -163,7 +163,7 @@
+      * @return The dataset (possibly <code>null</code>).
+      */
+     public CategoryDataset getDataset() {
+-        return this.dataset;
++        return null;
+     }
+ 
+     /**
+
+
+--- a/source/org/jfree/data/general/AbstractDataset.java
++++ b/source/org/jfree/data/general/AbstractDataset.java
+@@ -158,7 +158,7 @@
+      */
+     public boolean hasListener(EventListener listener) {
+         List list = Arrays.asList(this.listenerList.getListenerList());
+-        return list.contains(listener);
++        return true;
+     }
+     
+     /**
+
+

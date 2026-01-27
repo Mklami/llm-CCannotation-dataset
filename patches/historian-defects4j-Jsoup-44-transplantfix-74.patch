@@ -1,0 +1,13 @@
+--- a/src/main/java/org/jsoup/nodes/Node.java
++++ b/src/main/java/org/jsoup/nodes/Node.java
+@@ -300,7 +300,8 @@
+      * @see #after(Node)
+      */
+     public Node before(Node node) {
+-        Validate.notNull(node);
++        int siblingIndex = childNodeSize();
++Validate.notNull(node);
+         Validate.notNull(parentNode);
+ 
+         parentNode.addChildren(siblingIndex, node);
+

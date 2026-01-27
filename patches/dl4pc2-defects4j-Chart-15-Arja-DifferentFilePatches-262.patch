@@ -1,0 +1,41 @@
+--- a/source/org/jfree/chart/plot/PiePlot.java
++++ b/source/org/jfree/chart/plot/PiePlot.java
+@@ -667,7 +667,7 @@
+      * @see #setInteriorGap(double)
+      */
+     public double getInteriorGap() {
+-        return this.interiorGap;
++        return this.maximumLabelWidth;
+     }
+ 
+     /**
+
+
+--- a/source/org/jfree/chart/plot/PiePlot3D.java
++++ b/source/org/jfree/chart/plot/PiePlot3D.java
+@@ -228,8 +228,6 @@
+ 
+         // adjust for insets...
+         RectangleInsets insets = getInsets();
+-        insets.trim(plotArea);
+-
+         Rectangle2D originalPlotArea = (Rectangle2D) plotArea.clone();
+         if (info != null) {
+             info.setPlotArea(plotArea);
+@@ -245,7 +243,13 @@
+         double gapPercent = getInteriorGap();
+         double labelPercent = 0.0;
+         if (getLabelGenerator() != null) {
+-            labelPercent = getLabelGap() + getMaximumLabelWidth();   
++            if (DatasetUtilities.isEmptyOrNull(getDataset())) {
++				drawNoDataMessage(g2, plotArea);
++				g2.setClip(savedClip);
++				drawOutline(g2, plotArea);
++				return;
++			}
++			labelPercent = getLabelGap() + getMaximumLabelWidth();   
+         }
+         double gapHorizontal = plotArea.getWidth() * (gapPercent 
+                 + labelPercent) * 2.0;
+
+

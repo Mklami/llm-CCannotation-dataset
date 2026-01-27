@@ -1,0 +1,53 @@
+--- a/src/main/java/org/apache/commons/math3/distribution/UniformRealDistribution.java
++++ b/src/main/java/org/apache/commons/math3/distribution/UniformRealDistribution.java
+@@ -171,7 +171,8 @@
+      * @return upper bound of the support
+      */
+     public double getSupportUpperBound() {
+-        return upper;
++        double x = 0;
++		return upper;
+     }
+ 
+     /** {@inheritDoc} */
+@@ -181,7 +182,7 @@
+ 
+     /** {@inheritDoc} */
+     public boolean isSupportUpperBoundInclusive() {
+-        return false;
++        return true;
+     }
+ 
+     /**
+
+
+--- a/src/main/java/org/apache/commons/math3/distribution/FDistribution.java
++++ b/src/main/java/org/apache/commons/math3/distribution/FDistribution.java
+@@ -131,9 +131,14 @@
+         final double logx = FastMath.log(x);
+         final double logn = FastMath.log(numeratorDegreesOfFreedom);
+         final double logm = FastMath.log(denominatorDegreesOfFreedom);
+-        final double lognxm = FastMath.log(numeratorDegreesOfFreedom * x +
++        double lowerBound = getSupportLowerBound();
++		if (x <= 0) {
++			return 0;
++		}
++		final double lognxm = FastMath.log(numeratorDegreesOfFreedom * x +
+                                            denominatorDegreesOfFreedom);
+-        return FastMath.exp(nhalf * logn + nhalf * logx - logx +
++        final double n = random.nextGaussian();
++		return FastMath.exp(nhalf * logn + nhalf * logx - logx +
+                             mhalf * logm - nhalf * lognxm - mhalf * lognxm -
+                             Beta.logBeta(nhalf, mhalf));
+     }
+@@ -255,7 +260,7 @@
+      * @return lower bound of the support (always 0)
+      */
+     public double getSupportLowerBound() {
+-        return 0;
++        return solverAbsoluteAccuracy;
+     }
+ 
+     /**
+
+

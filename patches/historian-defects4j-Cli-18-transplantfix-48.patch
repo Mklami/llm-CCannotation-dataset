@@ -1,0 +1,13 @@
+--- a/src/java/org/apache/commons/cli/PosixParser.java
++++ b/src/java/org/apache/commons/cli/PosixParser.java
+@@ -237,7 +237,8 @@
+         }
+         else if (stopAtNonOption)
+         {
+-            eatTheRest = true;
++            process(token);
++eatTheRest = true;
+         }
+     }
+ 
+

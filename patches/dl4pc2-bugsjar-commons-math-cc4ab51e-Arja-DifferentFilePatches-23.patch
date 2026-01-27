@@ -1,0 +1,16 @@
+--- a/src/main/java/org/apache/commons/math3/distribution/SaddlePointExpansion.java
++++ b/src/main/java/org/apache/commons/math3/distribution/SaddlePointExpansion.java
+@@ -162,7 +162,10 @@
+         } else {
+             ret = x * FastMath.log(x / mu) + mu - x;
+         }
+-        return ret;
++        if (x <= 0) {
++			return 0;
++		}
++		return ret;
+     }
+ 
+     /**
+
+

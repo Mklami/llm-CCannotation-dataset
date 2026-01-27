@@ -1,0 +1,50 @@
+--- a/src/com/google/javascript/rhino/jstype/JSType.java
++++ b/src/com/google/javascript/rhino/jstype/JSType.java
+@@ -618,7 +618,6 @@
+     }
+ 
+     if (isTemplateType() && that.isTemplateType()) {
+-      return this == that;
+     }
+ 
+     // Unbox other proxies.
+
+
+--- a/src/com/google/javascript/jscomp/TypeInference.java
++++ b/src/com/google/javascript/jscomp/TypeInference.java
+@@ -1046,10 +1046,6 @@
+     }
+ 
+     if (call.hasMoreThanOneChild()) {
+-      maybeResolveTemplateTypeFromNodes(
+-          fnType.getParameters(),
+-          call.getChildAtIndex(1).siblings(),
+-          resolvedTypes);
+     }
+     return resolvedTypes;
+   }
+@@ -1130,14 +1126,6 @@
+           getJSType(declParam),
+           getJSType(callParams.next()),
+           resolvedTypes);
+-      if (declParam.isVarArgs()) {
+-        while (callParams.hasNext()) {
+-          maybeResolveTemplatedType(
+-              getJSType(declParam),
+-              getJSType(callParams.next()),
+-              resolvedTypes);
+-        }
+-      }
+     }
+   }
+ 
+@@ -1168,7 +1156,6 @@
+ 
+     @Override
+     public JSType caseTemplateType(TemplateType type) {
+-      madeChanges = true;
+       JSType replacement = replacements.get(type);
+       return replacement != null ?
+           replacement : registry.getNativeType(UNKNOWN_TYPE);
+
+

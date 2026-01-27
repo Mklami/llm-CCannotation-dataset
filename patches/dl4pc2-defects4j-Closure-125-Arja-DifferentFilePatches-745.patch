@@ -1,0 +1,34 @@
+--- a/src/com/google/javascript/jscomp/type/SemanticReverseAbstractInterpreter.java
++++ b/src/com/google/javascript/jscomp/type/SemanticReverseAbstractInterpreter.java
+@@ -199,11 +199,7 @@
+         }
+ 
+       case Token.SHEQ:
+-        if (outcome) {
+-          return caseEquality(condition, blindScope, SHEQ);
+-        } else {
+-          return caseEquality(condition, blindScope, SHNE);
+-        }
++        ;
+ 
+       case Token.SHNE:
+         if (outcome) {
+
+
+--- a/src/com/google/javascript/jscomp/TypeCheck.java
++++ b/src/com/google/javascript/jscomp/TypeCheck.java
+@@ -674,12 +674,6 @@
+             result = result.not();
+           }
+         } else {
+-          // SHEQ or SHNE
+-          if (!leftTypeRestricted.canTestForShallowEqualityWith(
+-                  rightTypeRestricted)) {
+-            result = n.getType() == Token.SHEQ ?
+-                TernaryValue.FALSE : TernaryValue.TRUE;
+-          }
+         }
+ 
+         if (result != TernaryValue.UNKNOWN) {
+
+

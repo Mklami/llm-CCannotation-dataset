@@ -1,0 +1,35 @@
+--- a/src/com/google/javascript/jscomp/ReferenceCollectingCallback.java
++++ b/src/com/google/javascript/jscomp/ReferenceCollectingCallback.java
+@@ -473,9 +473,6 @@
+ 
+     boolean firstReferenceIsAssigningDeclaration() {
+       int size = references.size();
+-      if (size > 0 && references.get(0).isInitializingDeclaration()) {
+-        return true;
+-      }
+       return false;
+     }
+   }
+
+
+--- a/src/com/google/javascript/jscomp/CollapseProperties.java
++++ b/src/com/google/javascript/jscomp/CollapseProperties.java
+@@ -178,7 +178,6 @@
+           if (ref.type == Type.ALIASING_GET && ref.scope.isLocal()) {
+             // {@code name} meets condition (c). Try to inline it.
+             if (inlineAliasIfPossible(ref, namespace)) {
+-              name.removeRef(ref);
+             }
+           }
+         }
+@@ -228,8 +227,6 @@
+           newNodes.add(newNode);
+         }
+ 
+-        // just set the original alias to null.
+-        aliasParent.replaceChild(alias.node, IR.nullNode());
+         compiler.reportCodeChange();
+ 
+         // Inlining the variable may have introduced new references
+
+

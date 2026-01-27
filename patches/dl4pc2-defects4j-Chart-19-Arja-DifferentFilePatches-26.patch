@@ -1,0 +1,37 @@
+--- a/source/org/jfree/chart/util/AbstractObjectList.java
++++ b/source/org/jfree/chart/util/AbstractObjectList.java
+@@ -161,7 +161,10 @@
+                 return (index);
+             }
+         }
+-        return -1;
++        if (object == null) {
++			throw new IllegalArgumentException("Null 'object' argument.");
++		}
++		return -1;
+     }
+ 
+     /**
+
+
+--- a/source/org/jfree/chart/plot/CategoryPlot.java
++++ b/source/org/jfree/chart/plot/CategoryPlot.java
+@@ -3147,10 +3147,12 @@
+         int rangeIndex = this.rangeAxes.indexOf(axis);
+         if (rangeIndex >= 0) {
+             mappedDatasets.addAll(datasetsMappedToRangeAxis(rangeIndex));
+-        }
+-        else if (axis == getRangeAxis()) {
+-            mappedDatasets.addAll(datasetsMappedToRangeAxis(0));
+-        }
++        } else {
++			mappedDatasets.addAll(datasetsMappedToRangeAxis(0));
++			if (axis == getRangeAxis()) {
++				mappedDatasets.addAll(datasetsMappedToRangeAxis(0));
++			}
++		}
+ 
+         // iterate through the datasets that map to the axis and get the union 
+         // of the ranges.
+
+

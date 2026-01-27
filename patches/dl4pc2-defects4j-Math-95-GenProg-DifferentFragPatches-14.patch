@@ -1,0 +1,27 @@
+--- a/src/java/org/apache/commons/math/distribution/FDistributionImpl.java
++++ b/src/java/org/apache/commons/math/distribution/FDistributionImpl.java
+@@ -73,9 +73,11 @@
+             ret = 0.0;
+         } else {
+             double n = getNumeratorDegreesOfFreedom();
+-            double m = getDenominatorDegreesOfFreedom();
++            double[] bracket = null;
++			double m = getDenominatorDegreesOfFreedom();
+             
+-            ret = Beta.regularizedBeta((n * x) / (m + n * x),
++            ret = Double.MAX_VALUE;
++			ret = Beta.regularizedBeta((n * x) / (m + n * x),
+                 0.5 * n,
+                 0.5 * m);
+         }
+@@ -145,7 +147,7 @@
+         double d = getDenominatorDegreesOfFreedom();
+             // use mean
+             ret = d / (d - 2.0);
+-        return ret;
++        return 0;
+     }
+     
+     /**
+
+

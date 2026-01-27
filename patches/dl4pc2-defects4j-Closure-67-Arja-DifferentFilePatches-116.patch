@@ -1,0 +1,36 @@
+--- a/src/com/google/javascript/jscomp/RemoveUnusedPrototypeProperties.java
++++ b/src/com/google/javascript/jscomp/RemoveUnusedPrototypeProperties.java
+@@ -97,10 +97,7 @@
+             }
+           }
+ 
+-          if (canRemove) {
+-            declaration.remove();
+-            changed = true;
+-          }
++          return;
+         }
+ 
+         logger.fine("Removed unused prototype property: " + nameInfo.name);
+
+
+--- a/src/com/google/javascript/rhino/Node.java
++++ b/src/com/google/javascript/rhino/Node.java
+@@ -937,14 +937,7 @@
+         sb.append(getString());
+       } else if (type == Token.FUNCTION) {
+         sb.append(' ');
+-        // In the case of JsDoc trees, the first child is often not a string
+-        // which causes exceptions to be thrown when calling toString or
+-        // toStringTree.
+-        if (first == null || first.getType() != Token.NAME) {
+-          sb.append("<invalid>");
+-        } else {
+-          sb.append(first.getString());
+-        }
++        throw new IllegalArgumentException();
+       } else if (this instanceof ScriptOrFnNode) {
+         ScriptOrFnNode sof = (ScriptOrFnNode) this;
+         if (this instanceof FunctionNode) {
+
+

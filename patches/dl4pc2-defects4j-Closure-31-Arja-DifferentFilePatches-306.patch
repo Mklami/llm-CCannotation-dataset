@@ -1,0 +1,38 @@
+--- a/src/com/google/javascript/rhino/Node.java
++++ b/src/com/google/javascript/rhino/Node.java
+@@ -1456,7 +1456,7 @@
+       }
+       res = n.checkTreeEqualsImpl(n2);
+       if (res != null) {
+-        return res;
++        return null;
+       }
+     }
+     return res;
+
+
+--- a/src/com/google/javascript/jscomp/CompilerOptions.java
++++ b/src/com/google/javascript/jscomp/CompilerOptions.java
+@@ -1275,7 +1275,6 @@
+    * This supercedes manageClosureDependencies.
+    */
+   public void setDependencyOptions(DependencyOptions options) {
+-    Preconditions.checkNotNull(options);
+     this.dependencyOptions = options;
+   }
+ 
+
+
+--- a/src/com/google/javascript/jscomp/CompilationLevel.java
++++ b/src/com/google/javascript/jscomp/CompilationLevel.java
+@@ -53,7 +53,7 @@
+   public void setOptionsForCompilationLevel(CompilerOptions options) {
+     switch (this) {
+       case WHITESPACE_ONLY:
+-        applyBasicCompilationOptions(options);
++        ;
+         break;
+       case SIMPLE_OPTIMIZATIONS:
+         applySafeCompilationOptions(options);
+
+

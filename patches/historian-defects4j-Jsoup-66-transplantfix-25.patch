@@ -1,0 +1,11 @@
+--- a/src/main/java/org/jsoup/nodes/Element.java
++++ b/src/main/java/org/jsoup/nodes/Element.java
+@@ -85,6 +85,7 @@
+     }
+ 
+     protected List<Node> ensureChildNodes() {
++shadowChildrenRef = null;
+         if (childNodes == EMPTY_NODES) {
+             childNodes = new NodeList(4);
+         }
+

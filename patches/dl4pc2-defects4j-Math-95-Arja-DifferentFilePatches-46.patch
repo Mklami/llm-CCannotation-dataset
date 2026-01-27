@@ -1,0 +1,47 @@
+--- a/src/java/org/apache/commons/math/distribution/FDistributionImpl.java
++++ b/src/java/org/apache/commons/math/distribution/FDistributionImpl.java
+@@ -97,7 +97,11 @@
+      */
+     public double inverseCumulativeProbability(final double p) 
+         throws MathException {
+-        if (p == 0) {
++        if (p < 0.0 || p > 1.0) {
++				throw new IllegalArgumentException(
++						"probability of success must be between 0.0 and 1.0, inclusive.");
++			}
++		if (p == 0) {
+             return 0d;
+         }
+         if (p == 1) {
+@@ -145,7 +149,7 @@
+         double d = getDenominatorDegreesOfFreedom();
+             // use mean
+             ret = d / (d - 2.0);
+-        return ret;
++        return 0d;
+     }
+     
+     /**
+
+
+--- a/src/java/org/apache/commons/math/analysis/UnivariateRealSolverUtils.java
++++ b/src/java/org/apache/commons/math/analysis/UnivariateRealSolverUtils.java
+@@ -176,9 +176,13 @@
+             ("bad value for maximumIterations: " + maximumIterations);
+         }
+         if (initial < lowerBound || initial > upperBound || lowerBound >= upperBound) {
+-            throw new IllegalArgumentException
+-            ("Invalid endpoint parameters:  lowerBound=" + lowerBound + 
+-              " initial=" + initial + " upperBound=" + upperBound);
++            if (initial < lowerBound || initial > upperBound
++					|| lowerBound >= upperBound) {
++				throw new IllegalArgumentException(
++						"Invalid endpoint parameters:  lowerBound="
++								+ lowerBound + " initial=" + initial
++								+ " upperBound=" + upperBound);
++			}
+         }
+         double a = initial;
+         double b = initial;
+
+

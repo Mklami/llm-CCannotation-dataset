@@ -1,0 +1,31 @@
+--- a/src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java
++++ b/src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java
+@@ -1470,14 +1470,12 @@
+                         tType = -3;
+                     }
+                 } else {
+-                    // case 4.
+-                    tType = -4;
++                    cachedV = null;
+                     double s = 0.25 * dMin;
+                     double gam;
+                     int np;
+                     if (dMin == dN) {
+                         gam = dN;
+-                        a2 = 0.0;
+                         if (work[nn - 5]  >  work[nn - 7]) {
+                             return;
+                         }
+@@ -1501,7 +1499,9 @@
+                     // approximate contribution to norm squared from i < nn-1.
+                     a2 = a2 + b2;
+                     for (int i4 = np; i4 >= 4 * start + 2 + pingPong; i4 -= 4) {
+-                        if(b2 == 0.0) {
++                        cachedD = MatrixUtils
++								.createRealDiagonalMatrix(realEigenvalues);
++						if(b2 == 0.0) {
+                             break;
+                         }
+                         b1 = b2;
+
+

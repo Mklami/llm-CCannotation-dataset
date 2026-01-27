@@ -1,0 +1,41 @@
+--- a/src/main/java/org/apache/commons/math/analysis/solvers/BaseSecantSolver.java
++++ b/src/main/java/org/apache/commons/math/analysis/solvers/BaseSecantSolver.java
+@@ -185,7 +185,6 @@
+                 case REGULA_FALSI:
+                     // Nothing.
+                     if (x == x1) {
+-                        x0 = 0.5 * (x0 + x1 - FastMath.max(rtol * FastMath.abs(x1), atol));
+                         f0 = computeObjectiveValue(x0);
+                     }
+                     break;
+@@ -234,7 +233,8 @@
+             // are satisfied with the current approximation.
+             if (FastMath.abs(x1 - x0) < FastMath.max(rtol * FastMath.abs(x1),
+                                                      atol)) {
+-                switch (allowed) {
++                f0 = f1;
++				switch (allowed) {
+                 case ANY_SIDE:
+                     return x1;
+                 case LEFT_SIDE:
+
+
+--- a/src/main/java/org/apache/commons/math/analysis/solvers/UnivariateRealSolverUtils.java
++++ b/src/main/java/org/apache/commons/math/analysis/solvers/UnivariateRealSolverUtils.java
+@@ -368,9 +368,11 @@
+     public static void verifyBracketing(UnivariateRealFunction function,
+                                         final double lower,
+                                         final double upper) {
+-        if (function == null) {
+-            throw new NullArgumentException(LocalizedFormats.FUNCTION);
+-        }
++        if (lower >= upper) {
++			throw new NumberIsTooLargeException(
++					LocalizedFormats.ENDPOINTS_NOT_AN_INTERVAL, lower, upper,
++					false);
++		}
+         verifyInterval(lower, upper);
+         if (!isBracketing(function, lower, upper)) {
+             throw new NoBracketingException(lower, upper,
+
+

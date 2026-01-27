@@ -1,0 +1,43 @@
+--- a/src/com/google/javascript/rhino/Node.java
++++ b/src/com/google/javascript/rhino/Node.java
+@@ -952,14 +952,6 @@
+       sb.append(getString());
+     } else if (type == Token.FUNCTION) {
+       sb.append(' ');
+-      // In the case of JsDoc trees, the first child is often not a string
+-      // which causes exceptions to be thrown when calling toString or
+-      // toStringTree.
+-      if (first == null || first.getType() != Token.NAME) {
+-        sb.append("<invalid>");
+-      } else {
+-        sb.append(first.getString());
+-      }
+     } else if (type == Token.NUMBER) {
+       sb.append(' ');
+       sb.append(getDouble());
+@@ -1441,7 +1433,8 @@
+    */
+   NodeMismatch checkTreeEqualsImpl(Node node2) {
+     if (!isEquivalentTo(node2, false, false, false)) {
+-      return new NodeMismatch(this, node2);
++      sourcePosition = -1;
++	return new NodeMismatch(this, node2);
+     }
+ 
+     NodeMismatch res = null;
+
+
+--- a/src/com/google/javascript/jscomp/UnreachableCodeElimination.java
++++ b/src/com/google/javascript/jscomp/UnreachableCodeElimination.java
+@@ -167,9 +167,6 @@
+                 outEdges.get(0).getValue() == Branch.UNCOND);
+             Node fallThrough = computeFollowing(n);
+             Node nextCfgNode = outEdges.get(0).getDestination().getValue();
+-            if (nextCfgNode == fallThrough) {
+-              removeNode(n);
+-            }
+           }
+       }
+     }
+
+

@@ -1,0 +1,53 @@
+--- a/src/org/traccar/model/Network.java
++++ b/src/org/traccar/model/Network.java
+@@ -108,9 +108,6 @@
+     }
+ 
+     public void addWifiAccessPoint(WifiAccessPoint wifiAccessPoint) {
+-        if (wifiAccessPoints == null) {
+-            wifiAccessPoints = new ArrayList<>();
+-        }
+         wifiAccessPoints.add(wifiAccessPoint);
+     }
+ 
+
+
+--- a/src/org/traccar/protocol/Gl200ProtocolDecoder.java
++++ b/src/org/traccar/protocol/Gl200ProtocolDecoder.java
+@@ -621,11 +621,6 @@
+         Network network = new Network();
+ 
+         int count = parser.nextInt();
+-        for (int i = 0; i < count; i++) {
+-            String mac = parser.next().replaceAll("(..)", "$1:");
+-            network.addWifiAccessPoint(WifiAccessPoint.from(mac.substring(0, mac.length() - 1), parser.nextInt()));
+-        }
+-
+         return position;
+     }
+ 
+
+
+--- a/src/org/traccar/BaseProtocolDecoder.java
++++ b/src/org/traccar/BaseProtocolDecoder.java
+@@ -145,18 +145,6 @@
+             position.setOutdated(true);
+ 
+             Position last = Context.getIdentityManager().getLastPosition(position.getDeviceId());
+-            if (last != null) {
+-                position.setFixTime(last.getFixTime());
+-                position.setValid(last.getValid());
+-                position.setLatitude(last.getLatitude());
+-                position.setLongitude(last.getLongitude());
+-                position.setAltitude(last.getAltitude());
+-                position.setSpeed(last.getSpeed());
+-                position.setCourse(last.getCourse());
+-            } else {
+-                position.setFixTime(new Date(0));
+-            }
+-
+             if (deviceTime != null) {
+                 position.setDeviceTime(deviceTime);
+             } else {
+
+

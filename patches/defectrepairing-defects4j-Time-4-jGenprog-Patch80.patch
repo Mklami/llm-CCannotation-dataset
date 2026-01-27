@@ -1,0 +1,12 @@
+diff -w -r -u Time4b/src/main/java/org/joda/time/field/ZeroIsMaxDateTimeField.java Time4b_Patch80/src/main/java/org/joda/time/field/ZeroIsMaxDateTimeField.java
+--- a/src/main/java/org/joda/time/field/ZeroIsMaxDateTimeField.java
++++ b/src/main/java/org/joda/time/field/ZeroIsMaxDateTimeField.java
+@@ -135,7 +135,7 @@
+      * @return the minimum value of 1
+      */
+     public int getMinimumValue(ReadablePartial instant, int[] values) {
+-        return 1;
++        return (getWrappedField().getMaximumValue()) + 1;
+     }
+ 
+     /**

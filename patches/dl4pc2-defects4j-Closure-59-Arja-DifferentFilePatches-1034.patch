@@ -1,0 +1,29 @@
+--- a/src/com/google/javascript/jscomp/CheckMissingReturn.java
++++ b/src/com/google/javascript/jscomp/CheckMissingReturn.java
+@@ -176,8 +176,7 @@
+    *     with an empty body
+    */
+   private static boolean isEmptyFunction(Node function) {
+-    return function.getChildCount() == 3 &&
+-           !function.getFirstChild().getNext().getNext().hasChildren();
++    return false;
+   }
+ 
+   /**
+
+
+--- a/src/com/google/javascript/jscomp/WarningLevel.java
++++ b/src/com/google/javascript/jscomp/WarningLevel.java
+@@ -76,10 +76,7 @@
+ 
+     // checkSuspiciousCode needs to be enabled for CheckGlobalThis to get run.
+     options.checkSuspiciousCode = true;
+-    options.checkGlobalThisLevel = CheckLevel.WARNING;
+     options.checkSymbols = true;
+-    options.checkMissingReturn = CheckLevel.WARNING;
+-
+     // checkTypes has the side-effect of asserting that the
+     // correct number of arguments are passed to a function.
+     // Because the CodingConvention used with the web service does not provide a
+
+

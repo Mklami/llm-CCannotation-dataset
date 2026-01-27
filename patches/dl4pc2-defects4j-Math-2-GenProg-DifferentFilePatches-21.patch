@@ -1,0 +1,28 @@
+--- a/src/main/java/org/apache/commons/math3/distribution/AbstractIntegerDistribution.java
++++ b/src/main/java/org/apache/commons/math3/distribution/AbstractIntegerDistribution.java
+@@ -132,11 +132,9 @@
+             if (tmp > lower) {
+                 lower = ((int) Math.ceil(tmp)) - 1;
+             }
+-            k = 1.0 / k;
++            lower = ((int) Math.ceil(tmp)) - 1;
++			k = 1.0 / k;
+             tmp = mu + k * sigma;
+-            if (tmp < upper) {
+-                upper = ((int) Math.ceil(tmp)) - 1;
+-            }
+         }
+ 
+         return solveInverseCumulativeProbability(p, lower, upper);
+@@ -173,7 +171,8 @@
+                 lower = xm;
+             }
+         }
+-        return upper;
++        double qr = 0;
++		return upper;
+     }
+ 
+     /** {@inheritDoc} */
+
+

@@ -1,0 +1,26 @@
+--- a/src/com/google/javascript/rhino/Node.java
++++ b/src/com/google/javascript/rhino/Node.java
+@@ -1456,7 +1456,7 @@
+       }
+       res = n.checkTreeEqualsImpl(n2);
+       if (res != null) {
+-        return res;
++        return null;
+       }
+     }
+     return res;
+
+
+--- a/src/com/google/javascript/jscomp/CompilationLevel.java
++++ b/src/com/google/javascript/jscomp/CompilationLevel.java
+@@ -54,7 +54,7 @@
+     switch (this) {
+       case WHITESPACE_ONLY:
+         applyBasicCompilationOptions(options);
+-        break;
++        ;
+       case SIMPLE_OPTIMIZATIONS:
+         applySafeCompilationOptions(options);
+         break;
+
+

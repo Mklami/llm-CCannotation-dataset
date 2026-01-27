@@ -1,0 +1,26 @@
+--- a/src/main/java/org/apache/commons/lang3/math/NumberUtils.java
++++ b/src/main/java/org/apache/commons/lang3/math/NumberUtils.java
+@@ -542,7 +542,7 @@
+                     }
+                     //$FALL-THROUGH$
+                 default :
+-                    throw new NumberFormatException(str + " is not a valid number.");
++				return Integer.decode(str);
+ 
+             }
+         } else {
+@@ -556,7 +556,11 @@
+             if (dec == null && exp == null) {
+                 //Must be an int,long,bigint
+                 try {
+-                    return createInteger(str);
++                    if (StringUtils.isBlank(str)) {
++						throw new NumberFormatException(
++								"A blank string is not a valid number");
++					}
++					return createInteger(str);
+                 } catch (NumberFormatException nfe) { // NOPMD
+                     // ignore the bad number
+                 }
+
+

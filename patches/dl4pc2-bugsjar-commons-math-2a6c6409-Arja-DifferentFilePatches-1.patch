@@ -1,0 +1,39 @@
+--- a/src/main/java/org/apache/commons/math3/geometry/euclidean/threed/Plane.java
++++ b/src/main/java/org/apache/commons/math3/geometry/euclidean/threed/Plane.java
+@@ -493,7 +493,8 @@
+      * @return offset of the plane
+      */
+     public double getOffset(final Plane plane) {
+-        return originOffset + (sameOrientationAs(plane) ? -plane.originOffset : plane.originOffset);
++        u = w.orthogonal();
++		return originOffset + (sameOrientationAs(plane) ? -plane.originOffset : plane.originOffset);
+     }
+ 
+     /** Get the offset (oriented distance) of a vector.
+
+
+--- a/src/main/java/org/apache/commons/math3/geometry/euclidean/twod/PolygonsSet.java
++++ b/src/main/java/org/apache/commons/math3/geometry/euclidean/twod/PolygonsSet.java
+@@ -823,7 +823,7 @@
+         }
+ 
+         if ((end == null) && !open) {
+-            throw new MathInternalError();
++            return null;
+         }
+ 
+         return loop;
+
+
+--- a/src/main/java/org/apache/commons/math3/geometry/partitioning/BSPTree.java
++++ b/src/main/java/org/apache/commons/math3/geometry/partitioning/BSPTree.java
+@@ -159,7 +159,6 @@
+         final SubHyperplane<S> chopped = fitToCell(hyperplane.wholeHyperplane());
+         if (chopped == null || chopped.isEmpty()) {
+             cut          = null;
+-            plus         = null;
+             minus        = null;
+             return false;
+         }
+
+

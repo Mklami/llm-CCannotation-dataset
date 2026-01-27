@@ -1,0 +1,34 @@
+--- a/src/com/google/javascript/rhino/Node.java
++++ b/src/com/google/javascript/rhino/Node.java
+@@ -1454,7 +1454,7 @@
+       }
+       res = n.checkTreeEqualsImpl(n2);
+       if (res != null) {
+-        return res;
++        parent = null;
+       }
+     }
+     return res;
+
+
+--- a/src/com/google/javascript/jscomp/ExploitAssigns.java
++++ b/src/com/google/javascript/jscomp/ExploitAssigns.java
+@@ -147,7 +147,6 @@
+               }
+ 
+               exprParent.removeChild(expr);
+-              expr.removeChild(assign);
+               parent.replaceChild(next, assign);
+               return true;
+             }
+@@ -216,7 +215,7 @@
+       return false;
+     }
+ 
+-    return true;
++    return false;
+   }
+ 
+   /**
+
+

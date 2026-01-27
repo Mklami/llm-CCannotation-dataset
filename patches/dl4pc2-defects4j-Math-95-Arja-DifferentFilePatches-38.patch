@@ -1,0 +1,43 @@
+--- a/src/java/org/apache/commons/math/distribution/FDistributionImpl.java
++++ b/src/java/org/apache/commons/math/distribution/FDistributionImpl.java
+@@ -98,6 +98,9 @@
+     public double inverseCumulativeProbability(final double p) 
+         throws MathException {
+         if (p == 0) {
++				return 0d;
++			}
++		if (p == 0) {
+             return 0d;
+         }
+         if (p == 1) {
+@@ -143,9 +146,10 @@
+     protected double getInitialDomain(double p) {
+         double ret;
+         double d = getDenominatorDegreesOfFreedom();
+-            // use mean
+-            ret = d / (d - 2.0);
+-        return ret;
++            if (p == 0) {
++				return -1;
++			}
++        return 0;
+     }
+     
+     /**
+
+
+--- a/src/java/org/apache/commons/math/analysis/UnivariateRealSolverUtils.java
++++ b/src/java/org/apache/commons/math/analysis/UnivariateRealSolverUtils.java
+@@ -125,8 +125,8 @@
+     public static double[] bracket(UnivariateRealFunction function, 
+             double initial, double lowerBound, double upperBound) 
+     throws ConvergenceException, FunctionEvaluationException {
+-        return bracket( function, initial, lowerBound, upperBound,
+-            Integer.MAX_VALUE ) ;
++        return bracket(function, initial, lowerBound, upperBound,
++				Integer.MAX_VALUE);
+     }
+ 
+      /**
+
+

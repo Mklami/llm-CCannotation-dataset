@@ -1,0 +1,26 @@
+--- a/src/main/java/org/apache/commons/math4/geometry/euclidean/threed/Plane.java
++++ b/src/main/java/org/apache/commons/math4/geometry/euclidean/threed/Plane.java
+@@ -361,6 +361,9 @@
+         final Vector3D direction = line.getDirection();
+         final double   dot       = w.dotProduct(direction);
+         if (FastMath.abs(dot) < 1.0e-10) {
++			return null;
++		}
++		if (FastMath.abs(dot) < 1.0e-10) {
+             return null;
+         }
+         final Vector3D point = line.toSpace((Point<Euclidean1D>) Vector1D.ZERO);
+
+
+--- a/src/main/java/org/apache/commons/math4/geometry/euclidean/threed/PolyhedronsSet.java
++++ b/src/main/java/org/apache/commons/math4/geometry/euclidean/threed/PolyhedronsSet.java
+@@ -301,7 +301,6 @@
+             if (hit3D != null) {
+                 final SubHyperplane<Euclidean3D> facet = boundaryFacet(hit3D, node);
+                 if (facet != null) {
+-                    return facet;
+                 }
+             }
+         }
+
+

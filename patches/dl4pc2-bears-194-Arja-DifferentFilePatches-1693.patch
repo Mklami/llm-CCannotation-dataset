@@ -1,0 +1,29 @@
+--- a/src/main/java/com/gdssecurity/pmd/rules/BaseSecurityRule.java
++++ b/src/main/java/com/gdssecurity/pmd/rules/BaseSecurityRule.java
+@@ -106,12 +106,6 @@
+ 
+ 
+ 	protected void init() {
+-		if (!this.initialized) {
+-			this.sources = getConfig(this.sourceDescriptor);
+-			this.unsafeTypes = getConfig(this.unsafeTypesDescriptor);
+-			this.safeTypes = getConfig(this.safeTypesDescriptor);
+-			this.initialized = true;
+-		}
+ 	}
+ 	
+ 	protected final Set<String> getConfig(PropertyDescriptor<List<String>> descriptor) {
+
+
+--- a/src/main/java/com/gdssecurity/pmd/rules/dfa/DfaSecurityRule.java
++++ b/src/main/java/com/gdssecurity/pmd/rules/dfa/DfaSecurityRule.java
+@@ -140,7 +140,6 @@
+ 
+ 	@Override
+ 	protected void init() {
+-		super.init();
+ 		if (!this.initialized) {
+ 			init2();
+ 			this.initialized = true;
+
+

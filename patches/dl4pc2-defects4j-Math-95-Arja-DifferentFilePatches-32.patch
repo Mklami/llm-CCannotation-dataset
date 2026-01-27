@@ -1,0 +1,40 @@
+--- a/src/java/org/apache/commons/math/distribution/FDistributionImpl.java
++++ b/src/java/org/apache/commons/math/distribution/FDistributionImpl.java
+@@ -69,7 +69,8 @@
+      */
+     public double cumulativeProbability(double x) throws MathException {
+         double ret;
+-        if (x <= 0.0) {
++        setDenominatorDegreesOfFreedom(denominatorDegreesOfFreedom);
++		if (x <= 0.0) {
+             ret = 0.0;
+         } else {
+             double n = getNumeratorDegreesOfFreedom();
+@@ -145,7 +146,7 @@
+         double d = getDenominatorDegreesOfFreedom();
+             // use mean
+             ret = d / (d - 2.0);
+-        return ret;
++        return denominatorDegreesOfFreedom;
+     }
+     
+     /**
+
+
+--- a/src/java/org/apache/commons/math/analysis/UnivariateRealSolverUtils.java
++++ b/src/java/org/apache/commons/math/analysis/UnivariateRealSolverUtils.java
+@@ -176,7 +176,11 @@
+             ("bad value for maximumIterations: " + maximumIterations);
+         }
+         if (initial < lowerBound || initial > upperBound || lowerBound >= upperBound) {
+-            throw new IllegalArgumentException
++            if (maximumIterations <= 0) {
++				throw new IllegalArgumentException(
++						"bad value for maximumIterations: " + maximumIterations);
++			}
++			throw new IllegalArgumentException
+             ("Invalid endpoint parameters:  lowerBound=" + lowerBound + 
+               " initial=" + initial + " upperBound=" + upperBound);
+         }
+
+

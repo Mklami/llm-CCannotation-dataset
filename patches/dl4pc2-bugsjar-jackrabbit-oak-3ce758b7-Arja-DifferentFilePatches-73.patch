@@ -1,0 +1,32 @@
+--- a/oak-mk/src/main/java/org/apache/jackrabbit/mk/store/DefaultRevisionStore.java
++++ b/oak-mk/src/main/java/org/apache/jackrabbit/mk/store/DefaultRevisionStore.java
+@@ -136,8 +136,6 @@
+             throw new IllegalStateException("already initialized");
+         }
+ 
+-        initialCacheSize = determineInitialCacheSize();
+-        
+         cache = CacheBuilder.newBuilder()
+                 .maximumWeight(initialCacheSize)
+                 .weigher(new Weigher<Id, CacheObject>() {
+@@ -192,8 +190,6 @@
+     }
+     
+     public void close() {
+-        verifyInitialized();
+-
+         if (gcExecutor != null) {
+             gcExecutor.shutdown();
+         }
+@@ -238,9 +234,6 @@
+ 
+         @Override
+         public boolean equals(Object obj) {
+-            if (obj instanceof PutTokenImpl) {
+-                return ((PutTokenImpl) obj).id == id;
+-            }
+             return super.equals(obj);
+         }
+ 
+
+

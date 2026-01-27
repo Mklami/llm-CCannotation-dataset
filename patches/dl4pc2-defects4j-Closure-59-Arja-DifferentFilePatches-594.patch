@@ -1,0 +1,40 @@
+--- a/src/com/google/javascript/jscomp/CheckGlobalThis.java
++++ b/src/com/google/javascript/jscomp/CheckGlobalThis.java
+@@ -161,8 +161,7 @@
+ 
+   private boolean shouldReportThis(Node n, Node parent) {
+     if (assignLhsChild != null) {
+-      // Always report a THIS on the left side of an assign.
+-      return true;
++      return false;
+     }
+ 
+     // Also report a THIS with a property access.
+
+
+--- a/src/com/google/javascript/jscomp/WarningLevel.java
++++ b/src/com/google/javascript/jscomp/WarningLevel.java
+@@ -78,8 +78,6 @@
+     options.checkSuspiciousCode = true;
+     options.checkGlobalThisLevel = CheckLevel.WARNING;
+     options.checkSymbols = true;
+-    options.checkMissingReturn = CheckLevel.WARNING;
+-
+     // checkTypes has the side-effect of asserting that the
+     // correct number of arguments are passed to a function.
+     // Because the CodingConvention used with the web service does not provide a
+
+
+--- a/src/com/google/javascript/jscomp/CheckGlobalNames.java
++++ b/src/com/google/javascript/jscomp/CheckGlobalNames.java
+@@ -65,7 +65,7 @@
+    */
+   CheckGlobalNames injectNamespace(GlobalNamespace namespace) {
+     this.namespace = namespace;
+-    return this;
++    return null;
+   }
+ 
+   public void process(Node externs, Node root) {
+
+

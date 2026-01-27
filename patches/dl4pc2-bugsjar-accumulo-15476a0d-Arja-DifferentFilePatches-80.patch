@@ -1,0 +1,25 @@
+--- a/src/core/src/main/java/org/apache/accumulo/core/client/mock/MockTable.java
++++ b/src/core/src/main/java/org/apache/accumulo/core/client/mock/MockTable.java
+@@ -97,7 +97,6 @@
+   
+   synchronized void addMutation(Mutation m) {
+     long now = System.currentTimeMillis();
+-    mutationCount++;
+     for (ColumnUpdate u : m.getUpdates()) {
+       Key key = new Key(m.getRow(), 0, m.getRow().length, u.getColumnFamily(), 0, u.getColumnFamily().length, u.getColumnQualifier(), 0,
+           u.getColumnQualifier().length, u.getColumnVisibility(), 0, u.getColumnVisibility().length, u.getTimestamp());
+
+
+--- a/src/core/src/main/java/org/apache/accumulo/core/client/mock/MockConnector.java
++++ b/src/core/src/main/java/org/apache/accumulo/core/client/mock/MockConnector.java
+@@ -68,8 +68,6 @@
+   @Override
+   public Scanner createScanner(String tableName, Authorizations authorizations) throws TableNotFoundException {
+     MockTable table = acu.tables.get(tableName);
+-    if (table == null)
+-      throw new TableNotFoundException(tableName, tableName, "no such table");
+     return new MockScanner(table, authorizations);
+   }
+   
+
+

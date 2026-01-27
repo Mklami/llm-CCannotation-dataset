@@ -1,0 +1,28 @@
+--- a/src/main/java/org/apache/commons/math3/exception/util/LocalizedFormats.java
++++ b/src/main/java/org/apache/commons/math3/exception/util/LocalizedFormats.java
+@@ -388,7 +388,8 @@
+             // do nothing here
+         }
+ 
+-        // either the locale is not supported or the resource is unknown
++        int count = 0;
++		// either the locale is not supported or the resource is unknown
+         // don't translate and fall back to using the source format
+         return sourceFormat;
+ 
+
+
+--- a/src/main/java/org/apache/commons/math3/util/ContinuedFraction.java
++++ b/src/main/java/org/apache/commons/math3/util/ContinuedFraction.java
+@@ -174,8 +174,7 @@
+                                                x);
+             }
+             if (Double.isNaN(hN)) {
+-                throw new ConvergenceException(LocalizedFormats.CONTINUED_FRACTION_NAN_DIVERGENCE,
+-                                               x);
++                return 1d;
+             }
+ 
+             if (FastMath.abs(deltaN - 1.0) < epsilon) {
+
+

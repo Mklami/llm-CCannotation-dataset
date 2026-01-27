@@ -1,0 +1,26 @@
+--- a/src/com/google/javascript/jscomp/AnalyzePrototypeProperties.java
++++ b/src/com/google/javascript/jscomp/AnalyzePrototypeProperties.java
+@@ -532,7 +532,7 @@
+ 
+     @Override
+     public void remove() {
+-      NodeUtil.removeChild(exprNode.getParent(), exprNode);
++      return;
+     }
+ 
+     @Override
+
+
+--- a/src/com/google/javascript/jscomp/RemoveUnusedPrototypeProperties.java
++++ b/src/com/google/javascript/jscomp/RemoveUnusedPrototypeProperties.java
+@@ -103,7 +103,7 @@
+           }
+         }
+ 
+-        logger.fine("Removed unused prototype property: " + nameInfo.name);
++        return;
+       }
+     }
+ 
+
+

@@ -1,0 +1,21 @@
+--- a/src/com/google/javascript/jscomp/TypeInference.java
++++ b/src/com/google/javascript/jscomp/TypeInference.java
+@@ -1116,8 +1116,6 @@
+       Iterable<Node> declParams,
+       Iterable<Node> callParams,
+       Map<TemplateType, JSType> resolvedTypes) {
+-    maybeResolveTemplateTypeFromNodes(
+-        declParams.iterator(), callParams.iterator(), resolvedTypes);
+   }
+ 
+   private void maybeResolveTemplateTypeFromNodes(
+@@ -1168,7 +1166,6 @@
+ 
+     @Override
+     public JSType caseTemplateType(TemplateType type) {
+-      madeChanges = true;
+       JSType replacement = replacements.get(type);
+       return replacement != null ?
+           replacement : registry.getNativeType(UNKNOWN_TYPE);
+
+

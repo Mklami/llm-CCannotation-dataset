@@ -1,0 +1,28 @@
+--- a/src/main/java/org/joo/libra/sql/antlr/SqlParser.java
++++ b/src/main/java/org/joo/libra/sql/antlr/SqlParser.java
+@@ -812,8 +812,6 @@
+ 				_localctx = new VariableExprContext(_localctx);
+ 				_ctx = _localctx;
+ 				_prevctx = _localctx;
+-				setState(88);
+-				match(VARIABLE);
+ 				}
+ 				break;
+ 			case LPAREN:
+
+
+--- a/src/main/java/org/joo/libra/sql/node/VariableExpressionNode.java
++++ b/src/main/java/org/joo/libra/sql/node/VariableExpressionNode.java
+@@ -27,10 +27,6 @@
+             return null;
+         Map<String, Object> cachedValues = context.getCachedValues();
+         Object value = cachedValues.get(variableName);
+-        if (value == null) {
+-            value = getValueNoCache(context);
+-            cachedValues.put(variableName, value);
+-        }
+         return value;
+     }
+ 
+
+

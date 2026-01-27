@@ -1,0 +1,7 @@
+--- a/src/java/org/apache/commons/lang/text/ExtendedMessageFormat.java
++++ b/src/java/org/apache/commons/lang/text/ExtendedMessageFormat.java
+@@ -421,2 +421,3 @@
+         if (escapingOn && c[start] == QUOTE) {
++       next(pos);
+             return appendTo == null ? null : appendTo.append(QUOTE);
+

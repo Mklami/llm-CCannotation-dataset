@@ -1,0 +1,8 @@
+--- a/src/main/java/org/apache/commons/math/analysis/solvers/BaseSecantSolver.java
++++ b/src/main/java/org/apache/commons/math/analysis/solvers/BaseSecantSolver.java
+@@ -188,3 +188,3 @@
+                     // for the maximum number of iterations to be exceeded.
+-                    break;
++                    throw new ConvergenceException(null);
+                 default:
+

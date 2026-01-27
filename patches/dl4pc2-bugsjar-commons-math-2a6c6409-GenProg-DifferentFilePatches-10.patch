@@ -1,0 +1,42 @@
+--- a/src/main/java/org/apache/commons/math3/geometry/euclidean/twod/PolygonsSet.java
++++ b/src/main/java/org/apache/commons/math3/geometry/euclidean/twod/PolygonsSet.java
+@@ -823,7 +823,7 @@
+         }
+ 
+         if ((end == null) && !open) {
+-            throw new MathInternalError();
++            return null;
+         }
+ 
+         return loop;
+
+
+--- a/src/main/java/org/apache/commons/math3/geometry/partitioning/utilities/OrderedTuple.java
++++ b/src/main/java/org/apache/commons/math3/geometry/partitioning/utilities/OrderedTuple.java
+@@ -259,7 +259,6 @@
+                 if (offset < ot.offset) {
+                     encode(ot.offset);
+                 } else if (offset > ot.offset) {
+-                    ot.encode(offset);
+                 }
+ 
+                 final int limit = FastMath.min(encoding.length, ot.encoding.length);
+
+
+--- a/src/main/java/org/apache/commons/math3/geometry/partitioning/BSPTree.java
++++ b/src/main/java/org/apache/commons/math3/geometry/partitioning/BSPTree.java
+@@ -159,7 +159,11 @@
+         final SubHyperplane<S> chopped = fitToCell(hyperplane.wholeHyperplane());
+         if (chopped == null || chopped.isEmpty()) {
+             cut          = null;
+-            plus         = null;
++            if (cut != null) {
++				cut = cut.split(hyperplane).getPlus();
++				plus.chopOffMinus(hyperplane);
++				minus.chopOffMinus(hyperplane);
++			}
+             minus        = null;
+             return false;
+         }
+
+

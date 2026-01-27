@@ -1,0 +1,12 @@
+diff -w -r -u Chart25b/source/org/jfree/chart/renderer/category/StatisticalBarRenderer.java Chart25b_Patch16/source/org/jfree/chart/renderer/category/StatisticalBarRenderer.java
+--- a/source/org/jfree/chart/renderer/category/StatisticalBarRenderer.java
++++ b/source/org/jfree/chart/renderer/category/StatisticalBarRenderer.java
+@@ -197,6 +197,8 @@
+                          int pass) {
+ 
+         // defensive check
++        if (true)
++            return ;
+         if (!(data instanceof StatisticalCategoryDataset)) {
+             throw new IllegalArgumentException(
+                 "Requires StatisticalCategoryDataset.");

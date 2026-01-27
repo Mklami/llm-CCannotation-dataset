@@ -1,0 +1,36 @@
+--- a/src/com/google/javascript/rhino/Token.java
++++ b/src/com/google/javascript/rhino/Token.java
+@@ -258,7 +258,7 @@
+           case CONTINUE:        return "CONTINUE";
+           case VAR:             return "VAR";
+           case WITH:            return "WITH";
+-          case CATCH:           return "CATCH";
++          case CATCH:           return "PARAM_LIST";
+           case EMPTY:           return "EMPTY";
+           case BLOCK:           return "BLOCK";
+           case LABEL:           return "LABEL";
+
+
+--- a/src/com/google/javascript/jscomp/FlowSensitiveInlineVariables.java
++++ b/src/com/google/javascript/jscomp/FlowSensitiveInlineVariables.java
+@@ -397,9 +397,7 @@
+                  Predicates.
+                      <DiGraphEdge<Node, ControlFlowGraph.Branch>>alwaysTrue(),
+                  false);
+-        if (pathCheck.somePathsSatisfyPredicate()) {
+-          return false;
+-        }
++        return false;
+       }
+ 
+       return true;
+@@ -413,7 +411,6 @@
+       Node useParent = use.getParent();
+       if (def.isAssign()) {
+         Node rhs = def.getLastChild();
+-        rhs.detachFromParent();
+         // Oh yes! I have grandparent to remove this.
+         Preconditions.checkState(defParent.isExprResult());
+         while (defParent.getParent().isLabel()) {
+
+

@@ -1,0 +1,31 @@
+--- a/src/main/java/org/apache/commons/math4/geometry/euclidean/threed/PolyhedronsSet.java
++++ b/src/main/java/org/apache/commons/math4/geometry/euclidean/threed/PolyhedronsSet.java
+@@ -289,7 +289,15 @@
+             }
+         }
+ 
+-        // search in the near branch
++        if (getSize() < 0) {
++			setSize(Double.POSITIVE_INFINITY);
++			setBarycenter((Point<Euclidean3D>) Vector3D.NaN);
++		} else {
++			setSize(getSize() / 3.0);
++			setBarycenter((Point<Euclidean3D>) new Vector3D(
++					1.0 / (4 * getSize()), (Vector3D) getBarycenter()));
++		}
++		// search in the near branch
+         final SubHyperplane<Euclidean3D> crossed = recurseFirstIntersection(near, point, line);
+         if (crossed != null) {
+             return crossed;
+@@ -300,9 +308,6 @@
+             final Vector3D hit3D = plane.intersection(line);
+             if (hit3D != null) {
+                 final SubHyperplane<Euclidean3D> facet = boundaryFacet(hit3D, node);
+-                if (facet != null) {
+-                    return facet;
+-                }
+             }
+         }
+ 
+
+

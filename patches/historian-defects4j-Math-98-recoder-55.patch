@@ -1,0 +1,10 @@
+--- a/src/java/org/apache/commons/math/linear/BigMatrixImpl.java
++++ b/src/java/org/apache/commons/math/linear/BigMatrixImpl.java
+@@ -990,3 +990,3 @@
+         final int nCols = this.getColumnDimension();
+-        final BigDecimal[] out = new BigDecimal[v.length];
++        final BigDecimal[] out=new BigDecimal[nRows];
+         for (int row = 0; row < nRows; row++) {
+
+
+

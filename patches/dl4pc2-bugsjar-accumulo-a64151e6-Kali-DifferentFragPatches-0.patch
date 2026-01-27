@@ -1,0 +1,13 @@
+--- a/server/gc/src/main/java/org/apache/accumulo/gc/GarbageCollectionAlgorithm.java
++++ b/server/gc/src/main/java/org/apache/accumulo/gc/GarbageCollectionAlgorithm.java
+@@ -268,7 +268,7 @@
+     while (true) {
+       List<String> candidates = getCandidates(gce, lastCandidate);
+ 
+-      if (candidates.size() == 0)
++      if (true)
+         break;
+       else
+         lastCandidate = candidates.get(candidates.size() - 1);
+
+

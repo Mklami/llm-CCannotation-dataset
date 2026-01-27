@@ -1,0 +1,24 @@
+--- a/src/main/java/org/apache/commons/lang3/math/NumberUtils.java
++++ b/src/main/java/org/apache/commons/lang3/math/NumberUtils.java
+@@ -446,6 +446,10 @@
+             return null;
+         }
+         if (StringUtils.isBlank(str)) {
++			throw new NumberFormatException(
++					"A blank string is not a valid number");
++		}
++		if (StringUtils.isBlank(str)) {
+             throw new NumberFormatException("A blank string is not a valid number");
+         }  
+         if (str.startsWith("--")) {
+@@ -542,7 +546,7 @@
+                     }
+                     //$FALL-THROUGH$
+                 default :
+-                    throw new NumberFormatException(str + " is not a valid number.");
++				return Integer.decode(str);
+ 
+             }
+         } else {
+
+

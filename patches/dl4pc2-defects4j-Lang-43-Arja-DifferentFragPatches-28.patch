@@ -1,0 +1,27 @@
+--- a/src/java/org/apache/commons/lang/text/ExtendedMessageFormat.java
++++ b/src/java/org/apache/commons/lang/text/ExtendedMessageFormat.java
+@@ -143,7 +143,12 @@
+         if (registry == null) {
+             super.applyPattern(pattern);
+             toPattern = super.toPattern();
+-            return;
++            if (registry == null) {
++				super.applyPattern(pattern);
++				toPattern = super.toPattern();
++				return;
++			}
++			return;
+         }
+         ArrayList foundFormats = new ArrayList();
+         ArrayList foundDescriptions = new ArrayList();
+@@ -419,7 +424,7 @@
+         int start = pos.getIndex();
+         char[] c = pattern.toCharArray();
+         if (escapingOn && c[start] == QUOTE) {
+-            return appendTo == null ? null : appendTo.append(QUOTE);
++            pos.setIndex(pos.getIndex() + 1);
+         }
+         int lastHold = start;
+         for (int i = pos.getIndex(); i < pattern.length(); i++) {
+
+

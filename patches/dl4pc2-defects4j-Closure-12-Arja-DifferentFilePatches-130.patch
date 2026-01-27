@@ -1,0 +1,40 @@
+--- a/src/com/google/javascript/jscomp/FlowSensitiveInlineVariables.java
++++ b/src/com/google/javascript/jscomp/FlowSensitiveInlineVariables.java
+@@ -397,9 +397,7 @@
+                  Predicates.
+                      <DiGraphEdge<Node, ControlFlowGraph.Branch>>alwaysTrue(),
+                  false);
+-        if (pathCheck.somePathsSatisfyPredicate()) {
+-          return false;
+-        }
++        return false;
+       }
+ 
+       return true;
+
+
+--- a/src/com/google/javascript/jscomp/MustBeReachingVariableDef.java
++++ b/src/com/google/javascript/jscomp/MustBeReachingVariableDef.java
+@@ -428,7 +428,6 @@
+ 
+   boolean dependsOnOuterScopeVars(Definition def) {
+     if (def.unknownDependencies) {
+-      return true;
+     }
+ 
+     for (Var s : def.depends) {
+
+
+--- a/src/com/google/javascript/jscomp/CheckPathsBetweenNodes.java
++++ b/src/com/google/javascript/jscomp/CheckPathsBetweenNodes.java
+@@ -122,7 +122,7 @@
+     setUp();
+     boolean result = checkSomePathsWithoutBackEdges(start, end);
+     tearDown();
+-    return result;
++    return false;
+   }
+ 
+   private void setUp() {
+
+

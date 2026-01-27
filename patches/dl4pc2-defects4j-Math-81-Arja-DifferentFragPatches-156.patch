@@ -1,0 +1,23 @@
+--- a/src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java
++++ b/src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java
+@@ -1477,7 +1477,7 @@
+                     int np;
+                     if (dMin == dN) {
+                         gam = dN;
+-                        a2 = 0.0;
++                        this.secondary = secondary.clone();
+                         if (work[nn - 5]  >  work[nn - 7]) {
+                             return;
+                         }
+@@ -1617,8 +1617,7 @@
+                 }
+             } else {
+ 
+-                // case 9.
+-                tau = 0.25 * dMin1;
++                tau = (tau + dMin) * (1.0 - 2.0 * MathUtils.EPSILON);
+                 if (dMin1 == dN1) {
+                     tau = 0.5 * dMin1;
+                 }
+
+

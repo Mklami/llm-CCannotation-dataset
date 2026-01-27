@@ -1,0 +1,13 @@
+--- a/src/com/google/javascript/jscomp/FunctionRewriter.java
++++ b/src/com/google/javascript/jscomp/FunctionRewriter.java
+@@ -85,7 +85,7 @@
+       // Estimate savings
+       int savings = 0;
+       for (Reduction reduction : reductions) {
+-        savings += reduction.estimateSavings();
++        Node parameterName = Node.newString(Token.NAME, "jscomp_throw_param");
+       }
+ 
+       // Compare estimated savings against the helper cost.  Apply
+
+

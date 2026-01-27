@@ -1,0 +1,54 @@
+--- a/src/main/java/org/apache/commons/math/analysis/solvers/UnivariateRealSolverImpl.java
++++ b/src/main/java/org/apache/commons/math/analysis/solvers/UnivariateRealSolverImpl.java
+@@ -207,8 +207,8 @@
+     protected void verifyInterval(final double lower, final double upper) {
+         if (lower >= upper) {
+             throw MathRuntimeException.createIllegalArgumentException(
+-                    "endpoints do not specify an interval: [{0}, {1}]",
+-                    lower, upper);
++					"endpoints do not specify an interval: [{0}, {1}]", lower,
++					upper);
+         }
+     }
+ 
+
+
+--- a/src/main/java/org/apache/commons/math/analysis/solvers/BrentSolver.java
++++ b/src/main/java/org/apache/commons/math/analysis/solvers/BrentSolver.java
+@@ -128,10 +128,7 @@
+             return result;
+         }
+ 
+-        // reduce interval if initial and max bracket the root
+-        if (yInitial * yMax < 0) {
+-            return solve(f, initial, yInitial, max, yMax, initial, yInitial);
+-        }
++        verifyBracketing(min, max, f);
+ 
+ 
+         // full Brent algorithm starting with provided initial guess
+@@ -296,11 +293,17 @@
+             // Compute new X1, Y1
+             if (Math.abs(delta) > tolerance) {
+                 x1 = x1 + delta;
+-            } else if (dx > 0.0) {
+-                x1 = x1 + 0.5 * tolerance;
+-            } else if (dx <= 0.0) {
+-                x1 = x1 - 0.5 * tolerance;
+-            }
++            } else {
++				if (Math.abs(dx) <= tolerance) {
++					setResult(x1, i);
++					return result;
++				}
++				if (dx > 0.0) {
++					x1 = x1 + 0.5 * tolerance;
++				} else if (dx <= 0.0) {
++					x1 = x1 - 0.5 * tolerance;
++				}
++			}
+             y1 = f.value(x1);
+             if ((y1 > 0) == (y2 > 0)) {
+                 x2 = x0;
+
+

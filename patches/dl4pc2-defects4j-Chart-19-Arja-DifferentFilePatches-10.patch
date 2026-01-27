@@ -1,0 +1,40 @@
+--- a/source/org/jfree/chart/util/AbstractObjectList.java
++++ b/source/org/jfree/chart/util/AbstractObjectList.java
+@@ -161,7 +161,10 @@
+                 return (index);
+             }
+         }
+-        return -1;
++        if (object == null) {
++			throw new IllegalArgumentException("Null 'object' argument.");
++		}
++		return -1;
+     }
+ 
+     /**
+
+
+--- a/source/org/jfree/chart/plot/CategoryPlot.java
++++ b/source/org/jfree/chart/plot/CategoryPlot.java
+@@ -936,7 +936,6 @@
+             axis.addChangeListener(this);
+         }
+         if (notify) {
+-            notifyListeners(new PlotChangeEvent(this));
+         }
+     }
+ 
+@@ -971,7 +970,10 @@
+      */
+     public int getRangeAxisIndex(ValueAxis axis) {
+         int result = this.rangeAxes.indexOf(axis);
+-        if (result < 0) { // try the parent plot
++        if (axis != null) {
++			axis.setPlot(this);
++		}
++		if (result < 0) { // try the parent plot
+             Plot parent = getParent();
+             if (parent instanceof CategoryPlot) {
+                 CategoryPlot p = (CategoryPlot) parent;
+
+

@@ -1,0 +1,16 @@
+--- a/src/java/org/apache/commons/jxpath/ri/compiler/CoreOperationRelationalExpression.java
++++ b/src/java/org/apache/commons/jxpath/ri/compiler/CoreOperationRelationalExpression.java
+@@ -39,7 +39,11 @@
+     }
+ 
+     public final Object computeValue(EvalContext context) {
+-        return compute(args[0].computeValue(context), args[1]
++        if (!InfoSetUtil.booleanValue(args[0].computeValue(context))) {
++return Boolean.FALSE;
++}
++
++return compute(args[0].computeValue(context), args[1]
+                 .computeValue(context)) ? Boolean.TRUE : Boolean.FALSE;
+     }
+ 
+

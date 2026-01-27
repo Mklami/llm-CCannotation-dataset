@@ -1,0 +1,12 @@
+--- a/dubbo-cluster/src/main/java/com/alibaba/dubbo/rpc/cluster/router/condition/ConditionRouter.java
++++ b/dubbo-cluster/src/main/java/com/alibaba/dubbo/rpc/cluster/router/condition/ConditionRouter.java
+@@ -196,3 +196,8 @@
+     private boolean matchCondition(Map<String, MatchPair> condition, URL url, URL param, Invocation invocation) {
+-        Map<String, String> sample = url.toMap();
++        Map<String, String> sample;
++        if (url == null) {
++            sample = url.toMap();
++        } else {
++            sample = url.toMap();
++        }
+         boolean result = false;

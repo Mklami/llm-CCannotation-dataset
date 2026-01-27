@@ -1,0 +1,7 @@
+--- a/src/main/java/org/apache/commons/math/optimization/linear/SimplexSolver.java
++++ b/src/main/java/org/apache/commons/math/optimization/linear/SimplexSolver.java
+@@ -81,3 +81,3 @@
+             final double entry = tableau.getEntry(i, col);
+-            if (MathUtils.compareTo(entry, 0, epsilon) >= 0) {
++if((MathUtils.compareTo(entry, 0, epsilon) > 0)){
+                     final double ratio = rhs / entry;

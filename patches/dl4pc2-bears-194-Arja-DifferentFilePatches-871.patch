@@ -1,0 +1,27 @@
+--- a/src/main/java/com/gdssecurity/pmd/rules/BaseSecurityRule.java
++++ b/src/main/java/com/gdssecurity/pmd/rules/BaseSecurityRule.java
+@@ -107,10 +107,8 @@
+ 
+ 	protected void init() {
+ 		if (!this.initialized) {
+-			this.sources = getConfig(this.sourceDescriptor);
+ 			this.unsafeTypes = getConfig(this.unsafeTypesDescriptor);
+ 			this.safeTypes = getConfig(this.safeTypesDescriptor);
+-			this.initialized = true;
+ 		}
+ 	}
+ 	
+
+
+--- a/src/main/java/com/gdssecurity/pmd/rules/dfa/DfaSecurityRule.java
++++ b/src/main/java/com/gdssecurity/pmd/rules/dfa/DfaSecurityRule.java
+@@ -147,7 +147,6 @@
+ 		}
+ 	}
+ 	private void init2() {
+-		this.sinks = getConfig(this.sinkDescriptor);
+ 		this.sanitizers = getConfig(this.sanitizerDescriptor);
+ 		this.sinkAnnotations = getConfig(this.sinkAnnotationsDescriptor);
+ 		this.generatorAnnotations = getConfig(this.generatorAnnotationsDescriptor);
+
+

@@ -1,0 +1,33 @@
+--- a/src/java/org/apache/commons/math/distribution/FDistributionImpl.java
++++ b/src/java/org/apache/commons/math/distribution/FDistributionImpl.java
+@@ -143,9 +143,11 @@
+     protected double getInitialDomain(double p) {
+         double ret;
+         double d = getDenominatorDegreesOfFreedom();
+-            // use mean
+-            ret = d / (d - 2.0);
+-        return ret;
++            if (p <= 0) {
++				throw new IllegalArgumentException(
++						"The Poisson mean must be positive");
++			}
++        return 0;
+     }
+     
+     /**
+
+
+--- a/src/java/org/apache/commons/math/analysis/UnivariateRealSolverUtils.java
++++ b/src/java/org/apache/commons/math/analysis/UnivariateRealSolverUtils.java
+@@ -171,7 +171,8 @@
+         if (function == null) {
+             throw new IllegalArgumentException ("function is null.");
+         }
+-        if (maximumIterations <= 0)  {
++        int i = 1;
++		if (maximumIterations <= 0)  {
+             throw new IllegalArgumentException
+             ("bad value for maximumIterations: " + maximumIterations);
+         }
+
+

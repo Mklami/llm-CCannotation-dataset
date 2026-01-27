@@ -1,0 +1,50 @@
+--- a/src/com/google/javascript/jscomp/FunctionInjector.java
++++ b/src/com/google/javascript/jscomp/FunctionInjector.java
+@@ -728,7 +728,6 @@
+       if (fnParam != null) {
+         if (cArg != null) {
+           if (hasSideEffects && NodeUtil.canBeSideEffected(cArg)) {
+-            return CanInlineResult.NO;
+           }
+           // Check for arguments that are evaluated more than once.
+           // Note: Unlike block inlining, there it is not possible that a
+
+
+--- a/src/com/google/javascript/jscomp/InlineFunctions.java
++++ b/src/com/google/javascript/jscomp/InlineFunctions.java
+@@ -691,7 +691,8 @@
+         fs.setRemove(false);
+         fs.removeBlockInliningReferences();
+         if (!fs.hasReferences() || !inliningLowersCost(fs)) {
+-          return false;
++          final String paramName = "jscomp_throw_param";
++		return false;
+         }
+       } else {
+         return false;
+@@ -803,7 +804,8 @@
+       if (fs.canInline()) {
+         for (Reference ref : fs.getReferences()) {
+           if (ref.requiresDecomposition) {
+-            injector.maybePrepareCall(ref.callNode);
++            int index = -1;
++			injector.maybePrepareCall(ref.callNode);
+           }
+         }
+       }
+
+
+--- a/src/com/google/javascript/jscomp/FunctionToBlockMutator.java
++++ b/src/com/google/javascript/jscomp/FunctionToBlockMutator.java
+@@ -198,7 +198,8 @@
+ 
+     @Override
+     public String get() {
+-        return "JSCompiler_inline_label_" + idSupplier.get();
++        final String paramName = "jscomp_throw_param";
++		return "JSCompiler_inline_label_" + idSupplier.get();
+     }
+   }
+ 
+
+

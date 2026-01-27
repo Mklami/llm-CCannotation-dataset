@@ -1,0 +1,11 @@
+--- a/quixbugs-POSSIBLE_CHANGE-java.java
++++ b/quixbugs-POSSIBLE_CHANGE-java.java
+@@ -14,7 +14,7 @@ public class POSSIBLE_CHANGE {
+         if (total == 0) {
+             return 1;
+         }
+-        if (total < 0) {
++        if (total < 0 ||coins.length==0) {
+             return 0;
+         }
+ 

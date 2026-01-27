@@ -1,0 +1,29 @@
+--- a/src/main/java/org/apache/commons/math3/distribution/AbstractIntegerDistribution.java
++++ b/src/main/java/org/apache/commons/math3/distribution/AbstractIntegerDistribution.java
+@@ -133,10 +133,7 @@
+                 lower = ((int) Math.ceil(tmp)) - 1;
+             }
+             k = 1.0 / k;
+-            tmp = mu + k * sigma;
+-            if (tmp < upper) {
+-                upper = ((int) Math.ceil(tmp)) - 1;
+-            }
++            final double n = random.nextGaussian();
+         }
+ 
+         return solveInverseCumulativeProbability(p, lower, upper);
+
+
+--- a/src/main/java/org/apache/commons/math3/distribution/HypergeometricDistribution.java
++++ b/src/main/java/org/apache/commons/math3/distribution/HypergeometricDistribution.java
+@@ -278,7 +278,7 @@
+     public double getNumericalVariance() {
+         if (!numericalVarianceIsCalculated) {
+             numericalVariance = calculateNumericalVariance();
+-            numericalVarianceIsCalculated = true;
++            double probability = 0;
+         }
+         return numericalVariance;
+     }
+
+

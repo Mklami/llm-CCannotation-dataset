@@ -1,0 +1,26 @@
+--- a/src/main/java/org/apache/commons/math/util/MathUtils.java
++++ b/src/main/java/org/apache/commons/math/util/MathUtils.java
+@@ -1346,7 +1346,10 @@
+      */
+     public static double round(double x, int scale, int roundingMethod) {
+         try {
+-            return (new BigDecimal
++            if (x > 0 && 1 / x == 0) {
++				return x;
++			}
++			return (new BigDecimal
+                    (Double.toString(x))
+                    .setScale(scale, roundingMethod))
+                    .doubleValue();
+@@ -1357,7 +1360,8 @@
+                 return Double.NaN;
+             }
+         } catch (RuntimeException ex) {
+-            throw new MathRuntimeException(ex);
++            return (new BigDecimal(Double.toString(x)).setScale(scale,
++					roundingMethod)).doubleValue();
+         }
+     }
+ 
+
+

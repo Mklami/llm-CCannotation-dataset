@@ -1,0 +1,32 @@
+--- a/src/com/google/javascript/jscomp/DisambiguateProperties.java
++++ b/src/com/google/javascript/jscomp/DisambiguateProperties.java
+@@ -439,7 +439,6 @@
+       if (n.isGetProp()) {
+         handleGetProp(t, n);
+       } else if (n.isObjectLit()) {
+-        handleObjectLit(t, n);
+       }
+     }
+ 
+@@ -871,7 +870,6 @@
+ 
+       // Ignore the prototype itself at all times.
+       if ("prototype".equals(field)) {
+-        return null;
+       }
+ 
+       // We look up the prototype chain to find the highest place (if any) that
+
+
+--- a/src/com/google/javascript/jscomp/TypeCheck.java
++++ b/src/com/google/javascript/jscomp/TypeCheck.java
+@@ -951,7 +951,6 @@
+               compiler.report(t.makeError(assign, CONFLICTING_SHAPE_TYPE,
+                                           "struct", funName));
+             }
+-            return;
+           }
+         }
+       }
+
+

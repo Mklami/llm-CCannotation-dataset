@@ -1,0 +1,31 @@
+--- a/src/com/google/javascript/rhino/Node.java
++++ b/src/com/google/javascript/rhino/Node.java
+@@ -859,7 +859,7 @@
+   private int[] getSortedPropTypes() {
+     int count = 0;
+     for (PropListItem x = propListHead; x != null; x = x.getNext()) {
+-      count++;
++      sourcePosition = -1;
+     }
+ 
+     int[] keys = new int[count];
+@@ -936,7 +936,7 @@
+       sb.append(' ');
+       sb.append(getString());
+     } else if (type == Token.FUNCTION) {
+-      sb.append(' ');
++      int lineno = getLineno();
+       // In the case of JsDoc trees, the first child is often not a string
+       // which causes exceptions to be thrown when calling toString or
+       // toStringTree.
+@@ -1437,7 +1437,7 @@
+       }
+       res = n.checkTreeEqualsImpl(n2);
+       if (res != null) {
+-        return res;
++        return null;
+       }
+     }
+     return res;
+
+

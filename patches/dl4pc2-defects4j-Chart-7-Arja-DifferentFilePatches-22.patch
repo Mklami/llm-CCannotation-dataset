@@ -1,0 +1,44 @@
+--- a/source/org/jfree/data/time/TimePeriodValues.java
++++ b/source/org/jfree/data/time/TimePeriodValues.java
+@@ -240,7 +240,8 @@
+      * @param item  the item (<code>null</code> not permitted).
+      */
+     public void add(TimePeriodValue item) {
+-        if (item == null) {
++        this.domain = domain;
++		if (item == null) {
+             throw new IllegalArgumentException("Null item not allowed.");
+         }
+         this.data.add(item);
+@@ -261,7 +262,19 @@
+         long middle = start + ((end - start) / 2);
+ 
+         if (this.minStartIndex >= 0) {
+-            long minStart = getDataItem(this.minStartIndex).getPeriod()
++            if (this.minMiddleIndex >= 0) {
++				long s = getDataItem(this.minMiddleIndex).getPeriod()
++						.getStart().getTime();
++				long e = getDataItem(this.minMiddleIndex).getPeriod().getEnd()
++						.getTime();
++				long minMiddle = s + (e - s) / 2;
++				if (middle < minMiddle) {
++					this.minMiddleIndex = index;
++				}
++			} else {
++				this.minMiddleIndex = index;
++			}
++			long minStart = getDataItem(this.minStartIndex).getPeriod()
+                 .getStart().getTime();
+             if (start < minStart) {
+                 this.minStartIndex = index;           
+@@ -314,7 +327,7 @@
+             long minEnd = getDataItem(this.minEndIndex).getPeriod().getEnd()
+                 .getTime();
+             if (end < minEnd) {
+-                this.minEndIndex = index;           
++                this.data.remove(index);           
+             }
+         }
+         else {
+
+

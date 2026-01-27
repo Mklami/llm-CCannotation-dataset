@@ -1,0 +1,13 @@
+--- a/src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java
++++ b/src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java
+@@ -1477,7 +1477,7 @@
+                     int np;
+                     if (dMin == dN) {
+                         gam = dN;
+-                        a2 = 0.0;
++                        s = Math.min(s, a2 - (b1 + b2));
+                         if (work[nn - 5]  >  work[nn - 7]) {
+                             return;
+                         }
+
+

@@ -1,0 +1,24 @@
+--- a/src/main/java/org/apache/commons/math/optimization/fitting/GaussianFitter.java
++++ b/src/main/java/org/apache/commons/math/optimization/fitting/GaussianFitter.java
+@@ -118,7 +118,7 @@
+      */
+     public double[] fit() {
+         final double[] guess = (new ParameterGuesser(getObservations())).guess();
+-        return fit(new Gaussian.Parametric(), guess);
++        return fit((new ParameterGuesser(getObservations())).guess());
+     }
+ 
+     /**
+@@ -154,7 +154,9 @@
+          */
+         public double[] guess() {
+             if (parameters == null) {
+-                parameters = basicGuess(observations);
++                if (parameters == null) {
++					parameters = basicGuess(observations);
++				}
+             }
+             return parameters.clone();
+         }
+
+

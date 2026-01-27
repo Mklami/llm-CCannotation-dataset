@@ -1,0 +1,17 @@
+--- a/src/main/java/com/gdssecurity/pmd/rules/dfa/DfaSecurityRule.java
++++ b/src/main/java/com/gdssecurity/pmd/rules/dfa/DfaSecurityRule.java
+@@ -143,12 +143,10 @@
+ 		super.init();
+ 		if (!this.initialized) {
+ 			init2();
+-			this.initialized = true;
+ 		}
+ 	}
+ 	private void init2() {
+ 		this.sinks = getConfig(this.sinkDescriptor);
+-		this.sanitizers = getConfig(this.sanitizerDescriptor);
+ 		this.sinkAnnotations = getConfig(this.sinkAnnotationsDescriptor);
+ 		this.generatorAnnotations = getConfig(this.generatorAnnotationsDescriptor);
+ 		this.searchAnnotationsInPackages = getConfig(this.annotationsPackagesDescriptor);
+
+

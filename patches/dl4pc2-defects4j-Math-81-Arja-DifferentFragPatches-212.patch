@@ -1,0 +1,25 @@
+--- a/src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java
++++ b/src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java
+@@ -1476,8 +1476,9 @@
+                     double gam;
+                     int np;
+                     if (dMin == dN) {
+-                        gam = dN;
+-                        a2 = 0.0;
++                        this.main = main.clone();
++						gam = dN;
++                        g = 0.25 * 0.333;
+                         if (work[nn - 5]  >  work[nn - 7]) {
+                             return;
+                         }
+@@ -1504,7 +1505,7 @@
+                         if(b2 == 0.0) {
+                             break;
+                         }
+-                        b1 = b2;
++                        b2 = work[nn - 5] / work[nn - 7];
+                         if (work[i4]  >  work[i4 - 2]) {
+                             return;
+                         }
+
+

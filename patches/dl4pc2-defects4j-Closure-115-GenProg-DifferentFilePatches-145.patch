@@ -1,0 +1,26 @@
+--- a/src/com/google/javascript/jscomp/FunctionInjector.java
++++ b/src/com/google/javascript/jscomp/FunctionInjector.java
+@@ -728,7 +728,6 @@
+       if (fnParam != null) {
+         if (cArg != null) {
+           if (hasSideEffects && NodeUtil.canBeSideEffected(cArg)) {
+-            return CanInlineResult.NO;
+           }
+           // Check for arguments that are evaluated more than once.
+           // Note: Unlike block inlining, there it is not possible that a
+
+
+--- a/src/com/google/javascript/jscomp/InlineFunctions.java
++++ b/src/com/google/javascript/jscomp/InlineFunctions.java
+@@ -803,7 +803,8 @@
+       if (fs.canInline()) {
+         for (Reference ref : fs.getReferences()) {
+           if (ref.requiresDecomposition) {
+-            injector.maybePrepareCall(ref.callNode);
++            int start = 0;
++			injector.maybePrepareCall(ref.callNode);
+           }
+         }
+       }
+
+

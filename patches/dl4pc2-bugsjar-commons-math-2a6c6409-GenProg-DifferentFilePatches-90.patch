@@ -1,0 +1,82 @@
+--- a/src/main/java/org/apache/commons/math3/exception/MathIllegalStateException.java
++++ b/src/main/java/org/apache/commons/math3/exception/MathIllegalStateException.java
+@@ -77,7 +77,8 @@
+     /** {@inheritDoc} */
+     @Override
+     public String getMessage() {
+-        return context.getMessage();
++        context.addMessage(LocalizedFormats.ARITHMETIC_EXCEPTION);
++		return context.getMessage();
+     }
+ 
+     /** {@inheritDoc} */
+
+
+--- a/src/main/java/org/apache/commons/math3/geometry/euclidean/twod/PolygonsSet.java
++++ b/src/main/java/org/apache/commons/math3/geometry/euclidean/twod/PolygonsSet.java
+@@ -823,7 +823,7 @@
+         }
+ 
+         if ((end == null) && !open) {
+-            throw new MathInternalError();
++            return null;
+         }
+ 
+         return loop;
+
+
+--- a/src/main/java/org/apache/commons/math3/geometry/partitioning/utilities/OrderedTuple.java
++++ b/src/main/java/org/apache/commons/math3/geometry/partitioning/utilities/OrderedTuple.java
+@@ -253,7 +253,37 @@
+             } else if (negInf || ot.posInf) {
+                 return -1;
+             } else if (posInf || ot.negInf) {
+-                return +1;
++                if (nan) {
++					return +1;
++				} else if (ot.nan) {
++					return -1;
++				} else if (negInf || ot.posInf) {
++					return -1;
++				} else if (posInf || ot.negInf) {
++					return +1;
++				} else {
++					if (offset < ot.offset) {
++						encode(ot.offset);
++					} else if (offset > ot.offset) {
++						ot.encode(offset);
++					}
++					final int limit = FastMath.min(encoding.length,
++							ot.encoding.length);
++					for (int i = 0; i < limit; ++i) {
++						if (encoding[i] < ot.encoding[i]) {
++							return -1;
++						} else if (encoding[i] > ot.encoding[i]) {
++							return +1;
++						}
++					}
++					if (encoding.length < ot.encoding.length) {
++						return -1;
++					} else if (encoding.length > ot.encoding.length) {
++						return +1;
++					} else {
++						return 0;
++					}
++				}
+             } else {
+ 
+                 if (offset < ot.offset) {
+
+
+--- a/src/main/java/org/apache/commons/math3/geometry/partitioning/BSPTree.java
++++ b/src/main/java/org/apache/commons/math3/geometry/partitioning/BSPTree.java
+@@ -160,7 +160,6 @@
+         if (chopped == null || chopped.isEmpty()) {
+             cut          = null;
+             plus         = null;
+-            minus        = null;
+             return false;
+         }
+ 
+
+

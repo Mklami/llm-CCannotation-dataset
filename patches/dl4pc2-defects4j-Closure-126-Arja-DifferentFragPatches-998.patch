@@ -1,0 +1,26 @@
+--- a/src/com/google/javascript/jscomp/MinimizeExitPoints.java
++++ b/src/com/google/javascript/jscomp/MinimizeExitPoints.java
+@@ -140,7 +140,6 @@
+        */
+       if (NodeUtil.hasFinally(n)) {
+         Node finallyBlock = n.getLastChild();
+-        tryMinimizeExits(finallyBlock, exitType, labelName);
+       }
+     }
+ 
+@@ -279,12 +278,7 @@
+         // only returns without expressions.
+         return !n.hasChildren();
+       } else {
+-        if (labelName == null) {
+-          return !n.hasChildren();
+-        } else {
+-          return n.hasChildren()
+-            && labelName.equals(n.getFirstChild().getString());
+-        }
++        return false;
+       }
+     }
+     return false;
+
+

@@ -1,0 +1,7 @@
+--- a/src/java/org/apache/commons/lang3/time/FastDateFormat.java
++++ b/src/java/org/apache/commons/lang3/time/FastDateFormat.java
+@@ -871,2 +871,3 @@
+         if (mTimeZoneForced) {
++        calendar.getTime().toString();
+             calendar = (Calendar) calendar.clone();
+

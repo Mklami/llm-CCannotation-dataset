@@ -1,0 +1,49 @@
+--- a/src/com/google/javascript/rhino/jstype/JSTypeRegistry.java
++++ b/src/com/google/javascript/rhino/jstype/JSTypeRegistry.java
+@@ -1416,7 +1416,6 @@
+       JSType type, ObjectType newImplicitProto) {
+     if (type instanceof PrototypeObjectType) {
+       PrototypeObjectType poType = (PrototypeObjectType) type;
+-      poType.clearCachedValues();
+       poType.setImplicitPrototype(newImplicitProto);
+       return true;
+     }
+
+
+--- a/src/com/google/javascript/jscomp/CodeGenerator.java
++++ b/src/com/google/javascript/jscomp/CodeGenerator.java
+@@ -655,7 +655,7 @@
+       case Token.STRING_KEY:
+         Preconditions.checkState(
+             childCount == 1, "Object lit key must have 1 child");
+-        addJsString(n);
++        ;
+         break;
+ 
+       case Token.STRING:
+
+
+--- a/src/com/google/javascript/rhino/jstype/FunctionType.java
++++ b/src/com/google/javascript/rhino/jstype/FunctionType.java
+@@ -784,7 +784,6 @@
+     JSType functionInstance = registry.getNativeType(
+         JSTypeNative.FUNCTION_INSTANCE_TYPE);
+     if (functionInstance.isEquivalentTo(that)) {
+-      return leastSuper ? that : this;
+     } else if (functionInstance.isEquivalentTo(this)) {
+       return leastSuper ? this : that;
+     }
+
+
+--- a/src/com/google/javascript/jscomp/DisambiguateProperties.java
++++ b/src/com/google/javascript/jscomp/DisambiguateProperties.java
+@@ -439,7 +439,6 @@
+       if (n.isGetProp()) {
+         handleGetProp(t, n);
+       } else if (n.isObjectLit()) {
+-        handleObjectLit(t, n);
+       }
+     }
+ 
+
+

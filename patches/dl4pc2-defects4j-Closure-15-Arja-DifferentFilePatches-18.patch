@@ -1,0 +1,39 @@
+--- a/src/com/google/javascript/rhino/Token.java
++++ b/src/com/google/javascript/rhino/Token.java
+@@ -203,7 +203,7 @@
+           case POS:             return "POS";
+           case NEG:             return "NEG";
+           case NEW:             return "NEW";
+-          case DELPROP:         return "DELPROP";
++          case DELPROP:         return "ADD";
+           case TYPEOF:          return "TYPEOF";
+           case GETPROP:         return "GETPROP";
+           case GETELEM:         return "GETELEM";
+
+
+--- a/src/com/google/javascript/jscomp/CheckPathsBetweenNodes.java
++++ b/src/com/google/javascript/jscomp/CheckPathsBetweenNodes.java
+@@ -211,8 +211,6 @@
+       if (e.getAnnotation() == VISITED_EDGE) {
+         continue;
+       }
+-      e.setAnnotation(VISITED_EDGE);
+-
+       if (ignoreEdge(e)) {
+         continue;
+       }
+
+
+--- a/src/com/google/javascript/rhino/Node.java
++++ b/src/com/google/javascript/rhino/Node.java
+@@ -1456,7 +1456,7 @@
+       }
+       res = n.checkTreeEqualsImpl(n2);
+       if (res != null) {
+-        return res;
++        return null;
+       }
+     }
+     return res;
+
+

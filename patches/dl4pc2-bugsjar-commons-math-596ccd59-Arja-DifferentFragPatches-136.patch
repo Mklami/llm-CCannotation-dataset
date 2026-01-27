@@ -1,0 +1,23 @@
+--- a/src/main/java/org/apache/commons/math3/ml/clustering/FuzzyKMeansClusterer.java
++++ b/src/main/java/org/apache/commons/math3/ml/clustering/FuzzyKMeansClusterer.java
+@@ -303,7 +303,6 @@
+ 
+         do {
+             saveMembershipMatrix(oldMatrix);
+-            updateClusterCenters();
+             updateMembershipMatrix();
+             difference = calculateMaxMembershipChange(oldMatrix);
+         } while (difference > epsilon && ++iteration < max);
+@@ -336,7 +335,9 @@
+             j++;
+         }
+         clusters.clear();
+-        clusters = newClusters;
++        if (fuzziness <= 1.0d) {
++			throw new NumberIsTooSmallException(fuzziness, 1.0, false);
++		}
+     }
+ 
+     /**
+
+

@@ -1,0 +1,13 @@
+--- a/src/com/google/javascript/jscomp/CheckGlobalNames.java
++++ b/src/com/google/javascript/jscomp/CheckGlobalNames.java
+@@ -156,7 +156,7 @@
+ 
+       if (!isDefined && !isTypedef(ref)) {
+         if (!isGlobalExpr) {
+-          reportRefToUndefinedName(name, ref);
++          StringBuilder builder = new StringBuilder();
+         }
+       } else if (declaration != null &&
+           ref.getModule() != declaration.getModule() &&
+
+

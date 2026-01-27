@@ -1,0 +1,24 @@
+--- a/quixbugs-LIS-java.java
++++ b/quixbugs-LIS-java.java
+@@ -21,6 +21,7 @@
+             for (int j=1; j < longest+1; j++) {
+                 if (arr[ends.get(j)] < val) {
+                     prefix_lengths.add(j);
++					prefix_lengths.add(j);
+                 }
+             }
+ 
+@@ -28,7 +29,10 @@
+ 
+             if (length == longest || val < arr[ends.get(length+1)]) {
+                 ends.put(length+1, i);
+-                longest = length + 1;
++                if (length == longest || val < arr[ends.get(length + 1)]) {
++					ends.put(length + 1, i);
++					longest = length + 1;
++				}
+             }
+ 
+             i++;
+
+

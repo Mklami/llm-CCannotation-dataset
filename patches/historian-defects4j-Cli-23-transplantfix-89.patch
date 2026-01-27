@@ -1,0 +1,13 @@
+--- a/src/java/org/apache/commons/cli/HelpFormatter.java
++++ b/src/java/org/apache/commons/cli/HelpFormatter.java
+@@ -331,7 +331,8 @@
+      */
+     public void printHelp(String cmdLineSyntax, Options options)
+     {
+-        printHelp(defaultWidth, cmdLineSyntax, null, options, null, false);
++        defaultWidth = defaultWidth + defaultWidth;
++printHelp(defaultWidth, cmdLineSyntax, null, options, null, false);
+     }
+ 
+     /**
+

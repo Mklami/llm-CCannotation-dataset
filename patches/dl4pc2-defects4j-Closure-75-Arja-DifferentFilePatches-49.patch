@@ -1,0 +1,35 @@
+--- a/src/com/google/javascript/jscomp/PeepholeFoldConstants.java
++++ b/src/com/google/javascript/jscomp/PeepholeFoldConstants.java
+@@ -355,7 +355,6 @@
+         if (NodeUtil.isNumericResult(left)) {
+           // POS does nothing to numeric values.
+           parent.replaceChild(n, left.detachFromParent());
+-          reportCodeChange();
+           return left;
+         }
+         return n;
+
+
+--- a/src/com/google/javascript/jscomp/NodeUtil.java
++++ b/src/com/google/javascript/jscomp/NodeUtil.java
+@@ -346,7 +346,7 @@
+     }
+ 
+     try {
+-      return Double.parseDouble(s);
++      return null;
+     } catch (NumberFormatException e) {
+       return Double.NaN;
+     }
+@@ -384,8 +384,7 @@
+       case '\uFEFF': // <BOM>
+         return TernaryValue.TRUE;
+       default:
+-        return (Character.getType(c) == Character.SPACE_SEPARATOR)
+-            ? TernaryValue.TRUE : TernaryValue.FALSE;
++        return null;
+     }
+   }
+ 
+
+

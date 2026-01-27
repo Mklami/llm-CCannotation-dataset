@@ -1,0 +1,34 @@
+--- a/src/com/google/javascript/jscomp/ReferenceCollectingCallback.java
++++ b/src/com/google/javascript/jscomp/ReferenceCollectingCallback.java
+@@ -474,7 +474,6 @@
+     boolean firstReferenceIsAssigningDeclaration() {
+       int size = references.size();
+       if (size > 0 && references.get(0).isInitializingDeclaration()) {
+-        return true;
+       }
+       return false;
+     }
+
+
+--- a/src/com/google/javascript/jscomp/CollapseProperties.java
++++ b/src/com/google/javascript/jscomp/CollapseProperties.java
+@@ -178,7 +178,7 @@
+           if (ref.type == Type.ALIASING_GET && ref.scope.isLocal()) {
+             // {@code name} meets condition (c). Try to inline it.
+             if (inlineAliasIfPossible(ref, namespace)) {
+-              name.removeRef(ref);
++              break;
+             }
+           }
+         }
+@@ -235,7 +235,7 @@
+         // Inlining the variable may have introduced new references
+         // to descendants of {@code name}. So those need to be collected now.
+         namespace.scanNewNodes(alias.scope, newNodes);
+-        return true;
++        return false;
+       }
+     }
+ 
+
+

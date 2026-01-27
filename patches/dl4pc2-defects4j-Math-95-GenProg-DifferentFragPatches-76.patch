@@ -1,0 +1,17 @@
+--- a/src/java/org/apache/commons/math/distribution/FDistributionImpl.java
++++ b/src/java/org/apache/commons/math/distribution/FDistributionImpl.java
+@@ -145,7 +145,11 @@
+         double d = getDenominatorDegreesOfFreedom();
+             // use mean
+             ret = d / (d - 2.0);
+-        return ret;
++        if (p <= 0) {
++				throw new IllegalArgumentException(
++						"The Poisson mean must be positive");
++			}
++		return 0;
+     }
+     
+     /**
+
+

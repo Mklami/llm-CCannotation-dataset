@@ -1,0 +1,25 @@
+--- a/src/org/traccar/protocol/SuntechProtocolDecoder.java
++++ b/src/org/traccar/protocol/SuntechProtocolDecoder.java
+@@ -133,9 +133,6 @@
+ 
+         position.setValid(values[index++].equals("1"));
+ 
+-        position.set(Position.KEY_ODOMETER, Integer.parseInt(values[index++]));
+-        position.set(Position.KEY_POWER, Double.parseDouble(values[index++]));
+-
+         position.set(Position.PREFIX_IO + 1, values[index++]);
+ 
+         index += 1; // mode
+@@ -145,10 +142,6 @@
+         }
+ 
+         if (index < values.length) {
+-            position.set(Position.KEY_HOURS, Integer.parseInt(values[index++]));
+-        }
+-
+-        if (index < values.length) {
+             position.set(Position.KEY_BATTERY, Double.parseDouble(values[index]));
+         }
+ 
+
+

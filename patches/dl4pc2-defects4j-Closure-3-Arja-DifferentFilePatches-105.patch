@@ -1,0 +1,65 @@
+--- a/src/com/google/javascript/jscomp/DataFlowAnalysis.java
++++ b/src/com/google/javascript/jscomp/DataFlowAnalysis.java
+@@ -572,7 +572,6 @@
+       Var var = i.next();
+       if (var.getParentNode().isCatch() ||
+           compiler.getCodingConvention().isExported(var.getName())) {
+-        escaped.add(var);
+       }
+     }
+   }
+
+
+--- a/src/com/google/javascript/jscomp/FlowSensitiveInlineVariables.java
++++ b/src/com/google/javascript/jscomp/FlowSensitiveInlineVariables.java
+@@ -402,9 +402,7 @@
+                  Predicates.
+                      <DiGraphEdge<Node, ControlFlowGraph.Branch>>alwaysTrue(),
+                  false);
+-        if (pathCheck.somePathsSatisfyPredicate()) {
+-          return false;
+-        }
++        return false;
+       }
+ 
+       return true;
+@@ -419,12 +417,9 @@
+       if (def.isAssign()) {
+         Node rhs = def.getLastChild();
+         rhs.detachFromParent();
+-        // Oh yes! I have grandparent to remove this.
+-        Preconditions.checkState(defParent.isExprResult());
+         while (defParent.getParent().isLabel()) {
+           defParent = defParent.getParent();
+         }
+-        defParent.detachFromParent();
+         useParent.replaceChild(use, rhs);
+       } else if (defParent.isVar()) {
+         Node rhs = def.getLastChild();
+
+
+--- a/src/com/google/javascript/jscomp/MaybeReachingVariableUse.java
++++ b/src/com/google/javascript/jscomp/MaybeReachingVariableUse.java
+@@ -160,7 +160,7 @@
+     List<DiGraphEdge<Node, Branch>> branchEdges = getCfg().getOutEdges(cfgNode);
+     for (DiGraphEdge<Node, Branch> edge : branchEdges) {
+       if (edge.getValue() == Branch.ON_EX) {
+-        return true;
++        return false;
+       }
+     }
+     return false;
+
+
+--- a/src/com/google/javascript/jscomp/CheckPathsBetweenNodes.java
++++ b/src/com/google/javascript/jscomp/CheckPathsBetweenNodes.java
+@@ -119,7 +119,6 @@
+    *     predicate
+    */
+   public boolean somePathsSatisfyPredicate() {
+-    setUp();
+     boolean result = checkSomePathsWithoutBackEdges(start, end);
+     tearDown();
+     return result;
+
+

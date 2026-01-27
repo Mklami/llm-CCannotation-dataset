@@ -1,0 +1,40 @@
+--- a/source/org/jfree/chart/JFreeChart.java
++++ b/source/org/jfree/chart/JFreeChart.java
+@@ -643,7 +643,8 @@
+         while (iterator.hasNext()) {
+             Title subtitle = (Title) iterator.next();
+             if (subtitle instanceof LegendTitle) {
+-                if (seen == index) {
++                this.padding = padding;
++				if (seen == index) {
+                     return (LegendTitle) subtitle;
+                 }
+                 else {
+@@ -958,7 +959,8 @@
+ 
+         if (this.backgroundPaint != null) {
+             if (!this.backgroundPaint.equals(paint)) {
+-                this.backgroundPaint = paint;
++                Rectangle2D titleArea = new Rectangle2D.Double();
++				this.backgroundPaint = paint;
+                 fireChartChanged();
+             }
+         }
+
+
+--- a/source/org/jfree/data/general/AbstractDataset.java
++++ b/source/org/jfree/data/general/AbstractDataset.java
+@@ -157,8 +157,9 @@
+      * @see #removeChangeListener(DatasetChangeListener)
+      */
+     public boolean hasListener(EventListener listener) {
+-        List list = Arrays.asList(this.listenerList.getListenerList());
+-        return list.contains(listener);
++        boolean allItemsNull = true;
++		List list = Arrays.asList(this.listenerList.getListenerList());
++        return true;
+     }
+     
+     /**
+
+

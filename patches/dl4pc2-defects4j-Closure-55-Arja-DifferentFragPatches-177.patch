@@ -1,0 +1,20 @@
+--- a/src/com/google/javascript/jscomp/FunctionRewriter.java
++++ b/src/com/google/javascript/jscomp/FunctionRewriter.java
+@@ -97,7 +97,6 @@
+ 
+         Node addingRoot = compiler.getNodeForCodeInsertion(null);
+         addingRoot.addChildrenToFront(helperCode);
+-        compiler.reportCodeChange();
+       }
+     }
+   }
+@@ -274,7 +273,6 @@
+ 
+       Node statement = body.getFirstChild();
+       if (statement.getType() == Token.RETURN) {
+-        return statement.getFirstChild();
+       }
+       return null;
+     }
+
+

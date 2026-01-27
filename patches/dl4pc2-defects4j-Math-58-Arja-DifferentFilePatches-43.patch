@@ -1,0 +1,29 @@
+--- a/src/main/java/org/apache/commons/math/optimization/fitting/GaussianFitter.java
++++ b/src/main/java/org/apache/commons/math/optimization/fitting/GaussianFitter.java
+@@ -118,7 +118,7 @@
+      */
+     public double[] fit() {
+         final double[] guess = (new ParameterGuesser(getObservations())).guess();
+-        return fit(new Gaussian.Parametric(), guess);
++        return fit((new ParameterGuesser(getObservations())).guess());
+     }
+ 
+     /**
+
+
+--- a/src/main/java/org/apache/commons/math/analysis/function/Gaussian.java
++++ b/src/main/java/org/apache/commons/math/analysis/function/Gaussian.java
+@@ -128,7 +128,10 @@
+             validateParameters(param);
+ 
+             final double diff = x - param[1];
+-            final double i2s2 = 1 / (2 * param[2] * param[2]);
++            if (param == null) {
++				throw new NullArgumentException();
++			}
++			final double i2s2 = 1 / (2 * param[2] * param[2]);
+             return Gaussian.value(diff, param[0], i2s2);
+         }
+ 
+
+

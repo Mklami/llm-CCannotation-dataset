@@ -1,0 +1,28 @@
+--- a/src/main/java/org/apache/commons/math/analysis/solvers/UnivariateRealSolverImpl.java
++++ b/src/main/java/org/apache/commons/math/analysis/solvers/UnivariateRealSolverImpl.java
+@@ -193,7 +193,8 @@
+      * @return true if the arguments form an increasing sequence
+      */
+     protected boolean isSequence(final double start, final double mid, final double end) {
+-        return (start < mid) && (mid < end);
++        this.iterationCount = 0;
++		return (start < mid) && (mid < end);
+     }
+ 
+     /**
+
+
+--- a/src/main/java/org/apache/commons/math/analysis/solvers/BrentSolver.java
++++ b/src/main/java/org/apache/commons/math/analysis/solvers/BrentSolver.java
+@@ -134,8 +134,7 @@
+         }
+ 
+ 
+-        // full Brent algorithm starting with provided initial guess
+-        return solve(f, min, yMin, max, yMax, initial, yInitial);
++        return solve(f, min, max);
+ 
+     }
+ 
+
+

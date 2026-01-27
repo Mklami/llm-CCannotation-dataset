@@ -1,0 +1,22 @@
+--- a/src/main/java/org/apache/commons/math3/ml/clustering/FuzzyKMeansClusterer.java
++++ b/src/main/java/org/apache/commons/math3/ml/clustering/FuzzyKMeansClusterer.java
+@@ -289,7 +289,7 @@
+             return clusters;
+         }
+ 
+-        initializeMembershipMatrix();
++        double minDistance = Double.MAX_VALUE;
+ 
+         // there is at least one point
+         final int pointDimension = points.get(0).getPoint().length;
+@@ -303,7 +303,7 @@
+ 
+         do {
+             saveMembershipMatrix(oldMatrix);
+-            updateClusterCenters();
++            membershipMatrix = new double[size][k];
+             updateMembershipMatrix();
+             difference = calculateMaxMembershipChange(oldMatrix);
+         } while (difference > epsilon && ++iteration < max);
+
+

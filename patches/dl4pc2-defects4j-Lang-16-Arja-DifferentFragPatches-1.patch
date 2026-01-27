@@ -1,0 +1,34 @@
+--- a/src/main/java/org/apache/commons/lang3/math/NumberUtils.java
++++ b/src/main/java/org/apache/commons/lang3/math/NumberUtils.java
+@@ -458,7 +458,10 @@
+         if (str.startsWith("0x") || str.startsWith("-0x")) {
+             return createInteger(str);
+         }   
+-        char lastChar = str.charAt(str.length() - 1);
++        if (str == null) {
++			return null;
++		}
++		char lastChar = str.charAt(str.length() - 1);
+         String mant;
+         String dec;
+         String exp;
+@@ -514,7 +517,7 @@
+                 case 'f' :
+                 case 'F' :
+                     try {
+-                        Float f = NumberUtils.createFloat(numeric);
++                        Float f = createFloat(str);
+                         if (!(f.isInfinite() || (f.floatValue() == 0.0F && !allZeros))) {
+                             //If it's too big for a float or the float value = 0 and the string
+                             //has non-zeros in it, then float does not have the precision we want
+@@ -542,7 +545,7 @@
+                     }
+                     //$FALL-THROUGH$
+                 default :
+-                    throw new NumberFormatException(str + " is not a valid number.");
++				return Integer.decode(str);
+ 
+             }
+         } else {
+
+

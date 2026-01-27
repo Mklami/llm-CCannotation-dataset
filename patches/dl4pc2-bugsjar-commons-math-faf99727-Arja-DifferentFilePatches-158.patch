@@ -1,0 +1,26 @@
+--- a/src/main/java/org/apache/commons/math3/geometry/enclosing/WelzlEncloser.java
++++ b/src/main/java/org/apache/commons/math3/geometry/enclosing/WelzlEncloser.java
+@@ -105,8 +105,6 @@
+             EnclosingBall<S, P> savedBall = ball;
+             ball = moveToFrontBall(extreme, support);
+             if (ball.getRadius() < savedBall.getRadius()) {
+-                // TODO: fix this, it should never happen but it does!
+-                throw new MathInternalError();
+             }
+ 
+             // it was an interesting point, move it to the front
+
+
+--- a/src/main/java/org/apache/commons/math3/exception/MathIllegalStateException.java
++++ b/src/main/java/org/apache/commons/math3/exception/MathIllegalStateException.java
+@@ -77,7 +77,7 @@
+     /** {@inheritDoc} */
+     @Override
+     public String getMessage() {
+-        return context.getMessage();
++        return context.getLocalizedMessage();
+     }
+ 
+     /** {@inheritDoc} */
+
+

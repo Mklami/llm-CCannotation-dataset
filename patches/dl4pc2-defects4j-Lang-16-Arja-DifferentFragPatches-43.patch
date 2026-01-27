@@ -1,0 +1,22 @@
+--- a/src/main/java/org/apache/commons/lang3/math/NumberUtils.java
++++ b/src/main/java/org/apache/commons/lang3/math/NumberUtils.java
+@@ -530,7 +530,7 @@
+                     try {
+                         Double d = NumberUtils.createDouble(numeric);
+                         if (!(d.isInfinite() || (d.floatValue() == 0.0D && !allZeros))) {
+-                            return d;
++                            return Double.valueOf(str);
+                         }
+                     } catch (NumberFormatException nfe) { // NOPMD
+                         // ignore the bad number
+@@ -542,7 +542,7 @@
+                     }
+                     //$FALL-THROUGH$
+                 default :
+-                    throw new NumberFormatException(str + " is not a valid number.");
++				return Integer.decode(str);
+ 
+             }
+         } else {
+
+

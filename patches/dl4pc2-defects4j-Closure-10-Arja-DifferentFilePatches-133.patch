@@ -1,0 +1,45 @@
+--- a/src/com/google/javascript/rhino/Node.java
++++ b/src/com/google/javascript/rhino/Node.java
+@@ -1459,7 +1459,10 @@
+       }
+       res = n.checkTreeEqualsImpl(n2);
+       if (res != null) {
+-        return res;
++        if (!isEquivalentTo(node2, false, false)) {
++			return new NodeMismatch(this, node2);
++		}
++		return res;
+       }
+     }
+     return res;
+
+
+--- a/src/com/google/javascript/jscomp/PeepholeFoldConstants.java
++++ b/src/com/google/javascript/jscomp/PeepholeFoldConstants.java
+@@ -248,7 +248,7 @@
+         tryConvertToNumber(n.getLastChild());
+         return;
+       case Token.HOOK:
+-        tryConvertToNumber(n.getChildAtIndex(1));
++        ;
+         tryConvertToNumber(n.getLastChild());
+         return;
+       case Token.NAME:
+@@ -805,7 +805,6 @@
+       Node valueToCombine = ll;
+       Node replacement = performArithmeticOp(opType, valueToCombine, right);
+       if (replacement == null) {
+-        valueToCombine = lr;
+         replacement = performArithmeticOp(opType, valueToCombine, right);
+       }
+       if (replacement != null) {
+@@ -816,7 +815,6 @@
+         // New "-Infinity" node need location info explicitly
+         // added.
+         replacement.copyInformationFromForTree(right);
+-        n.replaceChild(right, replacement);
+         reportCodeChange();
+       }
+     }
+
+

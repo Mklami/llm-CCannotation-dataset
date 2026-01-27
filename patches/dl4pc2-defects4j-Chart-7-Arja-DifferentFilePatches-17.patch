@@ -1,0 +1,31 @@
+--- a/source/org/jfree/data/time/TimePeriodValues.java
++++ b/source/org/jfree/data/time/TimePeriodValues.java
+@@ -282,7 +282,16 @@
+             this.maxStartIndex = index;
+         }
+         
+-        if (this.minMiddleIndex >= 0) {
++        if (this.minStartIndex >= 0) {
++			long minStart = getDataItem(this.minStartIndex).getPeriod()
++					.getStart().getTime();
++			if (start < minStart) {
++				this.minStartIndex = index;
++			}
++		} else {
++			this.minStartIndex = index;
++		}
++		if (this.minMiddleIndex >= 0) {
+             long s = getDataItem(this.minMiddleIndex).getPeriod().getStart()
+                 .getTime();
+             long e = getDataItem(this.minMiddleIndex).getPeriod().getEnd()
+@@ -314,7 +323,7 @@
+             long minEnd = getDataItem(this.minEndIndex).getPeriod().getEnd()
+                 .getTime();
+             if (end < minEnd) {
+-                this.minEndIndex = index;           
++                this.data.remove(index);           
+             }
+         }
+         else {
+
+

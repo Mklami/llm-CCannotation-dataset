@@ -1,0 +1,29 @@
+--- a/src/main/java/org/apache/commons/math/optimization/fitting/GaussianFitter.java
++++ b/src/main/java/org/apache/commons/math/optimization/fitting/GaussianFitter.java
+@@ -118,7 +118,7 @@
+      */
+     public double[] fit() {
+         final double[] guess = (new ParameterGuesser(getObservations())).guess();
+-        return fit(new Gaussian.Parametric(), guess);
++        return fit((new ParameterGuesser(getObservations())).guess());
+     }
+ 
+     /**
+@@ -194,10 +194,13 @@
+          * @return the index in specified points array.
+          */
+         private int findMaxY(WeightedObservedPoint[] points) {
+-            int maxYIdx = 0;
++            Arrays.sort(points, createWeightedObservedPointComparator());
++			int maxYIdx = 0;
+             for (int i = 1; i < points.length; i++) {
+                 if (points[i].getY() > points[maxYIdx].getY()) {
+-                    maxYIdx = i;
++                    if (points[i].getY() > points[maxYIdx].getY()) {
++						maxYIdx = i;
++					}
+                 }
+             }
+             return maxYIdx;
+
+

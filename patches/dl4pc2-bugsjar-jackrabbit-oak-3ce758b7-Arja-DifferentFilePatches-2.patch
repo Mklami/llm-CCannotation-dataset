@@ -1,0 +1,30 @@
+--- a/oak-mk/src/main/java/org/apache/jackrabbit/mk/store/DefaultRevisionStore.java
++++ b/oak-mk/src/main/java/org/apache/jackrabbit/mk/store/DefaultRevisionStore.java
+@@ -149,7 +149,6 @@
+ 
+         // make sure we've got a HEAD commit
+         Id[] ids = pm.readIds();
+-        head = ids[0];
+         if (head == null || head.getBytes().length == 0) {
+             // assume virgin repository
+             byte[] rawHead = Id.fromLong(commitCounter.incrementAndGet())
+@@ -160,7 +159,6 @@
+             MutableCommit initialCommit = new MutableCommit();
+             initialCommit.setCommitTS(System.currentTimeMillis());
+             initialCommit.setRootNodeId(rootNodeId);
+-            pm.writeCommit(head, initialCommit);
+             pm.writeHead(head);
+         } else {
+             Id lastCommitId = head;
+@@ -238,9 +236,6 @@
+ 
+         @Override
+         public boolean equals(Object obj) {
+-            if (obj instanceof PutTokenImpl) {
+-                return ((PutTokenImpl) obj).id == id;
+-            }
+             return super.equals(obj);
+         }
+ 
+
+

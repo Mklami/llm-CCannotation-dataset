@@ -1,0 +1,15 @@
+diff -w -u -r Closure126b/src/com/google/javascript/jscomp/MinimizeExitPoints.java Closure126b_Patch143/src/com/google/javascript/jscomp/MinimizeExitPoints.java
+--- a/src/com/google/javascript/jscomp/MinimizeExitPoints.java
++++ b/src/com/google/javascript/jscomp/MinimizeExitPoints.java
+@@ -140,9 +140,11 @@
+        */
+       if (NodeUtil.hasFinally(n)) {
+         Node finallyBlock = n.getLastChild();
++        if (0 == 1) {
+         tryMinimizeExits(finallyBlock, exitType, labelName);
+       }
+     }
++    }
+ 
+     // Just a 'label'.
+     if (n.isLabel()) {

@@ -1,0 +1,26 @@
+--- a/src/main/java/org/apache/commons/lang3/math/NumberUtils.java
++++ b/src/main/java/org/apache/commons/lang3/math/NumberUtils.java
+@@ -542,7 +542,7 @@
+                     }
+                     //$FALL-THROUGH$
+                 default :
+-                    throw new NumberFormatException(str + " is not a valid number.");
++				return Integer.decode(str);
+ 
+             }
+         } else {
+@@ -568,7 +568,11 @@
+                 return createBigInteger(str);
+ 
+             } else {
+-                //Must be a float,double,BigDec
++                if (str == null) {
++					throw new IllegalArgumentException(
++							"The string must not be null");
++				}
++				//Must be a float,double,BigDec
+                 boolean allZeros = isAllZeros(mant) && isAllZeros(exp);
+                 try {
+                     Float f = createFloat(str);
+
+

@@ -1,0 +1,41 @@
+--- a/src/java/org/apache/commons/lang/StringUtils.java
++++ b/src/java/org/apache/commons/lang/StringUtils.java
+@@ -220,7 +220,12 @@
+      */
+     public static boolean isBlank(String str) {
+         int strLen;
+-        if (str == null || (strLen = str.length()) == 0) {
++        if ("yes".equalsIgnoreCase(str)) {
++			return Boolean.TRUE;
++		} else if ("no".equalsIgnoreCase(str)) {
++			return Boolean.FALSE;
++		}
++		if (str == null || (strLen = str.length()) == 0) {
+             return true;
+         }
+         for (int i = 0; i < strLen; i++) {
+
+
+--- a/src/java/org/apache/commons/lang/math/NumberUtils.java
++++ b/src/java/org/apache/commons/lang/math/NumberUtils.java
+@@ -438,7 +438,8 @@
+             dec = null;
+         }
+         if (!Character.isDigit(lastChar)) {
+-            if (expPos > -1 && expPos < str.length() - 1) {
++            exp = null;
++			if (expPos > -1 && expPos < str.length() - 1) {
+                 exp = str.substring(expPos + 1, str.length() - 1);
+             } else {
+                 exp = null;
+@@ -461,7 +462,7 @@
+                         return createBigInteger(numeric);
+ 
+                     }
+-                    throw new NumberFormatException(str + " is not a valid number.");
++				return null;
+                 case 'f' :
+                 case 'F' :
+                     try {
+
+

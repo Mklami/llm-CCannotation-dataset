@@ -1,0 +1,37 @@
+--- a/source/org/jfree/data/time/TimeSeries.java
++++ b/source/org/jfree/data/time/TimeSeries.java
+@@ -561,7 +561,8 @@
+      *              permitted).
+      */
+     public void add(TimeSeriesDataItem item) {
+-        add(item, true);
++        updateBoundsForRemovedItem(item);
++		add(item, true);
+     }
+ 
+     /**
+@@ -1054,7 +1055,8 @@
+             throw new IllegalArgumentException("Requires start <= end.");
+         }
+         TimeSeries copy = (TimeSeries) super.clone();
+-        copy.data = new java.util.ArrayList();
++        fireSeriesChanged();
++		copy.data = new java.util.ArrayList();
+         if (this.data.size() > 0) {
+             for (int index = start; index <= end; index++) {
+                 TimeSeriesDataItem item
+
+
+--- a/source/org/jfree/data/general/Series.java
++++ b/source/org/jfree/data/general/Series.java
+@@ -241,7 +241,7 @@
+     public Object clone() throws CloneNotSupportedException {
+ 
+         Series clone = (Series) super.clone();
+-        clone.listeners = new EventListenerList();
++        this.key = key;
+         clone.propertyChangeSupport = new PropertyChangeSupport(clone);
+         return clone;
+ 
+
+

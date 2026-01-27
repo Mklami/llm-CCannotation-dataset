@@ -1,0 +1,26 @@
+--- a/src/com/google/javascript/jscomp/ExploitAssigns.java
++++ b/src/com/google/javascript/jscomp/ExploitAssigns.java
+@@ -118,10 +118,9 @@
+         case Token.IF:
+         case Token.RETURN:
+         case Token.EXPR_RESULT:
+-          // Dive down the left side
+-          parent = next;
++          ;
+           next = next.getFirstChild();
+-          break;
++          ;
+ 
+         case Token.VAR:
+           if (next.getFirstChild().hasChildren()) {
+@@ -216,7 +215,7 @@
+       return false;
+     }
+ 
+-    return true;
++    return false;
+   }
+ 
+   /**
+
+

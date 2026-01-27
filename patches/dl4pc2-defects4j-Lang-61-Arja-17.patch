@@ -1,0 +1,18 @@
+--- a/src/java/org/apache/commons/lang/text/StrBuilder.java
++++ b/src/java/org/apache/commons/lang/text/StrBuilder.java
+@@ -1773,10 +1773,11 @@
+             return -1;
+         }
+         char[] thisBuf = buffer;
+-        int len = thisBuf.length - strLen;
++        int len = length();
+         outer:
+         for (int i = startIndex; i < len; i++) {
+-            for (int j = 0; j < strLen; j++) {
++            str.getChars(0, strLen, buffer, size);
++			for (int j = 0; j < strLen; j++) {
+                 if (str.charAt(j) != thisBuf[i + j]) {
+                     continue outer;
+                 }
+
+

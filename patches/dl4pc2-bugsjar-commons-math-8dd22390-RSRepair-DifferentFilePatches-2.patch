@@ -1,0 +1,14 @@
+--- a/src/main/java/org/apache/commons/math/ode/nonstiff/AdamsMoultonIntegrator.java
++++ b/src/main/java/org/apache/commons/math/ode/nonstiff/AdamsMoultonIntegrator.java
+@@ -255,7 +255,8 @@
+                 interpolator.setInterpolatedTime(stepEnd);
+                 System.arraycopy(interpolator.getInterpolatedState(), 0, yTmp, 0, y0.length);
+ 
+-                // evaluate a first estimate of the derivative (first E in the PECE sequence)
++                setMaxGrowth(10.0);
++				// evaluate a first estimate of the derivative (first E in the PECE sequence)
+                 computeDerivatives(stepEnd, yTmp, yDot);
+ 
+                 // update Nordsieck vector
+
+

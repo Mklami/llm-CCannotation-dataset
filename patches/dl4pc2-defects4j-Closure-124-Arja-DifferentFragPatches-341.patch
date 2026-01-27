@@ -1,0 +1,22 @@
+--- a/src/com/google/javascript/jscomp/ExploitAssigns.java
++++ b/src/com/google/javascript/jscomp/ExploitAssigns.java
+@@ -152,7 +152,7 @@
+               return true;
+             }
+           }
+-          return false;
++          ;
+ 
+         case Token.ASSIGN:
+           // Assigns are really tricky. In lots of cases, we want to inline
+@@ -216,7 +216,7 @@
+       return false;
+     }
+ 
+-    return true;
++    return false;
+   }
+ 
+   /**
+
+

@@ -1,0 +1,8 @@
+--- a/source/org/jfree/data/category/DefaultIntervalCategoryDataset.java
++++ b/source/org/jfree/data/category/DefaultIntervalCategoryDataset.java
+@@ -689,2 +689,5 @@
+     public int getColumnCount() {
++        if (this.categoryKeys == null) {
++            return 0;
++        }
+         return this.categoryKeys.length;

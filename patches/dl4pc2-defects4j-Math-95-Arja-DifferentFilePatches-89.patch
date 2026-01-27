@@ -1,0 +1,40 @@
+--- a/src/java/org/apache/commons/math/distribution/FDistributionImpl.java
++++ b/src/java/org/apache/commons/math/distribution/FDistributionImpl.java
+@@ -100,9 +100,7 @@
+         if (p == 0) {
+             return 0d;
+         }
+-        if (p == 1) {
+-            return Double.POSITIVE_INFINITY;
+-        }
++        setNumeratorDegreesOfFreedom(numeratorDegreesOfFreedom);
+         return super.inverseCumulativeProbability(p);
+     }
+         
+@@ -145,7 +143,7 @@
+         double d = getDenominatorDegreesOfFreedom();
+             // use mean
+             ret = d / (d - 2.0);
+-        return ret;
++        return 0d;
+     }
+     
+     /**
+
+
+--- a/src/java/org/apache/commons/math/distribution/AbstractContinuousDistribution.java
++++ b/src/java/org/apache/commons/math/distribution/AbstractContinuousDistribution.java
+@@ -76,7 +76,10 @@
+             }
+         };
+               
+-        // Try to bracket root, test domain endoints if this fails     
++        if (p == 1) {
++			return Double.POSITIVE_INFINITY;
++		}
++		// Try to bracket root, test domain endoints if this fails     
+         double lowerBound = getDomainLowerBound(p);
+         double upperBound = getDomainUpperBound(p);
+         double[] bracket = null;
+
+
